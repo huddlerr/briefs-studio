@@ -1,8 +1,9 @@
-# Briefs Studio Narrative Strategy Maps
+# 🧬 Briefs Studio // Self-Improving Ingestion Platform
 
-A collection of bespoke digital briefs ("Narrative Strategy Maps") created for Briefs Studio clients. These briefs serve as a strategic "North Star," operationalizing the insights gathered during foundation sessions.
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/huddlerr/briefs-studio)
 
-**Live Directory:** [https://briefs.Briefs Studiostudio.com](https://briefs.Briefs Studiostudio.com) (or your Netlify URL)
+A premium, self-improving digital strategy map directory and central ingestion platform that translates raw meeting notes and client interviews into high-stakes strategic positioning maps using linguistic Story Forensics, Narrative Architecture, and a vector memory database.
+
 
 ## 🏗️ How It Works
 

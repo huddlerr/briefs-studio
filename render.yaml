@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: briefs-studio
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: starter
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: NODE_ENV
+        value: production
+      - key: OPENAI_API_KEY
+        sync: false
+        placeholder: "Insert your OpenAI API key here to enable neural vector-semantic matching"
+      - key: ANTHROPIC_API_KEY
+        sync: false
+        placeholder: "Insert your Anthropic API key here (optional Claude reframing engine)"
+    disk:
+      name: briefs-storage
+      mountPath: /app
+      sizeGB: 1
