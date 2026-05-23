@@ -1,5 +1,20 @@
 {
+  "name": "briefs-studio",
+  "version": "1.0.0",
+  "description": "Premium, self-improving strategic ingestion dashboard and directory platform.",
+  "type": "module",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js",
+    "test": "node verify_sandbox.js"
+  },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
     "playwright": "^1.60.0"
   }
 }
