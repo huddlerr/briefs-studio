@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio // Narrative Mapping Pilot — Slide Deck</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: '#0F172A',
+                        charcoal: '#1E293B',
+                        amber: '#F59E0B',
+                        emerald: '#10B981',
+                        teal: '#0D9488',
+                        fog: '#94A3B8',
+                        bone: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0F172A;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .moment-card {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 2rem;
+            right: 4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #F59E0B;
+            letter-spacing: 0.2em;
+            opacity: 0.4;
+        }
+
+        .slide-tag {
+            position: absolute;
+            top: 4rem;
+            left: 4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: #F59E0B;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        @media print {
+            @page {
+                size: landscape;
+                margin: 0;
+            }
+
+            body {
+                background-color: #0F172A !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .slide {
+                height: 100vh !important;
+                width: 100vw !important;
+                page-break-after: always;
+                break-after: page;
+                border: none !important;
+                padding: 4rem !important;
+            }
+
+            .moment-card {
+                background: #1E293B !important;
+                border: 1px solid rgba(148, 163, 184, 0.2) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .gradient-text {
+                background: none !important;
+                -webkit-background-clip: initial !important;
+                -webkit-text-fill-color: initial !important;
+                background-clip: initial !important;
+                color: #F59E0B !important;
+            }
+
+            #export-controls {
+                display: none !important;
+            }
+
+            p,
+            h1,
+            h2,
+            h3,
+            h4,
+            span,
+            div,
+            li {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-bone font-sans antialiased">
+
+    <!-- EXPORT CONTROLS -->
+    <div id="export-controls" class="fixed top-8 right-8 z-50 flex items-center gap-6">
+        <a href="index.html"
+            class="font-mono text-[9px] uppercase tracking-[0.4em] text-fog/60 hover:text-bone transition-all">← Back to
+            Brief</a>
+        <button onclick="window.print()"
+            class="px-5 py-2 bg-amber/10 border border-amber/20 hover:bg-amber/20 text-amber font-mono text-[9px] uppercase tracking-[0.4em] transition-all rounded">
+            Export PDF
+        </button>
+    </div>
+
+    <!-- SLIDE 01: TITLE -->
+    <section class="slide">
+        <span class="slide-tag">Briefs Studio // OCCWI Proposal</span>
+        <div class="max-w-5xl">
+            <h1 class="font-serif text-7xl md:text-8xl font-semibold leading-tight mb-8">
+                Narrative Mapping<br>
+                <span class="gradient-text italic">Pilot Proposal</span>
+            </h1>
+            <p class="font-serif text-3xl text-fog italic max-w-3xl">
+                Strategic Artifacts from Expert Conversations for OCCWI Story Capture.
+            </p>
+        </div>
+        <span class="slide-number">01 // TITLE</span>
+    </section>
+
+    <!-- SLIDE 02: THE OPPORTUNITY -->
+    <section class="slide bg-charcoal/20">
+        <span class="slide-tag">01 // Context</span>
+        <div class="max-w-5xl">
+            <h2 class="font-serif text-5xl font-semibold mb-12 italic text-amber">The Clarity Gap</h2>
+            <div class="moment-card p-12 rounded-3xl">
+                <p class="font-serif text-4xl leading-relaxed text-bone italic">
+                    "Institutional memory is rarely extracted fast enough to match the pace of decisions. This
+                    methodology solves both."
+                </p>
+            </div>
+            <div class="mt-12 grid grid-cols-2 gap-12">
+                <div class="space-y-4">
+                    <h3 class="font-mono text-xs text-amber uppercase tracking-widest">Extraction Barrier</h3>
+                    <p class="text-lg text-fog">Critical knowledge is trapped in silos or lost in turnover.</p>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="font-mono text-xs text-emerald uppercase tracking-widest">Actionable Form</h3>
+                    <p class="text-lg text-fog">Synthesis creates artifacts that move leadership immediately.</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">02 // OPPORTUNITY</span>
+    </section>
+
+    <!-- SLIDE 03: PILOT SCOPE -->
+    <section class="slide">
+        <span class="slide-tag">02 // Scope</span>
+        <div class="max-w-5xl">
+            <h2 class="font-serif text-5xl font-semibold mb-12 italic text-emerald">Proposal Metrics</h2>
+            <div class="grid grid-cols-3 gap-12 text-center">
+                <div class="p-10 moment-card rounded-2xl">
+                    <span class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-4">Duration</span>
+                    <div class="font-serif text-5xl text-amber italic">4-6 Wks</div>
+                </div>
+                <div class="p-10 moment-card rounded-2xl">
+                    <span class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-4">Engagement</span>
+                    <div class="font-serif text-5xl text-amber italic">10 Session</div>
+                </div>
+                <div class="p-10 moment-card rounded-2xl">
+                    <span class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-4">Context</span>
+                    <div class="font-serif text-5xl text-amber italic">Story Capture</div>
+                </div>
+            </div>
+            <div class="mt-12">
+                <p class="font-serif text-2xl text-fog italic leading-relaxed text-center">
+                    "Enough to capture diverse perspectives and surface meaningful patterns, while remaining a contained
+                    pilot."
+                </p>
+            </div>
+        </div>
+        <span class="slide-number">03 // SCOPE</span>
+    </section>
+
+    <!-- SLIDE 04: DELIVERABLES -->
+    <section class="slide bg-charcoal/20">
+        <span class="slide-tag">03 // Outputs</span>
+        <div class="max-w-5xl">
+            <h2 class="font-serif text-5xl font-semibold mb-12 italic text-amber">Active Artifacts</h2>
+            <div class="grid grid-cols-2 gap-16">
+                <div class="space-y-8">
+                    <div class="moment-card p-8 rounded-2xl">
+                        <h4 class="font-mono text-xs text-emerald mb-4 uppercase tracking-widest">Individual Narrative
+                            Maps</h4>
+                        <p class="text-fog">High-fidelity strategic artifacts delivered within 48 hours of conversation.
+                        </p>
+                    </div>
+                    <div class="moment-card p-8 rounded-2xl">
+                        <h4 class="font-mono text-xs text-emerald mb-4 uppercase tracking-widest">Cross-Participant
+                            Synthesis</h4>
+                        <p class="text-fog">Pattern analysis surfacing where the OCCWI story is strong vs. fragmented.
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-8">
+                    <div class="moment-card p-8 rounded-2xl border-emerald-500/20">
+                        <h4 class="font-mono text-xs text-emerald mb-4 uppercase tracking-widest">Implementation Guide
+                        </h4>
+                        <p class="text-fog">Prompts, workflows, and reference materials for ongoing team application.
+                        </p>
+                    </div>
+                    <p class="font-serif text-xl italic text-bone opacity-60">
+                        Designed to empower OCCWI to apply parts of the methodology independently after the pilot.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">04 // OUTPUTS</span>
+    </section>
+
+    <!-- SLIDE 05: SUCCESS & INVESTMENT -->
+    <section class="slide">
+        <span class="slide-tag">04 // Conclusion</span>
+        <div class="max-w-5xl">
+            <h2 class="font-serif text-5xl font-semibold mb-12 italic text-emerald">Pilot Investment</h2>
+            <div class="flex items-center justify-between mb-16">
+                <div class="space-y-4">
+                    <div class="font-mono text-xs text-fog uppercase tracking-widest">Engagement Portfolio</div>
+                    <div class="font-serif text-8xl md:text-9xl font-bold tracking-tighter text-bone">$60,000</div>
+                </div>
+                <div class="max-w-sm space-y-6">
+                    <p class="text-sm text-fog font-mono uppercase tracking-widest">• 10 expert sessions</p>
+                    <p class="text-sm text-fog font-mono uppercase tracking-widest">• 10 narrative maps</p>
+                    <p class="text-sm text-fog font-mono uppercase tracking-widest">• pattern synthesis</p>
+                    <p class="text-sm text-emerald font-mono uppercase tracking-widest opacity-80">• implementation
+                        guide</p>
+                </div>
+            </div>
+            <div class="p-4 bg-white/5 rounded-full inline-flex items-center gap-3 px-8 border border-white/5">
+                <div class="w-1.5 h-1.5 bg-emerald rounded-full animate-pulse"></div>
+                <span class="font-mono text-[9px] uppercase tracking-widest opacity-60">Deloitte Contracting
+                    Modification Infrastructure</span>
+            </div>
+        </div>
+        <span class="slide-number">05 // INVESTMENT</span>
+    </section>
+
+</body>
+
+</html>

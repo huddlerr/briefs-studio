@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josh Bryan | PDW Presentation v3.0</title>
+    <meta name="description"
+        content="Josh Bryan — Senior Director of Mission Support. Precision Drone Works Interview Brief.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="initialized-false">
+    <div class="topo-background" id="topo-bg"></div>
+
+    <!-- Visual Chrome -->
+    <header class="chrome">
+        <div class="chrome-left">PDW PANEL INTERVIEW 1.20.2026</div>
+        <div class="chrome-right easter-egg" title="Easter Egg - Click to Reveal">
+            <a href="javascript:void(0)" onclick="toggleEasterEgg(true)"
+                style="color: inherit; text-decoration: none;">34.7112° N, 86.6897° W</a>
+        </div>
+    </header>
+
+    <!-- INITIALIZE SCREEN -->
+    <section id="init-screen" class="section full-screen active">
+        <button class="init-button" onclick="initialize()">
+            <span class="bracket">[</span> INITIALIZE <span class="bracket">]</span>
+        </button>
+    </section>
+
+    <main id="app-container" class="hidden">
+        <!-- TITLE SLIDE -->
+        <section id="title-slide" class="section full-screen">
+            <div class="content-left">
+                <h2 class="subtitle">WHO | WHY | WHAT</h2>
+                <div class="line-divider"></div>
+                <h1 class="title-main">Josh B<span class="kerning-fix">r</span>yan</h1>
+                <p class="title-role">Senior Director of Mission Support<br>Precision Drone Works</p>
+
+                <button class="nav-btn-next" onclick="scrollToSection('overview-roadmap')">[ BEGIN → ]</button>
+            </div>
+        </section>
+
+        <!-- GROUND WE'RE COVERING (Meta-Roadmap) -->
+        <section id="overview-roadmap" class="section full-screen">
+            <div class="content-left">
+                <h2 class="section-title">PRESENTATION OVERVIEW</h2>
+                <div class="line-divider"></div>
+
+                <div class="meta-grid">
+                    <div class="meta-card" onclick="scrollToSection('who-is-josh')">
+                        <span class="meta-num">01</span>
+                        <h3>WHO IS JOSH BRYAN?</h3>
+                        <div class="meta-arrow-right">→</div>
+                    </div>
+                    <div class="meta-card" onclick="scrollToSection('why-pdw')">
+                        <span class="meta-num">02</span>
+                        <h3>WHY PDW?</h3>
+                        <div class="meta-arrow-right">→</div>
+                    </div>
+                    <div class="meta-card" onclick="scrollToSection('why-me')">
+                        <span class="meta-num">03</span>
+                        <h3>WHY ME?</h3>
+                        <div class="meta-arrow-right">→</div>
+                    </div>
+                    <div class="meta-card" onclick="scrollToSection('plan-30-60-90')">
+                        <span class="meta-num">04</span>
+                        <h3>30-60-90 DAY PLAN</h3>
+                        <div class="meta-arrow-right">→</div>
+                    </div>
+                </div>
+
+                <button class="nav-btn-next" onclick="scrollToSection('who-is-josh')">[ START WITH WHO IS JOSH BRYAN →
+                    ]</button>
+            </div>
+        </section>
+
+        <!-- WHO IS JOSH BRYAN? (Expanding Cards) -->
+        <section id="who-is-josh" class="section full-screen">
+            <div class="content-left">
+                <h2 class="section-title">WHO IS JOSH BRYAN?</h2>
+                <p class="subtitle-small">MULTI-DISCIPLINARY STRATEGIST</p>
+                <div class="line-divider"></div>
+            </div>
+
+            <div class="expand-container">
+                <div class="expand-card" id="card-who-intro" onclick="expandCard('card-who-intro')">
+                    <div class="card-label">
+                        <h2>CORE</h2>
+                    </div>
+                    <div class="card-content">
+                        <h3>Multi-Disciplinary</h3>
+                        <div class="content-line"></div>
+                        <div class="sub-card-grid quad">
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">BACKGROUND</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Hometown: Enterprise, AL (military child)</li>
+                                            <li>Son of a journalist and Army Aviator</li>
+                                            <li>Varsity wrestler, soccer player</li>
+                                            <li>Resolved health challenges profoundly impactful</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">EDUCATION</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>B.S. Civil Engineering</li>
+                                            <li>M. Ed. Kinesiology</li>
+                                            <li>Medical School (declined)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">FAMILY</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Married to Samantha for 25 years</li>
+                                            <li>Hailey, 20, sophomore at the University of Alabama (Kinesiology)</li>
+                                            <li>Addie, 18, freshman at Auburn University (pre-veterinarian)</li>
+                                            <li>Walker, 14, 8th grade, all-county baseball player</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">INTERESTS</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Reading</li>
+                                            <li>Hiking/Long-distance backpacking</li>
+                                            <li>Fishing/Camping with Walker</li>
+                                            <li>Applied Technologies</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="card-next-btn" onclick="event.stopPropagation(); expandCard('card-who-inter')">[
+                            NEXT → ]</button>
+                    </div>
+                </div>
+
+                <!-- PROFESSIONAL (Intermediate) -->
+                <div class="expand-card" id="card-who-inter" onclick="expandCard('card-who-inter')">
+                    <div class="card-label">
+                        <h2>PROFESSIONAL</h2>
+                    </div>
+                    <div class="card-content">
+                        <h3>Professional Journey</h3>
+                        <div class="content-line"></div>
+                        <div class="sub-card-grid quad">
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">ARMY AVIATION</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>OH-58D Reconnaissance Pilot/Instructor Pilot</li>
+                                            <li>Heavy (South Korea) and light (Fort Bragg) Cavalry units</li>
+                                            <li>Associate Professor United States Military Academy</li>
+                                            <li>Medically Retired</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">JOHNSON & JOHNSON</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Sales and Contracting, $7M+ territory</li>
+                                            <li>Professional Discomfort</li>
+                                            <li>Identity Challenge</li>
+                                            <li>Interpersonal Skills, Leadership Styles</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">ARMY FUTURES COMMAND</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Mission Command Network</li>
+                                            <li>SA Software (TAK) and Communications</li>
+                                            <li>Operational Planning Needs</li>
+                                            <li>Doctrinal Depth</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">OPERATIONS DIRECTOR</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>International CUAS/UAS start-up</li>
+                                            <li>$40M ME Contract; Deliverables Updated and Accepted</li>
+                                            <li>FRONTEX presentation/contract</li>
+                                            <li>Process, Standardization, Strategy</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="card-next-btn" onclick="event.stopPropagation(); expandCard('card-who-adv')">[
+                            NEXT → ]</button>
+                    </div>
+                </div>
+
+                <!-- IDENTITY (Advanced) -->
+                <div class="expand-card" id="card-who-adv" onclick="expandCard('card-who-adv')">
+                    <div class="card-label">
+                        <h2>IDENTITY</h2>
+                    </div>
+                    <div class="card-content">
+                        <h3>Values & Identity</h3>
+                        <div class="content-line"></div>
+                        <div class="sub-card-grid thirds">
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">PEOPLE</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Ownership/Accountability</li>
+                                            <li>Teamwork and Shared Sacrifice</li>
+                                            <li>Professional Development/Investment</li>
+                                            <li>Customers as Partners</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">PROCESS</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Quality Before Quantity</li>
+                                            <li>Culture of Trust and Autonomy</li>
+                                            <li>Proactive/Dynamic</li>
+                                            <li>Decentralized Execution and Intent</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">PRODUCT/PROJECT</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Mission-oriented action</li>
+                                            <li>Doctrinal depth</li>
+                                            <li>The "why" as much as the "what"</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="card-continue-btn"
+                            onclick="event.stopPropagation(); scrollToSection('why-pdw')">[ CONTINUE TO WHY PDW →
+                            ]</button>
+                    </div>
+                </div>
+
+                <!-- LOCAL TACTICAL OVERLAY -->
+                <div class="tactical-overlay hidden" onclick="closeTacticalModal(this)">
+                    <div class="tactical-inner" onclick="event.stopPropagation()">
+                        <button class="tactical-close-btn" onclick="closeTacticalModal(this)">[ CLOSE × ]</button>
+                        <div class="modal-content-area"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY PDW? (Expanding Cards) -->
+        <section id="why-pdw" class="section full-screen">
+            <div class="content-left">
+                <h2 class="section-title">WHY PDW?</h2>
+                <p class="subtitle-small">SKILLSET MATCHING</p>
+                <div class="line-divider"></div>
+            </div>
+
+            <div class="expand-container">
+                <!-- VALUE ALIGNMENT -->
+                <div class="expand-card" id="card-pdw-culture" onclick="expandCard('card-pdw-culture')">
+                    <div class="card-label">
+                        <h2>VALUE ALIGNMENT</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="sub-card-grid thirds">
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">COMPANY PRINCIPLES</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Value alignment with company principles</li>
+                                            <li>Reputation for quality and integrity</li>
+                                            <li>Customer-first mindset</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">AGILITY AND PACE</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Smaller = autonomy, less bureaucracy</li>
+                                            <li>Agile operational style</li>
+                                            <li>Rapid decision making</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">VARIED SKILLSETS</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Multiple hats — how I thrive</li>
+                                            <li>Bridging sales, eng, and training</li>
+                                            <li>Dynamic problem solving</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="card-next-btn"
+                            onclick="event.stopPropagation(); expandCard('card-pdw-products')">[ NEXT → ]</button>
+                    </div>
+                </div>
+
+                <!-- PROVEN PLATFORMS -->
+                <div class="expand-card" id="card-pdw-products" onclick="expandCard('card-pdw-products')">
+                    <div class="card-label">
+                        <h2>PROVEN PLATFORMS</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="sub-card-grid thirds">
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">PROVEN PLATFORMS</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Well-received in defense market</li>
+                                            <li>Stable, mission-ready systems</li>
+                                            <li>Quality engineering reputation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">DIVERSIFIED CUSTOMERS</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Expanding base: Defense → Law Enforcement</li>
+                                            <li>Public safety diversification</li>
+                                            <li>Global reach potential</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">CLOSED LOOP OPS</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Feedback loop: end-user to engineering</li>
+                                            <li>Continuous platform evolution</li>
+                                            <li>Mission-support driven design</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="card-next-btn" onclick="event.stopPropagation(); expandCard('card-pdw-future')">[
+                            NEXT → ]</button>
+                    </div>
+                </div>
+
+                <!-- GROWTH OPPORTUNITY -->
+                <div class="expand-card" id="card-pdw-future" onclick="expandCard('card-pdw-future')">
+                    <div class="card-label">
+                        <h2>GROWTH OPPORTUNITY</h2>
+                    </div>
+                    <div class="card-content">
+                        <div class="sub-card-grid thirds">
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">AGGRESSIVE SCALING</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Proactive plan for scaling support</li>
+                                            <li>Infrastructure for volume training</li>
+                                            <li>Global support footprint</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">EMERGING MARKETS</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>Penetrating domestic public safety</li>
+                                            <li>International expansion roadmap</li>
+                                            <li>Cross-industry application</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sub-card" onclick="event.stopPropagation(); toggleSubCard(this)">
+                                <div class="sub-card-inner">
+                                    <h4 class="sub-card-main-title">VISION</h4>
+                                    <div class="sub-card-expansion">
+                                        <ul>
+                                            <li>World-class products and services</li>
+                                            <li>Next-gen ISD integration</li>
+                                            <li>Leader in UAS-managed services</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="card-continue-btn" onclick="event.stopPropagation(); scrollToSection('why-me')">[
+                            CONTINUE TO WHY ME → ]</button>
+                    </div>
+                </div>
+
+                <!-- LOCAL TACTICAL OVERLAY -->
+                <div class="tactical-overlay hidden" onclick="closeTacticalModal(this)">
+                    <div class="tactical-inner" onclick="event.stopPropagation()">
+                        <button class="tactical-close-btn" onclick="closeTacticalModal(this)">[ CLOSE × ]</button>
+                        <div class="modal-content-area"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY ME? (Stair-Step Infographic) -->
+        <section id="why-me" class="section full-screen">
+            <div class="content-left">
+                <h2 class="section-title">WHY ME?</h2>
+                <p class="subtitle-small">SKILL & VALUE ALIGNMENT</p>
+                <div class="line-divider"></div>
+            </div>
+
+            <div class="staircase-visual">
+                <!-- Step 4: ROLE ALIGNMENT -->
+                <div class="step step-4" onclick="toggleStep(this)">
+                    <div class="step-label">ROLE ALIGNMENT</div>
+                    <div class="step-content">
+                        <div class="step-detail"><strong>Senior Director of Mission Support</strong></div>
+                    </div>
+                </div>
+
+                <!-- Step 3: TECHNICAL -->
+                <div class="step step-3" onclick="toggleStep(this)">
+                    <div class="step-label">TECHNICAL</div>
+                    <div class="step-content">
+                        <ul class="step-list">
+                            <li>Aviation-Related Disciplines</li>
+                            <li>Organizational Process Improvements and Standardization</li>
+                            <li>Data Visualization & Technology</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 2: TRAINING/EDUCATION -->
+                <div class="step step-2" onclick="toggleStep(this)">
+                    <div class="step-label">TRAINING/EDUCATION</div>
+                    <div class="step-content">
+                        <ul class="step-list">
+                            <li>Formal/Informal Instruction Experience</li>
+                            <li>Instructional System Design</li>
+                            <li>Content Development and Refinement</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 1: INTERPERSONAL -->
+                <div class="step step-1" onclick="toggleStep(this)">
+                    <div class="step-label">INTERPERSONAL</div>
+                    <div class="step-content">
+                        <ul class="step-list">
+                            <li>Relatable</li>
+                            <li>Reliable Teammate</li>
+                            <li>Customer Focused</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <button class="nav-btn-next" onclick="scrollToSection('plan-30-60-90')">[ CONTINUE TO MISSION ROADMAP
+                → ]</button>
+        </section>
+
+        <!-- 30-60-90 DAY PLAN (Tactical Roadmap) -->
+        <section id="plan-30-60-90" class="section full-screen">
+            <div class="content-left">
+                <h2 class="section-title">MISSION ROADMAP</h2>
+                <p class="subtitle-small">People · Processes · Projects & Products</p>
+                <div class="line-divider"></div>
+
+                <div class="roadmap-integrated-v4">
+                    <div class="integrated-layout">
+                        <!-- LEFT 1/3: MAP VIEW -->
+                        <div class="integrated-left">
+                            <div class="map-container">
+                                <img src="assets/inset topo map_NO NODES.png" alt="Mission Topo" class="inset-topo-img">
+
+                                <!-- Interactive Node Hotspots -->
+                                <div class="node-hotspot wp-30" onclick="showRoadmapDetail('30')">
+                                    <div class="pulse-ring"></div>
+                                    <div class="node-marker">30</div>
+                                </div>
+                                <div class="node-hotspot wp-60" onclick="showRoadmapDetail('60')">
+                                    <div class="pulse-ring"></div>
+                                    <div class="node-marker">60</div>
+                                </div>
+                                <div class="node-hotspot wp-90" onclick="showRoadmapDetail('90')">
+                                    <div class="pulse-ring"></div>
+                                    <div class="node-marker">90</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT 2/3: CONTENT VIEW -->
+                        <div class="integrated-right">
+                            <div id="roadmap-detail-panel" class="detail-panel empty">
+                                <div class="empty-state">
+                                    <h4 class="select-hint">SELECT A MILESTONE ON THE LEFT</h4>
+                                    <div class="hint-arrow">←</div>
+                                </div>
+
+                                <div id="roadmap-content-display" class="content-display hidden">
+                                    <div class="day-anchor" id="display-day">30</div>
+                                    <div class="title-anchor" id="display-title">0-30: IMMERSION</div>
+                                    <div class="anchor-divider"></div>
+
+                                    <div class="sub-card-grid thirds roadmap-sub-grid" id="display-grid">
+                                        <!-- Sub-cards injected via JS -->
+                                    </div>
+
+                                    <div class="detail-nav">
+                                        <button class="back-to-map" onclick="resetDetailPanel()">[ RESET VIEW ]</button>
+                                        <button class="next-mission-btn" onclick="scrollToSection('end-slide')">[
+                                            CONTINUE TO CLOSE → ]</button>
+                                    </div>
+
+                                    <!-- LOCAL TACTICAL OVERLAY -->
+                                    <div class="tactical-overlay hidden" onclick="closeTacticalModal(this)">
+                                        <div class="tactical-inner" onclick="event.stopPropagation()">
+                                            <button class="tactical-close-btn" onclick="closeTacticalModal(this)">[
+                                                CLOSE × ]</button>
+                                            <div class="modal-content-area"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- END SLIDE -->
+        <section id="end-slide" class="section full-screen">
+            <div class="end-content">
+                <h1 class="thank-you">Thank you.</h1>
+                <p class="questions">Questions?</p>
+                <div class="end-chrome">
+                    <span class="end-name">J. BRYAN | MISSION SUPPORT</span>
+                    <span class="end-coords">34.7112° N, 86.6897° W</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="ui-controls">
+        <button id="fs-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                    d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+            </svg>
+        </button>
+    </div>
+
+
+
+    <div id="easter-egg-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="toggleEasterEgg(false)">✕ CLOSE</button>
+            <div class="modal-subtitle">[ UNLOCKED ]</div>
+            <div class="easter-egg-divider"></div>
+            <div class="modal-message">
+                Thank you for your time and consideration and congratulations for finding the Easter egg.
+            </div>
+            <div class="modal-signature">- Josh Bryan</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

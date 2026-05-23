@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrative Map // Christopher Liechty — Strategic Transition</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=JetBrains+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: '#FDFCF0',
+                        coral: '#D97373', // Darkened coral for readability
+                        sage: '#5A6B5F', // Darkened sage for readability
+                        ink: '#1A1A1A',
+                        paper: '#F9F7F2',
+                        creme: '#FAF9F6',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #FDFCF0;
+            --text: #111111;
+            /* Darker ink */
+            --accent: #B85C5C;
+            /* Darker coral */
+            --secondary: #4A584E;
+            /* Darker sage */
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .texture-bg {
+            background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+        }
+
+        .glass-nav {
+            background: rgba(253, 252, 240, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .coral-gradient {
+            background: linear-gradient(135deg, #B85C5C 0%, #8E3E3E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .wisdom-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Lenis smooth scroll fix */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .line-marker {
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .reveal-y {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased texture-bg text-ink">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav h-16 flex items-center px-6 md:px-12 border-b border-black/5">
+        <div class="max-w-screen-xl mx-auto w-full flex justify-between items-center text-ink">
+            <div class="flex items-center gap-12">
+                <span class="font-mono text-[10px] uppercase tracking-[0.3em] font-bold">Briefs Studio // Strategic
+                    Narrative Map</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-coral"></div>
+                <span class="font-mono text-[10px] uppercase tracking-widest opacity-60">Status: Authentic
+                    Intelligence</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-screen-xl mx-auto px-6 md:px-12 pt-32 pb-24">
+
+        <!-- HEADER -->
+        <header class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24 items-end">
+            <div class="lg:col-span-8">
+                <div class="line-marker" data-gsap="line"></div>
+                <h1 class="font-serif text-[clamp(3rem,8vw,7rem)] leading-[0.9] font-light mb-12 tracking-tight">
+                    Christopher <span class="italic font-normal">Liechty</span><br>
+                    <span class="coral-gradient">The Change Architect.</span>
+                </h1>
+                <div class="max-w-2xl">
+                    <p class="font-serif text-2xl md:text-3xl text-sage italic leading-relaxed mb-6">
+                        "I am transparent while I'm being sneaky. That's my story. I'm sticking to it."
+                    </p>
+                    <div class="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40">Narrative Portrait // Jan
+                        2026 // Strategic Transition</div>
+                </div>
+            </div>
+            <div class="lg:col-span-4 border-l border-black/10 pl-8 pb-4">
+                <div class="grid grid-cols-1 gap-6 text-xs uppercase tracking-widest font-mono">
+                    <div>
+                        <span class="block opacity-40 mb-1 italic lowercase">current status</span>
+                        Director of Marketing / Strategist
+                    </div>
+                    <div>
+                        <span class="block opacity-40 mb-1 italic lowercase">primary discipline</span>
+                        Change Management
+                    </div>
+                    <div>
+                        <span class="block opacity-40 mb-1 italic lowercase">philosophy</span>
+                        Zen Mormonism
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="w-full h-px bg-black/5 mb-24"></div>
+
+        <!-- 01 // THE SHIFT -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-32 reveal-y" data-gsap="reveal">
+            <div class="lg:col-span-3">
+                <h2 class="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-coral mb-4">01 // The Shift
+                </h2>
+                <p class="font-serif italic text-lg opacity-80">From "filling the gaps" to "leveraging the evolution."
+                </p>
+            </div>
+            <div class="lg:col-span-9 space-y-12">
+                <div class="border-l-2 border-black/5 pl-8 py-2">
+                    <span
+                        class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-4 italic lowercase">The
+                        Old Narrative</span>
+                    <p class="text-sage text-xl leading-relaxed max-w-2xl">
+                        "I am a marketing person with health constraints who is being narrowed into technical tasks I
+                        don't enjoy."
+                    </p>
+                </div>
+                <div>
+                    <span
+                        class="font-mono text-[9px] uppercase tracking-widest text-coral block mb-6 italic lowercase">The
+                        Briefs Studio Narrative</span>
+                    <p class="font-serif text-3xl md:text-4xl font-medium leading-tight max-w-3xl">
+                        "I am a <span class="text-coral">Change Management Specialist</span>. My value is not in daily
+                        technical output, but in the strategic foresight that transitions organizations from State A to
+                        State B."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="w-full h-px bg-black/5 mb-24"></div>
+
+        <!-- 02 // ASSET INVENTORY -->
+        <section class="mb-32 reveal-y" data-gsap="reveal">
+            <div class="flex items-baseline justify-between mb-12 border-b border-black/5 pb-6">
+                <h2 class="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-coral">02 // Asset Inventory
+                </h2>
+                <span
+                    class="hidden md:block font-serif italic text-sm opacity-40 tracking-wider lowercase italic lowercase">Translating
+                    Wisdom to Legacy Value</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="wisdom-card p-10">
+                    <h3 class="font-serif text-2xl font-semibold mb-6 italic">Authenticity Management</h3>
+                    <p class="text-sm leading-relaxed opacity-80">
+                        While corporate cultures struggle with optics, you build genuine relationships. The <strong
+                            class="text-coral italic font-extrabold uppercase italic lowercase">RV News</strong> case
+                        study proves that your truth-first approach secures courtesies that "big dog" PR firms cannot
+                        buy.
+                    </p>
+                </div>
+                <div class="wisdom-card p-10">
+                    <h3 class="font-serif text-2xl font-semibold mb-6 italic">Systemic Foresight</h3>
+                    <p class="text-sm leading-relaxed opacity-80">
+                        You "set the table" for the next version of the organization. By positing the 2025 Marketing
+                        Reset early, you mitigated the cost of a long learning curve for incoming leadership.
+                    </p>
+                </div>
+                <div class="wisdom-card p-10">
+                    <h3 class="font-serif text-2xl font-semibold mb-6 italic">The High-Intensity Wick</h3>
+                    <p class="text-sm leading-relaxed opacity-80">
+                        You utilize a 35-hour week as a <strong
+                            class="text-coral italic font-extrabold uppercase italic lowercase italic lowercase">constraint
+                            for excellence.</strong> By cutting out performative corporate chatter, you deliver
+                        strategic results through high-intensity focus.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="w-full h-px bg-black/5 mb-24"></div>
+
+        <!-- 03 // ALIGNMENT -->
+        <section class="bg-sage/5 p-12 lg:p-16 mb-32 border-l-4 border-coral reveal-y" data-gsap="reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <div class="lg:col-span-3">
+                    <h2 class="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-ink opacity-40 mb-4">03
+                        // Alignment</h2>
+                </div>
+                <div class="lg:col-span-9">
+                    <div class="mb-8">
+                        <span
+                            class="font-mono text-[10px] uppercase tracking-widest text-sage block mb-2 italic lowercase italic lowercase">Operating
+                            Archetype</span>
+                        <h3 class="font-serif text-4xl font-medium italic">The Transition Specialist</h3>
+                    </div>
+                    <p class="text-xl leading-relaxed opacity-90 max-w-3xl">
+                        Organizations rarely know they are stuck until someone describes the negative space. You are the
+                        architect who builds the bridge between what the organization is today and the <strong
+                            class="border-b border-coral text-ink font-bold lowercase italic">State B</strong> version
+                        of itself.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="w-full h-px bg-black/5 mb-24"></div>
+
+        <!-- 04 // STRATEGIC EMPHASES -->
+        <section class="mb-32 reveal-y" data-gsap="reveal">
+            <h2 class="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-coral mb-12">04 // 2026 Strategic
+                Emphases</h2>
+
+            <div class="space-y-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline pb-12 border-b border-black/5">
+                    <span class="lg:col-span-1 font-mono text-xl opacity-20 italic">01</span>
+                    <div class="lg:col-span-3 font-serif text-2xl font-bold italic">The Medical Lab Nexus</div>
+                    <div class="lg:col-span-8 text-sage leading-relaxed max-w-xl">
+                        Monitor the $7.5M fundraising cycle. This current job is the <strong
+                            class="text-ink lowercase italic">sustenance</strong> while you wait for the call to return
+                        as Executive VP to the lab team you scaled from 10 to 70.
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline pb-12 border-b border-black/5">
+                    <span class="lg:col-span-1 font-mono text-xl opacity-20 italic">02</span>
+                    <div class="lg:col-span-3 font-serif text-2xl font-bold italic">The Legacy Multiplier</div>
+                    <div class="lg:col-span-8 text-sage leading-relaxed max-w-xl">
+                        Codify your framework for protecting seniors from financial abuse (Alta Bank model). This is an
+                        artifact of your <strong class="text-ink lowercase italic">value-beyond-marketing.</strong>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline pb-12 border-b border-black/5">
+                    <span class="lg:col-span-1 font-mono text-xl opacity-20 italic">03</span>
+                    <div class="lg:col-span-3 font-serif text-2xl font-bold italic">The Zero-Debt Orbit</div>
+                    <div class="lg:col-span-8 text-sage leading-relaxed max-w-xl">
+                        Maintain the "momentum of the now." With the house closing and expenses lowering to an ideal
+                        state, your need for "performative salary" shifts to a desire for <strong
+                            class="text-ink lowercase italic">impact-aligned purposes.</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="w-full h-px bg-black/5 mb-24"></div>
+
+        <!-- 05 // ARTIFACTS -->
+        <section class="mb-32 reveal-y" data-gsap="reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <div class="lg:col-span-3">
+                    <h2 class="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-ink opacity-40 mb-4">05
+                        // Artifacts</h2>
+                    <p class="font-serif italic text-sm opacity-40">Your strategic assets for the transition.</p>
+                </div>
+                <div class="lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <a href="#"
+                        class="group border border-ink p-10 hover:bg-ink hover:text-sand transition-all duration-500 flex flex-col justify-between min-h-[200px]">
+                        <div>
+                            <span
+                                class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-4 italic lowercase">The
+                                Narrative Session</span>
+                            <span class="font-serif text-3xl italic group-hover:text-coral transition-colors">The Signal
+                                Cut</span>
+                        </div>
+                        <div class="flex justify-between items-end mt-8">
+                            <span class="font-mono text-[10px] uppercase tracking-widest opacity-60">Session
+                                Video</span>
+                            <span class="text-2xl group-hover:translate-x-2 transition-transform">→</span>
+                        </div>
+                    </a>
+                    <a href="#"
+                        class="group border border-ink p-10 hover:bg-ink hover:text-sand transition-all duration-500 flex flex-col justify-between min-h-[200px]">
+                        <div>
+                            <span
+                                class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-4 italic lowercase">The
+                                Raw Data</span>
+                            <span class="font-serif text-3xl italic group-hover:text-coral transition-colors">The
+                                Transcript</span>
+                        </div>
+                        <div class="flex justify-between items-end mt-8">
+                            <span class="font-mono text-[10px] uppercase tracking-widest opacity-60">Full Transcript
+                                (TXT)</span>
+                            <span class="text-2xl group-hover:translate-x-2 transition-transform">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="w-full h-px bg-black/5 mb-24"></div>
+
+        <!-- 06 // AI PLAYBOOK -->
+        <section class="mb-32 reveal-y" data-gsap="reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <div class="lg:col-span-3 text-coral">
+                    <h2 class="font-mono text-[10px] uppercase tracking-[0.3em] font-bold mb-4">06 // AI Playbook</h2>
+                    <p class="font-serif italic text-sm opacity-80">Operationalize the transition.</p>
+                </div>
+                <div class="lg:col-span-9 space-y-8">
+                    <div class="bg-creme p-10 border-l border-coral shadow-sm">
+                        <h4
+                            class="font-mono text-[10px] uppercase tracking-widest text-sage mb-6 font-bold italic lowercase italic lowercase">
+                            Prompt // The Legacy Extraction</h4>
+                        <div
+                            class="font-mono text-xs leading-relaxed text-sage/80 bg-white/60 p-6 border border-black/5">
+                            "I have uploaded a transcript of my strategic session. Based on my experience at Alta Bank
+                            and the medical lab scaling, please draft a 'Strategic Context Brief' meant for the incoming
+                            SVP. Focus on the 'Negative Space' I have been managing—specifically the 2025 Marketing
+                            Reset I initiated. The tone should be high-status, helpful, and focused on institutional
+                            continuity."
+                        </div>
+                    </div>
+                    <div class="bg-creme p-10 border-l border-ink shadow-sm">
+                        <h4
+                            class="font-mono text-[10px] uppercase tracking-widest text-ink mb-6 font-bold italic lowercase italic lowercase">
+                            Prompt // The Future Venture Pitch</h4>
+                        <div
+                            class="font-mono text-xs leading-relaxed text-ink/70 bg-white/60 p-6 border border-black/5">
+                            "Using the transcript provided, extract the core philosophy of my 'Human-First Systems
+                            Architecture.' I am preparing for an EVP role at a medical lab venture. Summarize my ability
+                            to scale teams from 10 to 70 through belief-driven management rather than extractive
+                            metrics."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer
+            class="mt-48 pt-12 border-t border-black/5 flex justify-between items-center opacity-40 font-mono text-[9px] uppercase tracking-[0.5em]">
+            <span>Briefs Studio // Narrative Strategy</span>
+            <span>Liechty.sys // 2026</span>
+        </footer>
+
+    </main>
+
+    <script>
+        // GSAP Initialization
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Smooth Scrolling with Lenis
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Animations
+        window.addEventListener('load', () => {
+            // Line draw
+            gsap.to('[data-gsap="line"]', {
+                width: '100%',
+                duration: 2.5,
+                ease: 'power4.out'
+            });
+
+            // Reveal animations
+            gsap.utils.toArray('[data-gsap="reveal"]').forEach(item => {
+                gsap.to(item, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.5,
+                    ease: 'expo.out',
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 90%',
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

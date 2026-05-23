@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRM // A Living Brief</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // V2 Palette - Inspired by collage references
+                        cream: '#F5F0E1',
+                        creamDark: '#E8E0CC',
+                        ink: '#1A1A1A',
+                        inkLight: '#4A4A4A',
+                        inkFaint: '#8A8A8A',
+                        coral: '#E85A3C',
+                        coralLight: '#F07858',
+                        coralDark: '#C44832',
+                        teal: '#2D6B6B',
+                        tealLight: '#3D8585',
+                        tealDark: '#1E4A4A',
+                        gold: '#C4A35A',
+                        // Keep signal for continuity
+                        signal: '#E85A3C',
+                        moss: '#3D6B59',
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        sans: ['DM Sans', 'sans-serif'],
+                        hand: ['Caveat', 'cursive'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* V2 STYLES - Collage Aesthetic */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        
+        body.v2 {
+            background-color: #F5F0E1;
+            background-image: 
+                /* Grid paper texture */
+                linear-gradient(rgba(45, 107, 107, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(45, 107, 107, 0.03) 1px, transparent 1px),
+                /* Noise texture */
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            background-size: 40px 40px, 40px 40px, 200px 200px;
+        }
+        
+        /* Collage-style decorative elements */
+        .collage-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .collage-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, currentColor, transparent);
+            pointer-events: none;
+        }
+        
+        /* Bold section backgrounds */
+        .section-coral {
+            background: linear-gradient(135deg, #E85A3C 0%, #C44832 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .section-coral::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0,0,0,0.1) 0%, transparent 50%);
+        }
+        
+        .section-teal {
+            background: linear-gradient(135deg, #2D6B6B 0%, #1E4A4A 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .section-teal::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Ccircle cx='50' cy='50' r='40' stroke='rgba(255,255,255,0.05)' fill='none'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+        }
+        
+        /* Vintage card style */
+        .vintage-card {
+            background: #FFFEF9;
+            border: 1px solid rgba(26, 26, 26, 0.1);
+            box-shadow: 
+                4px 4px 0 rgba(26, 26, 26, 0.05),
+                8px 8px 0 rgba(26, 26, 26, 0.02);
+            transition: all 0.3s ease;
+        }
+        .vintage-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 
+                6px 6px 0 rgba(26, 26, 26, 0.08),
+                12px 12px 0 rgba(26, 26, 26, 0.03);
+        }
+        
+        /* Animated hamburger menu */
+        .hamburger {
+            width: 24px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: currentColor;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 9px; }
+        .hamburger span:nth-child(3) { bottom: 0; }
+        
+        .hamburger.active span:nth-child(1) {
+            top: 9px;
+            transform: rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            bottom: 9px;
+            transform: rotate(-45deg);
+        }
+        
+        /* Simulator inputs */
+        .sim-input {
+            background: rgba(255,255,255,0.8);
+            border: none;
+            border-bottom: 2px solid #C4A35A;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+        .sim-input:focus {
+            outline: none;
+            background: rgba(255,255,255,1);
+            border-bottom-color: #E85A3C;
+        }
+        
+        /* Map nodes */
+        .map-node {
+            animation: nodeAppear 0.4s ease-out forwards;
+            background: #FFFEF9;
+            border: 2px solid;
+        }
+        @keyframes nodeAppear {
+            from { opacity: 0; transform: scale(0.8) rotate(-2deg); }
+            to { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+        
+        /* Fade animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Stagger children */
+        .stagger > *:nth-child(1) { transition-delay: 0.1s; }
+        .stagger > *:nth-child(2) { transition-delay: 0.2s; }
+        .stagger > *:nth-child(3) { transition-delay: 0.3s; }
+        .stagger > *:nth-child(4) { transition-delay: 0.4s; }
+        .stagger > *:nth-child(5) { transition-delay: 0.5s; }
+        
+        /* Decorative sketches */
+        .sketch-mark {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+        
+        /* Label maker style */
+        .label-tag {
+            background: #1A1A1A;
+            color: #FFFEF9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            display: inline-block;
+        }
+        .label-tag.coral { background: #E85A3C; }
+        .label-tag.teal { background: #2D6B6B; }
+        .label-tag.gold { background: #C4A35A; color: #1A1A1A; }
+        
+        /* Bento grid */
+        .bento {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1rem;
+        }
+        .bento-4 { grid-column: span 4; }
+        .bento-6 { grid-column: span 6; }
+        .bento-8 { grid-column: span 8; }
+        .bento-12 { grid-column: span 12; }
+        @media (max-width: 768px) {
+            .bento-4, .bento-6, .bento-8 { grid-column: span 12; }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F5F0E1; }
+        ::-webkit-scrollbar-thumb { background: #C4A35A; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E85A3C; }
+        
+        /* Version toggle */
+        .version-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            gap: 4px;
+        }
+        .version-btn {
+            padding: 6px 12px;
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            color: rgba(255,255,255,0.6);
+        }
+        .version-btn.active {
+            background: #E85A3C;
+            color: white;
+        }
+        .version-btn:hover:not(.active) {
+            color: white;
+        }
+    </style>
+</head>
+<body class="v2 text-ink font-sans antialiased overflow-x-hidden">
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- DECORATIVE BACKGROUND ELEMENTS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <!-- Large coral circle - top right -->
+        <div class="collage-circle w-[600px] h-[600px] -top-48 -right-48 bg-coral/5"></div>
+        <!-- Teal circle - bottom left -->
+        <div class="collage-circle w-[400px] h-[400px] -bottom-32 -left-32 bg-teal/5"></div>
+        <!-- Small gold accent -->
+        <div class="collage-circle w-32 h-32 top-1/3 right-1/4 bg-gold/10"></div>
+        <!-- Sketch marks -->
+        <svg class="sketch-mark top-20 left-10 w-48 h-48" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" stroke="currentColor" fill="none" stroke-width="0.5"/>
+            <circle cx="50" cy="50" r="30" stroke="currentColor" fill="none" stroke-width="0.3"/>
+        </svg>
+        <svg class="sketch-mark bottom-40 right-20 w-32 h-32" viewBox="0 0 100 100">
+            <path d="M10 50 Q50 10 90 50 Q50 90 10 50" stroke="currentColor" fill="none" stroke-width="0.5"/>
+        </svg>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- NAVIGATION - With centered version toggle -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-ink/5">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <!-- Logo - Clickable to scroll up to hidden section -->
+            <button id="scroll-up-trigger" class="font-display text-2xl font-medium text-ink hover:text-coral transition-colors group relative">
+                MRM
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-coral transition-all duration-300 group-hover:w-full"></span>
+            </button>
+            
+            <!-- Centered Version Toggle (low opacity, temporary) -->
+            <div class="flex items-center gap-2 opacity-30 hover:opacity-60 transition-opacity">
+                <button class="px-2 py-1 text-[9px] font-mono uppercase tracking-wider text-inkFaint hover:text-ink transition-colors" onclick="window.location.href='index-v1.html'">v1</button>
+                <span class="text-inkFaint/30">|</span>
+                <span class="px-2 py-1 text-[9px] font-mono uppercase tracking-wider text-coral">v2</span>
+                <span class="text-inkFaint/30">|</span>
+                <button class="px-2 py-1 text-[9px] font-mono uppercase tracking-wider text-inkFaint hover:text-ink transition-colors" onclick="window.location.href='index-v3.html'">v3</button>
+                <span class="text-inkFaint/30">|</span>
+                <button class="px-2 py-1 text-[9px] font-mono uppercase tracking-wider text-inkFaint hover:text-ink transition-colors" onclick="window.location.href='index-v4.html'">v4</button>
+                <span class="text-inkFaint/30">|</span>
+                <button class="px-2 py-1 text-[9px] font-mono uppercase tracking-wider text-inkFaint hover:text-ink transition-colors" onclick="window.location.href='index.html'">v5</button>
+            </div>
+            
+            <!-- Animated Hamburger -->
+            <button id="menu-toggle" class="hamburger text-ink" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <!-- Slide-down Menu -->
+        <div id="nav-menu" class="hidden bg-cream border-t border-ink/5">
+            <div class="max-w-6xl mx-auto px-6 py-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <a href="#recognition" class="group">
+                        <span class="label-tag mb-2">01</span>
+                        <span class="block font-display text-xl group-hover:text-coral transition-colors">Practices</span>
+                    </a>
+                    <a href="#artifacts" class="group">
+                        <span class="label-tag mb-2">02</span>
+                        <span class="block font-display text-xl group-hover:text-coral transition-colors">Work</span>
+                    </a>
+                    <a href="#process" class="group">
+                        <span class="label-tag mb-2">03</span>
+                        <span class="block font-display text-xl group-hover:text-coral transition-colors">Experience</span>
+                    </a>
+                    <a href="#archive" class="group">
+                        <span class="label-tag mb-2">04</span>
+                        <span class="block font-display text-xl group-hover:text-coral transition-colors">Now</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- HIDDEN ABOVE SECTION - Philosophy & Secrets (scroll up to reveal) -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="hidden-above" class="min-h-screen bg-ink text-white relative overflow-hidden flex flex-col justify-center">
+        <!-- Subtle grid pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 60px 60px;"></div>
+        
+        <!-- Concentric circles decoration -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none">
+            <div class="absolute inset-0 border border-white/5 rounded-full"></div>
+            <div class="absolute inset-16 border border-white/5 rounded-full"></div>
+            <div class="absolute inset-32 border border-white/5 rounded-full"></div>
+            <div class="absolute inset-48 border border-coral/10 rounded-full"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-6 py-32 relative z-10">
+            
+            <!-- Philosophy Section -->
+            <div class="text-center mb-20">
+                <span class="label-tag gold mb-6">The Why</span>
+                <h2 class="font-display text-4xl md:text-6xl mb-8">Why This Works</h2>
+            </div>
+            
+            <!-- Under Construction - Creative Placeholder -->
+            <div class="max-w-2xl mx-auto">
+                <div class="border border-white/10 rounded-lg p-12 text-center relative">
+                    
+                    <!-- Animated pen -->
+                    <div class="text-6xl text-coral mb-8 inline-block animate-pulse">✎</div>
+                    
+                    <p class="font-display text-2xl md:text-3xl text-white/90 italic mb-6">
+                        "Something is forming here..."
+                    </p>
+                    
+                    <p class="text-white/40 max-w-md mx-auto mb-8 leading-relaxed">
+                        This is where the philosophy lives — the why behind the how. 
+                        The words are finding themselves. They'll arrive when they're ready.
+                    </p>
+                    
+                    <div class="inline-block border border-coral/40 rounded px-8 py-4 bg-coral/5">
+                        <p class="font-hand text-2xl text-coral">Mike, this space is waiting.</p>
+                    </div>
+                    
+                    <!-- Subtle pressure -->
+                    <p class="mt-12 font-mono text-[10px] text-white/15 tracking-[0.2em] uppercase">
+                        The blank page is patient. But not forever.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Hidden Extras -->
+            <div class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8 opacity-60">
+                <div class="text-center p-6 border border-white/5 rounded-lg">
+                    <span class="text-3xl mb-4 block">🌙</span>
+                    <p class="font-hand text-lg text-white/60">Dreams logged</p>
+                    <span class="font-mono text-2xl text-coral">247</span>
+                </div>
+                <div class="text-center p-6 border border-white/5 rounded-lg">
+                    <span class="text-3xl mb-4 block">📚</span>
+                    <p class="font-hand text-lg text-white/60">Books in progress</p>
+                    <span class="font-mono text-2xl text-tealLight">12</span>
+                </div>
+                <div class="text-center p-6 border border-white/5 rounded-lg">
+                    <span class="text-3xl mb-4 block">✦</span>
+                    <p class="font-hand text-lg text-white/60">Easter eggs found</p>
+                    <span class="font-mono text-2xl text-gold" id="eggs-found">0</span>
+                </div>
+            </div>
+            
+            <!-- Scroll down hint -->
+            <div class="text-center mt-20">
+                <button id="scroll-down-trigger" class="text-white/30 hover:text-white/60 transition-colors">
+                    <span class="font-mono text-[10px] uppercase tracking-widest block mb-2">Return to surface</span>
+                    <svg class="w-6 h-6 mx-auto animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                    </svg>
+                </button>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 1: ENTRY -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="entry" class="min-h-screen flex flex-col justify-center relative pt-20">
+        <!-- Decorative coral bar -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-[40vh] bg-coral/80"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 py-24 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Text -->
+                <div class="lg:col-span-7 fade-up">
+                    <h1 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-8">
+                        You already know<br>
+                        what you're trying to say.
+                    </h1>
+                    <h2 class="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-inkLight italic mb-12">
+                        You just can't<br>
+                        hear it yet.
+                    </h2>
+                    
+                    <!-- Name Input -->
+                    <div class="mb-8">
+                        <label class="font-hand text-2xl text-coral block mb-3">↳ We begin —</label>
+                        <input 
+                            type="text" 
+                            id="visitor-name" 
+                            class="w-full max-w-sm py-3 px-0 bg-transparent border-b-2 border-gold font-display text-2xl text-ink focus:outline-none focus:border-coral transition-colors"
+                            placeholder="your name"
+                            autocomplete="off"
+                        >
+                    </div>
+                </div>
+                
+                <!-- Right: Decorative -->
+                <div class="lg:col-span-5 relative hidden lg:block fade-up" style="transition-delay: 0.3s;">
+                    <div class="aspect-square relative">
+                        <!-- Concentric circles -->
+                        <div class="absolute inset-0 border-2 border-teal/20 rounded-full"></div>
+                        <div class="absolute inset-8 border border-teal/15 rounded-full"></div>
+                        <div class="absolute inset-16 border border-teal/10 rounded-full"></div>
+                        <!-- Center accent -->
+                        <div class="absolute inset-1/3 bg-coral/10 rounded-full"></div>
+                        <!-- Text overlay -->
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-teal/40">Listen</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+            <div class="w-px h-20 bg-gradient-to-b from-transparent via-ink/20 to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 2: RECOGNITION - Bold Coral Background -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="recognition" class="section-coral text-white py-32 relative">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center mb-20 fade-up">
+                <span class="label-tag gold mb-6">Two Practices</span>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4">One methodology.</h2>
+            </div>
+            
+            <!-- Practice Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 stagger">
+                
+                <!-- Briefs Studio -->
+                <div class="vintage-card p-8 md:p-10 text-ink fade-up">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="label-tag coral">Briefs Studio</span>
+                        <span class="font-mono text-xs text-inkFaint">Organizations</span>
+                    </div>
+                    
+                    <h3 class="font-display text-3xl mb-6">Strategic Communications</h3>
+                    
+                    <ul class="space-y-3 text-inkLight mb-8">
+                        <li class="flex items-start gap-3">
+                            <span class="text-coral font-bold">→</span>
+                            <span>Clarity Sprints & narrative mapping</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-coral font-bold">→</span>
+                            <span>90 minutes to fundable narrative</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-coral font-bold">→</span>
+                            <span>Visual story maps you can use</span>
+                        </li>
+                    </ul>
+                    
+                    <p class="font-hand text-2xl text-coral">"What are you really saying?"</p>
+                </div>
+                
+                <!-- SLEEPY PLANET -->
+                <div class="vintage-card p-8 md:p-10 text-ink fade-up">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="label-tag teal">Sleepy Planet</span>
+                        <span class="font-mono text-xs text-inkFaint">Individuals</span>
+                    </div>
+                    
+                    <h3 class="font-display text-3xl mb-6">Symbolic Storytelling</h3>
+                    
+                    <ul class="space-y-3 text-inkLight mb-8">
+                        <li class="flex items-start gap-3">
+                            <span class="text-teal font-bold">→</span>
+                            <span>Guided imagination sessions</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-teal font-bold">→</span>
+                            <span>Journey to behavioral insight</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-teal font-bold">→</span>
+                            <span>Landscapes you can return to</span>
+                        </li>
+                    </ul>
+                    
+                    <p class="font-hand text-2xl text-teal">"What do you already know?"</p>
+                </div>
+                
+            </div>
+            
+            <!-- Shared DNA -->
+            <div class="text-center fade-up">
+                <div class="inline-block bg-white/10 backdrop-blur-sm px-8 py-6 rounded-lg border border-white/20">
+                    <p class="font-display text-lg md:text-xl leading-relaxed text-white/90">
+                        "Both transform abstract understanding into <em>visible pattern</em>.<br>
+                        I help you hear what you already know."
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 3: ARTIFACTS - Teal Background -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="artifacts" class="section-teal text-white py-32 relative">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            
+            <div class="mb-16 fade-up">
+                <span class="label-tag gold mb-4">The Work</span>
+                <h2 class="font-display text-3xl md:text-4xl">What clarity looks like</h2>
+            </div>
+            
+            <!-- Artifact Cards - More Visual -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 stagger">
+                
+                <a href="/leadership-bryan/" class="vintage-card group block text-ink overflow-hidden fade-up">
+                    <div class="h-32 bg-gradient-to-br from-ink to-inkLight relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="font-display text-4xl text-white/20 group-hover:text-coral/40 transition-colors">JB</span>
+                        </div>
+                        <span class="label-tag absolute top-3 left-3">Leadership</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-display text-xl mb-2 group-hover:text-coral transition-colors">Josh Bryan</h4>
+                        <p class="text-sm text-inkLight">Strategic positioning for leadership transition</p>
+                    </div>
+                </a>
+                
+                <a href="/kate-lewis/" class="vintage-card group block text-ink overflow-hidden fade-up">
+                    <div class="h-32 bg-gradient-to-br from-coral to-coralDark relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="font-display text-4xl text-white/30 group-hover:text-white/50 transition-colors">KL</span>
+                        </div>
+                        <span class="label-tag absolute top-3 left-3">Practitioner</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-display text-xl mb-2 group-hover:text-coral transition-colors">Kate Lewis</h4>
+                        <p class="text-sm text-inkLight">Complex expertise made visible</p>
+                    </div>
+                </a>
+                
+                <a href="/nate-galbreath/" class="vintage-card group block text-ink overflow-hidden fade-up">
+                    <div class="h-32 bg-gradient-to-br from-teal to-tealDark relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="font-display text-4xl text-white/30 group-hover:text-white/50 transition-colors">NG</span>
+                        </div>
+                        <span class="label-tag absolute top-3 left-3">Philosophy</span>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-display text-xl mb-2 group-hover:text-teal transition-colors">Dr. Nate Galbreath</h4>
+                        <p class="text-sm text-inkLight">Leadership doctrine made accessible</p>
+                    </div>
+                </a>
+                
+            </div>
+            
+            <!-- Choice Interaction -->
+            <div class="vintage-card p-8 text-ink text-center max-w-2xl mx-auto fade-up">
+                <p class="font-hand text-2xl mb-6">Which resonates with where you are?</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="choice-btn px-6 py-3 bg-coral text-white font-mono text-xs uppercase tracking-wider hover:bg-coralDark transition-colors" data-choice="organizational" onclick="setChoice('organizational', this)">
+                        Organizational Clarity
+                    </button>
+                    <button class="choice-btn px-6 py-3 bg-teal text-white font-mono text-xs uppercase tracking-wider hover:bg-tealDark transition-colors" data-choice="personal" onclick="setChoice('personal', this)">
+                        Personal Insight
+                    </button>
+                    <button class="choice-btn px-6 py-3 bg-ink text-white font-mono text-xs uppercase tracking-wider hover:bg-inkLight transition-colors" data-choice="both" onclick="setChoice('both', this)">
+                        Both
+                    </button>
+                </div>
+                <p id="choice-response" class="mt-4 font-hand text-xl text-coral opacity-0 transition-opacity duration-300"></p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 4: PROCESS - Interactive -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="process" class="py-32 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            
+            <div class="text-center mb-20 fade-up">
+                <span class="label-tag mb-4">Experience It</span>
+                <h2 class="font-display text-3xl md:text-4xl">The Process</h2>
+                <p class="font-hand text-xl text-inkLight mt-2">Not a list. The experience.</p>
+            </div>
+            
+            <!-- Briefs Studio SPRINT -->
+            <div class="mb-24">
+                <div class="flex items-center gap-4 mb-8 fade-up">
+                    <span class="label-tag coral">Briefs Studio</span>
+                    <span class="font-display text-xl">Mini Clarity Sprint</span>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="vintage-card p-8 fade-up">
+                        <p class="font-display text-xl leading-relaxed mb-6">
+                            You're stuck in PowerPoint thinking. Your team can't align. Funders don't get it.
+                        </p>
+                        <p class="text-inkLight leading-relaxed">
+                            We spend 90 minutes in conversation. I map in real-time. You watch your narrative emerge. 
+                            You leave with a visual story map and the language you've been looking for.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-creamDark p-8 rounded-lg border border-ink/10 fade-up">
+                        <div class="space-y-5">
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">What are you building?</label>
+                                <input type="text" class="sim-input w-full rounded" placeholder="A product, service, idea..." id="sprint-q1">
+                            </div>
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">Who needs to hear about it?</label>
+                                <input type="text" class="sim-input w-full rounded" placeholder="Your audience..." id="sprint-q2">
+                            </div>
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">What happens if they don't get it?</label>
+                                <input type="text" class="sim-input w-full rounded" placeholder="The stakes..." id="sprint-q3">
+                            </div>
+                        </div>
+                        
+                        <!-- Map Output -->
+                        <div id="sprint-map" class="mt-6 p-4 bg-white rounded border border-gold/30 min-h-[80px]">
+                            <div id="map-placeholder" class="text-inkFaint font-hand text-center">Your map emerges as you type...</div>
+                            <div id="map-nodes" class="hidden flex flex-wrap items-center justify-center gap-2"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- SLEEPY PLANET -->
+            <div>
+                <div class="flex items-center gap-4 mb-8 fade-up">
+                    <span class="label-tag teal">Sleepy Planet</span>
+                    <span class="font-display text-xl">Build a Landscape</span>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="vintage-card p-8 fade-up">
+                        <p class="font-display text-xl leading-relaxed mb-6">
+                            You know your patterns but can't see them clearly. The same loops. The same stuckness.
+                        </p>
+                        <p class="text-inkLight leading-relaxed">
+                            We create a symbolic world together. You explore it. I guide. The landscape reveals what you already know but couldn't articulate.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-teal/5 p-8 rounded-lg border border-teal/20 fade-up">
+                        <div class="space-y-5">
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">You're standing at the edge of a...</label>
+                                <input type="text" class="sim-input w-full rounded" placeholder="forest, desert, ocean..." id="land-q1">
+                            </div>
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">In the distance, there's a...</label>
+                                <input type="text" class="sim-input w-full rounded" placeholder="Something calling to you..." id="land-q2">
+                            </div>
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">Between you and it, there's...</label>
+                                <input type="text" class="sim-input w-full rounded" placeholder="What's in the way?" id="land-q3">
+                            </div>
+                        </div>
+                        
+                        <!-- Landscape Output -->
+                        <div id="landscape-preview" class="mt-6 p-4 bg-white rounded border border-teal/30 min-h-[80px]">
+                            <div id="landscape-placeholder" class="text-inkFaint font-hand text-center">Your landscape takes shape...</div>
+                            <div id="landscape-description" class="hidden font-display text-lg italic text-ink leading-relaxed"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 5: LIVING ARCHIVE - Bento -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="archive" class="py-32 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            
+            <div class="mb-16 fade-up">
+                <span class="label-tag mb-4">Now</span>
+                <h2 class="font-display text-3xl md:text-4xl">What's happening</h2>
+            </div>
+            
+            <!-- Bento Grid -->
+            <div class="bento">
+                
+                <!-- 100 Strangers - Large -->
+                <div class="bento-8 vintage-card p-8 relative overflow-hidden fade-up">
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-coral/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                    <span class="label-tag coral mb-4">Active Research</span>
+                    <h3 class="font-display text-2xl mb-2">100 Strangers</h3>
+                    <p class="text-inkLight text-sm mb-6">Guided imagination with 100 people I've never met.</p>
+                    <div class="flex items-end gap-2">
+                        <span class="font-mono text-7xl font-bold text-ink">10</span>
+                        <span class="font-hand text-2xl text-coral mb-2">of 100</span>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-teal/10 text-teal text-xs rounded">Threshold imagery</span>
+                        <span class="px-2 py-1 bg-coral/10 text-coral text-xs rounded">Water as transition</span>
+                    </div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="bento-4 space-y-4">
+                    <div class="vintage-card p-6 fade-up">
+                        <span class="font-mono text-4xl font-bold text-coral block">23</span>
+                        <span class="font-hand text-lg text-inkLight">Clarity Sprints</span>
+                    </div>
+                    <div class="vintage-card p-6 fade-up">
+                        <span class="font-mono text-4xl font-bold text-teal block">47</span>
+                        <span class="font-hand text-lg text-inkLight">Sleepy Planet Sessions</span>
+                    </div>
+                </div>
+                
+                <!-- Writing -->
+                <div class="bento-6 vintage-card p-6 fade-up">
+                    <span class="label-tag mb-4">Writing</span>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-inkLight hover:text-ink cursor-pointer transition-colors">
+                            <span class="text-coral">→</span> On collaborative intelligence
+                        </li>
+                        <li class="flex items-center gap-3 text-inkLight hover:text-ink cursor-pointer transition-colors">
+                            <span class="text-coral">→</span> The shape of a conversation
+                        </li>
+                        <li class="flex items-center gap-3 text-inkLight hover:text-ink cursor-pointer transition-colors">
+                            <span class="text-coral">→</span> Patterns across strangers
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Themes -->
+                <div class="bento-6 vintage-card p-6 fade-up">
+                    <span class="label-tag teal mb-4">Emerging Themes</span>
+                    <ul class="space-y-2 text-sm text-inkLight">
+                        <li class="flex items-start gap-2">
+                            <span class="text-teal">→</span> Translating technical for non-technical funders
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-teal">→</span> Differentiating in crowded impact spaces
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-teal">→</span> Founder-market fit narratives
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 7: PARTICIPATE - Form Reveal -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="participate" class="section-coral text-white py-32 relative">
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center mb-16 fade-up">
+                <h2 class="font-display text-4xl md:text-5xl mb-4">
+                    Ready to hear your own voice<br><span class="text-gold">transformed?</span>
+                </h2>
+            </div>
+            
+            <!-- Compiled Form -->
+            <div class="vintage-card p-8 md:p-12 text-ink max-w-2xl mx-auto fade-up">
+                <span class="label-tag mb-6">Here's what you've told me</span>
+                
+                <div class="space-y-6 mb-8">
+                    
+                    <div>
+                        <label class="font-hand text-lg text-inkLight block mb-2">Name</label>
+                        <div id="form-name" class="font-display text-xl border-b border-gold/50 pb-2 min-h-[2rem]">
+                            <span class="text-inkFaint italic">Your name will appear here</span>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="font-hand text-lg text-inkLight block mb-2">Interested in</label>
+                        <div id="form-interest" class="font-display text-xl border-b border-gold/50 pb-2 min-h-[2rem]">
+                            <span class="text-inkFaint italic">Make a choice above</span>
+                        </div>
+                    </div>
+                    
+                    <div id="form-sprint-section" class="hidden">
+                        <label class="font-hand text-lg text-inkLight block mb-2">What you're building</label>
+                        <div id="form-sprint" class="text-ink border-b border-gold/50 pb-2"></div>
+                    </div>
+                    
+                    <div id="form-landscape-section" class="hidden">
+                        <label class="font-hand text-lg text-inkLight block mb-2">Your landscape</label>
+                        <div id="form-landscape" class="font-display italic text-ink border-b border-gold/50 pb-2"></div>
+                    </div>
+                    
+                    <div>
+                        <label class="font-hand text-lg text-inkLight block mb-2">Email</label>
+                        <input type="email" id="form-email" class="w-full py-2 px-0 bg-transparent border-b-2 border-gold/50 text-ink focus:outline-none focus:border-coral transition-colors" placeholder="your@email.com">
+                    </div>
+                    
+                    <div>
+                        <label class="font-hand text-lg text-inkLight block mb-2">Anything else?</label>
+                        <textarea id="form-message" class="w-full py-2 px-0 bg-transparent border-b-2 border-gold/50 text-ink focus:outline-none focus:border-coral resize-none" rows="2" placeholder="Optional..."></textarea>
+                    </div>
+                    
+                </div>
+                
+                <button class="w-full py-4 bg-coral text-white font-mono text-sm uppercase tracking-wider rounded hover:bg-coralDark transition-colors">
+                    Let's Talk
+                </button>
+            </div>
+            
+            <!-- 100 Strangers Alternative -->
+            <div class="text-center mt-12 fade-up">
+                <p class="text-white/70 mb-4">Want to be part of the research?</p>
+                <button class="px-6 py-3 border border-white/30 text-white font-mono text-xs uppercase tracking-wider rounded hover:bg-white/10 transition-colors" onclick="openStrangersModal()">
+                    Join 100 Strangers
+                </button>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- FOOTER -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <footer class="py-16 bg-ink text-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                <div>
+                    <span class="font-display text-2xl block mb-2 cursor-pointer hover:text-coral transition-colors" id="footer-mrm">MRM</span>
+                    <p class="font-mono text-[10px] uppercase tracking-widest text-white/40">Mike Marrotte</p>
+                </div>
+                <div class="text-right">
+                    <p class="font-display italic text-white/60 mb-2">Briefs Studio + Sleepy Planet</p>
+                    <p class="font-mono text-[10px] text-white/30">A Living Brief // December 2025</p>
+                </div>
+            </div>
+            <div class="mt-12 text-center">
+                <span class="text-white/20 text-2xl cursor-pointer hover:text-coral transition-colors" id="secret-glyph">✦</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- MODALS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    
+    <!-- 100 Strangers Modal -->
+    <div id="strangers-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-ink/90 backdrop-blur-sm">
+        <div class="max-w-md mx-4 w-full vintage-card p-8 transform scale-95 opacity-0 transition-all duration-300" id="strangers-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="font-display text-2xl">Join 100 Strangers</h3>
+                <button onclick="closeStrangersModal()" class="text-inkFaint hover:text-ink transition-colors text-2xl">&times;</button>
+            </div>
+            <p class="text-inkLight mb-6">Free guided imagination sessions for those willing to contribute to the research.</p>
+            <form class="space-y-4">
+                <input type="text" class="sim-input w-full rounded" placeholder="Name">
+                <input type="email" class="sim-input w-full rounded" placeholder="Email">
+                <textarea class="sim-input w-full rounded resize-none" rows="3" placeholder="Why do you want to participate?"></textarea>
+                <button type="submit" class="w-full py-4 bg-teal text-white font-mono text-sm uppercase tracking-wider rounded hover:bg-tealDark transition-colors">
+                    Apply
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Konami Easter Egg -->
+    <div id="easter-egg-modal" class="fixed inset-0 z-[110] hidden items-center justify-center bg-ink/95 backdrop-blur-md">
+        <div class="max-w-2xl mx-4 w-full transform scale-95 opacity-0 transition-all duration-500" id="easter-egg-content">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-coral/20 flex items-center justify-center">
+                    <span class="text-4xl text-coral">✦</span>
+                </div>
+                <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-4">You found it</span>
+                <h2 class="font-display text-4xl md:text-5xl text-white">The Real Map</h2>
+            </div>
+            <div class="vintage-card p-8 mb-8">
+                <p class="font-display text-xl text-ink/90 leading-relaxed mb-6 italic">
+                    "Every methodology is autobiography in disguise."
+                </p>
+                <p class="text-inkLight leading-relaxed mb-6">
+                    Briefs Studio started because I couldn't hear my own voice. Sleepy Planet started because I kept dreaming the same landscapes. 
+                    Both practices emerged from trying to understand my own patterns — and discovering that the tools I built for myself worked for others.
+                </p>
+                <div class="border-t border-ink/10 pt-6">
+                    <p class="font-hand text-2xl text-coral">This page is its own story map.</p>
+                    <p class="text-inkFaint text-sm mt-2">
+                        Entry → Recognition → Evidence → Experience → Philosophy → Living Work → Invitation.<br>
+                        That's the methodology. You just walked through it.
+                    </p>
+                </div>
+            </div>
+            <div class="text-center">
+                <button onclick="closeEasterEgg()" class="px-8 py-3 border border-white/30 text-white font-mono text-sm uppercase tracking-wider rounded hover:bg-white/10 transition-colors">
+                    Return to the Surface
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Triple-Click Easter Egg -->
+    <div id="triple-click-egg" class="fixed inset-0 z-[110] hidden items-center justify-center bg-cream">
+        <div class="max-w-lg mx-4 text-center transform scale-95 opacity-0 transition-all duration-500" id="triple-click-content">
+            <div class="text-6xl text-coral mb-8">☉</div>
+            <p class="font-display text-3xl text-ink mb-4">You're paying attention.</p>
+            <p class="text-inkLight mb-8">That's the first step in any transformation — noticing what others miss.</p>
+            <p class="font-mono text-xs text-inkFaint mb-8">There are more secrets hidden in this page. Keep exploring.</p>
+            <button onclick="closeTripleClick()" class="px-6 py-3 bg-ink text-white font-mono text-sm uppercase tracking-wider rounded hover:bg-inkLight transition-colors">
+                Continue
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- JAVASCRIPT -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <script>
+        // ============================================
+        // SCROLL TO ENTRY ON LOAD (Hide the above section)
+        // ============================================
+        window.addEventListener('load', () => {
+            // Instant scroll to entry section on load
+            const entrySection = document.getElementById('entry');
+            if (entrySection) {
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: entrySection.offsetTop,
+                        behavior: 'instant'
+                    });
+                }, 50);
+            }
+        });
+        
+        // ============================================
+        // SCROLL UP TRIGGER (MRM logo reveals hidden section)
+        // ============================================
+        const scrollUpTrigger = document.getElementById('scroll-up-trigger');
+        const scrollDownTrigger = document.getElementById('scroll-down-trigger');
+        const hiddenSection = document.getElementById('hidden-above');
+        
+        scrollUpTrigger.addEventListener('click', () => {
+            hiddenSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Track easter egg discovery
+            incrementEggsFound();
+        });
+        
+        scrollDownTrigger.addEventListener('click', () => {
+            document.getElementById('entry').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        
+        // Easter egg counter
+        let eggsFound = parseInt(localStorage.getItem('mrm-eggs') || '0');
+        document.getElementById('eggs-found').textContent = eggsFound;
+        
+        function incrementEggsFound() {
+            if (!localStorage.getItem('mrm-hidden-found')) {
+                eggsFound++;
+                localStorage.setItem('mrm-eggs', eggsFound);
+                localStorage.setItem('mrm-hidden-found', 'true');
+                document.getElementById('eggs-found').textContent = eggsFound;
+            }
+        }
+        
+        // ============================================
+        // VISITOR DATA
+        // ============================================
+        const visitorData = {
+            name: '',
+            choice: '',
+            sprint: { building: '', audience: '', stakes: '' },
+            landscape: { edge: '', distance: '', between: '' }
+        };
+        
+        // ============================================
+        // MENU TOGGLE (User Controlled)
+        // ============================================
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        let menuOpen = false;
+        
+        menuToggle.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            menuToggle.classList.toggle('active', menuOpen);
+            navMenu.classList.toggle('hidden', !menuOpen);
+        });
+        
+        // Close menu when clicking a link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuOpen = false;
+                menuToggle.classList.remove('active');
+                navMenu.classList.add('hidden');
+            });
+        });
+        
+        // ============================================
+        // FADE IN ON SCROLL
+        // ============================================
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+        
+        // ============================================
+        // NAME INPUT → FORM
+        // ============================================
+        const nameInput = document.getElementById('visitor-name');
+        const formName = document.getElementById('form-name');
+        
+        nameInput.addEventListener('input', (e) => {
+            visitorData.name = e.target.value;
+            formName.innerHTML = e.target.value.trim() 
+                ? e.target.value 
+                : '<span class="text-inkFaint italic">Your name will appear here</span>';
+        });
+        
+        // ============================================
+        // CHOICE SELECTION
+        // ============================================
+        const formInterest = document.getElementById('form-interest');
+        const choiceResponse = document.getElementById('choice-response');
+        
+        const choiceTexts = {
+            organizational: 'Organizational clarity — Briefs Studio',
+            personal: 'Personal insight — Sleepy Planet',
+            both: 'Both practices'
+        };
+        
+        const responseTexts = {
+            organizational: 'The sprint simulator below is for you ↓',
+            personal: 'Try the landscape creator below ↓',
+            both: 'Explore both tools below ↓'
+        };
+        
+        function setChoice(choice, btn) {
+            visitorData.choice = choice;
+            document.querySelectorAll('.choice-btn').forEach(b => {
+                b.style.opacity = b === btn ? '1' : '0.5';
+            });
+            formInterest.textContent = choiceTexts[choice];
+            choiceResponse.textContent = responseTexts[choice];
+            choiceResponse.classList.remove('opacity-0');
+        }
+        
+        // ============================================
+        // SPRINT SIMULATOR
+        // ============================================
+        const sprintQ1 = document.getElementById('sprint-q1');
+        const sprintQ2 = document.getElementById('sprint-q2');
+        const sprintQ3 = document.getElementById('sprint-q3');
+        const mapPlaceholder = document.getElementById('map-placeholder');
+        const mapNodes = document.getElementById('map-nodes');
+        const formSprintSection = document.getElementById('form-sprint-section');
+        const formSprint = document.getElementById('form-sprint');
+        
+        function updateSprintMap() {
+            const q1 = sprintQ1.value.trim();
+            const q2 = sprintQ2.value.trim();
+            const q3 = sprintQ3.value.trim();
+            
+            visitorData.sprint = { building: q1, audience: q2, stakes: q3 };
+            
+            if (q1 || q2 || q3) {
+                mapPlaceholder.classList.add('hidden');
+                mapNodes.classList.remove('hidden');
+                mapNodes.classList.add('flex');
+                
+                let html = '';
+                if (q1) html += `<div class="map-node px-3 py-2 border-coral text-sm"><span class="text-coral font-bold">WHAT:</span> ${q1.substring(0, 20)}${q1.length > 20 ? '...' : ''}</div>`;
+                if (q1 && q2) html += `<span class="text-gold mx-2">→</span>`;
+                if (q2) html += `<div class="map-node px-3 py-2 border-teal text-sm"><span class="text-teal font-bold">WHO:</span> ${q2.substring(0, 20)}${q2.length > 20 ? '...' : ''}</div>`;
+                if (q2 && q3) html += `<span class="text-gold mx-2">→</span>`;
+                if (q3) html += `<div class="map-node px-3 py-2 border-ink text-sm"><span class="font-bold">STAKES:</span> ${q3.substring(0, 20)}${q3.length > 20 ? '...' : ''}</div>`;
+                
+                mapNodes.innerHTML = html;
+                
+                formSprintSection.classList.remove('hidden');
+                formSprint.textContent = `${q1 || '...'} → ${q2 || '...'} → ${q3 || '...'}`;
+            } else {
+                mapPlaceholder.classList.remove('hidden');
+                mapNodes.classList.add('hidden');
+                formSprintSection.classList.add('hidden');
+            }
+        }
+        
+        [sprintQ1, sprintQ2, sprintQ3].forEach(input => input.addEventListener('input', updateSprintMap));
+        
+        // ============================================
+        // LANDSCAPE CREATOR
+        // ============================================
+        const landQ1 = document.getElementById('land-q1');
+        const landQ2 = document.getElementById('land-q2');
+        const landQ3 = document.getElementById('land-q3');
+        const landscapePlaceholder = document.getElementById('landscape-placeholder');
+        const landscapeDescription = document.getElementById('landscape-description');
+        const formLandscapeSection = document.getElementById('form-landscape-section');
+        const formLandscape = document.getElementById('form-landscape');
+        
+        function updateLandscape() {
+            const q1 = landQ1.value.trim();
+            const q2 = landQ2.value.trim();
+            const q3 = landQ3.value.trim();
+            
+            visitorData.landscape = { edge: q1, distance: q2, between: q3 };
+            
+            if (q1 || q2 || q3) {
+                landscapePlaceholder.classList.add('hidden');
+                landscapeDescription.classList.remove('hidden');
+                
+                let text = 'You stand at the edge of ';
+                text += q1 ? `a ${q1}` : '...';
+                text += '. ';
+                if (q2) text += `In the distance, ${q2} waits. `;
+                if (q3) text += `Between you and it: ${q3}.`;
+                
+                landscapeDescription.textContent = text;
+                
+                formLandscapeSection.classList.remove('hidden');
+                formLandscape.textContent = text;
+            } else {
+                landscapePlaceholder.classList.remove('hidden');
+                landscapeDescription.classList.add('hidden');
+                formLandscapeSection.classList.add('hidden');
+            }
+        }
+        
+        [landQ1, landQ2, landQ3].forEach(input => input.addEventListener('input', updateLandscape));
+        
+        // ============================================
+        // MODALS
+        // ============================================
+        function openStrangersModal() {
+            const modal = document.getElementById('strangers-modal');
+            const content = document.getElementById('strangers-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 50);
+        }
+        
+        function closeStrangersModal() {
+            const modal = document.getElementById('strangers-modal');
+            const content = document.getElementById('strangers-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+        
+        document.getElementById('strangers-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'strangers-modal') closeStrangersModal();
+        });
+        
+        // ============================================
+        // KONAMI CODE
+        // ============================================
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+        let konamiIndex = 0;
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.code === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    showEasterEgg();
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+        
+        document.getElementById('secret-glyph').addEventListener('click', showEasterEgg);
+        
+        function showEasterEgg() {
+            const modal = document.getElementById('easter-egg-modal');
+            const content = document.getElementById('easter-egg-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 50);
+            // Track easter egg
+            if (!localStorage.getItem('mrm-konami-found')) {
+                eggsFound++;
+                localStorage.setItem('mrm-eggs', eggsFound);
+                localStorage.setItem('mrm-konami-found', 'true');
+                document.getElementById('eggs-found').textContent = eggsFound;
+            }
+        }
+        
+        function closeEasterEgg() {
+            const modal = document.getElementById('easter-egg-modal');
+            const content = document.getElementById('easter-egg-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 500);
+        }
+        
+        document.getElementById('easter-egg-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'easter-egg-modal') closeEasterEgg();
+        });
+        
+        // ============================================
+        // TRIPLE-CLICK EASTER EGG
+        // ============================================
+        let clickCount = 0;
+        let clickTimer;
+        
+        document.getElementById('footer-mrm').addEventListener('click', () => {
+            clickCount++;
+            clearTimeout(clickTimer);
+            if (clickCount === 3) {
+                showTripleClick();
+                clickCount = 0;
+            } else {
+                clickTimer = setTimeout(() => clickCount = 0, 500);
+            }
+        });
+        
+        function showTripleClick() {
+            const modal = document.getElementById('triple-click-egg');
+            const content = document.getElementById('triple-click-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 50);
+            // Track easter egg
+            if (!localStorage.getItem('mrm-triple-found')) {
+                eggsFound++;
+                localStorage.setItem('mrm-eggs', eggsFound);
+                localStorage.setItem('mrm-triple-found', 'true');
+                document.getElementById('eggs-found').textContent = eggsFound;
+            }
+        }
+        
+        function closeTripleClick() {
+            const modal = document.getElementById('triple-click-egg');
+            const content = document.getElementById('triple-click-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+        
+        // ============================================
+        // ESCAPE KEY
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeEasterEgg();
+                closeStrangersModal();
+                closeTripleClick();
+            }
+        });
+        
+        // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+
+</body>
+</html>

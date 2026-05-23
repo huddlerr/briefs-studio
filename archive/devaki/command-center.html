@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steward_Control // Operation Babylift Collection</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Special+Elite&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        archiveNavy: '#1B365D',
+                        archiveOrange: '#FF7F32',
+                        archiveRed: '#BC4749',
+                        archiveInk: '#2B2D42',
+                        folderTan: '#E7D8B1',
+                        manila: '#F2E8CF',
+                    },
+                    fontFamily: {
+                        stamp: ['Bebas Neue', 'cursive'],
+                        mono: ['Space Mono', 'monospace'],
+                        body: ['Inter', 'sans-serif'],
+                        typewriter: ['Special Elite', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            background-color: #0F172A; /* Deeper navy for a more premium control feel */
+            color: #E2E8F0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 50%, rgba(27, 54, 93, 0.4) 0%, transparent 100%);
+        }
+        
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .archive-card {
+            background: #F2E8CF;
+            color: #2B2D42;
+            box-shadow: 5px 5px 0px #BC4749;
+            transform: rotate(-0.5deg);
+        }
+
+        .sidebar-item {
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .sidebar-item.active {
+            background: rgba(255, 127, 50, 0.1);
+            border-left-color: #FF7F32;
+            color: #FF7F32;
+        }
+
+        .progress-track {
+            height: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF7F32, #BC4749);
+            border-radius: 99px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(8px);
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .modal-active { display: flex !important; }
+
+        .btn-primary {
+            background: #FF7F32;
+            color: white;
+            font-family: 'Space Mono', monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            box-shadow: 0 4px 14px 0 rgba(255, 127, 50, 0.39);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 127, 50, 0.23);
+            background: white;
+            color: #FF7F32;
+        }
+
+        .edit-tag {
+            font-size: 9px;
+            color: #FF7F32;
+            opacity: 0.4;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .edit-tag:hover { opacity: 1; text-decoration: underline; }
+
+        .pitch-mode .edit-tag, .pitch-mode .edit-control { display: none !important; }
+
+        input, textarea {
+            background: #1E293B;
+            border: 1px solid #334155;
+            color: #F8FAFC;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-family: 'Space Mono', monospace;
+        }
+        input:focus { outline: 2px solid #FF7F32; border-color: transparent; }
+
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .status-pulse { animation: pulse-soft 2s infinite; }
+    </style>
+</head>
+<body id="cmd-body" class="antialiased min-h-screen">
+
+    <!-- HUD / INITIALIZE -->
+    <div id="tutorial-hud" class="modal-overlay modal-active">
+        <div class="max-w-xl w-full glass-panel p-12 border-t-4 border-archiveOrange rounded-xl text-center">
+            <div class="mb-8 inline-block p-4 rounded-full bg-archiveOrange/10">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FF7F32" stroke-width="1.5">
+                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+            </div>
+            <h2 class="font-stamp text-5xl tracking-widest text-white mb-4 uppercase">Steward Control</h2>
+            <p class="font-mono text-xs text-slate-400 mb-8 leading-relaxed">
+                Welcome, Devaki. This is your living operations dashboard.<br>
+                All data is encrypted and stored locally in your browser.
+            </p>
+            <button onclick="closeTutorial()" class="btn-primary px-10 py-4 rounded-full text-xs">Initialize System</button>
+        </div>
+    </div>
+
+    <!-- MODAL ENGINE -->
+    <div id="edit-modal" class="modal-overlay">
+        <div class="max-w-2xl w-full glass-panel p-10 border-archiveOrange border rounded-2xl">
+            <div class="flex justify-between items-center mb-10">
+                <h3 id="modal-title" class="font-stamp text-3xl tracking-wide text-archiveOrange">System Configuration</h3>
+                <button onclick="closeModal()" class="text-slate-500 hover:text-white text-2xl">×</button>
+            </div>
+            <div id="modal-content" class="space-y-6"></div>
+            <div class="mt-12 flex justify-end gap-6 pt-6 border-t border-white/5">
+                <button onclick="closeModal()" class="font-mono text-[10px] uppercase opacity-40 hover:opacity-100 transition-opacity">Cancel</button>
+                <button id="save-btn" class="btn-primary px-8 py-3 rounded-lg text-[10px]">Commit Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        
+        <!-- SIDEBAR -->
+        <aside class="w-full lg:w-72 border-r border-white/5 flex flex-col glass-panel z-50">
+            <div class="p-8 border-b border-white/5">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-2 h-2 rounded-full bg-emerald-400 status-pulse"></div>
+                    <span class="font-mono text-[9px] uppercase tracking-[0.3em] opacity-40">System Active</span>
+                </div>
+                <h1 class="font-stamp text-3xl tracking-tighter">BABYLIFT <span class="text-archiveOrange">OPS</span></h1>
+            </div>
+
+            <nav class="flex-1 py-8 overflow-y-auto">
+                <div class="px-8 mb-6 font-mono text-[10px] uppercase tracking-widest opacity-20">Navigation</div>
+                <a href="index.html" class="sidebar-item block px-8 py-4 text-sm font-medium hover:bg-white/5 transition-all">Brief Narrative</a>
+                <a href="full.html" class="sidebar-item block px-8 py-4 text-sm font-medium hover:bg-white/5 transition-all">Source Archive</a>
+                <a href="slides.html" class="sidebar-item block px-8 py-4 text-sm font-medium hover:bg-white/5 transition-all">Presentation Deck</a>
+                
+                <div class="px-8 mt-12 mb-6 font-mono text-[10px] uppercase tracking-widest opacity-20">System Tools</div>
+                <button onclick="togglePitchMode()" id="pitch-toggle" class="sidebar-item w-full text-left block px-8 py-4 text-sm font-medium hover:bg-white/5 transition-all">
+                    Pitch Mode: OFF
+                </button>
+                <button onclick="copyProjectState()" class="sidebar-item w-full text-left block px-8 py-4 text-sm font-medium hover:bg-white/5 transition-all">
+                    Export Archive JSON
+                </button>
+                <button onclick="exportState()" class="sidebar-item w-full text-left block px-8 py-4 text-sm font-medium hover:bg-white/5 transition-all">
+                    Create Backup File
+                </button>
+            </nav>
+
+            <div class="p-8 border-t border-white/5 bg-black/20">
+                <div class="font-mono text-[9px] space-y-3 opacity-40">
+                    <div class="flex justify-between"><span>DB_TYPE:</span><span>LOCAL</span></div>
+                    <div class="flex justify-between"><span>SAVE_TIME:</span><span id="last-save">--:--:--</span></div>
+                    <div class="flex justify-between"><span>OPERATOR:</span><span>DEVAKI_M</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 p-6 lg:p-12 max-w-7xl mx-auto w-full">
+            
+            <!-- HERO SECTION -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                
+                <!-- FUNDING MONITOR -->
+                <div class="lg:col-span-2 glass-panel p-10 rounded-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4">
+                        <span class="edit-tag" onclick="editFunding()">[RECALIBRATE]</span>
+                    </div>
+                    <h3 class="font-mono text-[11px] uppercase tracking-[0.4em] opacity-40 mb-8">Financial Recovery Pipeline</h3>
+                    <div class="flex items-baseline gap-6 mb-8">
+                        <span id="raised-amount" class="font-stamp text-8xl text-white tracking-wider">$21,500</span>
+                        <span class="font-mono text-lg opacity-20">/ <span id="goal-amount">$105,000</span></span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between font-mono text-[10px] tracking-widest">
+                            <span class="opacity-40">PROGRESSION_BAR</span>
+                            <span id="percent-raised" class="text-archiveOrange font-bold">20.4%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div id="funding-bar" class="progress-fill w-[20.4%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK STATS -->
+                <div class="glass-panel p-10 rounded-2xl flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-mono text-[11px] uppercase tracking-[0.4em] opacity-40">Ops Inventory</h3>
+                        <span class="edit-tag" onclick="editInventory()">[ADJUST]</span>
+                    </div>
+                    <div class="space-y-8">
+                        <div>
+                            <div class="flex justify-between text-[11px] mb-3 font-mono">
+                                <span class="opacity-40">PROCESSED</span>
+                                <span id="processed-percent" class="text-archiveOrange">18%</span>
+                            </div>
+                            <div class="progress-track h-1"><div id="processed-bar" class="progress-fill w-[18%]"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[11px] mb-3 font-mono">
+                                <span class="opacity-40">DIGITIZED</span>
+                                <span id="digitized-percent" class="text-emerald-400">12%</span>
+                            </div>
+                            <div class="progress-track h-1"><div id="digitized-bar" class="progress-fill w-[12%] !bg-emerald-400"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                
+                <!-- FIELD LOG (MAGIC TRACKER) -->
+                <div class="lg:col-span-4 space-y-8">
+                    <div class="archive-card p-10 rounded-lg relative">
+                        <div class="absolute top-0 right-0 p-4">
+                            <button onclick="addMagic()" class="edit-control font-stamp text-2xl text-archiveRed hover:scale-110 transition-transform">+</button>
+                        </div>
+                        <h3 class="font-stamp text-4xl italic mb-8 border-b border-archiveInk/10 pb-4">Field Log</h3>
+                        <div id="magic-list" class="font-typewriter text-sm space-y-8 leading-relaxed">
+                            <!-- Dynamic Magic -->
+                        </div>
+                        <div class="mt-12 pt-6 border-t border-archiveInk/10 opacity-40 font-mono text-[9px] uppercase tracking-widest">
+                            Note: These anomalies represent project momentum.
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-8 rounded-2xl border-l-4 border-archiveOrange">
+                        <div class="flex justify-between items-start mb-6">
+                            <h3 class="font-mono text-[11px] uppercase tracking-widest opacity-40">Delivery Queue</h3>
+                            <span class="edit-tag" onclick="editPipeline()">[EDIT]</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center py-2 border-b border-white/5">
+                                <span class="text-xs opacity-60">Adoptee Prep</span>
+                                <span id="queue-count" class="font-mono font-bold text-archiveOrange">12</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-xs opacity-60">Delivered</span>
+                                <span id="delivered-count" class="font-mono font-bold text-emerald-400">30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- THE WORKBENCH (AI LAB) -->
+                <div class="lg:col-span-8 space-y-8">
+                    <div class="glass-panel p-10 rounded-2xl min-h-[500px] flex flex-col">
+                        <div class="flex justify-between items-center mb-10 pb-6 border-b border-white/5">
+                            <div>
+                                <h3 class="font-stamp text-4xl text-archiveOrange tracking-wider uppercase">Laboratory Workbench</h3>
+                                <p class="font-mono text-[10px] opacity-20 mt-1 uppercase tracking-[0.2em]">Injected Modules from Claude // Real-time Integration</p>
+                            </div>
+                            <button onclick="injectModule()" class="edit-control btn-primary px-6 py-2 rounded-full text-[9px]">Add Component +</button>
+                        </div>
+                        
+                        <div id="injected-modules" class="flex-1 space-y-12">
+                            <!-- Dynamic Modules -->
+                            <div class="h-64 flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-xl opacity-20">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="mb-4">
+                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                                </svg>
+                                <span class="font-mono text-xs tracking-widest">Awaiting AI Module Injection</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER STATUS -->
+    <footer class="lg:ml-72 p-12 border-t border-white/5 text-center opacity-10 font-mono text-[10px] uppercase tracking-[0.8em]">
+        Babylift_Ops_Protocol // Version_3.0_Steward_Redesign
+    </footer>
+
+    <script>
+        // CORE STATE
+        let state = {
+            hasSeenTutorial: false,
+            pitchMode: false,
+            funding: { raised: 21500, goal: 105000 },
+            inventory: { processed: 18, digitized: 12 },
+            pipeline: { queue: 12, delivered: 30 },
+            magic: [
+                "Wrong door at Library of Congress leads to Whitman's back rooms.",
+                "Found Maui High classmate in Denver gallery after 30 years."
+            ],
+            modules: []
+        };
+
+        // INITIALIZE
+        function loadState() {
+            const saved = localStorage.getItem('babylift_state_v3');
+            if (saved) {
+                state = JSON.parse(saved);
+            }
+            
+            const hud = document.getElementById('tutorial-hud');
+            if (state.hasSeenTutorial) {
+                hud.classList.remove('modal-active');
+                hud.style.display = 'none';
+            } else {
+                hud.classList.add('modal-active');
+            }
+            renderUI();
+        }
+
+        function saveState() {
+            localStorage.setItem('babylift_state_v3', JSON.stringify(state));
+            document.getElementById('last-save').innerText = new Date().toLocaleTimeString();
+            renderUI();
+        }
+
+        function renderUI() {
+            // Funding
+            document.getElementById('raised-amount').innerText = `$${state.funding.raised.toLocaleString()}`;
+            document.getElementById('goal-amount').innerText = `$${state.funding.goal.toLocaleString()}`;
+            const fPercent = ((state.funding.raised / state.funding.goal) * 100).toFixed(1);
+            document.getElementById('percent-raised').innerText = `${fPercent}%`;
+            document.getElementById('funding-bar').style.width = `${fPercent}%`;
+
+            // Inventory
+            document.getElementById('processed-percent').innerText = `${state.inventory.processed}%`;
+            document.getElementById('processed-bar').style.width = `${state.inventory.processed}%`;
+            document.getElementById('digitized-percent').innerText = `${state.inventory.digitized}%`;
+            document.getElementById('digitized-bar').style.width = `${state.inventory.digitized}%`;
+
+            // Pipeline
+            document.getElementById('queue-count').innerText = state.pipeline.queue;
+            document.getElementById('delivered-count').innerText = state.pipeline.delivered;
+
+            // Magic
+            const mList = document.getElementById('magic-list');
+            mList.innerHTML = state.magic.length ? state.magic.map((m, i) => `
+                <div class="group relative pr-8 border-b border-archiveInk/5 pb-6 last:border-0">
+                    <p>"${m}"</p>
+                    <button onclick="removeMagic(${i})" class="edit-control absolute top-0 right-0 text-archiveRed opacity-0 group-hover:opacity-100 transition-all font-mono text-[9px] font-bold">PURGE</button>
+                </div>
+            `).join('') : '<p class="opacity-30">No field observations logged.</p>';
+
+            // Modules
+            const modContainer = document.getElementById('injected-modules');
+            if (state.modules.length > 0) {
+                modContainer.innerHTML = state.modules.map((mod, i) => `
+                    <div class="relative group glass-panel p-8 rounded-xl border-t-2 border-archiveOrange/30">
+                        <div class="absolute -top-3 -right-3 edit-control opacity-0 group-hover:opacity-100 transition-all">
+                            <button onclick="removeModule(${i})" class="bg-archiveRed text-white text-[8px] px-3 py-1 rounded-full font-bold uppercase tracking-widest shadow-xl">Purge Module</button>
+                        </div>
+                        ${mod}
+                    </div>
+                `).join('');
+            }
+
+            // Pitch Mode
+            document.body.className = state.pitchMode ? 'antialiased min-h-screen pitch-mode' : 'antialiased min-h-screen';
+            document.getElementById('pitch-toggle').innerText = `Pitch Mode: ${state.pitchMode ? 'ON' : 'OFF'}`;
+            document.getElementById('pitch-toggle').className = state.pitchMode 
+                ? 'sidebar-item w-full text-left block px-8 py-4 text-sm font-medium bg-archiveOrange/10 border-l-archiveOrange text-archiveOrange' 
+                : 'sidebar-item w-full text-left block px-8 py-4 text-sm font-medium hover:bg-white/5 transition-all';
+        }
+
+        // ACTIONS
+        function closeModal() { document.getElementById('edit-modal').classList.remove('modal-active'); }
+        function closeTutorial() { 
+            state.hasSeenTutorial = true; 
+            document.getElementById('tutorial-hud').classList.remove('modal-active');
+            document.getElementById('tutorial-hud').style.display = 'none';
+            saveState(); 
+        }
+        function togglePitchMode() { state.pitchMode = !state.pitchMode; saveState(); }
+
+        function editFunding() {
+            const modal = document.getElementById('edit-modal');
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <label class="font-mono text-[10px] uppercase opacity-40 block">Current Funds Committed ($)</label>
+                    <input type="number" id="in-raised" class="w-full" value="${state.funding.raised}">
+                </div>
+                <div class="space-y-4">
+                    <label class="font-mono text-[10px] uppercase opacity-40 block">Total Pipeline Goal ($)</label>
+                    <input type="number" id="in-goal" class="w-full" value="${state.funding.goal}">
+                </div>
+            `;
+            document.getElementById('save-btn').onclick = () => {
+                state.funding.raised = parseInt(document.getElementById('in-raised').value) || 0;
+                state.funding.goal = parseInt(document.getElementById('in-goal').value) || 1;
+                saveState(); closeModal();
+            };
+            modal.classList.add('modal-active');
+        }
+
+        function editInventory() {
+            const modal = document.getElementById('edit-modal');
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <label class="font-mono text-[10px] uppercase opacity-40 block">Archive Processed (${state.inventory.processed}%)</label>
+                    <input type="range" id="in-proc" class="w-full accent-archiveOrange" min="0" max="100" value="${state.inventory.processed}" oninput="this.previousElementSibling.innerText = 'Archive Processed (' + this.value + '%)'">
+                </div>
+                <div class="space-y-4">
+                    <label class="font-mono text-[10px] uppercase opacity-40 block">Digitization Pipeline (${state.inventory.digitized}%)</label>
+                    <input type="range" id="in-digi" class="w-full accent-emerald-400" min="0" max="100" value="${state.inventory.digitized}" oninput="this.previousElementSibling.innerText = 'Digitization Pipeline (' + this.value + '%)'">
+                </div>
+            `;
+            document.getElementById('save-btn').onclick = () => {
+                state.inventory.processed = parseInt(document.getElementById('in-proc').value);
+                state.inventory.digitized = parseInt(document.getElementById('in-digi').value);
+                saveState(); closeModal();
+            };
+            modal.classList.add('modal-active');
+        }
+
+        function editPipeline() {
+            const modal = document.getElementById('edit-modal');
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <label class="font-mono text-[10px] uppercase opacity-40 block">Pending Queue</label>
+                    <input type="number" id="in-queue" class="w-full" value="${state.pipeline.queue}">
+                </div>
+                <div class="space-y-4">
+                    <label class="font-mono text-[10px] uppercase opacity-40 block">Total Records Delivered</label>
+                    <input type="number" id="in-deliv" class="w-full" value="${state.pipeline.delivered}">
+                </div>
+            `;
+            document.getElementById('save-btn').onclick = () => {
+                state.pipeline.queue = parseInt(document.getElementById('in-queue').value) || 0;
+                state.pipeline.delivered = parseInt(document.getElementById('in-deliv').value) || 0;
+                saveState(); closeModal();
+            };
+            modal.classList.add('modal-active');
+        }
+
+        function addMagic() {
+            const modal = document.getElementById('edit-modal');
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <label class="font-mono text-[10px] uppercase opacity-40 block">Observation Log</label>
+                    <textarea id="in-magic" class="w-full h-32" placeholder="Record the anomaly..."></textarea>
+                </div>
+            `;
+            document.getElementById('save-btn').onclick = () => {
+                const val = document.getElementById('in-magic').value;
+                if (val) { state.magic.push(val); saveState(); }
+                closeModal();
+            };
+            modal.classList.add('modal-active');
+        }
+        function removeMagic(i) { state.magic.splice(i, 1); saveState(); }
+
+        function injectModule() {
+            const modal = document.getElementById('edit-modal');
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <label class="font-mono text-[10px] uppercase opacity-40 block">Raw Injection Code (HTML/CSS)</label>
+                    <textarea id="in-module" class="w-full h-64 font-mono text-[10px]" placeholder="<div class='bg-white p-10'>...</div>"></textarea>
+                </div>
+            `;
+            document.getElementById('save-btn').onclick = () => {
+                const val = document.getElementById('in-module').value;
+                if (val) { state.modules.push(val); saveState(); }
+                closeModal();
+            };
+            modal.classList.add('modal-active');
+        }
+        function removeModule(i) { state.modules.splice(i, 1); saveState(); }
+
+        function copyProjectState() {
+            const json = JSON.stringify(state, null, 2);
+            navigator.clipboard.writeText(json).then(() => {
+                alert("ARCHIVE_STATE COPIED.\nForward this to the development team.");
+            });
+        }
+
+        function exportState() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
+            const dl = document.createElement('a');
+            dl.setAttribute("href", dataStr);
+            dl.setAttribute("download", `steward_backup_${new Date().toISOString().slice(0,10)}.json`);
+            dl.click();
+        }
+
+        loadState();
+    </script>
+</body>
+</html>

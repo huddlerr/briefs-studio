@@ -1,0 +1,54 @@
+[[redirects]]
+  from = "/josh-bryan/*"
+  to = "/active/josh-bryan/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/mycelium/*"
+  to = "/active/mycelium/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/greg-brandon/*"
+  to = "/active/greg-brandon/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/saic/*"
+  to = "/active/saic/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/susan-malandrino/*"
+  to = "/active/susan-malandrino/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/occwi/*"
+  to = "/active/occwi/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/christopher-liechty/*"
+  to = "/active/christopher-liechty/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/nate-galbreath/*"
+  to = "/archive/nate-galbreath/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/deloitte/*"
+  to = "/archive/deloitte/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/faizan-ahmed/*"
+  to = "/archive/faizan-ahmed/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/MRM/*"
+  to = "/internal/MRM/:splat"
+  status = 301

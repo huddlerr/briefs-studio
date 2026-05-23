@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYCELIUM // The Blueprint — Strategic Infrastructure</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=JetBrains+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#0A0A0A',
+                        moss: '#1A2F23',
+                        biolume: '#4ade80',
+                        forest: '#064e3b',
+                        earth: '#272522',
+                        ghost: '#f8fafc',
+                        infrastructure: '#334155',
+                        topoRed: '#E63946',
+                        topoNavy: '#1D3557',
+                        topoMustard: '#F4A261',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #0A0A0A;
+            --text: #F8FAF2;
+            --accent: #4ade80;
+            --secondary: #1A2F23;
+        }
+
+        ::-selection {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            font-feature-settings: "ss01", "ss02", "cv01";
+        }
+
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .biolume-gradient {
+            background: linear-gradient(135deg, #4ade80 0%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mycelium-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mycelium-card:hover {
+            border-color: rgba(74, 222, 128, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateY(-4px);
+        }
+
+        /* Lenis smooth scroll fix */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        .pulse-line {
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 2rem 0;
+        }
+
+        .reveal-y {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            border-radius: 2px;
+            margin-bottom: 4rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.8) brightness(0.6);
+            transition: transform 10s linear;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.1);
+        }
+
+        .phase-step {
+            position: relative;
+            padding-left: 3rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 4rem;
+        }
+
+        .phase-step::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 9px;
+            height: 9px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .checklist-box {
+            width: 14px;
+            height: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .checklist-item.checked .checklist-box {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .hero-title {
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+        }
+
+        .section-header-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-ghost">
+    <div class="grain-overlay"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav h-20 flex items-center px-6 md:px-12">
+        <div class="max-w-screen-2xl mx-auto w-full flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <span class="font-mono text-[10px] uppercase tracking-[0.4em] font-bold text-biolume">MYCELIUM //
+                    DISTRIBUTED INFRASTRUCTURE</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 font-mono text-[9px] uppercase tracking-widest opacity-40">
+                <a href="#summary" class="hover:text-biolume transition-colors">Summary</a>
+                <a href="#blueprint" class="hover:text-biolume transition-colors">Blueprint</a>
+                <a href="#projections" class="hover:text-biolume transition-colors">Projections</a>
+                <a href="deck.html"
+                    class="hover:text-biolume transition-colors border border-biolume/20 px-4 py-2 hover:bg-biolume/5">Project
+                    Deck</a>
+                <a href="#action" class="hover:text-biolume transition-colors font-bold text-biolume opacity-100">Monday
+                    Morning</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-screen-2xl mx-auto px-6 md:px-12 pt-32 pb-48">
+
+        <!-- HERO SECTION -->
+        <header class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-32 items-end">
+            <div class="lg:col-span-8 overflow-visible">
+                <div class="flex flex-col mb-12">
+                    <span class="font-mono text-[10px] uppercase tracking-[0.5em] text-biolume mb-6 block">PROJECT
+                        BLUEPRINT // 2026.01.09</span>
+                    <h1 class="font-serif text-[clamp(4rem,10vw,8.5rem)] font-light hero-title mb-2">Mycelium</h1>
+                    <h1
+                        class="font-serif text-[clamp(3rem,8vw,6.5rem)] font-normal italic hero-title biolume-gradient pb-4">
+                        Forests, Not Factories.</h1>
+                </div>
+
+                <div class="hero-image-container reveal-y" data-gsap="reveal">
+                    <img src="mycelium_hero_network_1768001389188.png" alt="Mycelium Network" class="hero-image">
+                    <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent"></div>
+
+                    <!-- NEW DECK OVERLAY -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <a href="deck.html"
+                            class="group flex items-center gap-6 bg-obsidian/80 backdrop-blur-xl border border-white/10 p-4 pr-12 hover:border-biolume transition-all">
+                            <div class="w-16 h-16 bg-biolume flex items-center justify-center text-obsidian">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <path d="M7 12l10 0" />
+                                    <path d="M7 8l10 0" />
+                                    <path d="M7 16l6 0" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span
+                                    class="block font-mono text-[10px] uppercase tracking-widest text-biolume mb-1 italic">Presentation
+                                    Mode</span>
+                                <span class="block font-serif text-2xl">Launch Project Deck</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="max-w-3xl">
+                    <p class="font-serif text-3xl md:text-4xl text-ghost/80 italic leading-relaxed mb-12">
+                        "A creative production collective that operates as distributed infrastructure rather than a
+                        traditional agency."
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 border-l border-white/10 pl-8 pb-4 space-y-12">
+                <div class="grid grid-cols-1 gap-8 text-[11px] uppercase tracking-[0.2em] font-mono">
+                    <div>
+                        <span class="block opacity-30 mb-2 italic lowercase text-[10px]">core mechanism</span>
+                        <span class="text-biolume">Multi-Stakeholder Co-Creation</span>
+                    </div>
+                    <div>
+                        <span class="block opacity-30 mb-2 italic lowercase text-[10px]">differentiation</span>
+                        Artist IP Ownership & Agency
+                    </div>
+                    <div>
+                        <span class="block opacity-30 mb-2 italic lowercase text-[10px]">revenue model</span>
+                        Production + Growth % + Licensing
+                    </div>
+                </div>
+
+                <div class="p-8 bg-forest/10 border border-biolume/20 rounded-sm">
+                    <h4 class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-4">The Monday Morning
+                        Push</h4>
+                    <p class="text-xs opacity-60 leading-relaxed mb-6 font-serif italic">The seed doesn't grow if it
+                        stays in the pocket.</p>
+                    <a href="#action"
+                        class="block text-center py-3 border border-biolume text-biolume font-mono text-[10px] uppercase tracking-widest font-bold hover:bg-biolume hover:text-obsidian transition-all">Go
+                        to Command Center</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- PRESENTATION INTEGRATION -->
+        <section class="mb-48 reveal-y" data-gsap="reveal">
+            <div class="flex items-center gap-6 mb-12">
+                <span class="font-mono text-xs text-biolume font-bold">MODE</span>
+                <div class="h-px flex-grow bg-white/10"></div>
+                <span class="font-mono text-[10px] uppercase tracking-[0.4em] opacity-40">Integrated Presentation</span>
+            </div>
+            <div class="aspect-video w-full bg-black border border-white/10 overflow-hidden relative group">
+                <iframe src="deck.html"
+                    class="w-full h-full border-none opacity-50 group-hover:opacity-100 transition-opacity"
+                    loading="lazy"></iframe>
+                <div class="absolute bottom-8 right-8 pointer-events-none group-hover:opacity-0 transition-opacity">
+                    <span
+                        class="font-mono text-[10px] uppercase tracking-widest bg-obsidian px-4 py-2 border border-white/10">Interactive
+                        Preview // Hover to Focus</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="pulse-line" data-gsap="pulse"></div>
+
+        <!-- 01 // EXECUTIVE SUMMARY -->
+        <section id="summary" class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-48 reveal-y" data-gsap="reveal">
+            <div class="lg:col-span-3 flex lg:flex-col justify-between items-baseline lg:items-start text-biolume">
+                <h2 class="font-mono text-[11px] uppercase tracking-[0.4em] font-bold">01 // The Thesis</h2>
+                <span class="lg:hidden font-mono text-[9px] opacity-40">[Executive Summary]</span>
+            </div>
+            <div class="lg:col-span-9">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    <div class="space-y-8">
+                        <p class="font-serif text-4xl leading-tight">
+                            Mycelium is the <span class="italic text-biolume">connective tissue</span> between brands,
+                            artists, and their shared communities.
+                        </p>
+                        <p class="text-ghost/60 leading-relaxed font-sans text-lg">
+                            We've moved past the era of the extraction-based agency. Mycelium operates like the natural
+                            world: projects scale when resources are shared, artists thrive when they retain ownership,
+                            and brands succeed when their impact is authentic.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-8">
+                        <div class="mycelium-card p-10">
+                            <h3 class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-4 italic">
+                                Distributed Growth</h3>
+                            <p class="text-sm opacity-60 leading-relaxed">
+                                Instead of a central office, we scale through "cells"—regional networks of creatives who
+                                adopt the Mycelium methodology while maintaining local autonomy.
+                            </p>
+                        </div>
+                        <div class="mycelium-card p-10">
+                            <h3 class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-4 italic">The IP
+                                Revolution</h3>
+                            <p class="text-sm opacity-60 leading-relaxed">
+                                Artists keep their rights. Mycelium gets distribution. Brands get results. Everyone wins
+                                because ownership isn't zerosum.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 01 // BRAND PORTALS -->
+        <section id="portals" class="mb-48 reveal-y" data-gsap="reveal">
+            <h2 class="font-mono text-[11px] uppercase tracking-[0.4em] font-bold text-biolume mb-12">01 // Brand &
+                Partner Portals</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- SIX IRONS PORTAL -->
+                <a href="six-irons.html"
+                    class="group relative p-12 bg-ruggedBlack border-2 border-white/5 overflow-hidden hover:border-white transition-all duration-500">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-all">
+                    </div>
+                    <span
+                        class="font-mono text-[10px] uppercase tracking-widest text-[#F5F5F5] opacity-40 mb-4 block">The
+                        Home Brand // Origin</span>
+                    <h3 class="font-heading text-4xl font-bold text-[#F5F5F5] mb-4 uppercase tracking-tighter">Six
+                        Irons</h3>
+                    <p class="text-[11px] text-[#F5F5F5]/60 uppercase tracking-[0.2em] font-mono">Rugged Luxury OS</p>
+                    <div class="mt-8 flex items-center gap-2 text-white">
+                        <span class="font-mono text-[9px] uppercase tracking-widest">Entry portal</span>
+                        <span class="text-xl group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </a>
+
+                <!-- TOPO PORTAL -->
+                <a href="topo.html"
+                    class="group relative p-12 bg-topoNavy border-2 border-white/5 overflow-hidden hover:border-topoRed transition-all duration-500">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-topoRed/10 rounded-full blur-3xl group-hover:bg-topoRed/30 transition-all">
+                    </div>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-[#E63946] mb-4 block">Active
+                        Pitch // Priority</span>
+                    <h3 class="font-serif text-4xl font-bold text-[#F1FAEE] mb-4">Topo Designs</h3>
+                    <p class="text-[11px] text-[#F1FAEE]/60 uppercase tracking-[0.2em] font-mono">The New Outdoor
+                        Narrative</p>
+                    <div class="mt-8 flex items-center gap-2 text-topoRed">
+                        <span class="font-mono text-[9px] uppercase tracking-widest">Entry portal</span>
+                        <span class="text-xl group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </a>
+
+                <!-- PATAGONIA PORTAL -->
+                <a href="patagonia.html"
+                    class="group relative p-12 bg-pataBlue border-2 border-white/5 overflow-hidden hover:border-pataOrange transition-all duration-500">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-pataOrange/10 rounded-full blur-3xl group-hover:bg-pataOrange/30 transition-all">
+                    </div>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-[#f37021] mb-4 block">High
+                        Impact // Mission</span>
+                    <h3 class="font-serif text-4xl font-bold text-[#f1ede4] mb-4">Patagonia</h3>
+                    <p class="text-[11px] text-[#f1ede4]/60 uppercase tracking-[0.2em] font-mono">Regenerative
+                        Infrastructure</p>
+                    <div class="mt-8 flex items-center gap-2 text-pataOrange">
+                        <span class="font-mono text-[9px] uppercase tracking-widest">Entry portal</span>
+                        <span class="text-xl group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </a>
+
+                <!-- BLACK DIAMOND PORTAL -->
+                <a href="black-diamond/"
+                    class="group relative p-12 bg-bdBlack border-2 border-white/5 overflow-hidden hover:border-bdGold transition-all duration-500">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-bdGold/5 rounded-full blur-3xl group-hover:bg-bdGold/20 transition-all">
+                    </div>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-bdGold mb-4 block">International
+                        // Expedition</span>
+                    <h3 class="font-serif text-4xl font-bold text-white mb-4 uppercase tracking-tighter">Black Diamond
+                    </h3>
+                    <p class="text-[11px] text-white/60 uppercase tracking-[0.2em] font-mono">Built for the Journey</p>
+                    <div class="mt-8 flex items-center gap-2 text-bdGold">
+                        <span class="font-mono text-[9px] uppercase tracking-widest">Entry portal</span>
+                        <span class="text-xl group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </a>
+
+                <!-- YETI PORTAL -->
+                <a href="yeti/"
+                    class="group relative p-12 bg-yetiWhite border-2 border-white/5 overflow-hidden hover:border-yetiNavy transition-all duration-500">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-yetiNavy/5 rounded-full blur-3xl group-hover:bg-yetiNavy/10 transition-all">
+                    </div>
+                    <span
+                        class="font-mono text-[10px] uppercase tracking-widest text-yetiNavy mb-4 block underline decoration-yetiNavy/30">Field
+                        Test // Reliability</span>
+                    <h3 class="font-serif text-4xl font-bold text-yetiCharcoal mb-4 uppercase tracking-tighter">YETI
+                    </h3>
+                    <p class="text-[11px] text-yetiCharcoal/60 uppercase tracking-[0.2em] font-mono">Built for the Wild
+                    </p>
+                    <div class="mt-8 flex items-center gap-2 text-yetiNavy">
+                        <span class="font-mono text-[9px] uppercase tracking-widest">Entry portal</span>
+                        <span class="text-xl group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </a>
+
+                <!-- AQUATABS PORTAL -->
+                <a href="aquatabs/"
+                    class="group relative p-12 bg-white border-2 border-white/5 overflow-hidden hover:border-aquaBlue transition-all duration-500">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-aquaBlue/5 rounded-full blur-3xl group-hover:bg-aquaBlue/10 transition-all">
+                    </div>
+                    <span
+                        class="font-mono text-[10px] uppercase tracking-widest text-aquaBlue mb-4 block underline decoration-aquaBlue/30">Humanity
+                        x Wildlife // Mission Critical</span>
+                    <h3 class="font-serif text-4xl font-bold text-aquaDeep mb-4 uppercase tracking-tighter">
+                        Aquatabs<span class="text-aquaBlue">®</span></h3>
+                    <p class="text-[11px] text-aquaDeep/60 uppercase tracking-[0.2em] font-mono">Mission-Critical
+                        Purification</p>
+                    <div class="mt-8 flex items-center gap-2 text-aquaBlue">
+                        <span class="font-mono text-[9px] uppercase tracking-widest">Entry portal</span>
+                        <span class="text-xl group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </a>
+
+                <!-- SMALLRIG PORTAL -->
+                <a href="smallrig/"
+                    class="group relative p-12 bg-srDark border-2 border-white/5 overflow-hidden hover:border-srRed transition-all duration-500">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-srRed/5 rounded-full blur-3xl group-hover:bg-srRed/20 transition-all">
+                    </div>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-srRed mb-4 block">Creator
+                        Storytelling // Production</span>
+                    <h3 class="font-serif text-4xl font-bold text-srLight mb-4 uppercase tracking-tighter">SmallRig
+                        <span class="text-srRed">.</span>
+                    </h3>
+                    <p class="text-[11px] text-srLight/60 uppercase tracking-[0.2em] font-mono">Enabling the Story</p>
+                    <div class="mt-8 flex items-center gap-2 text-srRed">
+                        <span class="font-mono text-[9px] uppercase tracking-widest">Entry portal</span>
+                        <span class="text-xl group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </a>
+
+                <!-- MOUNTAIN HOUSE PORTAL -->
+                <a href="mountain-house/"
+                    class="group relative p-12 bg-mhBlue border-2 border-white/5 overflow-hidden hover:border-mhGold transition-all duration-500">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-mhGold/10 rounded-full blur-3xl group-hover:bg-mhGold/20 transition-all">
+                    </div>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-mhGold mb-4 block">Expedition
+                        Heritage // Sustenance</span>
+                    <h3 class="font-serif text-4xl font-bold text-white mb-4 uppercase tracking-tighter">Mountain House
+                    </h3>
+                    <p class="text-[11px] text-white/60 uppercase tracking-[0.2em] font-mono">Adventure Made Delicious
+                    </p>
+                    <div class="mt-8 flex items-center gap-2 text-mhGold">
+                        <span class="font-mono text-[9px] uppercase tracking-widest">Entry portal</span>
+                        <span class="text-xl group-hover:translate-x-2 transition-transform">→</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 02 // THE PHASES -->
+        <section id="blueprint" class="mb-48 reveal-y" data-gsap="reveal">
+            <div class="flex items-baseline justify-between mb-24 border-b border-white/5 pb-8">
+                <h2 class="font-mono text-[11px] uppercase tracking-[0.4em] font-bold text-biolume">02 // Operational
+                    Blueprint</h2>
+                <span class="hidden md:block font-serif italic text-sm opacity-30 tracking-wider">From Foundation to
+                    Global Network</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-4 space-y-12">
+                    <div class="sticky top-32">
+                        <div class="p-8 bg-white/5 border border-white/10">
+                            <h3 class="font-serif text-2xl italic mb-6">"The network doesn't move faster than the trust
+                                it's built on."</h3>
+                            <p class="font-mono text-[9px] uppercase tracking-widest opacity-40 leading-relaxed">
+                                Josh & Mike // Narrative Architecture
+                            </p>
+                        </div>
+
+                        <!-- ROI BOX -->
+                        <div class="mt-8 p-8 border border-biolume/10">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-4 block">Target
+                                Roster</span>
+                            <div class="flex justify-between items-end">
+                                <span class="font-serif text-5xl font-light">20</span>
+                                <span class="font-mono text-[9px] opacity-40 pb-2">Active Artists // Year 3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8">
+                    <!-- PHASE 0 -->
+                    <div class="phase-step">
+                        <div class="flex justify-between items-baseline mb-6">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-biolume">Phase 0 //
+                                Foundation</span>
+                            <span class="font-mono text-[9px] opacity-40 uppercase">Months 0-2</span>
+                        </div>
+                        <h3 class="font-serif text-3xl mb-8">Architecting the Base</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                            <div class="space-y-4">
+                                <h4 class="font-mono text-[10px] uppercase tracking-widest opacity-50 italic">Legal
+                                    Structure</h4>
+                                <ul class="text-sm opacity-70 space-y-2">
+                                    <li>• LLC with unique Operating Agreement</li>
+                                    <li>• Profit-sharing mechanisms</li>
+                                    <li>• Clear IP retention rules for artists</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="font-mono text-[10px] uppercase tracking-widest opacity-50 italic">Financial
+                                    Fuel</h4>
+                                <ul class="text-sm opacity-70 space-y-2">
+                                    <li>• $15K - $25K Startup Capital</li>
+                                    <li>• 3 months operating runway</li>
+                                    <li>• First project production seed</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PHASE 1 -->
+                    <div class="phase-step">
+                        <div class="flex justify-between items-baseline mb-6">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-biolume">Phase 1 // Proof
+                                of Concept</span>
+                            <span class="font-mono text-[9px] opacity-40 uppercase">Months 1-4</span>
+                        </div>
+                        <h3 class="font-serif text-3xl mb-8">The First Spore</h3>
+                        <div class="mycelium-card p-10 mb-12">
+                            <span
+                                class="font-mono text-[10px] uppercase tracking-widest text-biolume block mb-6 px-3 py-1 bg-biolume/10 inline-block">ZAMBIA
+                                WATER PROJECT (Example)</span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-sm">
+                                <div class="space-y-4">
+                                    <h4 class="font-mono text-[10px] uppercase tracking-widest opacity-40">Partnership
+                                    </h4>
+                                    <p class="opacity-70 leading-relaxed">$12K Budget + $3K Product from Topo Designs.
+                                        Result: 15 Social pieces + 1 YouTube mini-doc.</p>
+                                </div>
+                                <div class="space-y-4">
+                                    <h4 class="font-mono text-[10px] uppercase tracking-widest opacity-40">The
+                                        Collective</h4>
+                                    <p class="opacity-70 leading-relaxed">5 Artists (Josh, Photo, Writer, Illustrator,
+                                        Local Artist) split $10K. Everyone keeps IP.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PHASE 2 -->
+                    <div class="phase-step">
+                        <div class="flex justify-between items-baseline mb-6">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-biolume">Phase 2 //
+                                Validation</span>
+                            <span class="font-mono text-[9px] opacity-40 uppercase">Months 4-8</span>
+                        </div>
+                        <h3 class="font-serif text-3xl mb-8">Repeatability & Systems</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                            <div class="p-6 border border-white/5 bg-white/5">
+                                <span class="block font-mono text-[9px] opacity-40 mb-2 uppercase">Systems</span>
+                                <p class="text-[10px] font-bold">Transparent Project Mgmt</p>
+                            </div>
+                            <div class="p-6 border border-white/5 bg-white/5">
+                                <span class="block font-mono text-[9px] opacity-40 mb-2 uppercase">Platform</span>
+                                <p class="text-[10px] font-bold">Project-First Website</p>
+                            </div>
+                            <div class="p-6 border border-white/5 bg-white/5">
+                                <span class="block font-mono text-[9px] opacity-40 mb-2 uppercase">Revenue</span>
+                                <p class="text-[10px] font-bold">Tiered Pricing Model</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PHASE 3 -->
+                    <div class="phase-step">
+                        <div class="flex justify-between items-baseline mb-6">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-biolume">Phase 3 //
+                                Scaling the Network</span>
+                            <span class="font-mono text-[9px] opacity-40 uppercase">Months 9-18</span>
+                        </div>
+                        <h3 class="font-serif text-3xl mb-8">The Methodology Play</h3>
+                        <p class="text-ghost/60 leading-relaxed font-serif text-xl mb-8">
+                            This is where it gets mycelial. Instead of just doing projects, we offer the <span
+                                class="text-biolume italic">Mycelium Starter Kit</span> to other collectives.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 // PROJECTIONS -->
+        <section id="projections" class="mb-48 reveal-y" data-gsap="reveal">
+            <div
+                class="section-header-text absolute left-0 text-biolume font-mono text-[9px] tracking-[0.5em] opacity-20 uppercase hidden lg:block">
+                Financial Intelligence</div>
+            <h2
+                class="font-mono text-[11px] uppercase tracking-[0.4em] font-bold text-biolume mb-24 border-b border-white/5 pb-8">
+                03 // Growth Projection</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="mycelium-card p-10 flex flex-col justify-between min-h-[300px]">
+                    <div>
+                        <span class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-4 block">Year
+                            1</span>
+                        <h3
+                            class="font-serif text-4xl mb-6 font-light underline underline-offset-8 decoration-biolume/30">
+                            $50K - $75K</h3>
+                        <p class="text-xs opacity-50 leading-relaxed font-serif italic">"Prove the model works. Don't
+                            starve."</p>
+                    </div>
+                    <div class="text-[10px] font-mono opacity-40 uppercase mt-8">4-6 Projects // Avg $12K</div>
+                </div>
+
+                <div
+                    class="mycelium-card p-10 flex flex-col justify-between min-h-[300px] bg-biolume/5 border-biolume/20">
+                    <div>
+                        <span class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-4 block">Year
+                            2</span>
+                        <h3
+                            class="font-serif text-4xl mb-6 font-light underline underline-offset-8 decoration-biolume/30">
+                            $180K - $215K</h3>
+                        <p class="text-xs opacity-50 leading-relaxed font-serif italic">"Hire first ops person, pay
+                            founders real salary."</p>
+                    </div>
+                    <div class="text-[10px] font-mono opacity-40 uppercase mt-8">10-12 Projects // Avg $18K</div>
+                </div>
+
+                <div class="mycelium-card p-10 flex flex-col justify-between min-h-[300px]">
+                    <div>
+                        <span class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-4 block">Year
+                            3</span>
+                        <h3
+                            class="font-serif text-4xl mb-6 font-light underline underline-offset-8 decoration-biolume/30">
+                            $375K - $500K</h3>
+                        <p class="text-xs opacity-50 leading-relaxed font-serif italic">"Sustainability. Artist
+                            profit-sharing begins."</p>
+                    </div>
+                    <div class="text-[10px] font-mono opacity-40 uppercase mt-8">15-20 Projects // Avg $25K</div>
+                </div>
+
+                <div class="mycelium-card p-10 flex flex-col justify-between min-h-[300px] border-biolume/10">
+                    <div>
+                        <span class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-4 block">Year
+                            4-5</span>
+                        <h3
+                            class="font-serif text-4xl mb-6 font-light underline underline-offset-8 decoration-biolume/30">
+                            $1M+ Potential</h3>
+                        <p class="text-xs opacity-50 leading-relaxed font-serif italic">"Regional expansion &
+                            Methodology licensing."</p>
+                    </div>
+                    <div class="text-[10px] font-mono opacity-40 uppercase mt-8">30+ Projects // Platform Revenue</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 // RISK MITIGATION -->
+        <section id="risk" class="mb-48 reveal-y" data-gsap="reveal">
+            <h2
+                class="font-mono text-[11px] uppercase tracking-[0.4em] font-bold text-biolume mb-24 border-b border-white/5 pb-8">
+                04 // Risk & Resilience</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-8 border border-white/5 bg-white/2 hover:border-biolume/20 transition-colors">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-4 block italic">Risk:
+                        Founder Burnout</span>
+                    <p class="text-sm opacity-60 leading-relaxed italic font-serif">Mitigation: Delegate producer role
+                        by Month 18. Structured sabbaticals + coaching.</p>
+                </div>
+                <div class="p-8 border border-white/5 bg-white/2 hover:border-biolume/20 transition-colors">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-4 block italic">Risk:
+                        Value Compromise</span>
+                    <p class="text-sm opacity-60 leading-relaxed italic font-serif">Mitigation: Clear Values Doc. Artist
+                        veto power. Willingness to fire misaligned clients.</p>
+                </div>
+                <div class="p-8 border border-white/5 bg-white/2 hover:border-biolume/20 transition-colors">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-4 block italic">Risk:
+                        Copycat Models</span>
+                    <p class="text-sm opacity-60 leading-relaxed italic font-serif">Mitigation: Open-source the
+                        methodology. Compete on execution quality and trust.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 // 90-DAY TACTICAL -->
+        <section id="tactical" class="mb-48 reveal-y" data-gsap="reveal">
+            <h2
+                class="font-mono text-[11px] uppercase tracking-[0.4em] font-bold text-biolume mb-24 border-b border-white/5 pb-8">
+                05 // The 90-Day Sprint</h2>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-px bg-white/5 border border-white/10">
+                <div class="p-8 bg-obsidian">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-4 block">Weeks
+                        1-2</span>
+                    <p class="text-[10px] uppercase font-bold mb-4">Legal & Finance</p>
+                    <ul class="text-[10px] opacity-40 space-y-2 font-mono">
+                        <li>• Form LLC</li>
+                        <li>• Bank Account</li>
+                        <li>• Contract Templates</li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-obsidian">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-4 block">Weeks
+                        3-4</span>
+                    <p class="text-[10px] uppercase font-bold mb-4">Brand Identity</p>
+                    <ul class="text-[10px] opacity-40 space-y-2 font-mono">
+                        <li>• Name/Trademark</li>
+                        <li>• Visual Identity</li>
+                        <li>• Website V1</li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-obsidian">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-4 block">Weeks
+                        5-8</span>
+                    <p class="text-[10px] uppercase font-bold mb-4">The Sales Sprint</p>
+                    <ul class="text-[10px] opacity-40 space-y-2 font-mono">
+                        <li>• Pitch 20 Brands</li>
+                        <li>• 5 Conversations</li>
+                        <li>• Close 1 Partner</li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-obsidian">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-4 block">Weeks
+                        9-10</span>
+                    <p class="text-[10px] uppercase font-bold mb-4">Production Kickoff</p>
+                    <ul class="text-[10px] opacity-40 space-y-2 font-mono">
+                        <li>• Kickoff Meeting</li>
+                        <li>• Team Slack</li>
+                        <li>• First Shoot</li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-obsidian">
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-4 block">Weeks
+                        11-12</span>
+                    <p class="text-[10px] uppercase font-bold mb-4">Delivery & Iterate</p>
+                    <ul class="text-[10px] opacity-40 space-y-2 font-mono">
+                        <li>• Deliver Assets</li>
+                        <li>• Feedback Loop</li>
+                        <li>• Payment Run</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 06 // THE MONDAY COMMAND -->
+        <section id="action" class="reveal-y" data-gsap="reveal">
+            <div class="p-12 lg:p-24 bg-forest border-l-8 border-biolume text-ghost relative overflow-hidden">
+                <div
+                    class="absolute top-0 right-0 w-[500px] h-[500px] bg-biolume/10 blur-[120px] rounded-full pointer-events-none">
+                </div>
+
+                <h2 class="font-mono text-[11px] uppercase tracking-[0.5em] font-bold text-biolume mb-12">0 // COMMAND
+                    CENTER</h2>
+                <h3 class="font-serif text-5xl md:text-7xl font-semibold mb-16 max-w-4xl leading-tight">Monday Morning
+                    Protocol: <span class="italic font-light opacity-60">The Seed Phase.</span></h3>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+                    <div class="space-y-12">
+                        <div class="space-y-8">
+                            <h4 class="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40 text-ghost">Immediate
+                                Checklist</h4>
+                            <div class="space-y-6">
+                                <div class="checklist-item checked">
+                                    <div class="checklist-box"></div>
+                                    <div>
+                                        <p class="font-serif text-xl">Call 3 Core Artists</p>
+                                        <p class="text-xs opacity-40 font-mono italic uppercase mt-1">"I'm starting this
+                                            in 30 days. You in?"</p>
+                                    </div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-box"></div>
+                                    <div>
+                                        <p class="font-serif text-xl">Email 5 Aligned Brands</p>
+                                        <p class="text-xs opacity-40 font-mono italic uppercase mt-1">Pitch the "Oak
+                                            Tree" conversation.</p>
+                                    </div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-box"></div>
+                                    <div>
+                                        <p class="font-serif text-xl">Confirm the Spore Project</p>
+                                        <p class="text-xs opacity-40 font-mono italic uppercase mt-1">Zambia or Dark
+                                            Sky. Build the budget.</p>
+                                    </div>
+                                </div>
+                                <div class="checklist-item">
+                                    <div class="checklist-box"></div>
+                                    <div>
+                                        <p class="font-serif text-xl">Set the Hard Deadline</p>
+                                        <p class="text-xs opacity-40 font-mono italic uppercase mt-1">Announcement date
+                                            locked.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-obsidian/40 p-12 border border-white/5 backdrop-blur-sm">
+                        <span class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-6 block">Strategic
+                            KPI</span>
+                        <h4 class="font-serif text-3xl italic mb-12">"Number of artists making a full-time living
+                            through Mycelium."</h4>
+
+                        <div class="space-y-2">
+                            <span class="font-mono text-[9px] uppercase tracking-widest opacity-30">The North
+                                Star</span>
+                            <div class="w-full h-2 bg-white/5 relative">
+                                <div class="absolute left-0 top-0 h-full bg-biolume w-[5%] shadow-[0_0_10px_#4ade80]">
+                                </div>
+                            </div>
+                            <div class="flex justify-between font-mono text-[9px] uppercase opacity-40">
+                                <span>0</span>
+                                <span>Target: 10</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 pt-12 border-t border-white/10">
+                            <p class="text-sm opacity-60 leading-relaxed italic font-serif">
+                                "Infrastructure is like roads or electricity—it enables creation without dictating
+                                form."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer
+            class="mt-48 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center opacity-40 font-mono text-[9px] uppercase tracking-[0.5em] gap-8">
+            <div class="flex items-center gap-4">
+                <div class="w-2 h-2 bg-biolume rounded-full shadow-[0_0_10px_#4ade80]"></div>
+                <span>MYCELIUM // Briefs Studio Strategic Brief</span>
+            </div>
+            <span>Josh & Mike // The Infrastructure of Creation</span>
+            <span>Est. 2026.01.09</span>
+        </footer>
+
+    </main>
+
+    <!-- EASTER EGG OVERLAY -->
+    <div id="easterEgg"
+        class="fixed inset-0 z-[100] hidden items-center justify-center bg-obsidian/95 backdrop-blur-xl">
+        <div class="text-center p-12 lg:p-24 border border-biolume/20 bg-moss/20">
+            <span class="font-mono text-[10px] uppercase tracking-[0.5em] text-biolume block mb-12">SYSTEM RECOVERY //
+                NEURAL NETWORK SYNC</span>
+            <h2 class="font-serif text-5xl md:text-8xl italic biolume-gradient mb-8 leading-tight">This happens<br>with
+                or without you.</h2>
+            <p class="font-mono text-[10px] text-white/40 uppercase tracking-widest mt-12 mb-12">The model is public.
+                The execution is yours.</p>
+            <div class="w-12 h-px bg-biolume/30 mx-auto mb-12"></div>
+            <button onclick="hideEasterEgg()"
+                class="font-mono text-[9px] uppercase tracking-[0.4em] text-biolume hover:text-white transition-colors">Return
+                to Architecture</button>
+        </div>
+    </div>
+
+    <script>
+        // GSAP Initialization
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Smooth Scrolling with Lenis
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Animations
+        window.addEventListener('load', () => {
+            // Pulse Line Draw
+            gsap.to('[data-gsap="pulse"]', {
+                width: '100%',
+                duration: 3,
+                ease: 'power4.inOut'
+            });
+
+            // Reveal animations
+            gsap.utils.toArray('[data-gsap="reveal"]').forEach(item => {
+                gsap.to(item, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.5,
+                    ease: 'expo.out',
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 85%',
+                    }
+                });
+            });
+        });
+
+        // Easter Egg: Type 'MYCELIUM'
+        let typedBuffer = "";
+        window.addEventListener('keydown', (e) => {
+            typedBuffer += e.key.toUpperCase();
+            if (typedBuffer.length > 8) typedBuffer = typedBuffer.slice(-8);
+            if (typedBuffer === "MYCELIUM") {
+                triggerEasterEgg();
+                typedBuffer = "";
+            }
+        });
+
+        function triggerEasterEgg() {
+            const egg = document.getElementById('easterEgg');
+            egg.style.display = 'flex';
+            gsap.from(egg.querySelector('div'), {
+                opacity: 0,
+                scale: 0.9,
+                y: 50,
+                duration: 1.5,
+                ease: 'expo.out'
+            });
+        }
+
+        function hideEasterEgg() {
+            const egg = document.getElementById('easterEgg');
+            gsap.to(egg, {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => {
+                    egg.style.display = 'none';
+                    egg.style.opacity = 1;
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

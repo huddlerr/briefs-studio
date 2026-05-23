@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYCELIUM x PATAGONIA // Regenerative Deck</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pataBlue: '#003145',
+                        pataOrange: '#f37021',
+                        pataGreen: '#445c3c',
+                        pataTan: '#f1ede4',
+                        pataInk: '#1a1a1a',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Crimson Pro', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #f1ede4;
+            --text: #1a1a1a;
+            --accent: #f37021;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 2;
+        }
+
+        .slide-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            filter: grayscale(100%) brightness(0.4) contrast(1.1);
+            transition: transform 10s linear;
+        }
+
+        .active .slide-bg {
+            transform: scale(1.1);
+        }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent);
+            z-index: 100;
+        }
+
+        .pata-tag {
+            background: var(--pataGreen);
+            color: white;
+            padding: 4px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .heavy-title {
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .deck-nav {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            right: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            background: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 50;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-pataInk">
+    <div class="grain"></div>
+
+    <div class="deck-nav font-mono text-[10px] uppercase tracking-[0.4em]">
+        <div class="flex items-center gap-4">
+            <div class="w-6 h-4 bg-pataBlue relative">
+                <div class="absolute bottom-0 h-1/3 w-full bg-pataOrange"></div>
+            </div>
+            <span class="font-bold">MYCELIUM x PATAGONIA</span>
+        </div>
+        <span id="slideCounter" class="opacity-40">01 / 06</span>
+    </div>
+
+    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+
+    <!-- SLIDE 1: THE MISSION -->
+    <div class="slide active" id="slide1">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop"
+            class="slide-bg">
+        <div class="slide-content text-white">
+            <span class="pata-tag mb-8">Saving Our Home Planet</span>
+            <h1 class="font-serif text-[clamp(4rem,12vw,10rem)] font-bold heavy-title mb-12">Regenerative <br><span
+                    class="italic text-pataOrange">Storytelling.</span></h1>
+            <p
+                class="font-serif text-3xl max-w-2xl italic opacity-80 decoration-pataOrange underline underline-offset-8">
+                Building the infrastructure of activism through distributed co-creation.
+            </p>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: THE PROBLEM -->
+    <div class="slide" id="slide2">
+        <img src="https://images.unsplash.com/photo-1542224566-6e85f2e6772f?q=80&w=2070&auto=format&fit=crop"
+            class="slide-bg">
+        <div class="slide-content text-white">
+            <h2 class="font-mono text-xs tracking-[0.5em] text-pataOrange mb-12">THE CRISIS</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                <h3 class="font-serif text-6xl md:text-8xl font-bold leading-none">Extractive <br>Marketing <span
+                        class="text-pataOrange italic">Is Dead.</span></h3>
+                <div class="space-y-8 text-xl font-serif opacity-80 leading-relaxed">
+                    <p>"Traditional agencies consume resources to create waste."</p>
+                    <p>Mycelium operates as a living system, where production budget feeds the forest floor of the
+                        creative community.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: THE PILOT -->
+    <div class="slide" id="slide3" style="background: #f1ede4;">
+        <div class="slide-content">
+            <span class="pata-tag mb-12">Active Proposal</span>
+            <h2 class="font-serif text-7xl font-bold mb-16 text-pataBlue">Zambia Water Project</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="p-10 border-2 border-pataInk">
+                    <h4 class="font-mono text-[10px] uppercase tracking-widest mb-4">Direct Action</h4>
+                    <p class="text-sm">20% of production budget feeds directly into local water sovereignty grants.</p>
+                </div>
+                <div class="p-10 border-2 border-pataInk bg-pataGreen text-white">
+                    <h4 class="font-mono text-[10px] uppercase tracking-widest mb-4">Content Root</h4>
+                    <p class="text-sm">5 Local & Global Artists creating 1 Mini-Doc + 20 Social Educational pieces.</p>
+                </div>
+                <div class="p-10 border-2 border-pataInk">
+                    <h4 class="font-mono text-[10px] uppercase tracking-widest mb-4">IP Fairness</h4>
+                    <p class="text-sm">Patagonia gets lifetime distribution. Artists keep their rights. The network
+                        grows.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: SIX IRONS VÉRITÉ -->
+    <div class="slide" id="slide4">
+        <img src="https://images.unsplash.com/photo-1491555103946-3c631c5130ca?q=80&w=2070&auto=format&fit=crop"
+            class="slide-bg">
+        <div class="slide-content text-white">
+            <h2 class="font-mono text-xs tracking-[0.5em] text-pataOrange mb-12">RESOURCES // SIX IRONS</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                <div class="space-y-8">
+                    <h3 class="font-serif text-6xl font-bold italic">Vérité <br>Execution.</h3>
+                    <p class="text-xl font-serif opacity-70">Utilizing the high-end, rugged aesthetic of Six Irons
+                        Creative to deliver stories that last.</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="aspect-square bg-white/10 border border-white/20"></div>
+                    <div class="aspect-square bg-white/10 border border-white/20"></div>
+                    <div class="aspect-square bg-white/10 border border-white/20"></div>
+                    <div class="aspect-square bg-white/10 border border-white/20"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: THE ASK -->
+    <div class="slide" id="slide5" style="background: #003145">
+        <div class="slide-content text-white">
+            <h2 class="font-mono text-xs tracking-[0.5em] text-pataOrange mb-24">THE CALL TO ACTION</h2>
+            <h3 class="font-serif text-7xl md:text-9xl font-bold mb-12 heavy-title">Cause No <br><span
+                    class="italic text-pataOrange">Harm.</span></h3>
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="text-left py-4 border-l-4 border-pataOrange pl-8">
+                    <p class="font-serif text-3xl italic">"The model is ready. We need the anchor foundation."</p>
+                    <p class="font-mono text-[10px] opacity-40 mt-4 uppercase tracking-[0.3em]">Proposed Coalition
+                        Launch: Feb 26</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+        let currentSlide = 0;
+        let isAnimating = false;
+
+        function updateSlide(index) {
+            if (isAnimating || index < 0 || index >= slides.length) return;
+            isAnimating = true;
+
+            const prevSlide = slides[currentSlide];
+            const nextSlide = slides[index];
+
+            counter.innerText = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+            progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+
+            gsap.to(prevSlide, {
+                opacity: 0, duration: 0.8, onComplete: () => {
+                    prevSlide.classList.remove('active');
+                    nextSlide.classList.add('active');
+                    gsap.to(nextSlide, {
+                        opacity: 1, duration: 0.8, onComplete: () => {
+                            currentSlide = index;
+                            isAnimating = false;
+                        }
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') updateSlide(currentSlide + 1);
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') updateSlide(currentSlide - 1);
+        });
+
+        window.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaY) > 50) {
+                if (e.deltaY > 0) updateSlide(currentSlide + 1);
+                else updateSlide(currentSlide - 1);
+            }
+        }, { passive: true });
+    </script>
+</body>
+
+</html>

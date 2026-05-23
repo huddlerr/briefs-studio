@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIX IRONS // Mycelium Partnership Hub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sixIron: '#EBFF00', // Electric Lime / Acid Yellow
+                        srRed: '#FF2E00',
+                        mhBlue: '#0047BA',
+                        yetiNavy: '#002B49',
+                        aquaBlue: '#00A3AD',
+                        bdAmber: '#E69F00',
+                        dark: '#0A0A0A',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --six-iron: #EBFF00;
+        }
+
+        ::-selection {
+            background: var(--six-iron);
+            color: #000;
+        }
+
+        body {
+            background-color: #0A0A0A;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.4;
+        }
+
+        .reveal-y {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        /* Lenis smooth scroll fix */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .hub-card {
+            background: #111111;
+            border-left: 2px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hub-card:hover {
+            background: #151515;
+            border-left-color: var(--six-iron);
+            transform: translateX(10px);
+        }
+
+        .label-mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            opacity: 0.4;
+        }
+
+        .tech-grid {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Josh Easter Egg */
+        .josh-mode {
+            animation: acid-rain 0.5s infinite;
+        }
+
+        @keyframes acid-rain {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        .floating-josh {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--six-iron);
+            text-shadow: 0 0 20px var(--six-iron);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased selection:bg-sixIron selection:text-black tech-grid">
+
+    <!-- NAVIGATION -->
+    <nav
+        class="fixed top-0 left-0 right-0 z-[100] h-32 flex items-center px-10 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-screen-2xl mx-auto w-full flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <div class="flex flex-col">
+                    <span class="font-display font-black uppercase text-4xl lg:text-5xl tracking-tighter text-white">Six
+                        Irons <span class="text-sixIron">Creative</span></span>
+                    <span class="label-mono mt-1">Partnership Review Portal // v2.0</span>
+                </div>
+            </div>
+            <div class="hidden lg:flex items-center gap-12 font-mono text-[10px] uppercase tracking-[0.4em] font-bold">
+                <span class="text-sixIron animate-pulse">• Review Mode Active</span>
+                <span class="opacity-30">Josh Bryan // Private Link</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-64 pb-64 px-10">
+
+        <header class="max-w-7xl mx-auto mb-48 relative">
+            <div class="absolute -top-48 -left-20 w-[600px] h-[600px] bg-sixIron/10 blur-[150px] rounded-full"></div>
+
+            <div class="reveal-y mb-10">
+                <span
+                    class="inline-block px-4 py-1 border border-sixIron/30 text-sixIron font-mono text-[10px] uppercase tracking-widest font-black">Co-Design
+                    Session // 2026.01.14</span>
+            </div>
+
+            <h1
+                class="text-[clamp(5rem,15vw,14rem)] font-display font-black uppercase tracking-tighter leading-[0.8] mb-16 reveal-y">
+                Mycelium <br>
+                <span class="text-sixIron italic">Ecosystem.</span>
+            </h1>
+
+            <p class="text-3xl md:text-5xl font-light text-white/90 max-w-5xl leading-[1.2] reveal-y">
+                Josh, <span class="text-sixIron font-bold italic">we did this today together.</span> I’ve anchored the
+                narrative for the Big Five into specific, tactical value. Review them below and shoot any edits back
+                over email.
+            </p>
+        </header>
+
+        <section class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 gap-6">
+
+                <!-- 00 // THE CORE BLUEPRINT -->
+                <a href="/mycelium/" class="hub-card p-16 reveal-y group">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-12">
+                        <div class="space-y-6">
+                            <span class="label-mono text-emerald-400 opacity-100">00 // STRATEGIC ANCHOR</span>
+                            <h2
+                                class="text-5xl md:text-6xl font-display font-black uppercase tracking-tight group-hover:text-sixIron transition-colors">
+                                Mycelium Blueprint</h2>
+                            <p class="text-white/40 font-mono text-sm uppercase tracking-widest italic">The distributed
+                                infrastructure philosophy.</p>
+                        </div>
+                        <div class="flex items-center gap-8">
+                            <span class="label-mono">Status: Live</span>
+                            <div
+                                class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-sixIron group-hover:text-black transition-all">
+                                <span class="text-3xl">→</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <div
+                    class="h-24 flex items-center gap-8 opacity-10 uppercase font-mono text-[10px] tracking-[0.6em] font-black my-12">
+                    <span>The Big Five Framework</span>
+                    <div class="h-px flex-grow bg-white"></div>
+                </div>
+
+                <!-- 01 // BLACK DIAMOND -->
+                <a href="/mycelium/black-diamond/" class="hub-card p-16 reveal-y group">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-12">
+                        <div class="space-y-6">
+                            <span class="label-mono text-bdAmber opacity-100">01 // CLIMBING & EXPEDITION</span>
+                            <h2
+                                class="text-5xl md:text-6xl font-display font-black uppercase tracking-tight group-hover:text-sixIron transition-colors">
+                                Black Diamond</h2>
+                            <p class="text-white/40 font-mono text-sm uppercase tracking-widest italic">Expedition
+                                reliability meets humanitarian impact.</p>
+                        </div>
+                        <div
+                            class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-sixIron group-hover:text-black transition-all">
+                            <span class="text-3xl">→</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 02 // YETI -->
+                <a href="/mycelium/yeti/" class="hub-card p-16 reveal-y group">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-12">
+                        <div class="space-y-6">
+                            <span class="label-mono text-cyan-400 opacity-100">02 // FIELD STORAGE & COOLING</span>
+                            <h2
+                                class="text-5xl md:text-6xl font-display font-black uppercase tracking-tight group-hover:text-sixIron transition-colors">
+                                YETI // Field Test</h2>
+                            <p class="text-white/40 font-mono text-sm uppercase tracking-widest italic">Zambian bush:
+                                The ultimate test of ice and fire.</p>
+                        </div>
+                        <div
+                            class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-sixIron group-hover:text-black transition-all">
+                            <span class="text-3xl">→</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 03 // AQUATABS -->
+                <a href="/mycelium/aquatabs/" class="hub-card p-16 reveal-y group">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-12">
+                        <div class="space-y-6">
+                            <span class="label-mono text-aquaBlue opacity-100">03 // WATER DISINFECTION</span>
+                            <h2
+                                class="text-5xl md:text-6xl font-display font-black uppercase tracking-tight group-hover:text-sixIron transition-colors">
+                                Aquatabs®</h2>
+                            <p class="text-white/40 font-mono text-sm uppercase tracking-widest italic">Mission critical
+                                water for ecosystems.</p>
+                        </div>
+                        <div
+                            class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-sixIron group-hover:text-black transition-all">
+                            <span class="text-3xl">→</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 04 // SMALLRIG -->
+                <a href="/mycelium/smallrig/" class="hub-card p-16 reveal-y group">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-12">
+                        <div class="space-y-6">
+                            <span class="label-mono text-srRed opacity-100">04 // PRODUCTION RIGGING</span>
+                            <h2
+                                class="text-5xl md:text-6xl font-display font-black uppercase tracking-tight group-hover:text-sixIron transition-colors">
+                                SmallRig .</h2>
+                            <p class="text-white/40 font-mono text-sm uppercase tracking-widest italic">Enabling the
+                                story via User-CoDesign.</p>
+                        </div>
+                        <div
+                            class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-sixIron group-hover:text-black transition-all">
+                            <span class="text-3xl">→</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 05 // MOUNTAIN HOUSE -->
+                <a href="/mycelium/mountain-house/" class="hub-card p-16 reveal-y group">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-12">
+                        <div class="space-y-6">
+                            <span class="label-mono text-mhGold opacity-100">05 // EXPEDITION NUTRITION</span>
+                            <h2
+                                class="text-5xl md:text-6xl font-display font-black uppercase tracking-tight group-hover:text-sixIron transition-colors">
+                                Mountain House</h2>
+                            <p class="text-white/40 font-mono text-sm uppercase tracking-widest italic">Nostalgic
+                                comfort fueling human impact.</p>
+                        </div>
+                        <div
+                            class="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-sixIron group-hover:text-black transition-all">
+                            <span class="text-3xl">→</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- FOOTER / MESSAGE -->
+        <footer class="max-w-7xl mx-auto mt-64 mb-32 border-t border-white/5 pt-32 text-center pb-24">
+            <p class="text-white/90 text-4xl font-display font-bold max-w-3xl mx-auto leading-snug">
+                Review the language for brand alignment. Shoot me an email with any tweaks and we'll flip the switches
+                for deployment.
+            </p>
+            <div class="mt-32 opacity-10 font-black uppercase font-mono text-[10px] tracking-[1.2em]">
+                Briefs Studio × Six Irons Creative
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // GSAP Implementation
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Smooth Scroll
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Reveal Animations
+        window.addEventListener('load', () => {
+            gsap.utils.toArray('.reveal-y').forEach(item => {
+                gsap.to(item, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.5,
+                    ease: 'expo.out',
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 92%',
+                    }
+                });
+            });
+        });
+
+        // Easter Egg: Type "josh"
+        let typed = "";
+        window.addEventListener('keydown', (e) => {
+            typed += e.key.toLowerCase();
+            if (typed.length > 4) typed = typed.slice(-4);
+
+            if (typed === "josh") {
+                triggerJoshMode();
+                typed = ""; // reset
+            }
+        });
+
+        function triggerJoshMode() {
+            document.body.classList.add('josh-mode');
+
+            // Create floating Joshes
+            for (let i = 0; i < 30; i++) {
+                const josh = document.createElement('div');
+                josh.className = 'floating-josh';
+                josh.innerText = 'JOSH';
+                josh.style.left = Math.random() * 100 + 'vw';
+                josh.style.top = Math.random() * 100 + 'vh';
+                document.body.appendChild(josh);
+
+                gsap.to(josh, {
+                    x: (Math.random() - 0.5) * 1000,
+                    y: (Math.random() - 0.5) * 1000,
+                    rotation: Math.random() * 360,
+                    scale: Math.random() * 2 + 1,
+                    opacity: 0,
+                    duration: 3,
+                    ease: "power2.out",
+                    onComplete: () => josh.remove()
+                });
+            }
+
+            setTimeout(() => {
+                document.body.classList.remove('josh-mode');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

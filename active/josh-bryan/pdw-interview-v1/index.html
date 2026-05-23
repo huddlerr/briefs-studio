@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josh Bryan | PDW Panel Interview Presentation</title>
+    <meta name="description"
+        content="Technical presentation for Josh Bryan's panel interview at Precision Drone Works (PDW) for the Senior Director of Mission Support role.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="dark-theme">
+    <div class="topo-background" id="topo-bg"></div>
+
+    <!-- Coordinate Marks (Easter Egg) -->
+    <div class="coordinate-marks top-left">33° 44' 56" N / 84° 23' 24" W</div>
+    <div class="coordinate-marks bottom-left">SPD: 0.0 KTS | ALT: 2500 FT</div>
+    <div class="coordinate-marks top-right">SYSTEM: OPERATIONAL</div>
+    <div class="coordinate-marks bottom-right">J. BRYAN // MISSION SUPPORT</div>
+
+    <!-- Tiny Wing Icon (Easter Egg) -->
+    <div class="mini-wing" onclick="navigateTo('opening')">
+        <svg viewBox="0 0 400 200" width="40" height="20">
+            <path d="M 50,100 C 50,70 150,50 300,90 C 350,105 350,110 300,110 C 150,110 50,130 50,100" fill="none"
+                stroke="currentColor" stroke-width="2" />
+        </svg>
+    </div>
+
+    <main id="app">
+        <!-- Opening Hook: Aerodynamics Metaphor -->
+        <section id="opening" class="section full-screen active">
+            <div class="wing-container">
+                <svg class="airfoil" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Subtle Airflow Lines -->
+                    <g class="airflow-lines">
+                        <path class="flow-line line-1" d="M 20,80 Q 150,40 380,80" />
+                        <path class="flow-line line-2" d="M 20,100 Q 150,60 380,100" />
+                        <path class="flow-line line-3" d="M 20,120 Q 150,140 380,120" />
+                    </g>
+                    <!-- Airfoil Shape -->
+                    <path class="wing-shape"
+                        d="M 50,100 C 50,70 150,50 300,90 C 350,105 350,110 300,110 C 150,110 50,130 50,100" />
+                </svg>
+
+                <div class="forces">
+                    <div class="force force-lift" style="--delay: 1s;">
+                        <span class="arrow">↑</span>
+                        <div class="force-meta">
+                            <span class="force-name">LIFT</span>
+                            <span class="label">Belief</span>
+                        </div>
+                    </div>
+                    <div class="force force-weight" style="--delay: 2s;">
+                        <span class="arrow">↓</span>
+                        <div class="force-meta">
+                            <span class="force-name">WEIGHT</span>
+                            <span class="label">Doubt</span>
+                        </div>
+                    </div>
+                    <div class="force force-thrust" style="--delay: 3s;">
+                        <span class="arrow">→</span>
+                        <div class="force-meta">
+                            <span class="force-name">THRUST</span>
+                            <span class="label">Passion</span>
+                        </div>
+                    </div>
+                    <div class="force force-drag" style="--delay: 4s;">
+                        <span class="arrow">←</span>
+                        <div class="force-meta">
+                            <span class="force-name">DRAG</span>
+                            <span class="label">Fear</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="enter-button" onclick="navigateTo('home')">
+                <span class="bracket">[</span> INITIALIZE BRIEFING <span class="bracket">]</span>
+            </button>
+        </section>
+
+        <!-- Home Hub -->
+        <section id="home" class="section full-screen">
+            <header class="hub-header">
+                <h2 class="subtitle">MISSION SUPPORT OVERVIEW</h2>
+                <h1 class="title-hero outlined">JOSH BRYAN</h1>
+            </header>
+
+            <nav class="main-nav">
+                <button class="nav-item" onclick="navigateTo('who')">
+                    <span class="nav-number">01</span>
+                    <span class="nav-text">WHO IS JOSH BRYAN?</span>
+                </button>
+                <button class="nav-item" onclick="navigateTo('why-pdw')">
+                    <span class="nav-number">02</span>
+                    <span class="nav-text">WHY PDW?</span>
+                </button>
+                <button class="nav-item" onclick="navigateTo('why-me')">
+                    <span class="nav-number">03</span>
+                    <span class="nav-text">WHY ME?</span>
+                </button>
+                <button class="nav-item" onclick="navigateTo('plan')">
+                    <span class="nav-number">04</span>
+                    <span class="nav-text">30-60-90 DAY PLAN</span>
+                </button>
+            </nav>
+
+            <footer class="hub-footer">
+                <p>PRECISION DRONE WORKS | PANEL INTERVIEW PREPARATION</p>
+            </footer>
+        </section>
+
+        <!-- SECTION 1: WHO IS JOSH BRYAN? -->
+        <section id="who" class="section full-screen landing">
+            <header class="section-header">
+                <h1 class="title-hero outlined">WHO IS JOSH BRYAN?</h1>
+                <p class="subtitle">M-SHAPED GENERALIST</p>
+            </header>
+
+            <div class="module-grid">
+                <button class="module-button" onclick="navigateTo('who-intro')">
+                    <div class="triangle-indicator">
+                        <span class="triangle"></span>
+                    </div>
+                    <span class="module-label">INTRODUCTORY</span>
+                    <span class="module-desc">Foundation & Roots</span>
+                </button>
+
+                <span class="module-arrow">→</span>
+
+                <button class="module-button" onclick="navigateTo('who-inter')">
+                    <div class="triangle-indicator">
+                        <span class="triangle"></span>
+                        <span class="triangle"></span>
+                    </div>
+                    <span class="module-label">INTERMEDIATE</span>
+                    <span class="module-desc">Professional Progression</span>
+                </button>
+
+                <span class="module-arrow">→</span>
+
+                <button class="module-button" onclick="navigateTo('who-adv')">
+                    <div class="triangle-indicator">
+                        <span class="triangle"></span>
+                        <span class="triangle"></span>
+                        <span class="triangle"></span>
+                    </div>
+                    <span class="module-label">ADVANCED</span>
+                    <span class="module-desc">Values & Motivations</span>
+                </button>
+            </div>
+
+            <button class="back-button" onclick="navigateTo('home')">← RETURN TO HUB</button>
+        </section>
+
+        <!-- Sub-modules for Section 1 -->
+        <section id="who-intro" class="section sub-module">
+            <div class="content-container">
+                <header class="module-header">
+                    <div class="triangle-indicator">
+                        <span class="triangle"></span>
+                    </div>
+                    <h2>INTRODUCTORY: THE GENERALIST</h2>
+                </header>
+                <div class="content-body">
+                    <div class="content-column">
+                        <h3>BACKGROUND & ROOTS</h3>
+                        <ul>
+                            <li>Grew up between Alabama and Germany (Europe 7 years)</li>
+                            <li>Son of Army helicopter pilot, Eagle Scout</li>
+                            <li>Married 25 years, three kids (Hailey 20, Addie 18, Walker 14)</li>
+                        </ul>
+
+                        <h3>ATHLETICS & PERSONALITY</h3>
+                        <ul>
+                            <li>Varsity wrestler/soccer; 7s rugby</li>
+                            <li>INTP — curious, asks "why" constantly</li>
+                            <li>Avid reader (25 books/year, sci-fi, non-fiction)</li>
+                        </ul>
+                    </div>
+                    <div class="content-column">
+                        <h3>EDUCATION & TECH</h3>
+                        <ul>
+                            <li>BS Civil Engineering (West Point)</li>
+                            <li>M.Ed Kinesiology (UVA)</li>
+                            <li>Tech fluent: MS/Google/Adobe, AI, Vibe Coding</li>
+                        </ul>
+
+                        <h3>PERSPECTIVE</h3>
+                        <ul>
+                            <li>IBD since 2005 (surgical 2015) — profoundly impactful</li>
+                            <li>Hiking/Backpacking (AT, Montana, CHT)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('who')">← BACK TO WHO</button>
+        </section>
+
+        <section id="who-inter" class="section sub-module">
+            <div class="content-container">
+                <header class="module-header">
+                    <div class="triangle-indicator">
+                        <span class="triangle"></span>
+                        <span class="triangle"></span>
+                    </div>
+                    <h2>INTERMEDIATE: PROFESSIONAL PROGRESSION</h2>
+                </header>
+                <div class="content-body career-grid">
+                    <div class="career-item">
+                        <div class="year">2001-2011</div>
+                        <h3>ARMY AVIATION OFFICER</h3>
+                        <p>OH-58D Recon Pilot, Instructor Pilot (#1 rated). Cavalry units (82d Airborne). Medically
+                            retired 2011.</p>
+                    </div>
+                    <div class="career-item highlight">
+                        <div class="year">2011-2018</div>
+                        <h3>JOHNSON & JOHNSON (ETHICON)</h3>
+                        <p>$7M+ Territory. C-suite contracting, OR presence. "Discomfort = growth." Developed high-level
+                            interpersonal/relatability skills.</p>
+                    </div>
+                    <div class="career-item">
+                        <div class="year">2018-2022</div>
+                        <h3>ARMY FUTURES COMMAND</h3>
+                        <p>Mission Command (C2) Networks. ATAK/TAK consortium, radios, mission planning. High
+                            professional satisfaction.</p>
+                    </div>
+                    <div class="career-item target">
+                        <div class="year">RECENT</div>
+                        <h3>LOOKING GLASS (CUAS/UAS STARTUP)</h3>
+                        <p>Director of Ops. Led in-country teams, designed all products/SOPs. 4 CUAS courses developed.
+                            ITAR/EAR compliant.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('who')">← BACK TO WHO</button>
+        </section>
+
+        <section id="who-adv" class="section sub-module">
+            <div class="content-container">
+                <header class="module-header">
+                    <div class="triangle-indicator">
+                        <span class="triangle"></span>
+                        <span class="triangle"></span>
+                        <span class="triangle"></span>
+                    </div>
+                    <h2>ADVANCED: VALUES & MOTIVATIONS</h2>
+                </header>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <h3>HIGH TRUST & ACCOUNTABILITY</h3>
+                        <ul>
+                            <li>Trusted husband, father, friend, colleague.</li>
+                            <li>Credit not needed; mission success is the reward.</li>
+                            <li>High trust, cultural fit, and ownership (harder than it looks).</li>
+                        </ul>
+                    </div>
+                    <div class="value-card">
+                        <h3>MISSION-CENTRIC LEADERSHIP</h3>
+                        <ul>
+                            <li>Decentralized execution within framework of intent.</li>
+                            <li>Autonomous operation for small teams.</li>
+                            <li>Understanding "the why" in addition to "the what".</li>
+                        </ul>
+                    </div>
+                    <div class="value-card">
+                        <h3>GROWTH & GENEROSITY</h3>
+                        <ul>
+                            <li>Generosity, compassion, and deep understanding.</li>
+                            <li>Mistakes are OK; repeating them is not.</li>
+                            <li>Cross-leveling skills through coaching/mentoring.</li>
+                        </ul>
+                    </div>
+                    <div class="value-card">
+                        <h3>QUALITY STANDARDS</h3>
+                        <ul>
+                            <li>Association with high-quality people and work.</li>
+                            <li>Avoiding shame through excellence.</li>
+                            <li>Agile refinement and process optimization.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('who')">← BACK TO WHO</button>
+        </section>
+
+        <!-- SECTION 2: WHY PDW? -->
+        <section id="why-pdw" class="section full-screen landing">
+            <header class="section-header">
+                <h1 class="title-hero outlined">WHY PDW?</h1>
+                <p class="subtitle">SKILLSET MATCHING</p>
+            </header>
+
+            <div class="module-grid">
+                <button class="module-button" onclick="navigateTo('pdw-culture')">
+                    <span class="module-label">CULTURE</span>
+                </button>
+                <button class="module-button" onclick="navigateTo('pdw-products')">
+                    <span class="module-label">PRODUCTS</span>
+                </button>
+                <button class="module-button" onclick="navigateTo('pdw-future')">
+                    <span class="module-label">FUTURE</span>
+                </button>
+            </div>
+
+            <button class="back-button" onclick="navigateTo('home')">← RETURN TO HUB</button>
+        </section>
+
+        <!-- Sub-modules for Section 2 -->
+        <section id="pdw-culture" class="section sub-module">
+            <div class="content-container">
+                <h2>CULTURE & ALIGNMENT</h2>
+                <div class="content-body">
+                    <ul>
+                        <li>Value alignment: Mission first, people focused.</li>
+                        <li>Smaller Org: Autonomy, less bureaucracy, multiple hats.</li>
+                        <li>Agile Style: Rapid operational style that rewards initiative.</li>
+                        <li>Reputation: Highly regarded by contacts in the industry.</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('why-pdw')">← BACK TO WHY PDW</button>
+        </section>
+
+        <section id="pdw-products" class="section sub-module">
+            <div class="content-container">
+                <h2>PRODUCTS & SUCCESS</h2>
+                <div class="content-body">
+                    <ul>
+                        <li>Proven UAS success: Drones that are well-received and combat-proven.</li>
+                        <li>Innovation: Strategic diversification into public safety.</li>
+                        <li>Positioning: Filling critical gaps in modern mission sets.</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('why-pdw')">← BACK TO WHY PDW</button>
+        </section>
+
+        <section id="pdw-future" class="section sub-module">
+            <div class="content-container">
+                <h2>THE FUTURE</h2>
+                <div class="content-body">
+                    <ul>
+                        <li>Growth Trajectory: Well-positioned for significant scale.</li>
+                        <li>Market Expansion: Expanding from defense to law enforcement.</li>
+                        <li>Proactive Opportunity: Establishing the standard for mission support.</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('why-pdw')">← BACK TO WHY PDW</button>
+        </section>
+
+        <!-- SECTION 3: WHY ME? -->
+        <section id="why-me" class="section full-screen landing">
+            <header class="section-header">
+                <h1 class="title-hero outlined">WHY ME?</h1>
+                <p class="subtitle">SKILL & VALUE ALIGNMENT</p>
+            </header>
+
+            <div class="module-grid">
+                <button class="module-button" onclick="navigateTo('me-training')">
+                    <span class="module-label">TRAINING</span>
+                </button>
+                <button class="module-button" onclick="navigateTo('me-technical')">
+                    <span class="module-label">TECHNICAL</span>
+                </button>
+                <button class="module-button" onclick="navigateTo('me-interpersonal')">
+                    <span class="module-label">INTERPERSONAL</span>
+                </button>
+            </div>
+
+            <div class="staircase-note">
+                <p>STAIR STEP FOR WHY ME..</p>
+            </div>
+
+            <button class="back-button" onclick="navigateTo('home')">← RETURN TO HUB</button>
+        </section>
+
+        <!-- Sub-modules for Section 3 -->
+        <section id="me-training" class="section sub-module">
+            <div class="content-container">
+                <h2>TRAINING & DESIGN</h2>
+                <div class="content-body">
+                    <ul>
+                        <li>Training/Readiness with formal educational background.</li>
+                        <li>ISD as an engineering discipline (CE roots).</li>
+                        <li>Strong Instructional System Design background.</li>
+                        <li>Dream big, think big: Scaling for global mission support.</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('why-me')">← BACK TO WHY ME</button>
+        </section>
+
+        <section id="me-technical" class="section sub-module">
+            <div class="content-container">
+                <h2>TECHNICAL DEPTH</h2>
+                <div class="content-body">
+                    <ul>
+                        <li>Doctrinal depth: CUAS/UAS tactics and employment.</li>
+                        <li>Domain familiarity: Aviation, airspace, ATAK/TAK.</li>
+                        <li>Process Standardization: Eyes for thematic consistency and branding.</li>
+                        <li>Tech Adaptability: AI as adjunct to creativity.</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('why-me')">← BACK TO WHY ME</button>
+        </section>
+
+        <section id="me-interpersonal" class="section sub-module">
+            <div class="content-container">
+                <h2>INTERPERSONAL & SALES</h2>
+                <div class="content-body">
+                    <ul>
+                        <li>Commercial bridge: Bridge sales into after-sales activities.</li>
+                        <li>Relatability: Solid people skills (refined through adversity).</li>
+                        <li>Mentorship: Capability to build and scale high-performing teams.</li>
+                        <li>Long-game approach: Deep customer care and retention.</li>
+                    </ul>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('why-me')">← BACK TO WHY ME</button>
+        </section>
+
+        <!-- SECTION 4: 30-60-90 DAY PLAN -->
+        <section id="plan" class="section full-screen landing">
+            <header class="section-header">
+                <h1 class="title-hero outlined">30-60-90 DAY PLAN</h1>
+                <p class="subtitle">SENIOR DIRECTOR OF MISSION SUPPORT</p>
+            </header>
+
+            <div class="module-grid">
+                <button class="module-button" onclick="navigateTo('plan-30')">
+                    <div class="triangle-indicator">
+                        <span class="triangle"></span>
+                    </div>
+                    <span class="module-label">30 DAYS</span>
+                    <span class="module-desc">IMMERSION & GAP ANALYSIS</span>
+                </button>
+                <button class="module-button" onclick="navigateTo('plan-60')">
+                    <div class="triangle-indicator">
+                        <span class="triangle"></span>
+                        <span class="triangle"></span>
+                    </div>
+                    <span class="module-label">60 DAYS</span>
+                    <span class="module-desc">PRIORITIZATION & STANDARDIZATION</span>
+                </button>
+                <button class="module-button" onclick="navigateTo('plan-90')">
+                    <div class="triangle-indicator">
+                        <span class="triangle"></span>
+                        <span class="triangle"></span>
+                        <span class="triangle"></span>
+                    </div>
+                    <span class="module-label">90 DAYS</span>
+                    <span class="module-desc">IMPLEMENTATION & OPTIMIZATION</span>
+                </button>
+            </div>
+
+            <footer class="plan-footer">
+                <div class="framework">PEOPLE • PROCESSES • PROJECTS/PRODUCTS</div>
+            </footer>
+
+            <button class="back-button" onclick="navigateTo('home')">← RETURN TO HUB</button>
+        </section>
+
+        <!-- Sub-modules for Section 4 -->
+        <section id="plan-30" class="section sub-module">
+            <div class="content-container plan-layout">
+                <header class="module-header">
+                    <div class="triangle-indicator"><span class="triangle"></span></div>
+                    <h2>30 DAYS: IMMERSION</h2>
+                </header>
+                <div class="plan-grid">
+                    <div class="plan-column">
+                        <h3>PEOPLE</h3>
+                        <ul>
+                            <li>Stakeholder mapping (Internal/External)</li>
+                            <li>State of training teams & resources</li>
+                            <li>One-on-ones with key individuals</li>
+                            <li>Understand leadership philosophies</li>
+                        </ul>
+                    </div>
+                    <div class="plan-column">
+                        <h3>PROCESSES</h3>
+                        <ul>
+                            <li>Front-end analysis: ID the delta</li>
+                            <li>Learn products and competitors</li>
+                            <li>Map roadmap to future state</li>
+                            <li>Context: Environment, threat, regulatory</li>
+                        </ul>
+                    </div>
+                    <div class="plan-column">
+                        <h3>PROJECTS</h3>
+                        <ul>
+                            <li>Identify and prioritize critical needs</li>
+                            <li>Mission support vision development</li>
+                            <li>Field visit team identification</li>
+                            <li>Review feedback & lessons learned</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('plan')">← BACK TO 30-60-90</button>
+        </section>
+
+        <section id="plan-60" class="section sub-module">
+            <div class="content-container plan-layout">
+                <header class="module-header">
+                    <div class="triangle-indicator"><span class="triangle"></span><span class="triangle"></span></div>
+                    <h2>60 DAYS: PRIORITIZATION</h2>
+                </header>
+                <div class="plan-grid">
+                    <div class="plan-column">
+                        <h3>PEOPLE</h3>
+                        <ul>
+                            <li>Establish rhythm with teams & customers</li>
+                            <li>Prioritize bandwidth and efforts</li>
+                            <li>Mentor emerging internal SMEs</li>
+                        </ul>
+                    </div>
+                    <div class="plan-column">
+                        <h3>PROCESSES</h3>
+                        <ul>
+                            <li>Implement standardized mission support SOPs</li>
+                            <li>Lessons learned repositories established</li>
+                            <li>Customer literacy program framing</li>
+                            <li>Internal tiered training roadmap</li>
+                        </ul>
+                    </div>
+                    <div class="plan-column">
+                        <h3>PROJECTS</h3>
+                        <ul>
+                            <li>Agile & modular curriculum (Defense/Public)</li>
+                            <li>Digital product framework (Portals/Reporting)</li>
+                            <li>Simulator & PDWCORE integration</li>
+                            <li>Mission support roadmap by location</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('plan')">← BACK TO 30-60-90</button>
+        </section>
+
+        <section id="plan-90" class="section sub-module">
+            <div class="content-container plan-layout">
+                <header class="module-header">
+                    <div class="triangle-indicator"><span class="triangle"></span><span class="triangle"></span><span
+                            class="triangle"></span></div>
+                    <h2>90 DAYS: IMPLEMENTATION</h2>
+                </header>
+                <div class="plan-grid">
+                    <div class="plan-column">
+                        <h3>PEOPLE</h3>
+                        <ul>
+                            <li>Implement scaling curriculum design</li>
+                            <li>Establish internal mentorship tier</li>
+                            <li>Team full-mission capability</li>
+                        </ul>
+                    </div>
+                    <div class="plan-column">
+                        <h3>PROCESSES</h3>
+                        <ul>
+                            <li>Proactive curriculum cycle (Marketing/Eng)</li>
+                            <li>Continual optimization loop</li>
+                            <li>Deploy dissemination plan</li>
+                            <li>Assessment cycles institutionalized</li>
+                        </ul>
+                    </div>
+                    <div class="plan-column">
+                        <h3>PROJECTS</h3>
+                        <ul>
+                            <li>Feedback loop (Eng/Marketing/Customers)</li>
+                            <li>Payload employment expansion</li>
+                            <li>Advanced curriculum & novel use cases</li>
+                            <li>SOPs, field aids, checklists finalized</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <button class="back-button" onclick="navigateTo('plan')">← BACK TO 30-60-90</button>
+        </section>
+
+    </main>
+
+    <!-- Navigation Controls (Bottom Right) -->
+    <div class="controls">
+        <button id="pdf-export" class="control-btn" onclick="window.print()" title="Export to PDF">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9V2h12v7"></path>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+        </button>
+        <button id="fullscreen-toggle" class="control-btn" title="Toggle Fullscreen">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                </path>
+            </svg>
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

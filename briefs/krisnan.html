@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krisnan | Four Schisms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --parchment: #faf6f0;
+            --cream: #f5efe6;
+            --ink: #1a1612;
+            --ink-light: #3d3530;
+            --terracotta: #c45d3a;
+            --ochre: #c9973f;
+            --sage: #5a7c65;
+            --clay: #8b7355;
+            --border: #e0d6c8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--parchment);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        header {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-meta {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--clay);
+            margin-bottom: 0.5rem;
+        }
+
+        .header-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--ink-light);
+        }
+
+        /* Main content */
+        main {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Opening */
+        .opening {
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .opening-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            color: var(--ink);
+            margin-bottom: 1rem;
+        }
+
+        .opening-role {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--clay);
+            margin-bottom: 2rem;
+        }
+
+        .opening-places {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            font-size: 0.85rem;
+            color: var(--ink-light);
+        }
+
+        .opening-places span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .opening-places .ampersand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--terracotta);
+        }
+
+        /* Section divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 3rem 0;
+        }
+
+        .divider-line {
+            width: 60px;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .divider-symbol {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--terracotta);
+        }
+
+        /* Prose sections */
+        .prose {
+            padding: 2rem 0;
+        }
+
+        .prose p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            line-height: 1.9;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .prose p:first-child::first-letter {
+            font-size: 3.5rem;
+            float: left;
+            line-height: 1;
+            padding-right: 0.5rem;
+            color: var(--terracotta);
+            font-weight: 500;
+        }
+
+        /* Chapter headings */
+        .chapter {
+            padding: 4rem 0 2rem;
+        }
+
+        .chapter-number {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--clay);
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 400;
+            color: var(--ink);
+            line-height: 1.2;
+        }
+
+        /* Pull quotes */
+        blockquote {
+            margin: 3rem 0;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        blockquote p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--ink);
+            text-align: center;
+        }
+
+        blockquote p::before {
+            content: '"';
+            color: var(--terracotta);
+        }
+
+        blockquote p::after {
+            content: '"';
+            color: var(--terracotta);
+        }
+
+        /* The Three Tools */
+        .tools {
+            padding: 3rem 0;
+        }
+
+        .tool {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tool:last-child {
+            border-bottom: none;
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--terracotta);
+        }
+
+        .tool-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--ink);
+        }
+
+        .tool-translation {
+            font-size: 0.85rem;
+            color: var(--clay);
+            margin-left: auto;
+        }
+
+        .tool p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--ink-light);
+        }
+
+        /* The Four Schisms */
+        .schisms {
+            padding: 4rem 0;
+        }
+
+        .schism {
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .schism:last-child {
+            border-bottom: none;
+        }
+
+        .schism-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .schism-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--terracotta);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--terracotta);
+            flex-shrink: 0;
+        }
+
+        .schism-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .schism-extracted {
+            font-style: italic;
+            color: var(--terracotta);
+        }
+
+        .schism p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--ink-light);
+            margin-bottom: 1rem;
+        }
+
+        .schism-project {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: var(--cream);
+            border-left: 3px solid var(--terracotta);
+        }
+
+        .schism-project-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--clay);
+            margin-bottom: 0.5rem;
+        }
+
+        .schism-project-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 0.5rem;
+        }
+
+        .schism-project p {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Islands */
+        .islands {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .islands-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 2rem;
+        }
+
+        .islands p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--ink-light);
+            text-align: justify;
+        }
+
+        /* Visual: Ice forming */
+        .ice-visual {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 3rem 0;
+        }
+
+        .ice-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--cream);
+            border: 1px solid var(--border);
+            transition: all 0.6s ease;
+        }
+
+        .ice-dot.frozen {
+            background: var(--terracotta);
+            border-color: var(--terracotta);
+        }
+
+        /* North Star */
+        .north-star {
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin: 4rem 0;
+        }
+
+        .north-star-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--clay);
+            margin-bottom: 1.5rem;
+        }
+
+        .north-star p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--ink);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Journey */
+        .journey {
+            padding: 3rem 0;
+        }
+
+        .journey-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+        }
+
+        .journey-year {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            color: var(--terracotta);
+            min-width: 80px;
+            flex-shrink: 0;
+        }
+
+        .journey-text {
+            font-size: 0.95rem;
+            color: var(--ink-light);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        .footer-date {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--clay);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-context {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--ink-light);
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--clay);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .opening-places {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .tool-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+
+            .tool-translation {
+                margin-left: 0;
+            }
+
+            .schism-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <p class="header-meta">Odyssey Works · Experience Design Program</p>
+        <p class="header-title">Opening Remarks</p>
+    </header>
+
+    <main>
+
+        <!-- Opening -->
+        <section class="opening reveal">
+            <h1 class="opening-name">Krisnan</h1>
+            <p class="opening-role">Faculty, Cultural Interface Design</p>
+            <div class="opening-places">
+                <span>Kerala</span>
+                <span class="ampersand">&</span>
+                <span>Kentucky</span>
+            </div>
+        </section>
+
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-symbol">◊</span>
+            <div class="divider-line"></div>
+        </div>
+
+        <!-- Gratitude -->
+        <section class="prose reveal">
+            <p>Every gathering starts with a little bit of gratitude. We look at the space—the land, this house where so many artists have come before. We look at the water, the Neversink River that flows into the Delaware and then the Atlantic, carrying wisdom like glaciers carrying knowledge down into the plains. We look at the time—winter, the season of reflection. Last night was a full moon, the moon of Saraswati, goddess of wisdom, art, music, culture. And we look at the people, all of you, bringing your experience into this fire.</p>
+        </section>
+
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-symbol">◊</span>
+            <div class="divider-line"></div>
+        </div>
+
+        <!-- The Three Tools -->
+        <section class="chapter reveal">
+            <p class="chapter-number">Part One</p>
+            <h2 class="chapter-title">Three Wisdom Tools</h2>
+        </section>
+
+        <section class="tools">
+            <div class="tool reveal">
+                <div class="tool-header">
+                    <span class="tool-number">1</span>
+                    <span class="tool-name">Nyana Yagnya</span>
+                    <span class="tool-translation">The fire of knowledge</span>
+                </div>
+                <p>Yagnya means fire—the fire of transformation. But Nyana is a different kind of fire. It means knowledge. This is what we do when we gather: we take information and experience, reflect on it with attention and intention, and transform it into wisdom. Not data. Wisdom.</p>
+            </div>
+
+            <div class="tool reveal">
+                <div class="tool-header">
+                    <span class="tool-number">2</span>
+                    <span class="tool-name">Personification</span>
+                    <span class="tool-translation">Making the world alive</span>
+                </div>
+                <p>It doesn't matter whether these things are actually alive. The monks taught me that personification was never about literal belief—it was a practical tool. Humans are bad at statistics and facts. So the Vedic culture imbued stories with wisdom, made the blankets alive, made the rivers alive, so we would know how to come into right relation. Children understand this instantly.</p>
+            </div>
+
+            <div class="tool reveal">
+                <div class="tool-header">
+                    <span class="tool-number">3</span>
+                    <span class="tool-name">Ritual</span>
+                    <span class="tool-translation">User interface for the self</span>
+                </div>
+                <p>Who uses an alarm to wake up? That ritual quietly says: I trust this machine to return me to life every morning more than I trust sunlight or my own biorhythms. Every day, you affirm that. We have so many rituals hidden in technology that we never question. What story am I programming into myself?</p>
+            </div>
+        </section>
+
+        <blockquote class="reveal">
+            <p>Culture is the context of the frame. To understand what's inside, we must look at what's around it.</p>
+        </blockquote>
+
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-symbol">◊</span>
+            <div class="divider-line"></div>
+        </div>
+
+        <!-- The Four Schisms -->
+        <section class="chapter reveal">
+            <p class="chapter-number">Part Two</p>
+            <h2 class="chapter-title">Four Schisms</h2>
+        </section>
+
+        <section class="prose reveal">
+            <p>Growing up between Kerala and Kentucky, I learned that culture can be anything. Nothing has to be the way it is. Every single piece—whether your parents chose it, or education chose it, or religion chose it—has been a choice. And at any point, we can renegotiate. These are the four separations I keep returning to.</p>
+        </section>
+
+        <section class="schisms">
+
+            <div class="schism reveal">
+                <div class="schism-header">
+                    <span class="schism-number">I</span>
+                    <h3 class="schism-title"><span class="schism-extracted">Civilization</span> extracted from <span class="schism-extracted">Nature</span></h3>
+                </div>
+                <p>In Kerala, my neighbor had an elephant I could climb on. I'd eat mangoes in the tree until my stomach hurt, then nap on a branch. In Kentucky, friends lived in trailer parks, and the bluegrass was actually blue-green from the limestone. Both places felt like home. Both showed me that humanity is not separate from nature—we have chosen to extract ourselves.</p>
+                <div class="schism-project">
+                    <p class="schism-project-label">Project</p>
+                    <p class="schism-project-title">2033: Nature Nostalgia</p>
+                    <p>An experience set in a near future where AIs have been granted legal status as living beings and charged with protecting Mother Earth. The only solution they found: extract humans from nature entirely. You sit with a Mother Earth altar—water from the Ganga, sand from the Sahara, seeds from Kauai—and an AI paints your relationship to nature in real time. At the end, you see yourself painted into the landscape. People cried.</p>
+                </div>
+            </div>
+
+            <div class="schism reveal">
+                <div class="schism-header">
+                    <span class="schism-number">II</span>
+                    <h3 class="schism-title"><span class="schism-extracted">Mind</span> extracted from <span class="schism-extracted">Body</span></h3>
+                </div>
+                <p>At Harvard, I changed my major five times. Astrophysics—they don't know anything. Cognitive neuroscience—they don't know anything either. I ended up in biochemistry and history of science because I realized: science isn't determined. It comes from context. But that process—being forced to articulate everything in words, not acknowledging what I felt in my body—was traumatic on my nervous system. A colonized mind.</p>
+                <p>I balanced myself by doing musical theater every night. The Hasty Pudding Theatricals. It was what I needed.</p>
+            </div>
+
+            <div class="schism reveal">
+                <div class="schism-header">
+                    <span class="schism-number">III</span>
+                    <h3 class="schism-title"><span class="schism-extracted">Individual</span> extracted from <span class="schism-extracted">Community</span></h3>
+                </div>
+                <p>I went to USC Film School wanting to tell sacred stories. I'd seen how theater empowered kids in Bombay—we built a drama club, a dance club, connected them to Bollywood, got them on the front page of the Times of India. The project ran for twenty years after I left.</p>
+                <p>But Hollywood worshipped the auteur. Individual genius over emergent community creativity. Everything felt like a game—money, sex, power, achievement. I had an existential crisis. And then I met a Himalayan monk.</p>
+                <div class="schism-project">
+                    <p class="schism-project-label">Project</p>
+                    <p class="schism-project-title">Chai Circle Ceremonies</p>
+                    <p>I make Ayurvedic chai. Everyone draws a card with a community reflection. You answer with strangers, drinking chai. Then: what wish do you want to make for your community? Imagine that wish is true. That feeling in your heart—that's where enchantment comes from. Now enchant your compostable cup. Place it on the fence. A mandala of community wishes grows through the night. Then we hit the gong and dance.</p>
+                </div>
+            </div>
+
+            <div class="schism reveal">
+                <div class="schism-header">
+                    <span class="schism-number">IV</span>
+                    <h3 class="schism-title"><span class="schism-extracted">Machines</span> extracted from <span class="schism-extracted">Humanity</span></h3>
+                </div>
+                <p>Just as mind has been extracted from body, individual from community, civilization from nature—machines have been extracted from humanity. They are amplified, electrified versions of things we do ourselves. We need to maintain this relationship. Instead of humans adapting to tools, we need tools that adapt to our humanity.</p>
+                <div class="schism-project">
+                    <p class="schism-project-label">Project</p>
+                    <p class="schism-project-title">The Mirrorwood Fables</p>
+                    <p>I trained an AI on fables from around the world—Jataka, Panchatantra, Aesop, Aboriginal, Buddhist—plus my own writings. Now we use biofeedback to measure your psychosomatic landscape, feed it to the AI, and give you a story that shows your unconscious what's happening in your body. A chance to connect with things you didn't know you were feeling.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <div class="divider">
+            <div class="divider-line"></div>
+            <span class="divider-symbol">◊</span>
+            <div class="divider-line"></div>
+        </div>
+
+        <!-- Islands of Coherence -->
+        <section class="chapter reveal">
+            <p class="chapter-number">Part Three</p>
+            <h2 class="chapter-title">Islands of Coherence</h2>
+        </section>
+
+        <section class="islands reveal">
+            <p>When a glass of water freezes, it doesn't freeze gradually. Little pockets freeze first. When enough pockets have frozen, the entire system shifts simultaneously. The context changes, and the whole field transforms.</p>
+        </section>
+
+        <div class="ice-visual reveal">
+            <div class="ice-dot"></div>
+            <div class="ice-dot frozen"></div>
+            <div class="ice-dot"></div>
+            <div class="ice-dot frozen"></div>
+            <div class="ice-dot"></div>
+            <div class="ice-dot"></div>
+            <div class="ice-dot frozen"></div>
+            <div class="ice-dot"></div>
+            <div class="ice-dot frozen"></div>
+            <div class="ice-dot"></div>
+            <div class="ice-dot"></div>
+            <div class="ice-dot frozen"></div>
+            <div class="ice-dot"></div>
+        </div>
+
+        <section class="prose reveal">
+            <p>The monks do not look at this time as disempowerment. They look at it as opportunity. What we choose, what we say, what islands of coherence we decide to play within—these shift the whole field. We are in a time where small choices echo.</p>
+        </section>
+
+        <blockquote class="reveal">
+            <p>If I walk with my values, it doesn't matter where I go. It's going to be valuable. The process matters.</p>
+        </blockquote>
+
+        <!-- North Star -->
+        <section class="north-star reveal">
+            <p class="north-star-label">North Star</p>
+            <p>To build cultural rituals that repair our relationship with ourselves, with others, with Mother Earth, and with our tools.</p>
+        </section>
+
+        <!-- Journey -->
+        <section class="chapter reveal">
+            <p class="chapter-number">Path</p>
+            <h2 class="chapter-title">The Journey</h2>
+        </section>
+
+        <section class="journey">
+            <div class="journey-item reveal">
+                <span class="journey-year">Kerala</span>
+                <span class="journey-text">Elephants next door. Mangoes in the tree. Vedic tradition as lived reality.</span>
+            </div>
+            <div class="journey-item reveal">
+                <span class="journey-year">Kentucky</span>
+                <span class="journey-text">Trailer parks and bluegrass. Understanding that culture is costume.</span>
+            </div>
+            <div class="journey-item reveal">
+                <span class="journey-year">Harvard</span>
+                <span class="journey-text">Five majors. History of science. Hasty Pudding every night.</span>
+            </div>
+            <div class="journey-item reveal">
+                <span class="journey-year">Bombay</span>
+                <span class="journey-text">Musical theater with children from the slums. Twenty years running.</span>
+            </div>
+            <div class="journey-item reveal">
+                <span class="journey-year">USC</span>
+                <span class="journey-text">Existential crisis. The Himalayan monk. Return to live tradition.</span>
+            </div>
+            <div class="journey-item reveal">
+                <span class="journey-year">Now</span>
+                <span class="journey-text">Ancient wisdom tools meeting modern technology. Mirrorwood Fables. Chai Circles. Cultural interface for right relationship.</span>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p class="footer-date">Winter 2026</p>
+        <p class="footer-context">Full Moon of Saraswati · Neversink River · Experience Design Program</p>
+        <div class="footer-brand">
+            <span>◊</span>
+            <span>A wisdom transmission</span>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Animate ice dots on scroll
+        const iceVisual = document.querySelector('.ice-visual');
+        const iceDots = document.querySelectorAll('.ice-dot');
+
+        const iceObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Randomly freeze more dots over time
+                    let delay = 0;
+                    iceDots.forEach((dot, i) => {
+                        if (Math.random() > 0.5) {
+                            setTimeout(() => {
+                                dot.classList.add('frozen');
+                            }, delay);
+                            delay += 200;
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        iceObserver.observe(iceVisual);
+    </script>
+
+</body>
+</html>

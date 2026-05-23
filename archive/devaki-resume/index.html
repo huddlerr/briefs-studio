@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume // Devaki Murch // StoryScope Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        archiveNavy: '#1B365D',
+                        archiveOrange: '#FF7F32',
+                        archiveRed: '#BC4749',
+                        archiveInk: '#2B2D42',
+                        manila: '#F4F1E6',
+                        paper: '#EDEBE1',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: #F4F1E6; 
+            color: #2B2D42;
+        }
+        .section-header {
+            border-bottom: 1px solid rgba(27, 54, 93, 0.1);
+            padding-bottom: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        .nav-link {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-link:hover {
+            color: white;
+            background-color: #FF7F32;
+            border-color: #FF7F32;
+            box-shadow: 0 4px 12px rgba(255, 127, 50, 0.3);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-manila">
+
+    <!-- TOP NAVIGATION -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-archiveNavy/95 backdrop-blur-sm border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-center">
+            <div class="flex flex-wrap gap-2 md:gap-4 items-center justify-center">
+                <a href="#summary" class="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.1em] text-white/60 nav-link">Summary</a>
+                <a href="#philosophy" class="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.1em] text-white/60 nav-link">Philosophy</a>
+                <a href="#media" class="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.1em] text-white/60 nav-link">Media</a>
+                <a href="#trajectory" class="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.1em] text-white/60 nav-link">Trajectory</a>
+                <a href="#education" class="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.1em] text-white/60 nav-link">Education</a>
+                <a href="#innovation" class="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.1em] text-white/60 nav-link">Innovation</a>
+                <a href="#closing" class="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.1em] text-white/60 nav-link">Closing</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="min-h-[75vh] flex flex-col justify-center px-6 pt-48 pb-12 border-b border-archiveNavy/5">
+        <div class="max-w-5xl mx-auto w-full text-center">
+            <div class="mb-12">
+                <div class="mb-8">
+                    <span class="font-mono text-xs uppercase tracking-[0.4em] text-archiveNavy/40 font-bold border-b border-archiveNavy/10 pb-2">Digital Resume // 2026</span>
+                </div>
+                <h1 class="font-serif text-6xl md:text-[110px] font-semibold text-archiveNavy leading-tight mb-12">
+                    Devaki Murch
+                </h1>
+                <div class="w-24 h-1 bg-archiveOrange mx-auto mb-10"></div>
+                <h2 class="font-mono text-base md:text-lg text-archiveOrange uppercase tracking-[0.4em] font-bold max-w-4xl mx-auto leading-relaxed">
+                    Archival Innovator | Experience Designer | Community Steward
+                </h2>
+            </div>
+
+            <!-- MAYA ANGELOU QUOTE -->
+            <div class="max-w-2xl mx-auto mt-16">
+                <p class="font-serif text-xl text-archiveInk/60 italic leading-relaxed">
+                    "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel."
+                </p>
+                <p class="mt-4 font-mono text-[10px] uppercase tracking-widest opacity-40">— Maya Angelou</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- PROFESSIONAL SUMMARY -->
+    <section id="summary" class="py-24 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="section-header">
+                <h3 class="font-mono text-sm uppercase tracking-[0.3em] text-archiveNavy/40">01 // Professional Summary</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                <div class="lg:col-span-8">
+                    <div class="font-serif text-xl md:text-2xl leading-relaxed text-archiveInk space-y-8">
+                        <p>
+                            Twenty-plus years creating spaces where magic happens, where strangers become collaborators, where contested histories transform into shared understanding, where institutional transactions become lasting relationships. From managing 27,000-attendee trade shows to stewarding the 33-box Operation Babylift Collection, my work has always been guided by a single principle: <span class="font-bold text-archiveNavy text-shadow-sm">the quality of outcome is directly proportional to the quality of feeling you create in the process.</span>
+                        </p>
+                        <p>
+                            As an Operation Babylift survivor raised on Kauai, I bring both insider perspective and professional expertise to archival stewardship. Where traditional archives prioritize institutional control, I've developed <span class="font-bold text-archiveNavy">Love Ethic Archival Practice</span>—a trauma-informed methodology that achieves 93% community satisfaction versus 32% from conventional approaches, with zero retraumatization incidents. This isn't just a better process; it's proof that when you center how people feel, you get better outcomes across every measurable dimension.
+                        </p>
+                    </div>
+                </div>
+                <div class="lg:col-span-4">
+                    <div class="bg-white/40 border border-archiveNavy/10 p-10 rounded">
+                        <h4 class="font-mono text-[11px] uppercase tracking-widest text-archiveNavy/40 mb-8">Impact Metrics</h4>
+                        <div class="space-y-10">
+                            <div>
+                                <span class="block font-mono text-[11px] uppercase opacity-40 mb-2 tracking-wider">Community Satisfaction</span>
+                                <div class="flex items-baseline gap-2">
+                                    <span class="font-serif text-5xl font-bold text-archiveOrange">93%</span>
+                                    <span class="text-sm opacity-40 font-mono">vs 32%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="block font-mono text-[11px] uppercase opacity-40 mb-2 tracking-wider">Retraumatization Incidents</span>
+                                <span class="font-serif text-5xl font-bold text-archiveRed uppercase">Zero</span>
+                            </div>
+                            <div>
+                                <span class="block font-mono text-[11px] uppercase opacity-40 mb-2 tracking-wider font-bold">Scale Managed</span>
+                                <span class="font-serif text-5xl font-bold text-archiveNavy">27K+</span>
+                                <span class="block text-[10px] opacity-40 mt-1 uppercase tracking-wider">Attendees / Event</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE PHILOSOPHY -->
+    <section id="philosophy" class="py-24 px-6 bg-white/10 border-y border-archiveNavy/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="section-header">
+                <h3 class="font-mono text-sm uppercase tracking-[0.3em] text-archiveNavy/40">02 // Core Philosophy</h3>
+            </div>
+
+            <div class="mb-20">
+                <h4 class="font-serif text-4xl md:text-6xl text-archiveNavy mb-10 leading-tight">Intentional Feeling States as Methodology</h4>
+                <p class="font-serif text-2xl text-archiveInk/70 italic max-w-4xl leading-relaxed">
+                    "Exceptional organizational skills and intuitive attention to detail aren't ends in themselves. They're the infrastructure that allows people to feel what you want them to feel. Every logistics decision is an emotional design decision."
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="p-10 border border-archiveNavy/10 bg-white/40 rounded transition-all hover:shadow-lg">
+                    <span class="font-mono text-xs text-archiveOrange uppercase tracking-widest block mb-6">Application 01</span>
+                    <h5 class="font-serif text-3xl font-bold mb-6 text-archiveNavy">Trade Shows</h5>
+                    <p class="text-lg leading-relaxed opacity-80">
+                        750K budget, 100+ vendors, 250,000 sq ft. Success was measured in whether retailers felt discovery was possible, whether brands felt their story could be told, whether a 4-day event left people energized rather than depleted.
+                    </p>
+                </div>
+                <div class="p-10 border border-archiveNavy/10 bg-white/40 rounded transition-all hover:shadow-lg">
+                    <span class="font-mono text-xs text-archiveOrange uppercase tracking-widest block mb-6">Application 02</span>
+                    <h5 class="font-serif text-3xl font-bold mb-6 text-archiveNavy">Discovery Marketplace</h5>
+                    <p class="text-lg leading-relaxed opacity-80">
+                        Generated 70K-100K revenue by creating a 3-hour experience that felt different—intimate, curated, surprising. Not just another buying opportunity but a feeling state that made buying feel like creative collaboration.
+                    </p>
+                </div>
+                <div class="p-10 border border-archiveNavy/10 bg-white/40 rounded transition-all hover:shadow-lg">
+                    <span class="font-mono text-xs text-archiveOrange uppercase tracking-widest block mb-6">Application 03</span>
+                    <h5 class="font-serif text-3xl font-bold mb-6 text-archiveNavy">Archival Stewardship</h5>
+                    <p class="text-lg leading-relaxed opacity-80">
+                        Personally delivering adoptee files resulted in long-term relationships because the moment felt sacred, not transactional. Veterans and adoptees co-author memory because the space felt safe enough for complexity.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEDIA VALIDATION -->
+    <section id="media" class="py-24 px-6 bg-archiveInk text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="section-header !border-white/10">
+                <h3 class="font-mono text-sm uppercase tracking-[0.3em] text-white/40">03 // Public Validation</h3>
+            </div>
+
+            <div class="mb-20 text-center">
+                <h4 class="font-serif text-5xl md:text-7xl mb-6">Media Recognition</h4>
+                <p class="font-serif text-2xl italic text-archiveOrange opacity-90">National and global proof of excellence through community trust.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 mb-24">
+                <div class="space-y-6">
+                    <span class="font-mono text-xs text-archiveOrange uppercase tracking-[0.2em] font-bold">Smithsonian Magazine</span>
+                    <h5 class="font-serif text-3xl italic leading-tight">"Rare Vietnam War Records May Rewrite the Story of Operation Babylift"</h5>
+                    <p class="text-base opacity-70 leading-relaxed italic">America's premier history publication validates archival discovery and methodology. Positions Love Ethic as a legitimate scholarly alternative.</p>
+                </div>
+                <div class="space-y-6">
+                    <span class="font-mono text-xs text-archiveOrange uppercase tracking-[0.2em] font-bold">ABC News 20/20</span>
+                    <h5 class="font-serif text-3xl italic leading-tight">"Operation Babylift: The 50-Year Journey"</h5>
+                    <p class="text-base opacity-70 leading-relaxed italic">Major network validation of human impact. Demonstrates that centering feeling doesn't sacrifice rigor—it generates prime time investigative journalism.</p>
+                </div>
+                <div class="space-y-6">
+                    <span class="font-mono text-xs text-archiveOrange uppercase tracking-[0.2em] font-bold">The Washington Post</span>
+                    <h5 class="font-serif text-3xl italic leading-tight">"Operation Babylift 50th Anniversary Coverage"</h5>
+                    <p class="text-base opacity-70 leading-relaxed italic">Validates the importance of ethical archival practice in contested histories. Reaches audiences that typically privilege institutional narratives.</p>
+                </div>
+            </div>
+
+            <!-- REGIONAL COVERAGE -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div class="p-8 bg-white/5 rounded border border-white/10">
+                    <span class="block font-mono text-[10px] uppercase opacity-40 mb-4 tracking-widest font-bold">Al Jazeera</span>
+                    <p class="font-serif text-2xl italic leading-snug">Global perspective on displacement legacy.</p>
+                </div>
+                <div class="p-8 bg-white/5 rounded border border-white/10">
+                    <span class="block font-mono text-[10px] uppercase opacity-40 mb-4 tracking-widest font-bold">Hawaii Public Radio</span>
+                    <p class="font-serif text-2xl italic leading-snug">Connecting origin story to national narrative.</p>
+                </div>
+                <div class="p-8 bg-white/5 rounded border border-white/10">
+                    <span class="block font-mono text-[10px] uppercase opacity-40 mb-4 tracking-widest font-bold">Denver FOX31</span>
+                    <p class="font-serif text-2xl italic leading-snug">Major metropolitan market validation.</p>
+                </div>
+                <div class="p-8 bg-white/5 rounded border border-white/10">
+                    <span class="block font-mono text-[10px] uppercase opacity-40 mb-4 tracking-widest font-bold">Regis University</span>
+                    <p class="font-serif text-2xl italic leading-snug">Academic institutional validation of rigor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFESSIONAL TRAJECTORY -->
+    <section id="trajectory" class="py-24 px-6 bg-paper/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="section-header">
+                <h3 class="font-mono text-sm uppercase tracking-[0.3em] text-archiveNavy/40">04 // Professional Trajectory</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                <!-- Timeline Column -->
+                <div class="lg:col-span-8 space-y-24">
+                    <!-- Grassroots -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <span class="font-mono text-sm text-archiveOrange uppercase tracking-widest block mb-3 font-bold">2016 - 2023</span>
+                            <h4 class="font-serif text-2xl font-bold text-archiveNavy uppercase leading-tight mb-2">Trade Show Director</h4>
+                            <p class="font-mono text-xs opacity-40 uppercase tracking-widest font-bold">Grassroots Outdoor Alliance</p>
+                        </div>
+                        <div class="md:col-span-8 border-l-2 border-archiveNavy/10 pl-10">
+                            <p class="font-serif text-lg text-archiveInk leading-relaxed mb-6">
+                                Created the most influential trade show for independent specialty retailers in outdoor industry not by having the most vendors, but by making vendors and retailers feel the event was designed for their actual needs.
+                            </p>
+                            <ul class="space-y-4 text-base opacity-80 list-disc pl-5">
+                                <li>Survived venue cancellation 2 months pre-show (Outdoor Retailer co-location collapse, 2019) by refusing panic, creating calm for stakeholders, focusing on "what do people need to feel okay right now"</li>
+                                <li>Navigated pandemic layoff and 30% attrition by maintaining strict health protocols that prioritized how people felt safe, not just policy compliance.</li>
+                                <li>Innovation wasn't technological—it was emotional: Coffee carts that felt like hospitality. Non-traditional vendors that felt like surprise. Education sessions that felt like conversation, not presentation.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Salt Lake Running -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <span class="font-mono text-sm text-archiveOrange uppercase tracking-widest block mb-3 font-bold">2015 - 2016</span>
+                            <h4 class="font-serif text-2xl font-bold text-archiveNavy uppercase leading-tight mb-2">Race Director / Marketing Director</h4>
+                            <p class="font-mono text-xs opacity-40 uppercase tracking-widest font-bold">Salt Lake Running Company</p>
+                        </div>
+                        <div class="md:col-span-8 border-l-2 border-archiveNavy/10 pl-10">
+                            <p class="font-serif text-lg text-archiveInk leading-relaxed mb-4">
+                                Built Park City Trail Series by first building relationships with trail stewards—understanding their concerns felt heard before asking for permits. Race success measured not in participation numbers but whether runners felt the course honored the landscape, whether the event felt like celebration rather than consumption.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Outdoor Retailer -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <span class="font-mono text-sm text-archiveOrange uppercase tracking-widest block mb-3 font-bold">2007 - 2014</span>
+                            <h4 class="font-serif text-2xl font-bold text-archiveNavy uppercase leading-tight mb-2">Community Relations Manager</h4>
+                            <p class="font-mono text-xs opacity-40 uppercase tracking-widest font-bold">Outdoor Retailer</p>
+                        </div>
+                        <div class="md:col-span-8 border-l-2 border-archiveNavy/10 pl-10">
+                            <p class="font-serif text-lg text-archiveInk leading-relaxed mb-4">
+                                Mitigated housing and registration issues for 27,000 attendees by recognizing that logistics problems are emotional problems—people don't remember solutions, they remember feeling helped. Managed activation zones by creating feeling states: New Product Zone felt like discovery. The Climbing Zone became a community space.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Prana -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+                        <div class="md:col-span-4">
+                            <span class="font-mono text-sm text-archiveOrange uppercase tracking-widest block mb-3 font-bold">2003 - 2005</span>
+                            <h4 class="font-serif text-2xl font-bold text-archiveNavy uppercase leading-tight mb-2">Community Manager</h4>
+                            <p class="font-mono text-xs opacity-40 uppercase tracking-widest font-bold">Prana</p>
+                        </div>
+                        <div class="md:col-span-8 border-l-2 border-archiveNavy/10 pl-10">
+                            <p class="font-serif text-lg text-archiveInk leading-relaxed mb-4">
+                                Brand management as relationship management. Athlete team coordination creates conditions where athletes feel seen beyond their performance. Advocacy work as making stakeholders feel their values are aligned with brand actions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The Pattern Column -->
+                <div class="lg:col-span-4">
+                    <div class="sticky top-32 p-10 bg-archiveNavy text-white rounded shadow-xl">
+                        <h4 class="font-mono text-xs uppercase tracking-widest mb-6 text-archiveOrange font-bold">Pattern Recognition</h4>
+                        <p class="font-serif text-xl italic leading-relaxed opacity-90">
+                            "Every role was about designing experiences that generated specific feeling states. Every transition was toward higher-stakes work—from products to people, from commerce to community, from events to archives. Same skills, deeper application."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPETENCIES & EDUCATION -->
+    <section id="education" class="py-24 px-6 bg-archiveNavy text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24">
+                <div>
+                    <h3 class="font-mono text-sm uppercase tracking-[0.3em] text-white/40 mb-16">Distinctive Competencies</h3>
+                    <div class="grid grid-cols-1 gap-10">
+                        <div class="flex items-start gap-8 p-8 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <span class="text-archiveOrange text-3xl font-bold">✓</span>
+                            <div>
+                                <span class="font-serif text-3xl block mb-4">Emotional Architecture</span>
+                                <span class="text-lg opacity-70 leading-relaxed">Design physical and social environments that generate specific feeling states: trust, curiosity, dignity.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-8 p-8 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <span class="text-archiveOrange text-3xl font-bold">✓</span>
+                            <div>
+                                <span class="font-serif text-3xl block mb-4">Trauma-Informed Practice</span>
+                                <span class="text-lg opacity-70 leading-relaxed">Engaging difficult material without retraumatization. Specialized in archival displacement protocols.</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-8 p-8 border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+                            <span class="text-archiveOrange text-3xl font-bold">✓</span>
+                            <div>
+                                <span class="font-serif text-3xl block mb-4">Radical Hospitality</span>
+                                <span class="text-lg opacity-70 leading-relaxed">Making resource abundance visible—food, time, flexibility—so people feel provision rather than scarcity.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-mono text-sm uppercase tracking-[0.3em] text-white/40 mb-16">Education & Continuous Learning</h3>
+                    <div class="space-y-16">
+                        <div class="relative pl-10 border-l-4 border-archiveRed">
+                            <h4 class="font-serif text-3xl font-bold mb-3">Master's, Educational Psychology</h4>
+                            <p class="font-mono text-xs uppercase tracking-widest opacity-40 mb-4 font-bold">University of Utah // Instructional Design & Educational Technology</p>
+                            <p class="text-xl italic opacity-80 leading-relaxed">Learned: How people learn is inseparable from how people feel while learning.</p>
+                        </div>
+                        <div class="relative pl-10 border-l-4 border-archiveRed">
+                            <h4 class="font-serif text-3xl font-bold mb-3">Bachelor's, Communication</h4>
+                            <p class="font-mono text-xs uppercase tracking-widest opacity-40 mb-4 font-bold">University of Utah</p>
+                            <p class="text-xl italic opacity-80 leading-relaxed">Learned: Communication is 10% information transfer, 90% relationship management.</p>
+                        </div>
+                        <div class="relative pl-10 border-l-4 border-white/20">
+                            <h4 class="font-serif text-2xl font-bold mb-3 uppercase leading-tight">Certified Event Manager (CEM)</h4>
+                            <p class="font-mono text-[10px] uppercase tracking-widest opacity-40 mb-3 font-bold">International Association of Events & Exhibits</p>
+                            <p class="text-lg opacity-60 italic leading-relaxed">Special focus: Security & Risk Management, Pandemic Response and Design (2020-2021). Learned: Crisis management is emotion management.</p>
+                        </div>
+                        <div class="relative pl-10 border-l-4 border-white/20">
+                            <h4 class="font-serif text-2xl font-bold mb-3 uppercase leading-tight">Environmental Dispute Resolution Program</h4>
+                            <p class="font-mono text-[10px] uppercase tracking-widest opacity-40 mb-3 font-bold">S.J. Quinney Law School (2018)</p>
+                            <p class="text-lg opacity-60 italic leading-relaxed">Learned: Resolution requires parties feeling heard before feeling agreement.</p>
+                        </div>
+                        <div class="relative pl-10 border-l-4 border-white/10 opacity-50">
+                            <h4 class="font-serif text-lg font-bold">Professional Certificates</h4>
+                            <p class="text-sm italic">Non-Profit Management (2007), Marketing (2005), Branding (2004). Learned: All succeed or fail on emotional resonance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INNOVATION & CURRENT FOCUS -->
+    <section id="innovation" class="py-24 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <div>
+                    <h3 class="font-mono text-sm uppercase tracking-[0.3em] text-archiveNavy/40 mb-16">Innovation Core</h3>
+                    <div class="p-12 border-2 border-archiveNavy rounded-lg bg-white/30">
+                        <p class="font-serif text-3xl italic leading-relaxed text-archiveNavy mb-12">
+                            "Archives serve living people. When we center preservation on how it feels to source communities, we get richer documentation and better history."
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="p-6 bg-archiveNavy text-white rounded font-mono text-xs uppercase tracking-widest font-bold text-center">Relationship First</div>
+                            <div class="p-6 bg-archiveNavy text-white rounded font-mono text-xs uppercase tracking-widest font-bold text-center">Power-Sharing</div>
+                            <div class="p-6 bg-archiveNavy text-white rounded font-mono text-xs uppercase tracking-widest font-bold text-center">Accountability</div>
+                            <div class="p-6 bg-archiveNavy text-white rounded font-mono text-xs uppercase tracking-widest font-bold text-center">Trauma Protection</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-mono text-sm uppercase tracking-[0.3em] text-archiveNavy/40 mb-16">Current Focus // 2026</h3>
+                    <div class="space-y-16">
+                        <div class="relative pl-8 border-l-4 border-archiveOrange">
+                            <span class="font-mono text-xs text-archiveOrange uppercase tracking-widest font-bold block mb-2">$100K Fellowship</span>
+                            <h4 class="font-serif text-3xl font-bold text-archiveNavy mb-3 uppercase">Notre Dame Love Ethic Social Innovation</h4>
+                            <p class="text-lg opacity-70 leading-relaxed">Scaling methodology through training and partnership development. Deadline: February 9, 2026.</p>
+                        </div>
+                        <div class="relative pl-8 border-l-4 border-archiveOrange">
+                            <span class="font-mono text-xs text-archiveOrange uppercase tracking-widest font-bold block mb-2">April 9-12, 2026 // Boulder, CO</span>
+                            <h4 class="font-serif text-3xl font-bold text-archiveNavy mb-3 uppercase">"Invisible Threads" Gathering</h4>
+                            <p class="text-lg opacity-70 leading-relaxed">Convening adoptees, veterans, aid workers, and Vietnamese diaspora organizations. Not conference-as-transaction but gathering-as-transformation.</p>
+                        </div>
+                        <div class="relative pl-8 border-l-4 border-archiveOrange">
+                            <span class="font-mono text-xs text-archiveOrange uppercase tracking-widest font-bold block mb-2">June 2026 // Hanoi</span>
+                            <h4 class="font-serif text-3xl font-bold text-archiveNavy mb-3 uppercase">Texas Tech Vietnam Conference</h4>
+                            <p class="text-lg opacity-70 leading-relaxed">Presenting Love Ethic Archival Practice to the international archival community. Arguing that trauma-informed methodology isn't "soft"—it's more rigorous.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLOSING STATEMENT -->
+    <section id="closing" class="pt-32 pb-8 px-6 border-t border-archiveNavy/5">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="font-mono text-sm uppercase tracking-[0.3em] text-archiveNavy/40 mb-16">Closing Statement</h3>
+            <div class="font-serif text-xl md:text-2xl leading-relaxed text-archiveInk space-y-12 mb-20">
+                <p>
+                    My career has been the same work, increasingly clarified: <span class="font-bold">creating conditions where people feel they can show up fully, where their complexity is welcome, where relationship matters more than transaction, where care is methodology and methodology is care.</span>
+                </p>
+                <p>
+                    From managing 100+ vendors on a quarter-million square foot trade show floor to personally delivering adoptee files to survivors' living rooms, the skills are identical—attention to every variable that shapes how someone experiences a moment. The stakes just keep getting higher. And the outcomes keep proving that when you make people feel held, they give you their best work, their deepest truth, their long-term trust.
+                </p>
+                <p>
+                    That's not soft skills. That's the hardest work there is—and the only kind that generates transformation. And now, with Smithsonian Magazine, ABC News 20/20, and The Washington Post validating the outcomes, there's institutional proof that centering feeling states <span class="italic">isn't alternative methodology</span>—it's superior methodology that produces better history, stronger scholarship, and outcomes worthy of national recognition.
+                </p>
+            </div>
+            
+            <div class="text-center pt-20 border-t border-archiveNavy/10">
+                <h3 class="font-serif text-2xl md:text-4xl text-archiveNavy mb-12 italic leading-[1.6]">
+                    "When people feel seen, they show up. When they show up, they bring their stories. When they bring their stories, you get history worth preserving. And when you preserve it with care, the whole world pays attention."
+                </h3>
+                <div class="w-24 h-px bg-archiveRed mx-auto mb-8 opacity-30"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 bg-archiveNavy text-white border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span id="footer-name" class="font-serif text-2xl block text-white mb-2 cursor-pointer select-none hover:text-archiveOrange transition-colors duration-500">Devaki Murch</span>
+                <span class="font-mono text-[9px] uppercase tracking-[0.4em] opacity-30 italic">Transformation as Methodology</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12">
+                <div>
+                    <span class="block font-mono text-[10px] uppercase opacity-40 mb-3 tracking-widest font-bold">Contact</span>
+                    <a href="mailto:devaki@operationbabylift.org" class="font-mono text-sm font-bold border-b-2 border-archiveOrange pb-1 hover:text-archiveOrange transition-colors">devaki@operationbabylift.org</a>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase opacity-40 mb-3 tracking-widest font-bold">Portal</span>
+                    <a href="https://operationbabylift.org" class="font-mono text-sm font-bold border-b-2 border-archiveOrange pb-1 hover:text-archiveOrange transition-colors">operationbabylift.org</a>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase opacity-40 mb-3 tracking-widest font-bold">Location</span>
+                    <span class="font-mono text-sm font-bold block">Boulder, Utah</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase opacity-40 mb-3 tracking-widest font-bold">Organization</span>
+                    <span class="font-mono text-sm font-bold block">StoryScope Studio</span>
+                    <span class="font-mono text-[10px] opacity-40 uppercase block mt-1">Fiscal Sponsor: Torrey House Press</span>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-white/10 text-center">
+                <p class="font-mono text-[10px] uppercase opacity-40 tracking-[0.5em]">© 2026 Devaki Murch // StoryScope Studio</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // EASTER EGG: Love Ethic Burst
+        const footerName = document.getElementById('footer-name');
+        const principles = ['Care', 'Commitment', 'Knowledge', 'Responsibility', 'Respect', 'Trust'];
+        const colors = ['#FF7F32', '#BC4749', '#1B365D'];
+
+        footerName.addEventListener('click', (e) => {
+            for (let i = 0; i < 12; i++) {
+                createFloatingText(e.clientX, e.clientY);
+            }
+        });
+
+        function createFloatingText(x, y) {
+            const el = document.createElement('div');
+            const principle = principles[Math.floor(Math.random() * principles.length)];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            el.innerText = principle;
+            el.style.position = 'fixed';
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            el.style.color = color;
+            el.style.fontFamily = "'Newsreader', serif";
+            el.style.fontStyle = 'italic';
+            el.style.fontSize = (Math.random() * 10 + 14) + 'px';
+            el.style.pointerEvents = 'none';
+            el.style.zIndex = '9999';
+            el.style.transition = 'all 2s cubic-bezier(0.1, 0.8, 0.2, 1)';
+            
+            document.body.appendChild(el);
+            
+            // Random direction
+            const tx = (Math.random() - 0.5) * 400;
+            const ty = -Math.random() * 300 - 50;
+            
+            requestAnimationFrame(() => {
+                el.style.transform = `translate(${tx}px, ${ty}px) rotate(${(Math.random() - 0.5) * 45}deg)`;
+                el.style.opacity = '0';
+            });
+            
+            setTimeout(() => {
+                el.remove();
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

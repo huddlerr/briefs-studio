@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Journey I Never Expected // Full Narrative // Devaki Murch</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Satisfy&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        manila: '#F2E8CF',
+                        archiveNavy: '#1B365D',
+                        archiveOrange: '#FF7F32',
+                        archiveRed: '#BC4749',
+                        archiveInk: '#2B2D42',
+                        folderTan: '#E7D8B1',
+                    },
+                    fontFamily: {
+                        stamp: ['Bebas Neue', 'cursive'],
+                        script: ['Satisfy', 'cursive'],
+                        body: ['Libre Baskerville', 'serif'],
+                        mono: ['Space Mono', 'monospace'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: #FDFCF0; 
+            color: #2B2D42;
+            background-image: radial-gradient(#E7D8B1 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .paper-overlay::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .stamp-blue {
+            color: #1B365D;
+            border: 4px double #1B365D;
+            padding: 0.5rem 1rem;
+            display: inline-block;
+            text-transform: uppercase;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.1em;
+            transform: rotate(-2deg);
+        }
+
+        .stamp-orange {
+            color: #FF7F32;
+            border: 3px solid #FF7F32;
+            padding: 0.25rem 0.75rem;
+            display: inline-block;
+            text-transform: uppercase;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.05em;
+            transform: rotate(1deg);
+        }
+
+        .dossier-card {
+            background-color: #E7D8B1;
+            border-left: 15px solid #D4C49A;
+            box-shadow: 10px 10px 0px rgba(27, 54, 93, 0.05);
+        }
+
+        .section-tab {
+            background: #1B365D;
+            color: white;
+            padding: 6px 16px;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            display: inline-block;
+        }
+
+        .full-text-prose p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body class="font-body antialiased paper-overlay">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-archiveNavy text-white">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <span class="font-stamp text-2xl tracking-wider">Operation Babylift Collection</span>
+                <span class="font-mono text-[9px] opacity-40">// FULL_TRANSCRIPT_UNEDITED</span>
+            </div>
+            <div class="flex gap-6 items-center">
+                <a href="index.html" class="font-mono text-[10px] uppercase tracking-widest opacity-30 hover:opacity-100 transition-opacity">← Back to Concise Version</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="min-h-screen pt-24 pb-20 px-6 flex flex-col justify-center">
+        <div class="max-w-6xl mx-auto w-full relative">
+            <div class="section-tab mb-8">Full Narrative // Complete Records</div>
+            <h1 class="font-stamp text-[80px] md:text-[140px] leading-[0.8] text-archiveOrange mb-4 uppercase">
+                A Journey I<br>Never Expected
+            </h1>
+            <p class="font-sans text-xl md:text-2xl font-semibold text-archiveNavy tracking-tight border-t-2 border-archiveNavy/20 pt-4 mt-6">
+                How a Plane Crash Survivor Became an Accidental Archivist (And Whether I Should Be Doing This At All)
+            </p>
+            
+            <div class="mt-12 flex flex-wrap gap-8 items-center">
+                <div class="stamp-blue">Transcript by: Devaki Murch</div>
+                <div class="font-mono text-[11px] uppercase opacity-60">
+                    Document Type: Unedited Narrative<br>
+                    Format: Full Disclosure
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- THE FULL CONTENT -->
+    <main class="max-w-4xl mx-auto px-6 pb-40">
+        
+        <article class="full-text-prose font-body text-lg text-archiveInk">
+            <div class="mb-16 border-l-4 border-archiveRed pl-8 py-2 italic text-2xl text-archiveRed">
+                I need to tell you something up front: <strong>I’m not sure I should be doing this.</strong><br><br>
+                I know that’s a terrible way to start a fundraising pitch. You’re supposed to project confidence, authority, expertise. But the truth is more complicated, and you deserve the truth.
+            </div>
+
+            <p>So let me tell you how I got here, why I’m questioning everything, and why—despite all my doubts—I’m asking for your help anyway.</p>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Crash That Started Everything</span>
+                <p>April 4, 1975. I was nine months old, strapped into a cardboard box on a C-5A Galaxy cargo plane—the first flight of Operation Babylift. My adoptive mother had waited over a year for this call. The plane was in the air for 12 minutes when the mis-rigged rear ramp locks failed. The entire rear section blew out, taking two of four hydraulic systems with it.</p>
+                <p>The pilot—Colonel Dennis “Bud” Traynor—somehow maneuvered that massive, crippled aircraft back toward Saigon, crash-landing in a rice paddy six miles short of the runway. Of 314 passengers, 178 survived.</p>
+                <p class="font-bold text-archiveRed">I was one of them.</p>
+                <p>The next day I arrived in San Francisco. My mother came and got me. She took me home to Kauai, where I grew up loved by a Jewish-Italian family on the south side of the island. I looked like every other kid in the class picture—brown skin, black hair, surrounded by ocean and bougainvillea. My adoption was never hidden. How could it be? My parents are white. I’m obviously not.</p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Story I Carried (But Didn’t Define Me)</span>
+                <p>Operation Babylift was an easy topic for school reports. Exciting. Good grades. I knew the narrative inside and out: dramatic rescue, heroic pilot, grateful adoptee. But it wasn’t something that defined me. <strong>I was just a local kid from Kauai.</strong></p>
+                <p>I taught a course at the University of Utah about media narratives and used Operation Babylift as a case study—how individual stories get shaped by whoever’s telling them, how the narrative evolved from top-down news to distributed sources to social media. The academic distance felt safe.</p>
+                <p>Then Facebook changed everything.</p>
+                <p>Colonel Bud Traynor created a Galaxy C-5A BABYLIFT page. Suddenly, the images I’d seen my whole life had context. Comments from the pilot who’d saved us. Passenger manifests that had been just lists of names became real people—loved, missed, mourned every day.</p>
+                <p><strong>I wasn’t alone in this story. There were more like me.</strong></p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Trip That Opened Something</span>
+                <p>Sister Mary Nelle Gage—who’d worked with Friends For All Children, the agency that facilitated my adoption—organized a “Motherland Tour” back to Vietnam. I went with five other adoptees. We visited the nursery sites in Saigon. Then we drove to the provinces we’d come from. Mine was Vinh Long.</p>
+                <p>When we got there, I felt something I can’t quite describe. <strong>Familiarity. Comfort. Home?</strong> But was that real, or was it just because I’d grown up on a tropical island surrounded by the same plants, the same humidity, the same feeling?</p>
+                <p>I still don’t know. And honestly? I’m okay with that. I’ve done a DNA test—I’m 99.8% Vietnamese with sensitivities to alcohol and dairy (surprise, surprise). But I have no desire to find my birth family. The family that raised me is my family. <strong>I don’t need more.</strong></p>
+                <p>But I started realizing: not everyone feels that way. For some adoptees, those questions consume them. And they have nowhere to turn for answers.</p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Plan That Wasn’t Really A Plan</span>
+                <p>By 2024, approaching the 50th anniversary, I knew I wanted to do something to honor the people who’d saved me—Sister Mary Nelle and Colonel Bud specifically. I called it “Secret Ability to Fly”—a name my friend Bret and I came up with in 2004. Bret survived childhood cancer. I survived a plane crash. When you defy death and you’re still here, you have a superpower. That’s the secret ability to fly.</p>
+                <p>My idea was simple: collect thank-you letters from Friends For All Children adoptees, put them in a binder, give it to Sister Mary Nelle and Colonel Bud. Done.</p>
+                <p><strong>That idea completely flopped.</strong></p>
+                <p>But I’m a tradeshow director—I know how to create exhibits. So I set up a table at an adoptee gathering in Boulder, Colorado. Brought the books I’d collected, the newspaper clippings, the passenger manifests, the microfiche from school projects. People weren’t interested in writing letters. They were interested in <strong>the stuff I’d brought. The files. The documents. The history.</strong></p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Moment Everything Changed</span>
+                <p>In the middle of that gathering, surrounded by people, Sister Mary Nelle handed me a box. I opened it. Inside was a shadow box containing <strong>a piece of the plane. MY plane. The one that CRASHED 49 years ago.</strong></p>
+                <p>It was a gift from Sister Susan Carol McDonald, who’d received it from a man in Saigon who lived near the crash site. There’s a note on the back explaining this. <strong>I couldn’t breathe.</strong></p>
+                <p>Later, I asked Sister Mary Nelle: “What can I do? How can I help?”</p>
+                <p>She’d spent her life caring for children of the war, for refugees resettling in Denver. She was in her eighties. She had 33+ boxes in her basement—adoption files, correspondence, photographs, documents from Friends For All Children. She needed help finding them a permanent home. She wanted to connect adoptees with their files before she died.</p>
+                <p class="italic">“Connect as many adoptees as you can.”</p>
+                <p>Okay. I can do that. Right?</p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Education I Never Got</span>
+                <p>Here’s the thing: <strong>I have zero archival training.</strong></p>
+                <p>So I took a crash course in Archive 101. What’s a repository? What’s accessioning? How do you organize a previously unmanaged collection? How do you protect vulnerable information while making it accessible?</p>
+                <p>I started carrying files around in my backpack. I researched options: Regis University (where Sister Mary Nelle’s religious order, the Sisters of Loretto, had been based). Library of Congress. Gerald Ford Presidential Library. Texas Tech Vietnam Center & Archive.</p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Magic That Kept Happening</span>
+                <p><strong>September 2024, Washington DC.</strong> I was there producing an event. I had one free morning. On a whim, I decided to visit the Library of Congress. The Uber driver dropped me at the wrong building—the manuscript building. I walked in, poked around, then asked the receptionist: “How do collections become part of the Library of Congress?” It seemed like such a far-fetched idea.</p>
+                <p>She called someone. Dr. Sherri Sheu came out, looked at the files I’d been carrying in my backpack (yes, I’ve been hauling them around for years now), and asked me to come back the next day. <strong>She spent two hours with me.</strong> Then took me into the back rooms where they keep Margaret Mead’s papers, Walt Whitman’s manuscripts, Charles and Ray Eames’s original designs, E.O. Wilson’s research.</p>
+                <p>Not bad for walking in the wrong door.</p>
+                <p>That same trip, I finally worked up the courage to call Colonel Bud Traynor. He lives in Virginia. I’d been hesitant because—he’s THE PILOT. Why would he want to talk to me? <strong>He said yes. That afternoon.</strong></p>
+                <p>We sat in his living room for hours. He walked me through the crash moment by moment. Showed me documents, photos, his logbooks. We cried together. We laughed together. <strong>This man saved my life. And now we were drinking coffee in his kitchen.</strong></p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Semester That Changed Everything</span>
+                <p>November 2024: Library of Congress called. They’d take the non-adoptee materials—agency correspondence, policy documents—but not the personal adoption files.</p>
+                <p>Same week: Regis University called. They were teaching a Vietnam War course for the 50th anniversary. Would I do a guest lecture in February? Then they called back: “Actually, we have gallery space in the library. Want to do a full exhibition?” It was November. They wanted it ready for February. <strong>Two months.</strong></p>
+                <p>As a tradeshow director, I knew I could pull that off. Turbo mode engaged. <strong>February 1, 2025:</strong> “Operation Babylift // New Perspectives” opened at Regis University’s Dayton Memorial Library.</p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Opening Night I’ll Never Forget</span>
+                <p>An older couple arrived early. I was rushing around, stressed, straightening things. When I finally went over to greet them, they said: <strong>“The last time we saw you, you were a year and a half old.”</strong> WHAT?</p>
+                <p>They’d adopted their daughter from Friends For All Children. At the time, they lived on Oahu and came to Kauai to visit my mom and me. And now, <strong>forty-nine years later, we were standing together in Denver.</strong></p>
+                <p>Sister Mary Nelle introduced me to John Cupp. I’d chosen photo panels for the exhibit based on which ones showed the different nurseries and caregivers. Three of the eight panels I selected were by photographer David Cupp. <strong>John Cupp was David’s son. He’d never seen so many of his father’s images in one place.</strong></p>
+                <p>As we headed to the lecture hall, a face peeked around the corner: <strong>Michelle Mee, my classmate from Maui High School. I hadn’t seen her in 30 years. She lives in Golden, Colorado.</strong></p>
+                <p>I’m writing all this down because I don’t want to forget the magic. These aren’t coincidences.</p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Conference Where I Started Questioning Everything</span>
+                <p>April 2025: Texas Tech Vietnam Archive Conference in Lubbock. Most attendees were military, policymakers, academics. I went to absorb, to learn. It was overwhelming. I’d never heard these stories—especially from Vietnamese veterans who fought alongside US troops. The complexity, the pain, the unresolved trauma everywhere.</p>
+                <p>I sat down for one of the last sessions. People started chittering, pointing at me and the guy next to me. <strong>Turns out I’d been in his slideshow</strong> in the previous session. Trevor Yates had used my StoryCorps interview as an example of an Operation Babylift refugee. And I’d sat down right next to him.</p>
+                <p>Then, during Q&A, an older gentleman stood up. Dr. Robert Turner—two-tour journalist in Vietnam, 30 years at UVA in international policy, former director of the Institute for Peace and Conflict Studies. He started talking about one of his biggest career regrets: knowing there were children in Cambodia certain to be killed when the Khmer Rouge took Phnom Penh. He’d heard there were some women who helped evacuate children. Could they help? The answer came back: not possible at that time.</p>
+                <p>When he finished speaking, I went over to him during the break. “Dr. Turner, I think those women you mentioned—one of them is Sister Mary Nelle Gage. She’s the one who gave me these archives. And I think the children you were trying to save in Cambodia—some of them got out through Friends For All Children. Their files are in the boxes I inherited.” <strong>He started crying.</strong></p>
+                <p>And that’s when everything shifted for me. I wasn’t just organizing boxes anymore. I was holding stories of children who almost didn’t make it out. Stories of people who’d tried to save them. Stories of decisions made fifty years ago that still haunt people today. <strong>What right did I have to be holding these stories?</strong></p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Hard Questions I Can’t Stop Asking</span>
+                <p><strong>Should I even be doing this project? Am I the right person?</strong></p>
+                <p>I mean, really. Let’s be honest: I have no archival training, no academic credentials in history or Southeast Asian studies, I’m not a trauma therapist, I’m not an immigration lawyer, I don’t speak Vietnamese, I’ve never worked in nonprofit management, and I literally stumbled into this.</p>
+                <p>And the stakes are <strong>enormous:</strong> I’ve learned that denaturalization cases have increased 600% since 2017. Many Operation Babylift adoptees may have irregular naturalization documentation from the chaos of 1975.</p>
+                <p><strong>What if the files I deliver to adoptees contain information that could be used against them in deportation proceedings?</strong> What if government agencies subpoena my records? What if my work actually puts them in danger? What if some adoptees are genuinely better off NOT knowing what’s in their files? What if I travel to Vietnam for a conference and create a paper trail that could be used to question adoptees’ “foreign allegiance”?</p>
+                <p><strong>What if I cause more harm than good?</strong></p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Hard Truth I Had to Face</span>
+                <p>Here’s what I finally had to admit to myself: <strong>You’re already doing this project.</strong></p>
+                <p>The question isn’t “should I start?”—it’s “should I continue, and if so, how do I do it without causing harm?” The archives are in my custody. Sister Mary Nelle Gage entrusted them to me before she died. I’ve already delivered files to 30 adoptees. I’ve already conducted 13 oral histories. Vietnamese Boat People and Con Tím Mẹ have already identified me as a trusted partner. <strong>I can’t un-ring that bell.</strong></p>
+                <p>So the real question is: What does responsible stewardship look like given the risks I’ve now identified?</p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">Why I’m Questioning This (And Why That’s Actually Good)</span>
+                <p>I’m questioning everything because I’ve just fully confronted the reality that my work could expose adoptees to deportation, government agencies could subpoena my records, documentation I create could be weaponized, my presence in Vietnam could be dangerous, some adoptees may be better off NOT knowing what’s in their files, and truth and safety are genuinely in tension.</p>
+                <p><strong>Of course I’m asking if I should be doing this. Anyone who wasn’t asking that question would be ethically unfit to do this work. The question itself is evidence of fitness, not disqualification.</strong></p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Case for Continuing (Despite My Doubts)</span>
+                <p><strong>1. The Alternative Is Worse:</strong> If I stop now, the archives sit inaccessible or get placed in an institution that uses extractive methods, adoptees continue to lack access to their own histories, no one develops trauma-informed, community-centered protocols, the citizenship documentation crisis remains unaddressed, and Vietnamese perspectives remain marginalized. I’ve reached 19% engagement in 18 months with 100% positive response and zero retraumatization.</p>
+                <p><strong>2. I Have Unique Positionality:</strong> I am an Operation Babylift adoptee, a C-5A Galaxy crash survivor, someone who has Sister Mary Nelle Gage’s trust, already trusted by Vietnamese diaspora organizations, trained in instructional design, and experienced in event production. <strong>No one else brings this exact combination.</strong></p>
+                <p><strong>3. I’m Not Operating Alone:</strong> I’m actively building an advisory circle to address the gaps in my knowledge—immigration law expertise, research ethics consultation, Vietnamese cultural accountability, archival ethics, and trauma-informed practice.</p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">What I’ve Accidentally Built</span>
+                <p>I’ve developed what I’m calling “Love Ethic Archival Practice”—based on bell hooks’s philosophy that love is action, not sentiment. Love requires care, commitment, trust, responsibility, respect, and knowledge. And crucially: <strong>“There can be no love without justice.”</strong></p>
+                <p>In practice, this means <strong>Trauma-informed delivery</strong>, <strong>Five layers of consent</strong>, <strong>Community control</strong>, and <strong>Strategic consideration of what NOT to document.</strong> Through 13 oral histories and 30+ file deliveries: <strong>zero incidents of retraumatization.</strong></p>
+            </div>
+
+            <div class="mt-20 mb-8 border-t-2 border-archiveNavy/10 pt-12">
+                <span class="font-stamp text-4xl text-archiveNavy uppercase block mb-6">The Funding Ask</span>
+                <p>But I can’t do this on volunteer capacity anymore. The work is too big, too urgent, too important. And frankly, <strong>if I’m going to do it, I need to do it right.</strong></p>
+                <p><strong>Total 2026 Need: $105,000</strong></p>
+                <ul class="list-disc pl-8 space-y-4">
+                    <li><strong>Process 33 Boxes ($35,000):</strong> Hire a part-time processing archivist.</li>
+                    <li><strong>Deliver 50 Files ($20,000):</strong> Secure delivery and trauma-informed follow-up.</li>
+                    <li><strong>Conduct 20 Oral Histories ($25,000):</strong> Capturing adoptee perspectives with consent.</li>
+                    <li><strong>Honor Veterans ($15,000):</strong> Interviewing 10 personnel who participated in Babylift.</li>
+                    <li><strong>Document Methodology ($10,000):</strong> Creating training materials for other archives.</li>
+                </ul>
+            </div>
+
+            <div class="mt-20 text-center">
+                <div class="heart-stamp mx-auto mb-8 scale-150"></div>
+                <h3 class="font-script text-5xl text-archiveNavy mb-8">"Connect as many adoptees as you can."</h3>
+                <p class="font-body text-xl italic text-archiveInk opacity-60 mb-16">
+                    I’m trying, Sister Mary Nelle. I’m questioning everything along the way. But I’m trying.
+                </p>
+                <div class="stamp-blue">Devaki Murch // Accidental Archivist</div>
+            </div>
+
+        </article>
+
+    </main>
+
+    <!-- FOOTER NAV -->
+    <footer class="fixed bottom-0 left-0 right-0 z-50 bg-archiveNavy/95 text-manila px-6 py-2 flex justify-between font-mono text-[8px] uppercase tracking-widest">
+        <span>© 2025 Operation Babylift Collection</span>
+        <span>Version: Full Disclosure // Unedited</span>
+    </footer>
+
+    <script>
+        // EASTER EGG: Type "babylift" to enter the Command Center
+        let keys = [];
+        const code = 'babylift';
+        window.addEventListener('keydown', (e) => {
+            keys.push(e.key.toLowerCase());
+            keys = keys.slice(-code.length);
+            if (keys.join('') === code) {
+                window.location.href = 'command-center.html';
+            }
+        });
+    </script>
+</body>
+</html>
+

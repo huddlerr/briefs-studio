@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYCELIUM // Six Irons Creative — Operational Blueprint</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ruggedBlack: '#0E0E0E',
+                        ruggedWhite: '#F5F5F5',
+                        ruggedGray: '#2A2A2A',
+                    },
+                    fontFamily: {
+                        heading: ['Archivo Black', 'sans-serif'],
+                        body: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #0E0E0E;
+            --text: #F5F5F5;
+        }
+
+        ::-selection {
+            background: #FFFFFF;
+            color: #000000;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        .cinematic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(rgba(14, 14, 14, 0.7), rgba(14, 14, 14, 0.9)),
+                url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            filter: grayscale(100%) contrast(1.2);
+        }
+
+        .valknut-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .glass-nav {
+            background: rgba(14, 14, 14, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            opacity: 0.3;
+            letter-spacing: 0.5em;
+        }
+
+        .heavy-caps {
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        .reveal-y {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .phase-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .phase-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .border-rugged {
+            border: 2px solid white;
+        }
+
+        /* Lenis smooth scroll fix */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+    </style>
+</head>
+
+<body class="font-body antialiased">
+    <div class="cinematic-bg"></div>
+
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav h-20 flex items-center px-8 md:px-16">
+        <div
+            class="max-w-screen-2xl mx-auto w-full flex justify-between items-center font-heading text-[10px] tracking-[0.4em] uppercase">
+            <div class="flex items-center gap-4">
+                <span class="opacity-100">Mycelium // Six Irons</span>
+            </div>
+            <div class="hidden md:flex gap-12 opacity-40">
+                <a href="#vision" class="hover:opacity-100 transition-opacity">Vision</a>
+                <a href="#blueprint" class="hover:opacity-100 transition-opacity">Blueprint</a>
+                <a href="#projections" class="hover:opacity-100 transition-opacity">Financials</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-screen-xl mx-auto px-8 md:px-16 pt-48 pb-64">
+
+        <!-- HERO -->
+        <header class="text-center mb-64 reveal-y" data-gsap="reveal">
+            <div class="valknut-icon">
+                <svg viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="2">
+                    <path d="M50 10 L85 70 L15 70 Z" />
+                    <path d="M30 30 L65 90 L-5 90 Z" transform="translate(10, 0)" />
+                    <path d="M70 30 L105 90 L35 90 Z" transform="translate(-10, 0)" />
+                </svg>
+            </div>
+            <h1 class="heavy-caps text-[clamp(4rem,15vw,10rem)] mb-8 tracking-tighter">Mycelium</h1>
+            <p class="font-heading text-xs tracking-[0.8em] uppercase opacity-40 mb-16">Operational Blueprint //
+                01.09.26</p>
+
+            <div class="max-w-4xl mx-auto border-rugged p-12 md:p-20">
+                <h2 class="heavy-caps text-3xl md:text-5xl mb-8 leading-tight">
+                    We grow forests,<br>not factories.
+                </h2>
+                <p
+                    class="text-[11px] uppercase tracking-[0.3em] font-medium opacity-60 max-w-2xl mx-auto leading-relaxed">
+                    A creative production collective that operates as distributed infrastructure rather than a
+                    traditional agency.
+                </p>
+            </div>
+        </header>
+
+        <!-- 01 // VISION -->
+        <section id="vision" class="mb-64 reveal-y" data-gsap="reveal">
+            <span class="section-number block mb-12">01 // THE VISION</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-start">
+                <h3 class="heavy-caps text-5xl md:text-7xl">Rugged <br><span class="opacity-30">Infrastructure.</span>
+                </h3>
+                <div class="space-y-12">
+                    <p class="text-xl md:text-2xl leading-relaxed font-light italic">
+                        "Six Irons is built on products that last and stories that land. Mycelium is the engine that
+                        allows us to scale that impact
+                        without losing our soul."
+                    </p>
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="p-8 bg-white/5 border border-white/10 uppercase tracking-widest text-[10px]">
+                            <span class="block opacity-40 mb-2">Core Mechanism</span>
+                            Multi-stakeholder co-creation
+                        </div>
+                        <div class="p-8 bg-white/5 border border-white/10 uppercase tracking-widest text-[10px]">
+                            <span class="block opacity-40 mb-2">Revenue Model</span>
+                            Production Fees + Growth Retained
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02 // BLUEPRINT -->
+        <section id="blueprint" class="mb-64 reveal-y" data-gsap="reveal">
+            <span class="section-number block mb-12">02 // OPERATIONAL PHASES</span>
+            <div class="space-y-4">
+                <!-- PHASE 0 -->
+                <div class="phase-card p-12 md:p-20 flex flex-col md:flex-row justify-between gap-12">
+                    <div class="max-w-md">
+                        <span class="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-4 block">Months
+                            0-2</span>
+                        <h4 class="heavy-caps text-4xl mb-6">Phase 0: Foundation</h4>
+                        <p class="text-sm opacity-50 leading-relaxed uppercase tracking-wider">
+                            Legal structure as LLC with operating agreement for profit-sharing and IP retention. Startup
+                            capital $15k-$25k.
+                        </p>
+                    </div>
+                    <ul class="text-[10px] uppercase tracking-[0.2em] space-y-4 opacity-70">
+                        <li>[ ] Form LLC</li>
+                        <li>[ ] Bank Architecture</li>
+                        <li>[ ] Core Team Selection</li>
+                    </ul>
+                </div>
+
+                <!-- PHASE 1 -->
+                <div
+                    class="phase-card p-12 md:p-20 flex flex-col md:flex-row justify-between gap-12 border-l-4 border-white">
+                    <div class="max-w-md">
+                        <span class="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-4 block">Months
+                            1-4</span>
+                        <h4 class="heavy-caps text-4xl mb-6">Phase 1: Proof</h4>
+                        <p class="text-sm opacity-50 leading-relaxed uppercase tracking-wider">
+                            The Zambia Water Project. $15k production budget. 1 Brand + 5 Artists + 1 Community Partner.
+                            Authentic output.
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <span class="heavy-caps text-6xl opacity-10 font-bold">LIVE</span>
+                    </div>
+                </div>
+
+                <!-- PHASE 2+ -->
+                <div class="phase-card p-12 md:p-20 flex flex-col md:flex-row justify-between gap-12">
+                    <div class="max-w-md">
+                        <span class="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-4 block">Months
+                            4-18</span>
+                        <h4 class="heavy-caps text-4xl mb-6">Scaling Phase</h4>
+                        <p class="text-sm opacity-50 leading-relaxed uppercase tracking-wider">
+                            Building the artist roster to 20+. Refinement of the "Mycelium Starter Kit" for methodology
+                            licensing.
+                        </p>
+                    </div>
+                    <ul class="text-[10px] uppercase tracking-[0.2em] space-y-4 opacity-70">
+                        <li>[ ] Artist Profit-Sharing</li>
+                        <li>[ ] Regional Cell Expansion</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 // PROJECTIONS -->
+        <section id="projections" class="mb-64 reveal-y" data-gsap="reveal">
+            <span class="section-number block mb-12">03 // FINANCIAL TRAJECTORY</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-12 border border-white/5 bg-white/2">
+                    <span class="font-mono text-[9px] opacity-30 tracking-[0.4em] mb-4 block">YEAR 01</span>
+                    <h5 class="heavy-caps text-4xl mb-4">$75K</h5>
+                    <p class="text-[9px] uppercase tracking-widest opacity-40">Proof of Concept</p>
+                </div>
+                <div class="p-12 border border-white/5 bg-white/2">
+                    <span class="font-mono text-[9px] opacity-30 tracking-[0.4em] mb-4 block">YEAR 02</span>
+                    <h5 class="heavy-caps text-4xl mb-4">$215K</h5>
+                    <p class="text-[9px] uppercase tracking-widest opacity-40">Operations Scale</p>
+                </div>
+                <div class="p-12 border-rugged">
+                    <span class="font-mono text-[9px] opacity-30 tracking-[0.4em] mb-4 block">YEAR 03</span>
+                    <h5 class="heavy-caps text-4xl mb-4">$500K</h5>
+                    <p class="text-[9px] uppercase tracking-widest opacity-40">Infrastructure Maturity</p>
+                </div>
+                <div class="p-12 border border-white/5 bg-white/2">
+                    <span class="font-mono text-[9px] opacity-30 tracking-[0.4em] mb-4 block">YEAR 05</span>
+                    <h5 class="heavy-caps text-4xl mb-4">$1M+</h5>
+                    <p class="text-[9px] uppercase tracking-widest opacity-40">Distributed Freedom</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE MONDAY COMMAND -->
+        <section class="reveal-y" data-gsap="reveal">
+            <div class="bg-white text-black p-12 md:p-32 text-center border-rugged">
+                <h2 class="heavy-caps text-[clamp(2.5rem,8vw,6rem)] mb-12">Monday Morning.</h2>
+                <div class="max-w-2xl mx-auto space-y-12">
+                    <div class="space-y-4">
+                        <h3 class="heavy-caps text-xl tracking-widest">01 // Recruit the core</h3>
+                        <p class="text-[11px] uppercase font-bold tracking-[0.2em] opacity-60">Call 3 artists. Secure
+                            the commitment.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="heavy-caps text-xl tracking-widest">02 // The Oak Tree Pitch</h3>
+                        <p class="text-[11px] uppercase font-bold tracking-[0.2em] opacity-60">Email 5 brands. Close the
+                            first partner.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <h3 class="heavy-caps text-xl tracking-widest">03 // Plant the seed</h3>
+                        <p class="text-[11px] uppercase font-bold tracking-[0.2em] opacity-60">Finalize the Zambia
+                            budget. Set the date.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer
+            class="mt-48 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center opacity-40 font-heading text-[9px] uppercase tracking-[0.5em] gap-8">
+            <div class="flex items-center gap-4">
+                <span>Six Irons Creative // Mycelium</span>
+            </div>
+            <span>Rugged Luxury // Vérité Production</span>
+            <span>2026.01.09</span>
+        </footer>
+
+    </main>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        window.addEventListener('load', () => {
+            gsap.utils.toArray('.reveal-y').forEach(item => {
+                gsap.to(item, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.5,
+                    ease: 'expo.out',
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 85%',
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

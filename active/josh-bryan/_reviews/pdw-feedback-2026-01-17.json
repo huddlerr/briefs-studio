@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1768575947013,
+    "section": "title-slide",
+    "text": "In the upper right corner, change the coordinates to 34.7112° N, 86.6897° W and link it to a hidden page/slide that is not visible in the presentation but uses the same thematic elements with the text: \"Thank you for your time and consideration and congratulations for finding the Easter egg. - Josh Bryan\"\n\nIn the upper left corner remove the \"MISSION SUPPORT\" text and add \"PDW PANEL INTERVIEW 1.20.2026\"\n\nIncrease the title text font by 80% for all text, excluding the text in the corners.\n\nIn the center left title change the text in red \"MISSION SUPPORT OVERVIEW\" to \"WHO | WHAT | WHY.",
+    "timestamp": "2026-01-16T15:05:47.013Z"
+  },
+  {
+    "id": 1768576145908,
+    "section": "overview-roadmap",
+    "text": "Expand the size of the four content cards to fill the middle 2/3s of the slide and increase the font relative to the new, larger card size. Ensure the title text \"PRESENTATION OVERVIEW\" is scaled to remain larger than the increased content card font to show hierarchy.",
+    "timestamp": "2026-01-16T15:09:05.908Z"
+  },
+  {
+    "id": 1768583455219,
+    "section": "who-is-josh",
+    "text": "under \"Who is Josh Bryan?\" Remove the text \"M-SHAPED GENERALIST\" and change to \"MULTI-DISCIPLINARY STRATEGIST\" \n\nFor the three expandable cards, replace the red triangles with the digital asset of a red circle with a white triangle in the inside to match the PDW logo.\n\nIn the Introductory card, remove \"The Generalist\" and replace with \"Multi-Disciplinary\".\n\nChange the vertical title \"INTRODUCTORY\" to \"CORE\"\n\nInside the \"CORE\" expandable tab, add four expandable sub-cards for Background, Education, Family, and Interests arranged in a quad. Each card when clicked will have a slight zoom animation to bring it forward, in front of the other cards. Non-selected cards will then appear slightly blurry to indicate depth while the selected card is zoomed. \n\nThe Background sub-card will contain the following bullets:\n- Hometown: Enterprise, AL (military child)\n- Son a journalist and Army Aviator\n- Varsity wrestler, soccer player\n- Resolved health challenges profoundly impactful\n\nThe Education sub-card will contain the following bullets: \n- B.S. Civil Engineering\n- M. Ed. Kinesiology\n- Medical School (declined)\n\nThe Family sub-card will contain the following bullets:\n- Married to Samantha for 25 years\n- Hailey, 20, sophomore at the University of Alabama (Kinesiology).\n- Addie, 18, freshman at Auburn University (pre-veterinarian).\n- Walker, 14, 8th grade, all-county baseball player.\n\nThe Interests sub-card will contain the following bullets:\n- Reading\n- Hiking/Long-distance backpacking \n- Fishing/Camping with Walker\n- Applied Technologies\n\nEnsure the text is scaled to balance the empty space on the card, but the font size should be the same for all tabs. \n\nChange the INTERMEDIATE tab to PROFESSIONAL. Update the two triangles in accordance with previous guidance to match the PDW logo. Change the bulleted list of items to four sub-cards with the following categories: ARMY AVIATION, JOHNSON & JOHNSON, ARMY FUTURES COMMAND, and OPERATIONS DIRECTOR (START-UP). Animate these sub-cards in the same fashion as for the CORE tab.\n\nFor the Army Aviation sub-card, use the following bullets:\n- OH-58D Reconnaissance Pilot/Instructor Pilot\n- Operational assignments in both heavy (South Korea) and light (Fort Bragg) Cavalry units. \n- Associate Professor United States Military Academy\n- Medically Retired\n\nFor the Johnson & Johnson sub-card use the following bullets:\n- Sales and Contracting, $7M+ territory\n- Professional Discomfort\n- Identity Challenge\n- Interpersonal Skills, Leadership Styles\n\nFor the ARMY FUTURES COMMAND sub-card use these bullets:\n- Mission Command Network\n- SA Software (TAK) and Communications\n- Operational Planning Needs\n- Doctrinal Depth\n\nFor the OPERATIONS DIRECTOR sub-card use these bullets:\n- International CUAS/UAS start-up\n- $40M ME Contract; Deliverables Updated and Accepted\n- FRONTEX presentation/contract\n- Process, Standardization, Strategy\n\nChange the ADVANCED tab vertical title to IDENTITY but continue to use \"Values & Motivations\" on the main card. Add the following sub-cards arranged horizontally in thirds with the same animations as previous sub-cards: PEOPLE, PROCESS, PRODUCT/PROJECT.\nFor the PEOPLE sub-card add the following bullets:\n- Ownership/Accountability\n- Teamwork and Shared Sacrifice\n- Professional Development/Investment\n- Customers as Partners\n\nFor the Process sub-card add the following bullets:\n- Quality Before Quantity\n- Culture of Trust and Autonomy\n- Proactive/Dynamic\n- Decentralized Execution and Intent",
+    "timestamp": "2026-01-16T17:10:55.219Z"
+  },
+  {
+    "id": 1768585294090,
+    "section": "why-me",
+    "text": "Add the same triangle PDW logo to these tabs as on previous slides. Change the horizontal tab title to \"Value Alignment\". Within this tab add sub-cards for the following categories but they will NOT be animated: Company Principles, Agility and Pace, Varied Skillsets.\n\nFor the \"PRODUCTS\" tab, add the following sub-cards under \"Proven Platforms\": Proven Platforms, Diversified Customers, Closed Loop Operations.\n\nFor the FUTURE tab, remove the current bullets and add the following as sub-cards: Aggressive Scaling, Emerging Market Penetration, Vision for World-Class Products and Services.",
+    "timestamp": "2026-01-16T17:41:34.090Z"
+  },
+  {
+    "id": 1768586152566,
+    "section": "why-me",
+    "text": "Keep the general design of the stair steps with the current animation but placed on a more opaque background to better visualize the metaphor. \nMake the following changes:\nRemove the foundation step. Make \"INTERPERSONAL\" the lowest step and change the bullets to \n- Relatable\n- Reliable Teammate\n- Customer Focused\n\nThe next higher step will be TRAINING/EDUCATION with the following bullets:\n- Formal /Informal Instruction Experience\n- Instructional System Design\n- Content Development and Refinement\n\nThe next stair step will be TECHNICAL with the following bullets:\n- Aviation-Related Disciplines\n- Organizational Process Improvements and Standardization\n- Data Visualization & Technology",
+    "timestamp": "2026-01-16T17:55:52.566Z"
+  },
+  {
+    "id": 1768616044995,
+    "section": "plan-30-60-90",
+    "text": "Remove the current dashed line representing a road and the 30-60-90 day circles. Add an animation that begins upon navigating to this page that zooms into the background topo map while rotating clockwise 90 degrees so that a stylized line representing a road is seen curving through the topo map. There should be three distinct curves in the road. Each curve will be identified with a thin white line that leads to a the numbers 30, 60, 90 in that order.",
+    "timestamp": "2026-01-17T02:14:04.995Z"
+  },
+  {
+    "id": 1768616604517,
+    "section": "closing-wing",
+    "text": "Remove this slide entirely.",
+    "timestamp": "2026-01-17T02:23:24.517Z"
+  },
+  {
+    "id": 1768617368778,
+    "section": "plan-30-60-90",
+    "text": "The first curve will have a thin line that leads to the number 30. The number will have a subtle enlarging animation when hovered over and be clickable which will launch a card with the title 0-31: IMMERSION. Underneath will be three sub-cards presented horizontally that will have a subtle enlargement animation when selected or hovered over. Sub-cards will be for the categories of PEOPLE, PROCESSES, and PRODUCTS/PROJECTS. The PEOPLE sub-card will contain the following bullets:\n- Interface with Mission Support and Training Teams, Leadership, and Departments.\n- One-on-one meetings with key teammates\n- Stakeholder Mapping (Internal & External)\n- Plan field visits/offsites\n\nThe PROCESSES sub-card will have the following bullets:\n- Absorb PDW culture and SOPs\n- Audit current Mission Support and Training Processes\n- Identify Gaps\n- Understand Context (Environment, Regulatory, Threat)\n\nPRODUCTS/PROJECTS sub-card will contain:\n- Learn current and future PDW product specifications, design, engineering, testing, and marketing details\n- Learn competitor product specifications, understand differentiations\n- Audit current curriculum and content development projects\n- Understand defense and public safety needs for mission support and training",
+    "timestamp": "2026-01-17T02:36:08.778Z"
+  },
+  {
+    "id": 1768617818107,
+    "section": "plan-30-60-90",
+    "text": "The second curve of the road will have a line with the number \"60\" which will have the same animation as the 30-day card. The 60 day card with have the title \"31-60: PRIORITIZATION\" and utilize the same three categories as sub-cards:\nPEOPLE\n- Establish rhythm with teams and stakeholders\n- Prioritize team needs and bandwidth\n- Identify internal training and assessment leads for scaling\n\nPROCESSES\n- Audit capture process for lessons learned and current events\n- Identify desired internal training tiers and recertification processes\n- Identify customer competencies for mission support and training personnel\n\nPRODUCTS/PROJECTS\n- Identify curriculum adjustments with emphasis on potential digital learning aids (Simulation/PDWCORE)\n- Prioritize curriculum and content development needs\n- Prioritize mission support resourcing in phases",
+    "timestamp": "2026-01-17T02:43:38.107Z"
+  },
+  {
+    "id": 1768618250974,
+    "section": "plan-30-60-90",
+    "text": "The number 90 will be linked to the third curve in the road using the same animation as 30 and 60. The title will be \"61-90: IMPLEMENTATION & REFINEMENT\"\n\nPEOPLE\n- Establish scalable training personnel plan emphasizing quality and continuous improvement\n- Identify mentors to disseminate mission support and training methods\n- Establish regular site visits and participate in offsite training\n\nPROCESSES\n- Establish proactive curriculum and content design teams\n- Implement feedback repository with monthly actions for mission support and training personnel\n- Implement customer competency training plan\n\nPRODUCTS/PROJECTS\n- Implement formal internal training plan for current and future product updates\n- Implement mission support roadmap, resource dependent\n- Standardize all aspects of mission support and training activities with intent to scale",
+    "timestamp": "2026-01-17T02:50:50.974Z"
+  },
+  {
+    "id": 1768618327709,
+    "section": "plan-30-60-90",
+    "text": "Each card for 30, 60 and 90 days will have a button to return to the primary slide showing the road with three curves. There will be an exit button which reverses the animation by rotating the map 90 degrees counter-clockwise and zooming out to return to the same base slide design before continuing to the closing slide.",
+    "timestamp": "2026-01-17T02:52:07.709Z"
+  },
+  {
+    "id": 1768618413261,
+    "section": "title-slide",
+    "text": "Add a button that exports each slide view to a pdf. Ensure there is a separate slide for cards that contain sub-cards for each relevant slide.",
+    "timestamp": "2026-01-17T02:53:33.261Z"
+  }
+]

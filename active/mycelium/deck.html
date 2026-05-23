@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYCELIUM // The Deck — Strategic Blueprint</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=JetBrains+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#0A0A0A',
+                        moss: '#1A2F23',
+                        biolume: '#4ade80',
+                        forest: '#064e3b',
+                        ghost: '#f8fafc',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #0A0A0A;
+            --text: #F8FAF2;
+            --accent: #4ade80;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 2;
+        }
+
+        .biolume-gradient {
+            background: linear-gradient(135deg, #4ade80 0%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: var(--accent);
+            z-index: 100;
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-hints {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.3;
+            z-index: 100;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .deck-nav {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            right: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+        }
+
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 50;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-ghost selection:bg-biolume selection:text-obsidian">
+    <div class="grain-overlay"></div>
+
+    <div class="deck-nav">
+        <span class="text-biolume font-bold">MYCELIUM // THE DECK</span>
+        <span id="slideCounter" class="opacity-40">01 / 07</span>
+        <a href="index.html" class="opacity-40 hover:opacity-100 transition-opacity">EXIT [ESC]</a>
+    </div>
+
+    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+
+    <!-- SLIDE 01: HERO -->
+    <div class="slide active" id="slide1">
+        <div class="slide-content text-center">
+            <span class="font-mono text-[11px] uppercase tracking-[0.6em] text-biolume mb-8 block">Project
+                Blueprint</span>
+            <h1 class="font-serif text-[clamp(4rem,10vw,9rem)] leading-[0.9] mb-4">Mycelium</h1>
+            <h2 class="font-serif text-4xl md:text-6xl italic biolume-gradient mb-12">Forests, Not Factories.</h2>
+            <p class="font-mono text-[10px] uppercase tracking-widest opacity-40 max-w-xl mx-auto leading-relaxed">
+                A creative production collective operating as distributed infrastructure.
+            </p>
+        </div>
+    </div>
+
+    <!-- SLIDE 02: THE THESIS -->
+    <div class="slide" id="slide2">
+        <div class="slide-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                <div>
+                    <span class="font-mono text-xs text-biolume mb-6 block">01 // THE THESIS</span>
+                    <h2 class="font-serif text-6xl lg:text-8xl leading-none mb-12">Connective <span
+                            class="italic text-biolume">Tissue.</span></h2>
+                    <p class="text-2xl font-serif text-ghost/60 italic leading-relaxed">
+                        "We are moved past the era of extraction. Mycelium operates like the natural world: projects
+                        scale when resources are shared."
+                    </p>
+                </div>
+                <div class="space-y-8">
+                    <div class="p-10 border border-white/10 bg-white/5">
+                        <h3 class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-4 uppercase">
+                            Distributed</h3>
+                        <p class="text-sm opacity-60 leading-relaxed">Scaling through regional "cells" rather than a
+                            central office.</p>
+                    </div>
+                    <div class="p-10 border border-white/10 bg-white/5">
+                        <h3 class="font-mono text-[10px] uppercase tracking-widest text-biolume mb-4 uppercase">IP
+                            Revolution</h3>
+                        <p class="text-sm opacity-60 leading-relaxed">Artists retain rights. Brands get distribution.
+                            Ownership is not zero-sum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 03: THE PHASES -->
+    <div class="slide" id="slide3">
+        <div class="slide-content">
+            <span class="font-mono text-xs text-biolume mb-12 block">02 // THE ROADMAP</span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="space-y-6">
+                    <span class="font-mono text-[10px] opacity-40">Phase 0</span>
+                    <h3 class="font-serif text-3xl italic">Foundation</h3>
+                    <p class="text-[11px] font-mono uppercase tracking-widest opacity-40">Months 0-2</p>
+                    <ul class="text-sm opacity-60 space-y-2">
+                        <li>• LLC Formation</li>
+                        <li>• Operating Agreement</li>
+                        <li>• Seed Capital $15k+</li>
+                    </ul>
+                </div>
+                <div class="space-y-6 border-x border-white/10 px-8">
+                    <span class="font-mono text-[10px] opacity-40">Phase 1</span>
+                    <h3 class="font-serif text-3xl italic text-biolume">Proof of Concept</h3>
+                    <p class="text-[11px] font-mono uppercase tracking-widest opacity-40">Months 1-4</p>
+                    <ul class="text-sm opacity-60 space-y-2">
+                        <li>• Zambia Water Project</li>
+                        <li>• 5 Artist Roster</li>
+                        <li>• First Brand Partner</li>
+                    </ul>
+                </div>
+                <div class="space-y-6">
+                    <span class="font-mono text-[10px] opacity-40">Phase 2+</span>
+                    <h3 class="font-serif text-3xl italic">Scaling</h3>
+                    <p class="text-[11px] font-mono uppercase tracking-widest opacity-40">Months 4-18</p>
+                    <ul class="text-sm opacity-60 space-y-2">
+                        <li>• 20+ Artist Roster</li>
+                        <li>• Regional Expansion</li>
+                        <li>• Methodology Licensing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 04: FINANCIALS -->
+    <div class="slide" id="slide4">
+        <div class="slide-content text-center">
+            <span class="font-mono text-xs text-biolume mb-12 block">03 // PROJECTIONS</span>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="font-mono text-[10px] opacity-40 mb-2 uppercase">Year 1</h4>
+                    <p class="font-serif text-4xl mb-4">$75K</p>
+                    <p class="text-[10px] font-mono opacity-20 uppercase">Establish Base</p>
+                </div>
+                <div class="border-l border-white/10 pl-8">
+                    <h4 class="font-mono text-[10px] opacity-40 mb-2 uppercase">Year 2</h4>
+                    <p class="font-serif text-4xl mb-4">$215K</p>
+                    <p class="text-[10px] font-mono opacity-20 uppercase">Growth Velocity</p>
+                </div>
+                <div class="border-l border-white/10 pl-8">
+                    <h4 class="font-mono text-[10px] opacity-40 mb-2 uppercase text-biolume">Year 3</h4>
+                    <p class="font-serif text-4xl mb-4 text-biolume">$500K</p>
+                    <p class="text-[10px] font-mono opacity-20 uppercase">Sustainability</p>
+                </div>
+                <div class="border-l border-white/10 pl-8">
+                    <h4 class="font-mono text-[10px] opacity-40 mb-2 uppercase">Year 5</h4>
+                    <p class="font-serif text-4xl mb-4">$1M+</p>
+                    <p class="text-[10px] font-mono opacity-20 uppercase">Distributed Network</p>
+                </div>
+            </div>
+            <div class="mt-24 p-8 border border-white/5 inline-block">
+                <span class="font-mono text-[9px] opacity-40 uppercase tracking-[0.4em]">Primary Metric</span>
+                <p class="font-serif text-2xl italic mt-2">"Numbers of artists making a full-time living."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 05: RISK -->
+    <div class="slide" id="slide5">
+        <div class="slide-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24">
+                <div>
+                    <span class="font-mono text-xs text-biolume mb-6 block">04 // RESILIENCE</span>
+                    <h2 class="font-serif text-6xl leading-none">Risk <span
+                            class="italic text-biolume">Mitigation.</span></h2>
+                </div>
+                <div class="space-y-4">
+                    <div class="p-8 border border-white/10 bg-white/2">
+                        <span
+                            class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-2 block font-bold">Founder
+                            Burnout</span>
+                        <p class="text-xs opacity-50">Delegate producer roles by Month 18. Structured sabbaticals.</p>
+                    </div>
+                    <div class="p-8 border border-white/10 bg-white/2">
+                        <span
+                            class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-2 block font-bold">Value
+                            Compromise</span>
+                        <p class="text-xs opacity-50">Artist veto power on clients. Strictly aligned brand filter.</p>
+                    </div>
+                    <div class="p-8 border border-white/10 bg-white/2">
+                        <span
+                            class="font-mono text-[9px] uppercase tracking-widest text-biolume mb-2 block font-bold">Copycat
+                            Models</span>
+                        <p class="text-xs opacity-50">Open-source the methodology. Lead through trust and execution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 06: TACTICAL -->
+    <div class="slide" id="slide6">
+        <div class="slide-content">
+            <span class="font-mono text-xs text-biolume mb-12 block">05 // 90-DAY SPRINT</span>
+            <div class="grid grid-cols-5 gap-px bg-white/10 border border-white/10">
+                <div class="p-8 bg-obsidian">
+                    <p class="font-serif text-xl italic mb-4">Weeks 1-2</p>
+                    <p class="text-[10px] font-mono opacity-40 uppercase tracking-widest">Legal & Architecture</p>
+                </div>
+                <div class="p-8 bg-obsidian text-biolume">
+                    <p class="font-serif text-xl italic mb-4">Weeks 3-4</p>
+                    <p class="text-[10px] font-mono opacity-40 uppercase tracking-widest">Brand Launch</p>
+                </div>
+                <div class="p-8 bg-obsidian">
+                    <p class="font-serif text-xl italic mb-4">Weeks 5-8</p>
+                    <p class="text-[10px] font-mono opacity-40 uppercase tracking-widest">The Sales Push</p>
+                </div>
+                <div class="p-8 bg-obsidian">
+                    <p class="font-serif text-xl italic mb-4">Weeks 9-10</p>
+                    <p class="text-[10px] font-mono opacity-40 uppercase tracking-widest">Zambia Kickoff</p>
+                </div>
+                <div class="p-8 bg-obsidian">
+                    <p class="font-serif text-xl italic mb-4">Weeks 11-12</p>
+                    <p class="text-[10px] font-mono opacity-40 uppercase tracking-widest">Delivery & Scale</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 07: COMMAND -->
+    <div class="slide" id="slide7">
+        <div class="slide-content text-center">
+            <span class="font-mono text-xs text-biolume mb-12 block">06 // COMMAND CENTER</span>
+            <h2 class="font-serif text-7xl md:text-9xl italic mb-12">Go.</h2>
+            <div class="max-w-xl mx-auto space-y-8 text-left border-l-2 border-biolume pl-12 py-4">
+                <div class="space-y-1">
+                    <p class="font-serif text-2xl font-bold">Call 3 Core Artists</p>
+                    <p class="font-mono text-[9px] opacity-40 uppercase tracking-widest">Lock the commitment.</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="font-serif text-2xl font-bold">Email 5 Aligned Brands</p>
+                    <p class="font-mono text-[9px] opacity-40 uppercase tracking-widest">The Oak Tree conversation
+                        starts now.</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="font-serif text-2xl font-bold">Set the Hard Deadline</p>
+                    <p class="font-mono text-[9px] opacity-40 uppercase tracking-widest">The seed is in the pocket.
+                        Plant it.</p>
+                </div>
+            </div>
+            <p class="mt-24 font-serif text-xl italic text-biolume">"Forests, Not Factories."</p>
+        </div>
+    </div>
+
+    <div class="nav-hints">
+        Use Arrows or Space to navigate
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+        let currentSlide = 0;
+        let isAnimating = false;
+
+        function updateSlide(index) {
+            if (isAnimating || index < 0 || index >= slides.length) return;
+            isAnimating = true;
+
+            const prevSlide = slides[currentSlide];
+            const nextSlide = slides[index];
+
+            // Update Counter & Progress
+            counter.innerText = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+            progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+
+            // Animate out
+            gsap.to(prevSlide.querySelector('.slide-content'), {
+                y: -50,
+                opacity: 0,
+                duration: 0.6,
+                ease: "power2.inOut"
+            });
+
+            gsap.to(prevSlide, {
+                opacity: 0,
+                duration: 0.8,
+                onComplete: () => {
+                    prevSlide.classList.remove('active');
+                    nextSlide.classList.add('active');
+
+                    // Reset content position for entry
+                    gsap.set(nextSlide.querySelector('.slide-content'), {
+                        y: 50,
+                        opacity: 0
+                    });
+
+                    // Animate in
+                    gsap.to(nextSlide, {
+                        opacity: 1,
+                        duration: 0.8
+                    });
+
+                    gsap.to(nextSlide.querySelector('.slide-content'), {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: "expo.out",
+                        onComplete: () => {
+                            currentSlide = index;
+                            isAnimating = false;
+                        }
+                    });
+                }
+            });
+        }
+
+        // Event Listeners
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+                updateSlide(currentSlide + 1);
+            }
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                updateSlide(currentSlide - 1);
+            }
+            if (e.key === 'Escape') {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // Wheel support
+        let scrollTimeout;
+        window.addEventListener('wheel', (e) => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (e.deltaY > 0) updateSlide(currentSlide + 1);
+                else updateSlide(currentSlide - 1);
+            }, 100);
+        });
+
+        // Initialize progress
+        progressBar.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+    </script>
+</body>
+
+</html>

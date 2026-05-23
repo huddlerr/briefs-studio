@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio // [Project Title]</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Core Engine Assets -->
+    <link rel="stylesheet" href="../../core/core.css">
+    <script src="../../core/core.js" defer></script>
+
+    <style>
+        /* Local overrides or project-specific tweaks */
+        :root {
+            --project-accent: var(--gold-accent);
+        }
+    </style>
+</head>
+
+<body class="text-bone font-sans antialiased overflow-x-hidden">
+
+    <!-- Chrome Header -->
+    <nav class="signal-chrome-nav">
+        <div class="max-w-7xl mx-auto flex justify-between items-center text-slate-ghost">
+            <div class="flex items-center gap-4">
+                <span class="status-indicator status-active"></span>
+                <span class="font-mono text-[9px] tracking-[0.4em] uppercase opacity-70">Briefs Studio // [Client
+                    Name]</span>
+            </div>
+            <div class="flex items-center gap-8">
+                <a href="../../index.html"
+                    class="font-mono text-[9px] tracking-[0.4em] uppercase opacity-60 hover:text-gold-accent hover:opacity-100 transition-all">←
+                    Mission Control</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-10 pt-44 pb-32">
+        <header class="mb-40 max-w-4xl relative animate-on-scroll">
+            <div
+                class="inline-flex items-center gap-3 px-3 py-1 mb-10 rounded border border-gold-accent/20 bg-gold-accent/5">
+                <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-gold-accent">Strategic Brief</span>
+            </div>
+
+            <h1 class="font-serif text-6xl md:text-8xl font-semibold leading-[1.05] mb-12">
+                [Client Name]<br>
+                <span class="gradient-text italic">[Project Title]</span>
+            </h1>
+
+            <p class="font-serif text-2xl text-slate-ghost italic leading-relaxed mb-12">
+                [High-level sub-statement or value proposition.]
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 pt-12 border-t border-white/10">
+                <div>
+                    <span class="block font-mono text-[9px] uppercase tracking-widest opacity-30 mb-2">Subject</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">[Subject]</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[9px] uppercase tracking-widest opacity-30 mb-2">Source</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">Briefs Studio</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[9px] uppercase tracking-widest opacity-30 mb-2">Date</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">[Date]</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Brief Content Sections -->
+        <section class="mb-40 animate-on-scroll">
+            <div class="flex items-center gap-6 mb-12">
+                <span class="font-mono text-[9px] text-gold-accent tracking-widest uppercase">01 // Overview</span>
+                <div class="h-px flex-1 bg-gradient-to-r from-gold-accent/30 to-transparent"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-8">
+                    <p class="font-serif text-3xl md:text-4xl leading-relaxed text-bone/90 mb-10">
+                        [Key opening insight.]
+                    </p>
+                    <div class="tactical-card p-10 rounded-2xl">
+                        <p class="text-xl text-slate-ghost leading-relaxed italic">
+                            "[Insert a powerful quote or distilled signal.]"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-32 px-10 border-t border-white/5 bg-slate-950">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-1.5 h-1.5 bg-emerald-signal rounded-full"></div>
+                    <span class="font-mono text-[10px] tracking-[0.5em] uppercase text-bone">Briefs Studio</span>
+                </div>
+                <p class="font-serif italic text-slate-ghost text-base max-w-sm">Capturing the signal in the noise.
+                    Mapping the mission.</p>
+            </div>
+            <span class="text-[9px] font-mono uppercase tracking-[0.4em] text-white/10">&copy; 2026 Briefs Studio //
+                All Rights Reserved</span>
+        </div>
+    </footer>
+
+</body>
+
+</html>

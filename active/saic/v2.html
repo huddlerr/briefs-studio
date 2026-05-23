@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOW // CDM Dome Narrative Architecture Specification</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700&family=JetBrains+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#0A0A0B',
+                        cadet: '#1A1C1E',
+                        indigo: '#3E4F6A',
+                        caution: '#F47B20',
+                        blueprint: '#2A4494',
+                        specs: '#94A3B8',
+                        paper: '#F1F5F9',
+                    },
+                    fontFamily: {
+                        sans: ['Archivo', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        serif: ['Crimson Pro', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0A0A0B;
+            background-image:
+                linear-gradient(rgba(62, 79, 106, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(62, 79, 106, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .blueprint-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(62, 79, 106, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(62, 79, 106, 0.1) 1px, transparent 1px);
+            background-size: 100px 100px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .spec-border {
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .spec-header {
+            border-left: 4px solid #F47B20;
+            padding-left: 1.5rem;
+        }
+
+        .sidebar-nav-item {
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .sidebar-nav-item:hover,
+        .sidebar-nav-item.active {
+            border-left-color: #F47B20;
+            background: rgba(244, 123, 32, 0.05);
+            padding-left: 1rem;
+        }
+
+        .critical-path {
+            position: relative;
+        }
+
+        .critical-path::after {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: repeating-linear-gradient(to bottom, #F47B20, #F47B20 5px, transparent 5px, transparent 10px);
+        }
+
+        .number-tag {
+            font-family: 'JetBrains Mono', monospace;
+            background: #F47B20;
+            color: #0A0A0B;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .stamp {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            padding: 10px 20px;
+            border: 3px solid rgba(244, 123, 32, 0.3);
+            color: rgba(244, 123, 32, 0.3);
+            font-family: 'Archivo', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            transform: rotate(15deg);
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="text-specs font-sans antialiased overflow-x-hidden">
+
+    <div class="blueprint-grid"></div>
+    <div class="stamp">Approved for Capture</div>
+
+    <!-- SIDEBAR NAV -->
+    <aside
+        class="fixed left-0 top-0 bottom-0 w-64 border-r border-specs/10 bg-void/80 backdrop-blur-xl z-50 hidden lg:block">
+        <div class="p-8">
+            <div class="flex items-center gap-3 mb-12">
+                <div class="w-2 h-2 bg-caution"></div>
+                <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-white">Spec Engine 2.0</span>
+            </div>
+
+            <nav class="space-y-6">
+                <div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-specs/40 block mb-4">01 //
+                        IDENTITY</span>
+                    <a href="#overview"
+                        class="sidebar-nav-item block py-2 text-xs text-white/60 hover:text-white">PROJECT OVERVIEW</a>
+                </div>
+                <div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-specs/40 block mb-4">02 //
+                        ARCHITECTURE</span>
+                    <a href="#the-gap"
+                        class="sidebar-nav-item block py-2 text-xs text-white/60 hover:text-white">NARRATIVE GAP
+                        ANALYSIS</a>
+                    <a href="#phases"
+                        class="sidebar-nav-item block py-2 text-xs text-white/60 hover:text-white">OPERATIONAL
+                        PHASES</a>
+                </div>
+                <div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-specs/40 block mb-4">03 //
+                        RESOURCES</span>
+                    <a href="#stakeholders"
+                        class="sidebar-nav-item block py-2 text-xs text-white/60 hover:text-white">RELATIONSHIP
+                        MATRIX</a>
+                    <a href="#vcs" class="sidebar-nav-item block py-2 text-xs text-white/60 hover:text-white">VCS
+                        INTEGRATION</a>
+                </div>
+                <div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest text-specs/40 block mb-4">04 //
+                        EXECUTION</span>
+                    <a href="#investment"
+                        class="sidebar-nav-item block py-2 text-xs text-white/60 hover:text-white">SCHEDULE OF
+                        VALUES</a>
+                    <a href="#kickoff"
+                        class="sidebar-nav-item block py-2 text-xs text-white/60 hover:text-white">KICKOFF PROTOCOL</a>
+                </div>
+            </nav>
+        </div>
+        <div class="absolute bottom-10 left-8">
+            <span class="font-mono text-[8px] text-specs/30 uppercase tracking-[0.4em]">Briefs Studio © 2026</span>
+        </div>
+    </aside>
+
+    <main class="lg:ml-64 p-8 md:p-16 lg:p-24 max-w-7xl">
+
+        <!-- HEADER BLOCK -->
+        <header class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="number-tag">DOC_TYPE // SOW</span>
+                <span class="font-mono text-[10px] uppercase tracking-widest">Revision: 2.1 — Architectural Spec</span>
+            </div>
+
+            <h1
+                class="font-sans text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter uppercase leading-none">
+                CDM DOME<br>
+                <span class="text-caution">CAPTURE ARCHITECTURE</span>
+            </h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 border border-specs/10 bg-cadet/30">
+                <div class="space-y-2">
+                    <span class="block font-mono text-[10px] uppercase text-specs/40">Project Identifier</span>
+                    <span class="block text-sm text-white font-medium uppercase tracking-wider">SAIC-DHS-CDM-2026</span>
+                </div>
+                <div class="space-y-2 border-t md:border-t-0 md:border-l border-specs/10 pt-4 md:pt-0 md:pl-8">
+                    <span class="block font-mono text-[10px] uppercase text-specs/40">Engagement Lead</span>
+                    <span class="block text-sm text-white font-medium uppercase tracking-wider">Briefs Studio</span>
+                </div>
+                <div class="space-y-2 border-t md:border-t-0 md:border-l border-specs/10 pt-4 md:pt-0 md:pl-8">
+                    <span class="block font-mono text-[10px] uppercase text-specs/40">Period of Performance</span>
+                    <span class="block text-sm text-white font-medium uppercase tracking-wider">Feb 2026 – Aug
+                        2026</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 01 // OVERVIEW -->
+        <section id="overview" class="mb-40">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-caution font-bold underline">01</span>
+                <h2 class="font-sans text-2xl font-bold text-white uppercase tracking-widest">Strategic Overview</h2>
+                <div class="flex-1 h-[1px] bg-specs/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+                <div class="md:col-span-7 space-y-8 font-serif italic text-2xl text-specs/80 leading-relaxed">
+                    <p>
+                        "The challenge is not finding the solution, it is finding the <span
+                            class="text-white font-semibold">cohesion</span>. CDM Dome requires a narrative that
+                        positions SAIC's breadth as an asset, ensuring strategic intent is never lost in translation."
+                    </p>
+                    <div class="pt-8 space-y-4 not-italic font-sans text-base">
+                        <div class="spec-header">
+                            <h4 class="text-white font-bold mb-2 uppercase text-sm tracking-widest">The T-Cloud
+                                Precedent</h4>
+                            <p class="text-specs/60 text-sm">Validating the model where upfront narrative architecture
+                                translated complex technical architecture into a primary contract win.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-5">
+                    <div class="p-8 border border-specs/10 bg-blueprint/5 space-y-6">
+                        <h4 class="font-mono text-[10px] text-caution uppercase tracking-widest">Mission Parameters</h4>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-specs/40">RFP Release</span>
+                                <span class="text-white border-b border-specs/20">June 25, 2026</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-specs/40">Proposal Submission</span>
+                                <span class="text-white border-b border-specs/20">August 20, 2026</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-specs/40">Architecture Runway</span>
+                                <span class="text-white border-b border-specs/20">5 Months (Available)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02 // NARRATIVE GAP -->
+        <section id="the-gap" class="mb-40">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-caution font-bold underline">02</span>
+                <h2 class="font-sans text-2xl font-bold text-white uppercase tracking-widest">The Narrative Gap</h2>
+                <div class="flex-1 h-[1px] bg-specs/10"></div>
+            </div>
+
+            <p class="text-sm text-specs/60 mb-16 max-w-2xl">Traditional Capture Efforts suffer from "Translation
+                Loss"—a degradation of strategic intent as information moves between Silos A, B, and C.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-specs/10 border border-specs/10">
+                <div class="bg-void p-10 space-y-4">
+                    <span class="font-mono text-[9px] text-specs/40">WP // 01.1</span>
+                    <h5 class="text-white font-bold uppercase tracking-widest">Strategy World</h5>
+                    <p class="text-xs italic leading-relaxed">"Output: Brainstorms, value props. Language: Business
+                        objectives."</p>
+                </div>
+                <div class="bg-void p-10 space-y-4">
+                    <span class="font-mono text-[9px] text-specs/40">WP // 01.2</span>
+                    <h5 class="text-white font-bold uppercase tracking-widest">Solution World</h5>
+                    <p class="text-xs italic leading-relaxed">"Output: Architecture, staffing. Language: Compliance &
+                        requirements."</p>
+                </div>
+                <div class="bg-void p-10 space-y-4 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-caution/5"></div>
+                    <span class="font-mono text-[9px] text-caution">WP // 01.3</span>
+                    <h5 class="text-white font-bold uppercase tracking-widest">Creative World</h5>
+                    <p class="text-xs italic leading-relaxed">"Output: Assets, video, graphics. Language: Design
+                        constraints."</p>
+                </div>
+            </div>
+
+            <div class="mt-8 p-6 border-l-2 border-caution bg-caution/5">
+                <p class="font-mono text-[11px] text-white uppercase tracking-widest flex justify-between">
+                    <span>Target Outcome: Integration Protocol</span>
+                    <span class="text-caution">Architecture Bridge Required</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- 03 // PHASES -->
+        <section id="phases" class="mb-40">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-caution font-bold underline">03</span>
+                <h2 class="font-sans text-2xl font-bold text-white uppercase tracking-widest">Operational Phases</h2>
+                <div class="flex-1 h-[1px] bg-specs/10"></div>
+            </div>
+
+            <div class="space-y-16">
+                <!-- PHASE 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 critical-path">
+                    <div class="md:col-span-4">
+                        <span class="font-mono text-[10px] text-caution block mb-2 tracking-widest">PHASE_01 // WEEKS
+                            01-04</span>
+                        <h3 class="text-white font-bold text-xl uppercase mb-4 tracking-tighter leading-none">Foundation
+                            Building</h3>
+                    </div>
+                    <div class="md:col-span-8 p-8 border border-specs/10 bg-cadet/50">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <span class="font-mono text-[9px] text-specs/40 uppercase block underline">Core Service
+                                    Units</span>
+                                <ul class="text-xs space-y-2 text-specs/80">
+                                    <li class="flex gap-2"><span>[+]</span> Stakeholder Discovery (3-5 sessions)</li>
+                                    <li class="text-specs/40">[+] Material Synthesis</li>
+                                    <li class="text-specs/40">[+] Competitive Landscape Mapping</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-4">
+                                <span class="font-mono text-[9px] text-caution uppercase block underline">Primary
+                                    Deliverable</span>
+                                <p class="text-white font-bold text-xs uppercase italic">The Narrative Framework</p>
+                                <p class="text-[10px] text-specs/60 leading-relaxed font-mono">"The Constitution for the
+                                    Capture Effort."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHASE 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 critical-path">
+                    <div class="md:col-span-4">
+                        <span class="font-mono text-[10px] text-blueprint block mb-2 tracking-widest uppercase">PHASE_02
+                            // WEEKS 05-10</span>
+                        <h3 class="text-white font-bold text-xl uppercase mb-4 tracking-tighter leading-none">
+                            Translation Lab</h3>
+                    </div>
+                    <div class="md:col-span-8 p-8 border border-specs/10 bg-cadet/50">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <span class="font-mono text-[9px] text-specs/40 uppercase block underline">Core Service
+                                    Units</span>
+                                <ul class="text-xs space-y-2 text-specs/80">
+                                    <li class="flex gap-2"><span>[+]</span> Creative Briefing</li>
+                                    <li class="text-specs/40">[+] Storyboarding / Concepting</li>
+                                    <li class="text-specs/40">[+] Script Matrix Development</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-4">
+                                <span class="font-mono text-[9px] text-caution uppercase block underline">Primary
+                                    Deliverable</span>
+                                <p class="text-white font-bold text-xs uppercase italic">Creative Strategy Package</p>
+                                <p class="text-[10px] text-specs/60 leading-relaxed font-mono">"Executable blueprints
+                                    for VCS Production."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PHASE 3 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 critical-path">
+                    <div class="md:col-span-4">
+                        <span class="font-mono text-[10px] text-specs/40 block mb-2 tracking-widest uppercase">PHASE_03
+                            // WEEKS 11-20+</span>
+                        <h3 class="text-white font-bold text-xl uppercase mb-4 tracking-tighter leading-none">Final
+                            Integration</h3>
+                    </div>
+                    <div class="md:col-span-8 p-8 border border-specs/10 bg-cadet/50">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <span class="font-mono text-[9px] text-specs/40 uppercase block underline">Core Service
+                                    Units</span>
+                                <ul class="text-xs space-y-2 text-specs/80">
+                                    <li class="flex gap-2"><span>[+]</span> Production Oversight</li>
+                                    <li class="text-specs/40">[+] Proposal Consultant Support</li>
+                                    <li class="text-specs/40">[+] Review & Alignment Management</li>
+                                </ul>
+                            </div>
+                            <div class="space-y-4">
+                                <span class="font-mono text-[9px] text-caution uppercase block underline">Primary
+                                    Deliverable</span>
+                                <p class="text-white font-bold text-xs uppercase italic">Completed Asset + SOW Report
+                                </p>
+                                <p class="text-[10px] text-specs/60 leading-relaxed font-mono">"Ensuring Narrative
+                                    integrity to the finish line."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 // VCS INTEGRATION -->
+        <section id="vcs" class="mb-40">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-caution font-bold underline">04</span>
+                <h2 class="font-sans text-2xl font-bold text-white uppercase tracking-widest">Resource Matrix</h2>
+                <div class="flex-1 h-[1px] bg-specs/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div class="space-y-8">
+                    <h4 class="font-sans text-lg font-bold text-white uppercase tracking-widest">Stakeholder Dynamics
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="p-6 border border-specs/10 bg-void">
+                            <span class="font-mono text-[10px] text-caution uppercase block mb-1">Lead Architect //
+                                Briefs Studio</span>
+                            <p class="text-xs text-specs/80 leading-relaxed italic">Managing the narrative thread
+                                between Marketing (Rachel/Michael) and Solutioning (Ming/SMEs).</p>
+                        </div>
+                        <div class="p-6 border border-specs/10 bg-void">
+                            <span class="font-mono text-[10px] text-specs/40 uppercase block mb-1">Execution Studio //
+                                VCS</span>
+                            <p class="text-xs text-specs/80 leading-relaxed italic">Coordination with Fern to ensure
+                                production capacity for high-fidelity assets based on the framework.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-caution/5 p-12 border border-caution/20 rounded-xl">
+                    <h4 class="font-sans text-lg font-bold text-caution uppercase tracking-widest mb-6">Internal
+                        Resiliency</h4>
+                    <p class="text-sm text-specs/80 leading-relaxed font-serif italic mb-8">
+                        "Success here helps ensure VCS survives current restructuring by demonstrating irreplaceable
+                        strategic value. We aren't just 'the production team'—we are creative partners in capture
+                        success."
+                    </p>
+                    <div class="grid grid-cols-1 gap-4 text-[10px] font-mono text-white/60">
+                        <div class="flex items-center gap-2"><span>[X]</span> Strategic Position Proved</div>
+                        <div class="flex items-center gap-2"><span>[X]</span> Billable Hours Generated</div>
+                        <div class="flex items-center gap-2"><span>[X]</span> Repeatable Model Established</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 // INVESTMENT -->
+        <section id="investment" class="mb-40">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-caution font-bold underline">05</span>
+                <h2 class="font-sans text-2xl font-bold text-white uppercase tracking-widest">Schedule of Values</h2>
+                <div class="flex-1 h-[1px] bg-specs/10"></div>
+            </div>
+
+            <div class="border border-specs/10 overflow-hidden">
+                <table class="w-full text-left text-xs uppercase font-mono tracking-widest">
+                    <thead class="bg-specs/10 text-white">
+                        <tr>
+                            <th class="p-6">Package Ref</th>
+                            <th class="p-6">Description</th>
+                            <th class="p-6">Duration</th>
+                            <th class="p-6 text-right">Unit Value</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-specs/10 text-specs/60">
+                        <tr class="hover:bg-void/50 transition-colors">
+                            <td class="p-6">PKG_A</td>
+                            <td class="p-6 text-white font-bold italic">Foundation Only</td>
+                            <td class="p-6">01 Month</td>
+                            <td class="p-6 text-right text-white font-bold">$12,000.00</td>
+                        </tr>
+                        <tr class="hover:bg-void/50 transition-colors">
+                            <td class="p-6">PKG_B</td>
+                            <td class="p-6 text-white font-bold italic">Through Creative Strategy</td>
+                            <td class="p-6">03 Months</td>
+                            <td class="p-6 text-right text-white font-bold">$36,000.00</td>
+                        </tr>
+                        <tr class="bg-caution/5 hover:bg-caution/10 transition-colors">
+                            <td class="p-6 text-caution font-bold font-sans tracking-tighter">PKG_C</td>
+                            <td class="p-6 text-white font-bold italic">Full Capture Support (REC)</td>
+                            <td class="p-6">06 Months</td>
+                            <td class="p-6 text-right text-caution font-bold">$45,000.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-8 border border-specs/10 rounded">
+                    <h5 class="font-mono text-[9px] text-specs/40 mb-4 uppercase">Risk Assessment // Mighty Union</h5>
+                    <p class="text-xs text-specs/60 italic leading-relaxed">Engagement explicitely positioned as
+                        "Translation Layer" to build upon Mighty Union outputs, not compete with them. Introductions and
+                        coordination managed via Rachel.</p>
+                </div>
+                <div class="p-8 border border-specs/10 rounded">
+                    <h5 class="font-mono text-[9px] text-specs/40 mb-4 uppercase">Verification Lifecycle</h5>
+                    <p class="text-xs text-specs/60 italic leading-relaxed h-12 flex items-center">Success verified via
+                        baseline deliverable acceptance, VCS team capacity alignment, and ultimate contract award
+                        citation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- KICKOFF FOOTER -->
+        <footer id="kickoff" class="border-t-2 border-caution pt-20">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
+                <div class="md:col-span-8">
+                    <h3 class="font-sans text-3xl font-bold text-white mb-6 uppercase tracking-tighter">Kickoff Protocol
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-mono text-[10px] tracking-wider">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <span class="w-1.5 h-1.5 bg-caution"></span>
+                                <span class="text-specs">Step 01: Final Review with Ming/Rachel/Fern</span>
+                            </div>
+                            <div class="flex items-center gap-3 opacity-40">
+                                <span class="w-1.5 h-1.5 bg-specs"></span>
+                                <span>Step 02: Selection of Engagement Package</span>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 opacity-40">
+                                <span class="w-1.5 h-1.5 bg-specs"></span>
+                                <span>Step 03: Michael Cervoni Strategy Intro</span>
+                            </div>
+                            <div class="flex items-center gap-3 opacity-40">
+                                <span class="w-1.5 h-1.5 bg-specs"></span>
+                                <span>Step 04: Discovery Session Commencement</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-4 text-right">
+                    <p class="text-[10px] font-mono mb-2 uppercase opacity-40">Validated By</p>
+                    <p class="text-sm font-bold text-white uppercase tracking-widest mb-6">Briefs Studio</p>
+                    <p class="text-xs text-caution italic">"Ready for immediate mobilization."</p>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // Simple intersection observer for nav highlights
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.sidebar-nav-item').forEach(nav => {
+                        nav.classList.toggle('active', nav.getAttribute('href').substring(1) === entry.target.id);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scenario Immersion Protocol (SIP) — IPPW Program Brief</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: '#0F172A',
+                        steel: '#1E293B',
+                        fog: '#94A3B8',
+                        bone: '#F8FAFC',
+                        signal: '#F59E0B',
+                        command: '#DC2626',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #F59E0B 0%, #DC2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pillar-card {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .pillar-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tab-trigger.active {
+            color: #F59E0B;
+            border-bottom-color: #F59E0B;
+        }
+
+        @keyframes pulse-slow {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .pulse-slow {
+            animation: pulse-slow 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-slate text-bone font-sans antialiased">
+
+    <!-- TOP NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-[100] bg-slate/90 backdrop-blur border-b border-fog/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <span class="font-mono text-xs text-fog/40">Briefs Studio // SIP Brief</span>
+                <div class="h-4 w-px bg-fog/10"></div>
+                <div class="flex gap-6">
+                    <button onclick="switchTab('strategy')"
+                        class="tab-trigger font-mono text-[10px] uppercase tracking-widest text-fog/60 hover:text-signal transition-all pb-1 border-b-2 border-transparent active"
+                        id="trigger-strategy">Strategy</button>
+                    <button onclick="switchTab('protocol')"
+                        class="tab-trigger font-mono text-[10px] uppercase tracking-widest text-fog/60 hover:text-signal transition-all pb-1 border-b-2 border-transparent"
+                        id="trigger-protocol">Protocol</button>
+                    <button onclick="switchTab('execution')"
+                        class="tab-trigger font-mono text-[10px] uppercase tracking-widest text-fog/60 hover:text-signal transition-all pb-1 border-b-2 border-transparent"
+                        id="trigger-execution">Execution</button>
+                    <button onclick="switchTab('logic')"
+                        class="tab-trigger font-mono text-[10px] uppercase tracking-widest text-fog/60 hover:text-signal transition-all pb-1 border-b-2 border-transparent"
+                        id="trigger-logic">Logic & Risk</button>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="slides.html"
+                class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors uppercase tracking-widest">Slide
+                View →</a>
+            <a href="#"
+                class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors uppercase tracking-widest">Protocol
+                Doc v1.0 →</a>
+        </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="min-h-screen flex flex-col justify-center relative overflow-hidden bg-slate">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0"
+                style="background-image: radial-gradient(circle at 1px 1px, rgba(245,158,11,0.2) 1px, transparent 0); background-size: 40px 40px;">
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 max-w-5xl mx-auto px-6 py-20">
+            <div class="mb-8">
+                <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-signal">Scenario Immersion Protocol
+                    (SIP)</span>
+            </div>
+
+            <h1 class="font-serif text-5xl md:text-7xl font-semibold leading-[1.1] mb-8">
+                Beyond Information:<br>
+                <span class="gradient-text">Experience-Based</span> Prevention
+            </h1>
+
+            <div class="max-w-2xl mb-12 border-l-2 border-signal/30 pl-8">
+                <p class="font-serif text-xl md:text-2xl text-fog/90 italic leading-relaxed">
+                    "Rather than transmitting information through lectures, SIP creates structured experiences where
+                    service members discover their own behavioral patterns."
+                </p>
+                <p class="mt-4 font-mono text-xs text-fog/50">— SIP Blueprint, Jan 2026</p>
+            </div>
+
+            <div class="flex flex-wrap gap-8 text-sm">
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Prepared
+                        For</span>
+                    <span class="font-medium">Elizabeth Walther</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Program</span>
+                    <span class="font-medium">IPPW Prevention Pilot</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Prepared
+                        By</span>
+                    <span class="font-medium">Mike Marrotte, Briefs Studio</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Brief
+                        Date</span>
+                    <span class="font-medium">January 22, 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-fog/40">
+            <span class="font-mono text-[10px] uppercase tracking-widest">Explore Brief</span>
+            <div class="w-px h-8 bg-gradient-to-b from-fog/40 to-transparent"></div>
+        </div>
+    </header>
+
+    <main id="tab-container" class="pb-24">
+
+        <!-- TAB: STRATEGY -->
+        <section id="tab-strategy" class="tab-content active px-6">
+            <div class="max-w-6xl mx-auto">
+
+                <!-- EXECUTIVE SUMMARY -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-signal">01</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Executive Summary</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                        <div class="md:col-span-12">
+                            <p class="font-serif text-2xl md:text-3xl leading-relaxed text-fog/90 mb-12">
+                                Prevention training isn't working. Service members disengage, IPPWs feel ineffective,
+                                and behavior doesn't change despite educational efforts. Scenario Immersion Protocol
+                                (SIP) offers a fundamentally different approach - one that creates experiential
+                                conditions for genuine behavior change rather than information transmission.
+                            </p>
+                        </div>
+
+                        <div class="md:col-span-6">
+                            <h3 class="font-mono text-xs uppercase tracking-wider text-signal mb-6">The Approach</h3>
+                            <ul class="space-y-4 text-fog/80">
+                                <li class="flex items-start gap-3">
+                                    <span class="text-signal mt-1">→</span>
+                                    <span>60-minute facilitated scenario experience with 4-6 participants</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-signal mt-1">→</span>
+                                    <span>Participants take anonymous roles in prevention-relevant scenarios</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-signal mt-1">→</span>
+                                    <span>Guided choice-making reveals actual behavioral patterns</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-signal mt-1">→</span>
+                                    <span>Structured debrief connects insights to real behavior change</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="md:col-span-6">
+                            <h3 class="font-mono text-xs uppercase tracking-wider text-fog/60 mb-6">Pilot Scope</h3>
+                            <ul class="space-y-4 text-fog/80">
+                                <li class="flex items-start gap-3">
+                                    <span class="text-fog mt-1">•</span>
+                                    <span>2-4 week timeline / 3 IPPW partners</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-fog mt-1">•</span>
+                                    <span>~8 hours Briefs Studio support per IPPW</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-fog mt-1">•</span>
+                                    <span>Zero new budget (already allocated)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-fog mt-1">•</span>
+                                    <span class="text-bone font-medium">Scalable methodology for actual behavior
+                                        change</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- THE PROBLEM -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-command">02</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Knowledge Trap</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div>
+                            <h3 class="font-serif text-3xl font-semibold mb-6">Information is not behavior.</h3>
+                            <p class="text-fog/80 leading-relaxed mb-6">
+                                Standard training assumes a knowledge deficit - if people just <i>knew</i> the right
+                                thing to do, they'd do it. But behavior change doesn't work that way.
+                            </p>
+                            <p class="text-fog/80 leading-relaxed">
+                                Service members already know they should intervene. They know substance abuse is
+                                harmful. Knowledge isn't the barrier.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="p-4 bg-command/5 border border-command/10 rounded">
+                                <span class="font-mono text-[10px] uppercase text-command block mb-1">Barrier 01</span>
+                                <span class="text-bone">Social pressure and peer dynamics</span>
+                            </div>
+                            <div class="p-4 bg-command/5 border border-command/10 rounded">
+                                <span class="font-mono text-[10px] uppercase text-command block mb-1">Barrier 02</span>
+                                <span class="text-bone">Fear of consequences or judgment</span>
+                            </div>
+                            <div class="p-4 bg-command/5 border border-command/10 rounded">
+                                <span class="font-mono text-[10px] uppercase text-command block mb-1">Barrier 03</span>
+                                <span class="text-bone">Uncertainty about how to intervene effectively</span>
+                            </div>
+                            <div class="p-4 bg-command/5 border border-command/10 rounded">
+                                <span class="font-mono text-[10px] uppercase text-command block mb-1">Barrier 04</span>
+                                <span class="text-bone">Disconnect between intent and action</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WHY NOW? CALLOUT -->
+                <div class="py-12">
+                    <div class="p-8 bg-signal/10 border-2 border-signal/30 rounded-2xl relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-signal/5 -mr-16 -mt-16 rounded-full blur-3xl">
+                        </div>
+                        <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                            <div class="md:col-span-4">
+                                <h3 class="font-sans text-xl font-bold tracking-wider uppercase text-signal mb-2">Why
+                                    This Matters Now</h3>
+                                <div class="w-12 h-1 bg-signal/30"></div>
+                            </div>
+                            <div class="md:col-span-8">
+                                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-signal font-bold mt-0.5">•</span>
+                                        <span class="text-sm text-bone">IPPWs need tools that actually work, not more
+                                            content</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-signal font-bold mt-0.5">•</span>
+                                        <span class="text-sm text-bone">Prevention metrics aren't moving with current
+                                            approaches</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-signal font-bold mt-0.5">•</span>
+                                        <span class="text-sm text-bone">Zero budget impact makes this immediately
+                                            testable</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-signal font-bold mt-0.5">•</span>
+                                        <span class="text-sm text-bone">Success creates proof of concept for behavioral
+                                            training innovation</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KEY DIFFERENTIATORS -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-signal">03</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Why This Works</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="border-b border-fog/20">
+                                    <th
+                                        class="text-left py-4 pr-8 font-mono text-xs uppercase tracking-wider text-fog/40">
+                                        Feature</th>
+                                    <th
+                                        class="text-left py-4 pr-8 font-mono text-xs uppercase tracking-wider text-fog/60">
+                                        Traditional Training</th>
+                                    <th class="text-left py-4 font-mono text-xs uppercase tracking-wider text-signal">
+                                        Scenario Immersion (SIP)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-fog/10">
+                                <tr>
+                                    <td class="py-4 pr-8 font-medium">Outcome</td>
+                                    <td class="py-4 pr-8 text-fog/60">Scripted, "right answers"</td>
+                                    <td class="py-4 text-bone">Emergent narrative, no predetermined end</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 pr-8 font-medium">Pressure</td>
+                                    <td class="py-4 pr-8 text-fog/60">Performance (doing it "correctly")</td>
+                                    <td class="py-4 text-bone">Psychological safety (exploration)</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 pr-8 font-medium">Facilitator</td>
+                                    <td class="py-4 pr-8 text-fog/60">Expert / Evaluator</td>
+                                    <td class="py-4 text-bone">Guide / Holder of space</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 pr-8 font-medium">Focus</td>
+                                    <td class="py-4 pr-8 text-fog/60">Knowledge demonstration</td>
+                                    <td class="py-4 text-bone">Pattern revelation</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 pr-8 font-medium">Context</td>
+                                    <td class="py-4 pr-8 text-fog/60">Generic scenarios</td>
+                                    <td class="py-4 text-bone">Custom-built for local installation</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB: PROTOCOL -->
+        <section id="tab-protocol" class="tab-content px-6">
+            <div class="max-w-6xl mx-auto">
+
+                <!-- THE 5 STEPS -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-signal">01</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The SIP Protocol</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <!-- PROCESS FLOW VISUAL -->
+                    <div class="mb-24 px-4">
+                        <div class="max-w-4xl mx-auto">
+                            <div class="flex flex-col md:flex-row items-center justify-between gap-4 relative">
+                                <!-- Connection Lines (Desktop) -->
+                                <div
+                                    class="hidden md:block absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-signal/0 via-signal/30 to-signal/0 -translate-y-1/2 -z-10">
+                                </div>
+
+                                <div
+                                    class="flex flex-col items-center text-center gap-3 bg-slate p-4 rounded-xl border border-fog/10 w-full md:w-auto">
+                                    <span class="font-mono text-[10px] text-signal uppercase">01</span>
+                                    <span class="font-sans text-xs font-bold whitespace-nowrap">Story Capture</span>
+                                    <span class="font-mono text-[9px] text-fog/40">60 min</span>
+                                </div>
+                                <div class="text-signal/30 rotate-90 md:rotate-0">→</div>
+                                <div
+                                    class="flex flex-col items-center text-center gap-3 bg-slate p-4 rounded-xl border border-fog/10 w-full md:w-auto">
+                                    <span class="font-mono text-[10px] text-signal uppercase">02</span>
+                                    <span class="font-sans text-xs font-bold whitespace-nowrap">Custom Protocol</span>
+                                    <span class="font-mono text-[9px] text-fog/40">3-4 hrs</span>
+                                </div>
+                                <div class="text-signal/30 rotate-90 md:rotate-0">→</div>
+                                <div
+                                    class="flex flex-col items-center text-center gap-3 bg-slate p-4 rounded-xl border border-fog/10 w-full md:w-auto">
+                                    <span class="font-mono text-[10px] text-signal uppercase">03</span>
+                                    <span class="font-sans text-xs font-bold whitespace-nowrap">Facilitator
+                                        Training</span>
+                                    <span class="font-mono text-[9px] text-fog/40">60-90 min</span>
+                                </div>
+                                <div class="text-signal/30 rotate-90 md:rotate-0">→</div>
+                                <div
+                                    class="flex flex-col items-center text-center gap-3 bg-slate p-4 rounded-xl border border-fog/10 w-full md:w-auto">
+                                    <span class="font-mono text-[10px] text-signal uppercase">04</span>
+                                    <span class="font-sans text-xs font-bold whitespace-nowrap">Session Execution</span>
+                                    <span class="font-mono text-[9px] text-fog/40">60 min</span>
+                                </div>
+                                <div class="text-signal/30 rotate-90 md:rotate-0">→</div>
+                                <div
+                                    class="flex flex-col items-center text-center gap-3 bg-slate p-4 rounded-xl border border-signal/30 w-full md:w-auto">
+                                    <span class="font-mono text-[10px] text-signal uppercase">05</span>
+                                    <span
+                                        class="font-sans text-xs font-bold whitespace-nowrap underline decoration-signal">Iteration</span>
+                                    <span class="font-mono text-[9px] text-fog/40">Loop</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-24">
+
+                        <!-- Step 1 -->
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                            <div class="md:col-span-4">
+                                <span class="font-mono text-xs text-signal block mb-2">Step 01 // 60 Minutes</span>
+                                <h3 class="font-serif text-3xl font-semibold">Story Capture</h3>
+                            </div>
+                            <div class="md:col-span-8 border-l border-fog/20 pl-8">
+                                <p class="text-fog/80 leading-relaxed mb-6">
+                                    Briefs Studio facilitates a conversation with the IPPW to understand the local ground
+                                    truth. This session is recorded and transcribed to capture the nuances of
+                                    installation culture.
+                                </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="text-sm text-fog/60 px-4 py-2 bg-steel/30 rounded border border-fog/10">
+                                        Specific prevention challenges</div>
+                                    <div class="text-sm text-fog/60 px-4 py-2 bg-steel/30 rounded border border-fog/10">
+                                        Barriers to intervention</div>
+                                    <div class="text-sm text-fog/60 px-4 py-2 bg-steel/30 rounded border border-fog/10">
+                                        Local culture and dynamics</div>
+                                    <div class="text-sm text-fog/60 px-4 py-2 bg-steel/30 rounded border border-fog/10">
+                                        Previous failed approaches</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                            <div class="md:col-span-4">
+                                <span class="font-mono text-xs text-signal block mb-2">Step 02 // 3-4 Hours</span>
+                                <h3 class="font-serif text-3xl font-semibold">Custom Protocol Development</h3>
+                            </div>
+                            <div class="md:col-span-8 border-l border-fog/20 pl-8">
+                                <p class="text-fog/80 leading-relaxed mb-6 text-bone font-medium">
+                                    Briefs Studio translates the Story Capture into a bespoke tactical experience.
+                                </p>
+                                <ul class="space-y-4">
+                                    <li class="flex items-center gap-4 p-4 pillar-card rounded">
+                                        <div
+                                            class="w-10 h-10 rounded bg-signal/10 flex items-center justify-center font-mono text-signal">
+                                            A</div>
+                                        <div><span class="font-bold">Custom Scenario:</span> Tailored to the
+                                            installation's specific unit context.</div>
+                                    </li>
+                                    <li class="flex items-center gap-4 p-4 pillar-card rounded">
+                                        <div
+                                            class="w-10 h-10 rounded bg-signal/10 flex items-center justify-center font-mono text-signal">
+                                            B</div>
+                                        <div><span class="font-bold">4-6 Choice Points:</span> Options spanning
+                                            proactive, neutral, and avoidant responses.</div>
+                                    </li>
+                                    <li class="flex items-center gap-4 p-4 pillar-card rounded">
+                                        <div
+                                            class="w-10 h-10 rounded bg-signal/10 flex items-center justify-center font-mono text-signal">
+                                            C</div>
+                                        <div><span class="font-bold">Narrative Map:</span> Decision trees showing real
+                                            consequences of choices.</div>
+                                    </li>
+                                    <li class="flex items-center gap-4 p-4 pillar-card rounded">
+                                        <div
+                                            class="w-10 h-10 rounded bg-signal/10 flex items-center justify-center font-mono text-signal">
+                                            D</div>
+                                        <div><span class="font-bold">Facilitation Guide:</span> Prompts and structured
+                                            debrief questions.</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 & 4 Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div class="p-8 bg-steel/50 border-t-2 border-signal">
+                                <span class="font-mono text-xs text-signal block mb-4">Step 03 // 90 Minutes</span>
+                                <h3 class="font-serif text-2xl font-semibold mb-4">Facilitator Training</h3>
+                                <p class="text-sm text-fog/80 leading-relaxed mb-6">Training the IPPW on facilitation
+                                    approach: holding psychological safety, presenting choices without judgment, and
+                                    navigating the decision tree.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="px-2 py-1 bg-slate rounded text-[10px] font-mono text-fog/60 border border-fog/10">Psychological
+                                        Safety</span>
+                                    <span
+                                        class="px-2 py-1 bg-slate rounded text-[10px] font-mono text-fog/60 border border-fog/10">Neutral
+                                        Delivery</span>
+                                    <span
+                                        class="px-2 py-1 bg-slate rounded text-[10px] font-mono text-fog/60 border border-fog/10">Debrief
+                                        Mastery</span>
+                                </div>
+                            </div>
+                            <div class="p-8 bg-steel/50 border-t-2 border-signal">
+                                <span class="font-mono text-xs text-signal block mb-4">Step 04 // 60 Minutes</span>
+                                <h3 class="font-serif text-2xl font-semibold mb-4">Session Execution</h3>
+                                <p class="text-sm text-fog/80 leading-relaxed mb-6">4-6 service members immerse in the
+                                    experience. 5 min setup, 30 min scenario play, 25 min structured debrief on observed
+                                    patterns.</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span
+                                        class="px-2 py-1 bg-slate rounded text-[10px] font-mono text-fog/60 border border-fog/10">Setup
+                                        (5m)</span>
+                                    <span
+                                        class="px-2 py-1 bg-slate rounded text-[10px] font-mono text-fog/60 border border-fog/10">Play
+                                        (30m)</span>
+                                    <span
+                                        class="px-2 py-1 bg-slate rounded text-[10px] font-mono text-fog/60 border border-fog/10">Debrief
+                                        (25m)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- APPENDIX: SAMPLE SCENARIO -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-fog/40">APPX</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase text-fog/60">Sample Scenario
+                            Structure</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <div class="bg-slate border border-fog/20 rounded-xl overflow-hidden shadow-2xl">
+                        <div class="bg-steel/50 p-6 border-b border-fog/10 flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-bone">Scenario :: Barracks Weekend</h4>
+                                <p class="text-xs text-fog/60">Peer Intervention / Substance Abuse Context</p>
+                            </div>
+                            <span
+                                class="px-3 py-1 bg-signal/10 text-signal text-[10px] font-mono uppercase tracking-widest rounded-full">Example
+                                Build</span>
+                        </div>
+                        <div class="p-8 grid grid-cols-1 md:grid-cols-12 gap-12">
+                            <div class="md:col-span-4 space-y-8">
+                                <div>
+                                    <span class="font-mono text-[10px] uppercase text-fog/40 block mb-2">Roles</span>
+                                    <p class="text-sm font-medium">4-6 Participants using anonymous codes (Alpha, Bravo,
+                                        Charlie, etc.)</p>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-[10px] uppercase text-fog/40 block mb-2">The
+                                        Setup</span>
+                                    <p class="text-sm text-fog/80 leading-relaxed italic">"Weekend evening, barracks
+                                        setting. One person (Delta) is showing signs of crisis..."</p>
+                                </div>
+                            </div>
+                            <div class="md:col-span-8 space-y-8">
+                                <div class="p-6 bg-steel/30 rounded border border-fog/10">
+                                    <span class="font-mono text-[10px] uppercase text-signal block mb-4">Choice Point
+                                        01: Initial Awareness</span>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-center gap-3 text-sm text-fog/90">
+                                            <span
+                                                class="w-6 h-6 rounded bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-[10px]">A</span>
+                                            Check in directly with Delta
+                                        </li>
+                                        <li class="flex items-center gap-3 text-sm text-fog/90">
+                                            <span
+                                                class="w-6 h-6 rounded bg-signal/10 text-signal flex items-center justify-center text-[10px]">B</span>
+                                            Mention to another friend, see if they've noticed
+                                        </li>
+                                        <li class="flex items-center gap-3 text-sm text-fog/90">
+                                            <span
+                                                class="w-6 h-6 rounded bg-command/10 text-command flex items-center justify-center text-[10px]">C</span>
+                                            Assume Delta's handling it, everyone deals with stress differently
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div
+                                        class="p-4 border border-fog/10 rounded text-[10px] text-fog/40 font-mono text-center">
+                                        CP 02: Escalation</div>
+                                    <div
+                                        class="p-4 border border-fog/10 rounded text-[10px] text-fog/40 font-mono text-center">
+                                        CP 03: Decision</div>
+                                    <div
+                                        class="p-4 border border-fog/10 rounded text-[10px] text-fog/40 font-mono text-center">
+                                        CP 04: Resolution</div>
+                                    <div
+                                        class="p-4 border border-fog/10 rounded text-[10px] text-fog/40 font-mono text-center">
+                                        Debrief: Pattern Revel.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB: EXECUTION -->
+        <section id="tab-execution" class="tab-content px-6">
+            <div class="max-w-6xl mx-auto">
+
+                <!-- PILOT STRUCTURE -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-signal">01</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Pilot Roadmap</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+                        <!-- Phase 1 -->
+                        <div class="pillar-card p-6 flex flex-col">
+                            <span class="font-mono text-xs text-signal mb-4">Phase 01 // Weeks 1-2</span>
+                            <h3 class="font-serif text-xl font-semibold mb-4 text-bone">PCC Test</h3>
+                            <ul class="text-xs text-fog/60 space-y-3 flex-1">
+                                <li>• Run 2-3 sessions with PCC volunteers</li>
+                                <li>• Test different scenarios/fac. approaches</li>
+                                <li>• Gather experience design feedback</li>
+                            </ul>
+                            <div class="mt-6 pt-4 border-t border-fog/10">
+                                <span class="font-mono text-[10px] uppercase text-signal">Goal: Refinement</span>
+                            </div>
+                        </div>
+
+                        <!-- Phase 2 -->
+                        <div class="pillar-card p-6 flex flex-col">
+                            <span class="font-mono text-xs text-fog/60 mb-4">Phase 02 // Weeks 2-3</span>
+                            <h3 class="font-serif text-xl font-semibold mb-4 text-bone">IPPW Co-Fac</h3>
+                            <ul class="text-xs text-fog/60 space-y-3 flex-1">
+                                <li>• Identify 2-3 pilot partners</li>
+                                <li>• Custom protocol development</li>
+                                <li>• Co-facilitated sessions</li>
+                            </ul>
+                            <div class="mt-6 pt-4 border-t border-fog/10">
+                                <span class="font-mono text-[10px] uppercase text-fog/40">Goal: Training</span>
+                            </div>
+                        </div>
+
+                        <!-- Phase 3 -->
+                        <div class="pillar-card p-6 flex flex-col">
+                            <span class="font-mono text-xs text-fog/60 mb-4">Phase 03 // Weeks 3-4</span>
+                            <h3 class="font-serif text-xl font-semibold mb-4 text-bone">IPPW Launch</h3>
+                            <ul class="text-xs text-fog/60 space-y-3 flex-1">
+                                <li>• Independent installation sessions</li>
+                                <li>• remote support/obs from Briefs Studio</li>
+                                <li>• Document results/feedback</li>
+                            </ul>
+                            <div class="mt-6 pt-4 border-t border-fog/10">
+                                <span class="font-mono text-[10px] uppercase text-fog/40">Goal: Autonomy</span>
+                            </div>
+                        </div>
+
+                        <!-- Phase 4 -->
+                        <div class="pillar-card p-6 flex flex-col">
+                            <span class="font-mono text-xs text-fog/60 mb-4">Phase 04 // Week 5</span>
+                            <h3 class="font-serif text-xl font-semibold mb-4 text-bone">Assessment</h3>
+                            <ul class="text-xs text-fog/60 space-y-3 flex-1">
+                                <li>• Analyze engagement metrics</li>
+                                <li>• Document lessons learned</li>
+                                <li>• Scaling recommendation</li>
+                            </ul>
+                            <div class="mt-6 pt-4 border-t border-fog/10 border-signal/30">
+                                <span class="font-mono text-[10px] uppercase text-signal">Goal: Evidence</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SUCCESS METRICS -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-signal">02</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Success Metrics</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <div>
+                            <span class="font-mono text-xs text-signal block mb-4 italic">Post-Session
+                                (Immediate)</span>
+                            <ul class="space-y-4 text-sm text-fog/80">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-signal">→</span>
+                                    <span>Observable participant engagement</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-signal">→</span>
+                                    <span>Quality of insights generated in debrief</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-signal">→</span>
+                                    <span>Word-of-mouth interest / referrals</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span class="font-mono text-xs text-fog/60 block mb-4 italic">Short-Term (30 Days)</span>
+                            <ul class="space-y-4 text-sm text-fog/80">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-fog">→</span>
+                                    <span>IPPW confidence in facilitation</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-fog">→</span>
+                                    <span>Voluntary participation rates</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-fog">→</span>
+                                    <span>Command perception of value</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span class="font-mono text-xs text-fog/40 block mb-4 italic">Medium-Term (90 Days)</span>
+                            <ul class="space-y-4 text-sm text-fog/80">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-fog/40">→</span>
+                                    <span>Documented behavior change examples</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-fog/40">→</span>
+                                    <span>Changes in prevention incidents (if trackable)</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-fog/40">→</span>
+                                    <span>Long-term IPPW effectiveness perception</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESOURCE REQUIREMENTS -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-signal">03</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Resource Inventory</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 bg-steel/30 rounded-lg">
+                            <h3 class="font-serif text-2xl mb-6">Pilot Requirements</h3>
+                            <div class="space-y-6">
+                                <div class="flex justify-between items-center pb-4 border-b border-fog/10">
+                                    <span class="text-fog">Budget</span>
+                                    <span class="font-mono text-signal text-sm">Zero New (Already Allocated)</span>
+                                </div>
+                                <div class="flex justify-between items-center pb-4 border-b border-fog/10">
+                                    <span class="text-fog">Briefs Studio Time</span>
+                                    <span class="font-mono text-bone text-sm">24 Hours Total</span>
+                                </div>
+                                <div class="flex justify-between items-center pb-4 border-b border-fog/10">
+                                    <span class="text-fog">IPPW Commitment</span>
+                                    <span class="font-mono text-bone text-sm">~6 Hours per IPPW</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-fog">Tools</span>
+                                    <span class="font-mono text-bone text-sm">Zoom + Recording (Existing)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 border border-fog/10 rounded-lg flex flex-col justify-center">
+                            <h4 class="font-mono text-[10px] uppercase text-fog/40 mb-4">Future Scaling Requirements
+                            </h4>
+                            <p class="text-sm text-fog/60 leading-relaxed mb-4 italic">
+                                "If scaling, we would develop a formal facilitator training program, scale Story Capture
+                                capacity, and potentially develop a digital interface for remote scenario delivery."
+                            </p>
+                            <div class="flex gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-signal"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-fog/20"></div>
+                                <div class="w-1.5 h-1.5 rounded-full bg-fog/20"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB: LOGIC -->
+        <section id="tab-logic" class="tab-content px-6">
+            <div class="max-w-6xl mx-auto">
+
+                <!-- THEORETICAL FOUNDATION -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-signal">01</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Theoretical Foundation</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+                        <div class="md:col-span-12">
+                            <p class="font-serif text-2xl md:text-3xl leading-relaxed text-fog/90 italic">
+                                SIP is based on <span class="text-bone font-medium">Sleepy Planet Protocol</span> - a
+                                collaborative imagination methodology I've developed over several years through
+                                Briefs Studio. The core principle: humans have behavioral 'set points' (default patterns)
+                                shaped by environment, culture, and social conditioning. To change behavior, you need
+                                to: (1) make the current set point visible, (2) create conditions where alternative
+                                patterns can be explored safely, and (3) allow conscious observation of what emerges.
+                                SIP adapts this methodology specifically for prevention contexts, using group dynamics
+                                and role-based scenarios.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RISKS & MITIGATION -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-command">02</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Risks & Mitigation</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-6 bg-steel/30 border border-fog/10 rounded">
+                            <h4 class="font-bold text-bone mb-2">Facilitation Variance</h4>
+                            <p class="text-xs text-fog/60 mb-4">Risk: Quality varies between IPPWs, experience falls
+                                flat.</p>
+                            <p class="text-sm text-fog/80"><span class="text-emerald-400 font-bold">Mitigation:</span>
+                                Co-facilitation model ensures quality in pilot; structured guides provide a rigid
+                                framework.</p>
+                        </div>
+                        <div class="p-6 bg-steel/30 border border-fog/10 rounded">
+                            <h4 class="font-bold text-bone mb-2">Cultural Resistance</h4>
+                            <p class="text-xs text-fog/60 mb-4">Risk: Members see it as "touchy-feely" and disengage.
+                            </p>
+                            <p class="text-sm text-fog/80"><span class="text-emerald-400 font-bold">Mitigation:</span>
+                                Frame as tactical scenario training (familiar military concept). Use anonymous roles.
+                            </p>
+                        </div>
+                        <div class="p-6 bg-steel/30 border border-fog/10 rounded">
+                            <h4 class="font-bold text-bone mb-2">Measurement Difficulty</h4>
+                            <p class="text-xs text-fog/60 mb-4">Risk: Difficult to measure behavior change quickly.</p>
+                            <p class="text-sm text-fog/80"><span class="text-emerald-400 font-bold">Mitigation:</span>
+                                Focus on engagement and insight quality (immediate). Document anecdotal evidence.</p>
+                        </div>
+                        <div class="p-6 bg-steel/30 border border-fog/10 rounded">
+                            <h4 class="font-bold text-bone mb-2">Context Relevance</h4>
+                            <p class="text-xs text-fog/60 mb-4">Risk: Scenarios not relevant to specific installations.
+                            </p>
+                            <p class="text-sm text-fog/80"><span class="text-emerald-400 font-bold">Mitigation:</span>
+                                Story Capture process ensures 100% customization of every protocol.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEXT STEPS -->
+                <div class="py-24 border-t border-fog/10">
+                    <div class="flex items-center gap-4 mb-16">
+                        <span class="font-mono text-xs text-signal">03</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Conclusion & Next Steps</h2>
+                        <div class="flex-1 h-px bg-fog/10"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div>
+                            <p class="text-fog/80 leading-relaxed mb-6">Prevention training needs innovation.
+                                Information-based approaches have reached their limit. SIP offers a genuinely different
+                                methodology - one that creates experiential conditions for behavior change rather than
+                                knowledge transmission.</p>
+                            <p class="text-bone font-medium leading-relaxed">The pilot is low-risk, low-cost, and
+                                immediately executable. I'm ready to demonstrate this approach immediately.</p>
+                        </div>
+                        <div class="p-8 border-2 border-signal/30 bg-signal/5 rounded-xl">
+                            <h4 class="font-serif text-xl font-semibold mb-6">Immediate Action Items</h4>
+                            <ul class="space-y-4">
+                                <li class="flex gap-4">
+                                    <span class="text-signal font-mono">01</span>
+                                    <span class="text-sm">Review brief with leadership team</span>
+                                </li>
+                                <li class="flex gap-4">
+                                    <span class="text-signal font-mono">02</span>
+                                    <span class="text-sm">Schedule 60-min demonstration session for Elizabeth, Travis,
+                                        and key team members</span>
+                                </li>
+                                <li class="flex gap-4">
+                                    <span class="text-signal font-mono">03</span>
+                                    <span class="text-sm">Identify initial PCC volunteers and pilot partners (Weeks
+                                        1-2)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-24 border-t border-fog/10 bg-slate">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <div class="mb-12">
+                <span class="block font-mono text-xs uppercase tracking-[0.3em] text-signal mb-4">Contact &
+                    Inquiries</span>
+                <p class="font-serif text-2xl text-bone">Mike Marrotte</p>
+                <p class="font-sans text-fog/60">Briefs Studio</p>
+                <a href="mailto:mike@Briefs Studiostudio.com"
+                    class="font-mono text-signal hover:underline">mike@Briefs Studiostudio.com</a>
+            </div>
+
+            <p class="font-mono text-[10px] text-fog/40 uppercase tracking-widest mb-4">Briefs Studio // Proprietary
+                Methodology</p>
+            <p class="font-serif italic text-fog/60 max-w-2xl mx-auto">This brief is based on Briefs Studio's Sleepy Planet
+                Protocol - proprietary methodology developed by Mike Marrotte over several years of practice and
+                iteration.</p>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            // Remove active class from all tabs and triggers
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-trigger').forEach(trigger => trigger.classList.remove('active'));
+
+            // Add active class to selected tab and trigger
+            document.getElementById('tab-' + tabId).classList.add('active');
+            document.getElementById('trigger-' + tabId).classList.add('active');
+
+            // Scroll to the main content container section (just below hero)
+            const mainPos = document.getElementById('tab-container').offsetTop - 100;
+            window.scrollTo({ top: mainPos, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+
+</html>

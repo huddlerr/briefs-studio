@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Center // Ready Teams "Environment" Campaign</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cmd-bg': '#0B0F1A',
+                        'cmd-panel': '#161B2A',
+                        'cmd-accent': '#3B82F6',
+                        'cmd-signal': '#F59E0B',
+                        'cmd-success': '#10B981',
+                        'cmd-danger': '#EF4444',
+                        'cmd-text': '#F8FAFC',
+                        'cmd-text-muted': '#94A3B8',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(180deg, #04070C 0%, #0B0F1A 100%);
+            min-height: 100vh;
+            color: #F8FAFC;
+            transition: background 0.5s ease;
+        }
+
+        .glass-panel {
+            background: rgba(22, 27, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            border-bottom-color: #3B82F6;
+            color: #3B82F6;
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .sub-tab-btn {
+            transition: all 0.2s ease;
+        }
+
+        .sub-tab-btn.active {
+            background: #3B82F6;
+            color: white;
+        }
+
+        .bento-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .bento-card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .placeholder-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px dashed rgba(148, 163, 184, 0.2);
+            color: rgba(148, 163, 184, 0.3);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0B0F1A;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+
+        .prose-lg {
+            font-size: 1.125rem;
+            line-height: 1.75;
+        }
+
+        /* PHASE II UPDATES */
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #F8FAFC 0%, #3B82F6 25%, #F8FAFC 50%, #3B82F6 75%, #F8FAFC 100%);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 10s linear infinite;
+        }
+
+        .spec-ribbon {
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        /* NARRATIVE FOCUS: REACTIVE VS PROACTIVE */
+        .reactive-box {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.4);
+            transition: all 0.5s ease;
+        }
+
+        .proactive-box {
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proactive-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--cmd-accent);
+            opacity: 0.2;
+            pointer-events: none;
+            animation: pulse-border 4s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% {
+                opacity: 0.1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                opacity: 0.1;
+            }
+        }
+
+        /* REVIEW MODE */
+        #review-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .review-active-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(59, 130, 246, 0.05);
+            border: 2px dashed rgba(59, 130, 246, 0.4);
+            z-index: 20;
+            cursor: pointer;
+            display: none;
+            pointer-events: auto;
+        }
+
+        body.review-mode .review-active-overlay {
+            display: block;
+        }
+
+        .feedback-note {
+            background: rgba(22, 27, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--cmd-accent);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #F8FAFC;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(10px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* REVIEW MODE 2.0: SIDEBAR & STICKIES */
+        #feedback-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: rgba(11, 15, 26, 0.9);
+            backdrop-filter: blur(30px);
+            border-left: 1px solid rgba(59, 130, 246, 0.2);
+            z-index: 15000;
+            transition: right 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        body.review-mode-active #feedback-sidebar {
+            right: 0;
+        }
+
+        .sticky-marker {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            background: var(--cmd-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            z-index: 100;
+            cursor: pointer;
+            pointer-events: auto;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .sticky-marker.active {
+            background: #F59E0B;
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+            border-color: white;
+        }
+
+        .literal-sticky {
+            position: absolute;
+            background: #FDE047;
+            color: #161B2A;
+            padding: 1rem;
+            min-width: 180px;
+            max-width: 280px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            line-height: 1.4;
+            border-radius: 2px;
+            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
+            z-index: 101;
+            transform: rotate(-1deg);
+            pointer-events: none;
+            display: none;
+        }
+
+        .literal-sticky::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 80%, rgba(0, 0, 0, 0.1) 100%);
+        }
+
+        body.review-mode-active .sticky-marker,
+        body.review-mode-active .literal-sticky {
+            display: flex;
+        }
+
+        .feedback-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .feedback-item span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--cmd-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .feedback-item textarea {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 13px;
+            resize: none;
+            outline: none;
+            width: 100%;
+            min-height: 80px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            opacity: 0.8;
+        }
+
+        .feedback-item textarea:focus {
+            opacity: 1;
+        }
+
+        /* GLOWING FOCUS FOR FUTURE STATE */
+        .future-state-glow {
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5) !important;
+        }
+
+        .review-instruction {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.1em;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* MOOD GALLERY MODAL */
+        #mood-gallery-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 7, 12, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            padding: 4rem;
+            overflow-y: auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .asset-card {
+            aspect-ratio: 16/9;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .asset-card:hover {
+            border-color: var(--cmd-accent);
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .asset-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .asset-card img.loaded {
+            opacity: 1;
+        }
+
+        .asset-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            pointer-events: none;
+        }
+
+        .asset-placeholder span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .gallery-controls {
+            position: fixed;
+            top: 2rem;
+            right: 4rem;
+            left: 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .gallery-title-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* LIGHTBOX VIEWER */
+        #gallery-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 20000;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            cursor: zoom-out;
+        }
+
+        #gallery-lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        #lightbox-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #gallery-lightbox.active #lightbox-image {
+            transform: scale(1);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4rem;
+            height: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 20001;
+        }
+
+        .lightbox-nav:hover {
+            background: var(--cmd-accent);
+            border-color: transparent;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-nav.prev {
+            left: 4rem;
+        }
+
+        .lightbox-nav.next {
+            right: 4rem;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 4rem;
+            right: 4rem;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .lightbox-close:hover {
+            opacity: 1;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased selection:bg-cmd-accent selection:text-white">
+
+    <!-- DASHBOARD HEADER -->
+    <header class="h-20 glass-panel border-b border-white/5 flex items-center px-8 justify-between sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <div
+                class="w-8 h-8 bg-cmd-accent rounded-lg flex items-center justify-center shadow-lg shadow-cmd-accent/20">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-sm font-bold tracking-widest uppercase text-cmd-text">Command Center</h1>
+                <p class="text-[10px] font-mono text-cmd-text-muted uppercase tracking-wider">Ready Teams // Environment
+                    Campaign</p>
+            </div>
+        </div>
+
+        <!-- MAIN TABS -->
+        <nav class="flex h-full">
+            <button onclick="switchTab('strategic')" id="tab-strategic"
+                class="tab-btn active px-8 flex items-center h-full text-xs font-mono uppercase tracking-[0.2em] text-cmd-text-muted hover:text-cmd-accent">
+                Strategic Brief
+            </button>
+            <button onclick="switchTab('video')" id="tab-video"
+                class="tab-btn px-8 flex items-center h-full text-xs font-mono uppercase tracking-[0.2em] text-cmd-text-muted hover:text-cmd-accent">
+                Video Approaches
+            </button>
+        </nav>
+
+        <div class="flex items-center gap-6">
+            <a href="../../index.html"
+                class="text-[10px] font-mono text-cmd-text-muted hover:text-cmd-accent transition-colors">← Mission
+                Control</a>
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-cmd-success rounded-full animate-pulse"></span>
+                <span class="text-[9px] font-mono uppercase text-cmd-success tracking-widest">System Active</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-10 mt-4">
+
+        <!-- TAB 1: STRATEGIC BRIEF -->
+        <div id="content-strategic" class="tab-content transition-all duration-500 opacity-100">
+            <div class="grid grid-cols-12 gap-10">
+
+                <!-- TOP HERO CARD (BENTO) -->
+                <div
+                    class="col-span-12 glass-panel rounded-[2.5rem] py-24 px-12 overflow-hidden relative border-white/10 shadow-2xl">
+                    <div class="relative z-10 max-w-6xl">
+                        <span
+                            class="inline-block px-4 py-1.5 bg-cmd-accent/10 border border-cmd-accent/30 text-cmd-accent text-[10px] font-mono uppercase tracking-[0.4em] rounded-full mb-10 font-bold">Concept
+                            Pitch // BUILD 05.v1</span>
+                        <h2 class="font-serif text-6xl md:text-8xl font-semibold leading-[0.9] mb-10">
+                            <span class="shimmer-text">Shaping the Environment</span><br>
+                            <span class="text-cmd-text-muted text-4xl md:text-5xl font-normal italic mt-4 block">//
+                                Video Build Strategy</span>
+                        </h2>
+                        <p
+                            class="prose-lg text-cmd-text-muted font-serif italic mb-0 max-w-4xl text-2xl md:text-3xl leading-relaxed opacity-80">
+                            A pitch for <strong>three creative concepts</strong> toward a single, unified approach for
+                            the <strong>Ready Teams website video</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Background aesthetic element -->
+                    <div class="absolute right-[-5%] top-[-5%] w-1/2 h-1/2 opacity-10 pointer-events-none">
+                        <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                            <circle cx="50" cy="50" r="45" stroke-width="0.05" dasharray="2 2" />
+                            <circle cx="50" cy="50" r="35" stroke-width="0.1" />
+                            <path d="M50 0 L50 100 M0 50 L100 50" stroke-width="0.02" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- PROJECT SPEC RIBBON (PITCH READY) -->
+                <div
+                    class="col-span-12 spec-ribbon py-10 flex flex-wrap justify-between gap-12 px-12 rounded-3xl mb-16">
+                    <div class="flex flex-col gap-2">
+                        <span
+                            class="text-[10px] font-mono text-cmd-text-muted/40 uppercase tracking-[0.3em] leading-none mb-1">Project
+                            Type</span>
+                        <span class="text-sm font-mono text-cmd-text uppercase tracking-widest font-bold">Feature Video
+                            Campaign (60s)</span>
+                    </div>
+                    <div class="flex flex-col gap-2 border-l border-white/5 pl-12">
+                        <span
+                            class="text-[10px] font-mono text-cmd-text-muted/40 uppercase tracking-[0.3em] leading-none mb-1">Production
+                            Cap</span>
+                        <span class="text-sm font-mono text-cmd-success font-black uppercase tracking-widest">150
+                            Collaborative Hours</span>
+                    </div>
+                    <div class="flex flex-col gap-2 border-l border-white/5 pl-12">
+                        <span
+                            class="text-[10px] font-mono text-cmd-text-muted/40 uppercase tracking-[0.3em] leading-none mb-1">Creative
+                            Focus</span>
+                        <span class="text-sm font-mono text-cmd-text uppercase tracking-widest font-bold">Pre-Crisis
+                            Architecture</span>
+                    </div>
+                </div>
+
+                <!-- PROBLEM/SOLUTION SPLIT: NARRATIVE FOCUS -->
+                <div
+                    class="col-span-12 lg:col-span-5 reactive-box rounded-[2rem] p-12 relative flex flex-col justify-center min-h-[400px]">
+                    <div class="flex items-center gap-3 mb-10">
+                        <span class="w-2 h-2 bg-cmd-danger rounded-full"></span>
+                        <h3 class="font-mono text-[11px] uppercase tracking-[0.5em] text-cmd-danger font-bold">Reactive
+                            Response</h3>
+                    </div>
+                    <p class="prose-lg text-cmd-text-muted font-serif italic mb-8 text-2xl leading-relaxed">"Traditional
+                        models emphasize fixes <br>after a breaking point."</p>
+                    <p class="text-sm text-cmd-text-muted leading-relaxed opacity-50 max-w-sm">
+                        Address the fire, but ignore the oxygen. This strategy is necessary for survival but fails to
+                        ensure unit longevity.
+                    </p>
+                </div>
+
+                <div
+                    class="col-span-12 lg:col-span-7 proactive-box future-state-glow rounded-[3rem] p-16 relative border-l-8 border-cmd-accent min-h-[400px] flex flex-col justify-center">
+                    <div class="flex items-center gap-3 mb-10">
+                        <span class="w-2 h-2 bg-cmd-accent rounded-full animate-ping"></span>
+                        <h3 class="font-mono text-[11px] uppercase tracking-[0.5em] text-cmd-accent font-bold">Proactive
+                            Architecture</h3>
+                    </div>
+                    <p class="prose-lg text-cmd-text mb-10 text-3xl md:text-4xl font-serif italic leading-tight">
+                        "Building the environment <br>that makes unit health <br><span
+                            class="text-cmd-accent">unbreakable by design</span>."
+                    </p>
+
+                    <div class="p-8 bg-cmd-accent/10 rounded-3xl border border-cmd-accent/20">
+                        <span
+                            class="font-mono text-[10px] text-cmd-accent uppercase tracking-[0.3em] mb-3 block opacity-60">Strategic
+                            Mission Pivot</span>
+                        <p class="text-sm text-cmd-text-muted leading-relaxed">
+                            A shift from <strong>Individual Checkbox Culture</strong> to the <strong>Systemic Cultural
+                                Architecture</strong> of Trust, Respect, and Inclusion.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- THE 3 E'S FRAMEWORK -->
+                <div class="col-span-12 mt-16">
+                    <div class="flex items-center gap-10 mb-20">
+                        <h3 class="font-mono text-sm uppercase tracking-[0.6em] text-cmd-text font-bold">The Strategic
+                            Framework</h3>
+                        <div class="flex-1 h-px bg-white/5"></div>
+                    </div>
+                    <div class="grid grid-cols-12 gap-12">
+                        <div class="col-span-12 md:col-span-4 glass-panel rounded-[2.5rem] p-12 bento-card relative">
+                            <span class="text-7xl font-serif italic text-cmd-accent/10 block mb-10">01</span>
+                            <h4 class="font-serif text-5xl mb-8 italic text-cmd-text">Engage</h4>
+                            <p class="text-cmd-text-muted text-xl leading-relaxed opacity-80 font-serif italic">
+                                Orienting the viewer to the mission map. Defining exactly <strong>where</strong> Ready
+                                Teams exist in the unit lifecycle.
+                            </p>
+                        </div>
+                        <div class="col-span-12 md:col-span-4 glass-panel rounded-[2.5rem] p-12 bento-card relative">
+                            <span class="text-7xl font-serif italic text-cmd-accent/10 block mb-10">02</span>
+                            <h4 class="font-serif text-4xl md:text-5xl mb-8 italic text-cmd-text">Equip</h4>
+                            <p class="text-cmd-text-muted text-xl leading-relaxed opacity-80 font-serif italic">
+                                Delivering the logic and resources. Moving from theory to <strong>tangible
+                                    toolkits</strong> for commanders.
+                            </p>
+                        </div>
+                        <div
+                            class="col-span-12 md:col-span-4 glass-panel rounded-[2.5rem] p-12 bento-card relative border-cmd-accent/40 bg-cmd-accent/5">
+                            <span class="text-7xl font-serif italic text-cmd-accent/30 block mb-10">03</span>
+                            <h4 class="font-serif text-5xl mb-8 italic text-cmd-accent">Enlist</h4>
+                            <p class="text-cmd-text-muted text-xl leading-relaxed opacity-90 font-serif italic">
+                                Mobilizing personal agency. Activating <strong>every Service Member</strong> as an
+                                architect of their ecosystem.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STRATEGIC LOGISTICS -->
+                <div
+                    class="col-span-12 mt-24 glass-panel rounded-[2.5rem] p-12 flex flex-col md:flex-row items-center justify-between gap-12 border-white/5 bg-white/5">
+                    <div>
+                        <h4 class="font-mono text-[11px] uppercase tracking-[0.5em] text-cmd-signal mb-4 font-bold">
+                            Unified Execution Logic</h4>
+                        <p class="text-3xl font-serif italic text-cmd-text">Three Concepts // One Final Delivery</p>
+                    </div>
+                    <div class="flex-1 max-w-2xl">
+                        <p class="text-lg text-cmd-text-muted leading-relaxed italic font-serif">
+                            We are not building three separate campaigns. These approaches represent three distinct
+                            <strong>creative levers</strong> used to reach one unified production goal.
+                        </p>
+                    </div>
+                    <div class="flex gap-4">
+                        <div
+                            class="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl font-mono text-[11px] uppercase tracking-widest">
+                            Sync v3.0</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TAB 2: VIDEO APPROACHES -->
+        <div id="content-video" class="tab-content transition-all duration-500 opacity-0 hidden">
+
+            <!-- UNIFIED NARRATIVE BANNER -->
+            <div
+                class="col-span-12 glass-panel rounded-3xl p-8 mb-12 flex flex-col md:flex-row items-center justify-between gap-8 border-cmd-accent/20 bg-cmd-accent/5">
+                <div class="flex items-center gap-6">
+                    <div
+                        class="w-12 h-12 rounded-full bg-cmd-accent/20 flex items-center justify-center text-cmd-accent shadow-lg shadow-cmd-accent/10">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-mono text-[10px] uppercase tracking-[0.4em] text-cmd-accent mb-1 font-bold">The
+                            Creative Pitch Logic</h4>
+                        <p class="text-xl font-serif italic text-cmd-text leading-tight">Three Lever Concepts // One
+                            Unified Motion Delivery</p>
+                    </div>
+                </div>
+                <div class="max-w-xl text-xs text-cmd-text-muted leading-relaxed opacity-80">
+                    While these approaches look different in tone, they utilize the same <strong>Motion Toolkit
+                        architecture</strong>. Selecting a path defines the "Soul" of the video while maintaining the
+                    efficiency of a single unified production cycle.
+                </div>
+            </div>
+
+            <div class="grid grid-cols-12 gap-8">
+
+                <!-- SIDEBAR NAV FOR SUB-TABS -->
+                <aside class="col-span-12 md:col-span-3 space-y-4">
+                    <div class="glass-panel rounded-2xl p-6 sticky top-24">
+                        <h3
+                            class="font-mono text-[10px] uppercase tracking-[0.4em] text-cmd-text-muted mb-8 text-center">
+                            Triple-Threat Strategy</h3>
+                        <div class="space-y-2">
+                            <button onclick="switchSubTab('approach-a')" id="btn-approach-a"
+                                class="sub-tab-btn active w-full p-4 rounded-xl flex flex-col items-start gap-1 text-left border border-white/5">
+                                <span class="text-[9px] font-mono uppercase tracking-widest opacity-60">Approach
+                                    A</span>
+                                <span class="font-bold text-sm">The Legacy Lift</span>
+                            </button>
+                            <button onclick="switchSubTab('approach-b')" id="btn-approach-b"
+                                class="sub-tab-btn w-full p-4 rounded-xl flex flex-col items-start gap-1 text-left border border-white/5 opacity-50 hover:opacity-100">
+                                <span class="text-[9px] font-mono uppercase tracking-widest opacity-60">Approach
+                                    B</span>
+                                <span class="font-bold text-sm">The Safe Explainer</span>
+                            </button>
+                            <button onclick="switchSubTab('approach-c')" id="btn-approach-c"
+                                class="sub-tab-btn w-full p-4 rounded-xl flex flex-col items-start gap-1 text-left border border-white/5 opacity-50 hover:opacity-100">
+                                <span class="text-[9px] font-mono uppercase tracking-widest opacity-60">Approach
+                                    C</span>
+                                <span class="font-bold text-sm text-cmd-signal italic">The UI Voyager</span>
+                            </button>
+                        </div>
+
+                        <div class="mt-8 pt-8 border-t border-white/5">
+                            <div class="flex justify-between items-center text-[10px] font-mono mb-2">
+                                <span class="opacity-40 uppercase">Production Depth</span>
+                                <span class="text-cmd-success" id="depth-indicator">Linear // 1:1</span>
+                            </div>
+                            <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                                <div id="depth-bar" class="w-1/3 h-full bg-cmd-success transition-all duration-500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- MAIN SUB-TAB CONTENT VIEWPORT -->
+                <div class="col-span-12 md:col-span-9">
+
+                    <!-- CONTENT A: THE LEGACY LIFT -->
+                    <div id="sub-content-approach-a"
+                        class="sub-tab-content transition-all duration-500 scale-100 opacity-100">
+                        <div class="glass-panel rounded-3xl p-12 bento-card min-h-[600px]">
+                            <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-4 mb-6">
+                                        <span
+                                            class="px-2 py-0.5 bg-cmd-success/10 text-cmd-success text-[10px] font-mono uppercase tracking-widest border border-cmd-success/20 rounded">Efficiency
+                                            Focus</span>
+                                        <span class="text-cmd-text-muted font-mono text-xs">/ "The Foundation"</span>
+                                    </div>
+                                    <h3 class="font-serif text-6xl font-semibold mb-8 italic text-cmd-text">The Legacy
+                                        Lift</h3>
+                                    <p class="text-xl text-cmd-text-muted leading-relaxed max-w-2xl">
+                                        Re-skinning the existing high-end animations from the "What Unit Are You
+                                        Building?" campaign. By leveraging the previous asset library and injecting
+                                        Ready Teams branding with a fresh, authoritative VO, we create maximum value
+                                        with minimum friction.
+                                    </p>
+                                </div>
+                                <div class="w-full lg:w-[380px] shrink-0">
+                                    <div onclick="openMoodGallery('approach-a')"
+                                        class="placeholder-box aspect-video rounded-2xl flex flex-col items-center justify-center mb-6 text-center px-8 cursor-pointer hover:border-cmd-accent group transition-all">
+                                        <span
+                                            class="text-[9px] uppercase tracking-[0.4em] text-cmd-text mb-2 group-hover:scale-110 transition-transform">Visual
+                                            Style: Kinetic Typography</span>
+                                        <div class="w-24 h-px bg-white/10 mb-2 group-hover:w-32 transition-all"></div>
+                                        <span class="text-[8px] font-mono opacity-40 uppercase tracking-widest">[ Click
+                                            to Expand Mood Canvas ]</span>
+                                    </div>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-center gap-3 text-sm text-cmd-text-muted">
+                                            <svg class="w-4 h-4 text-cmd-success" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            Existing High-End 3D Assets
+                                        </li>
+                                        <li class="flex items-center gap-3 text-sm text-cmd-text-muted">
+                                            <svg class="w-4 h-4 text-cmd-success" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            Production Launch: < 24 Hours </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-white/5 pt-12">
+                                <h4 class="font-mono text-xs uppercase tracking-[0.4em] text-cmd-text mb-10">Script
+                                    Detail // 60s Narrative</h4>
+                                <div class="space-y-8">
+                                    <div class="p-8 bg-white/5 border border-white/10 rounded-2xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span
+                                                class="font-mono text-xs text-cmd-accent uppercase tracking-widest">00-10s
+                                                // The Hook</span>
+                                        </div>
+                                        <p class="text-sm text-cmd-text-muted mb-4 font-mono leading-relaxed">
+                                            <strong
+                                                class="text-cmd-text uppercase tracking-tighter text-[10px] mr-2">Visual:</strong>
+                                            Clean white text on a deep black background. The text is stark and centered.
+                                            Text: WHAT IS A READY TEAM?
+                                        </p>
+                                        <p class="text-lg text-cmd-text italic leading-relaxed">
+                                            <strong
+                                                class="text-cmd-accent not-italic font-mono text-xs uppercase tracking-tighter mr-3">VO:</strong>
+                                            "What is a Ready Team? It's a question that brings a lot of people to this
+                                            site, but the answer isn't found in a manual. To find it, you have to look
+                                            at the environment you are building every single day."
+                                        </p>
+                                    </div>
+
+                                    <div class="p-8 bg-white/5 border border-white/10 rounded-2xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span
+                                                class="font-mono text-xs text-cmd-accent uppercase tracking-widest">10-25s
+                                                // The Shift</span>
+                                        </div>
+                                        <p class="text-sm text-cmd-text-muted mb-4 font-mono leading-relaxed">
+                                            <strong
+                                                class="text-cmd-text uppercase tracking-tighter text-[10px] mr-2">Visual:</strong>
+                                            The black background "unlocks" into the high-end 3D kinetic typography from
+                                            previous campaigns (re-skinned in Ready Teams gold and navy). The word
+                                            "Team" morphs into ENVIRONMENT.
+                                        </p>
+                                        <p class="text-lg text-cmd-text italic leading-relaxed">
+                                            <strong
+                                                class="text-cmd-accent not-italic font-mono text-xs uppercase tracking-tighter mr-3">VO:</strong>
+                                            "A Ready Team isn't a response unit you call after a crisis. It is the
+                                            invisible architecture of your command. It's the trust, respect, and
+                                            inclusion you build in the quiet moments so you are unbreakable in the loud
+                                            ones."
+                                        </p>
+                                    </div>
+
+                                    <div class="p-8 bg-white/5 border border-white/10 rounded-2xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span
+                                                class="font-mono text-xs text-cmd-accent uppercase tracking-widest">25-45s
+                                                // The Framework</span>
+                                        </div>
+                                        <p class="text-sm text-cmd-text-muted mb-4 font-mono leading-relaxed">
+                                            <strong
+                                                class="text-cmd-text uppercase tracking-tighter text-[10px] mr-2">Visual:</strong>
+                                            The words ENGAGE. EQUIP. ENLIST. cycle through the 3D space in a circular
+                                            motion, mimicking the website's process.
+                                        </p>
+                                        <p class="text-lg text-cmd-text italic leading-relaxed">
+                                            <strong
+                                                class="text-cmd-accent not-italic font-mono text-xs uppercase tracking-tighter mr-3">VO:</strong>
+                                            "We are here to help you Engage with that mission—orienting you to what a
+                                            Ready Team is and where it lives. We want to Equip you with the logic,
+                                            reasoning, and tools to shape your unit's conditions and Enlist every member
+                                            in the mission of prevention."
+                                        </p>
+                                    </div>
+
+                                    <div class="p-8 bg-white/5 border border-white/10 rounded-2xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span
+                                                class="font-mono text-xs text-cmd-accent uppercase tracking-widest">45-60s
+                                                // The Close</span>
+                                        </div>
+                                        <p class="text-sm text-cmd-text-muted mb-4 font-mono leading-relaxed">
+                                            <strong
+                                                class="text-cmd-text uppercase tracking-tighter text-[10px] mr-2">Visual:</strong>
+                                            The kinetic type converging into a final Ready Teams seal. Text:
+                                            prevention.mil. Your mission starts with the environment you create.
+                                        </p>
+                                        <p class="text-lg text-cmd-text italic leading-relaxed">
+                                            <strong
+                                                class="text-cmd-accent not-italic font-mono text-xs uppercase tracking-tighter mr-3">VO:</strong>
+                                            "Because when we build a culture of trust, we aren't just checking a box. We
+                                            are becoming the architects of our own environment. We are building the
+                                            space where readiness actually lives. Start building today at
+                                            prevention-dot-mil."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONTENT B: THE SAFE EXPLAINER -->
+                    <div id="sub-content-approach-b"
+                        class="sub-tab-content transition-all duration-500 scale-95 opacity-0 hidden">
+                        <div class="glass-panel rounded-3xl p-12 bento-card min-h-[600px]">
+                            <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-4 mb-6">
+                                        <span
+                                            class="px-2 py-0.5 bg-cmd-accent/10 text-cmd-accent text-[10px] font-mono uppercase tracking-widest border border-cmd-accent/20 rounded">Clarity
+                                            Focus</span>
+                                        <span class="text-cmd-text-muted font-mono text-xs">/ "The User
+                                            Manual"</span>
+                                    </div>
+                                    <h3 class="font-serif text-6xl font-semibold mb-8 italic text-cmd-text">The Safe
+                                        Explainer</h3>
+                                    <p class="text-xl text-cmd-text-muted leading-relaxed max-w-2xl">
+                                        A linear, professional 60-second walkthrough utilizing high-resolution DVIDS
+                                        footage. This is the "User Manual" for the Ready Teams environment, designed
+                                        to
+                                        give practitioners a clear, functional guide without distraction.
+                                    </p>
+                                </div>
+                                <div class="w-full lg:w-[380px] shrink-0">
+                                    <div onclick="openMoodGallery('approach-b')"
+                                        class="placeholder-box aspect-video rounded-2xl flex flex-col items-center justify-center mb-6 text-center px-8 border-cmd-accent/40 bg-cmd-accent/5 cursor-pointer hover:border-cmd-accent group transition-all">
+                                        <span
+                                            class="text-[9px] uppercase tracking-[0.4em] text-cmd-accent mb-2 group-hover:scale-110 transition-transform">Visual
+                                            Mood: DVIDS Reality</span>
+                                        <div class="w-24 h-px bg-cmd-accent/20 mb-2 group-hover:w-32 transition-all">
+                                        </div>
+                                        <span class="text-[8px] font-mono opacity-40 uppercase tracking-widest">[
+                                            Click to Expand Mood Canvas ]</span>
+                                    </div>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-center gap-3 text-sm text-cmd-text-muted">
+                                            <svg class="w-4 h-4 text-cmd-accent" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            Source: Ground Reality Footage
+                                        </li>
+                                        <li class="flex items-center gap-3 text-sm text-cmd-text-muted">
+                                            <svg class="w-4 h-4 text-cmd-accent" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            Tone: Government-Honest
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-white/5 pt-12">
+                                <h4 class="font-mono text-xs uppercase tracking-[0.4em] text-cmd-text mb-10">Script
+                                    Detail // 60s Narrative</h4>
+                                <div class="space-y-8">
+                                    <div class="p-8 bg-white/5 border border-white/10 rounded-2xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span
+                                                class="font-mono text-xs text-cmd-accent uppercase tracking-widest">00-12s
+                                                // The Honest Hook</span>
+                                        </div>
+                                        <p class="text-sm text-cmd-text-muted mb-4 font-mono leading-relaxed">
+                                            <strong
+                                                class="text-cmd-text uppercase tracking-tighter text-[10px] mr-2">Visual:</strong>
+                                            Clean, static white text on a solid black background. Minimalist and
+                                            stark. Text: WHAT IS A READY TEAM?
+                                        </p>
+                                        <p class="text-lg text-cmd-text italic leading-relaxed">
+                                            <strong
+                                                class="text-cmd-accent not-italic font-mono text-xs uppercase tracking-tighter mr-3">VO:</strong>
+                                            "What is a Ready Team? It’s a question that brings a lot of people to
+                                            this site, but the answer isn’t found in a manual or a checklist. To
+                                            find it, you have to look at the environment you’re building every
+                                            single day."
+                                        </p>
+                                    </div>
+
+                                    <div class="p-8 bg-white/5 border border-white/10 rounded-2xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span
+                                                class="font-mono text-xs text-cmd-accent uppercase tracking-widest">12-40s
+                                                // The Real World</span>
+                                        </div>
+                                        <p class="text-sm text-cmd-text-muted mb-4 font-mono leading-relaxed">
+                                            <strong
+                                                class="text-cmd-text uppercase tracking-tighter text-[10px] mr-2">Visual:</strong>
+                                            The black screen cuts to authentic DVIDS footage of Service Members in
+                                            collaborative, non-crisis environments. Text overlays: SHAPING THE
+                                            ENVIRONMENT.
+                                        </p>
+                                        <p class="text-lg text-cmd-text italic leading-relaxed">
+                                            <strong
+                                                class="text-cmd-accent not-italic font-mono text-xs uppercase tracking-tighter mr-3">VO:</strong>
+                                            "A Ready Team isn't a response unit you call after a crisis. It is the
+                                            steady, intentional architecture of trust, respect, and inclusion that
+                                            ensures a crisis never takes root. It's the space where readiness
+                                            lives."
+                                        </p>
+                                    </div>
+
+                                    <div class="p-8 bg-white/5 border border-white/10 rounded-2xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span
+                                                class="font-mono text-xs text-cmd-accent uppercase tracking-widest">40-60s
+                                                // The Close</span>
+                                        </div>
+                                        <p class="text-sm text-cmd-text-muted mb-4 font-mono leading-relaxed">
+                                            <strong
+                                                class="text-cmd-text uppercase tracking-tighter text-[10px] mr-2">Visual:</strong>
+                                            A walkthrough of the Ready Teams website highlighting Engage, Equip, and
+                                            Enlist. Settling on the final seal and URL: prevention.mil.
+                                        </p>
+                                        <p class="text-lg text-cmd-text italic leading-relaxed">
+                                            <strong
+                                                class="text-cmd-accent not-italic font-mono text-xs uppercase tracking-tighter mr-3">VO:</strong>
+                                            "We’re here to help you Engage with that mission—orienting you to the
+                                            tools here. We want to Equip you with the logic and Enlist every member
+                                            in the mission of prevention. Your mission starts today at
+                                            prevention-dot-mil."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONTENT C: THE UI VOYAGER -->
+                    <div id="sub-content-approach-c"
+                        class="sub-tab-content transition-all duration-500 scale-95 opacity-0 hidden">
+                        <div class="glass-panel rounded-3xl p-12 bento-card border-cmd-signal/20 min-h-[600px]">
+                            <div class="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-4 mb-6">
+                                        <span
+                                            class="px-2 py-0.5 bg-cmd-signal/10 text-cmd-signal text-[10px] font-mono uppercase tracking-widest border border-cmd-signal/20 rounded font-bold">Innovation
+                                            Focus</span>
+                                        <span class="text-cmd-text-muted font-mono text-xs">/ "The
+                                            Socks-Knocker"</span>
+                                    </div>
+                                    <h3 class="font-serif text-6xl font-semibold mb-8 italic text-cmd-signal">The UI
+                                        Voyager</h3>
+                                    <p class="text-xl text-cmd-text-muted leading-relaxed max-w-2xl">
+                                        The marquee deliverable. A sleek, "Bento Box" UI-driven motion piece where
+                                        technical data morphs seamlessly into real-world unit interactions. We use
+                                        hand-drawn digital overlays to bridge the gap between technical metrics and
+                                        human behavior.
+                                    </p>
+                                </div>
+                                <div class="w-full lg:w-[380px] shrink-0">
+                                    <div onclick="openMoodGallery('approach-c')"
+                                        class="placeholder-box aspect-video rounded-2xl flex flex-col items-center justify-center mb-6 text-center px-8 border-cmd-signal/40 bg-cmd-signal/5 cursor-pointer hover:border-cmd-signal group transition-all">
+                                        <span
+                                            class="text-[9px] uppercase tracking-[0.4em] text-cmd-signal mb-2 group-hover:scale-110 transition-transform">Visual
+                                            Mood: Command Center</span>
+                                        <div class="w-24 h-px bg-cmd-signal/20 mb-2 group-hover:w-32 transition-all">
+                                        </div>
+                                        <span class="text-[8px] font-mono opacity-40 uppercase tracking-widest">[
+                                            Click to Expand Mood Canvas ]</span>
+                                    </div>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-center gap-3 text-sm text-cmd-text-muted">
+                                            <svg class="w-4 h-4 text-cmd-signal" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            Custom 3D UI Motion Design
+                                        </li>
+                                        <li class="flex items-center gap-3 text-sm text-cmd-text-muted">
+                                            <svg class="w-4 h-4 text-cmd-signal" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            Interactive Concept Demonstration
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-white/5 pt-12">
+                                <h4 class="font-mono text-xs uppercase tracking-[0.4em] text-cmd-text mb-10">Script
+                                    Detail // 60s Narrative</h4>
+                                <div class="space-y-8">
+                                    <div class="p-8 bg-white/5 border border-cmd-signal/10 rounded-2xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span
+                                                class="font-mono text-xs text-cmd-signal uppercase tracking-widest">00-15s
+                                                // The Dashboard Hook</span>
+                                        </div>
+                                        <p class="text-sm text-cmd-text-muted mb-4 font-mono leading-relaxed">
+                                            <strong
+                                                class="text-cmd-text uppercase tracking-tighter text-[10px] mr-2">Visual:</strong>
+                                            Screen "shatters" into a sophisticated Bento Box grid—a dashboard of
+                                            glowing tiles. One tile expands into a DVIDS scene of a unit briefing.
+                                        </p>
+                                        <p class="text-lg text-cmd-text italic leading-relaxed">
+                                            <strong
+                                                class="text-cmd-signal not-italic font-mono text-xs uppercase tracking-tighter mr-3">VO:</strong>
+                                            "What is a Ready Team? Welcome to a virtual space for a real-world
+                                            mission. Ready Teams isn't just a website; it’s the architecture of your
+                                            command. It’s the trust you build in the quiet moments."
+                                        </p>
+                                    </div>
+
+                                    <div class="p-8 bg-white/5 border border-cmd-signal/10 rounded-2xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span
+                                                class="font-mono text-xs text-cmd-signal uppercase tracking-widest">15-45s
+                                                // User Exploration</span>
+                                        </div>
+                                        <p class="text-sm text-cmd-text-muted mb-4 font-mono leading-relaxed">
+                                            <strong
+                                                class="text-cmd-text uppercase tracking-tighter text-[10px] mr-2">Visual:</strong>
+                                            The camera "zooms out" through the grid. Tiles for Engage, Equip, and
+                                            Enlist animate with sleek motion. Hand-drawn digital overlays bridge
+                                            technical metrics and human behavior.
+                                        </p>
+                                        <p class="text-lg text-cmd-text italic leading-relaxed">
+                                            <strong
+                                                class="text-cmd-signal not-italic font-mono text-xs uppercase tracking-tighter mr-3">VO:</strong>
+                                            "Use this space to Engage with the mission, Equip yourself with the
+                                            logic needed to shape your unit’s conditions, and Enlist every member in
+                                            the collective work of prevention."
+                                        </p>
+                                    </div>
+
+                                    <div class="p-8 bg-white/5 border border-cmd-signal/10 rounded-2xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <span
+                                                class="font-mono text-xs text-cmd-signal uppercase tracking-widest">45-60s
+                                                // The Marquee Close</span>
+                                        </div>
+                                        <p class="text-sm text-cmd-text-muted mb-4 font-mono leading-relaxed">
+                                            <strong
+                                                class="text-cmd-text uppercase tracking-tighter text-[10px] mr-2">Visual:</strong>
+                                            The UI grid collapses into a single, glowing tile: SHAPE THE CONDITIONS.
+                                            Montage of professional unit life. Final settling on the Ready Teams
+                                            logo and prevention.mil.
+                                        </p>
+                                        <p class="text-lg text-cmd-text italic leading-relaxed">
+                                            <strong
+                                                class="text-cmd-signal not-italic font-mono text-xs uppercase tracking-tighter mr-3">VO:</strong>
+                                            "Because we are the architects of our own environment. We are building
+                                            the space where readiness actually lives. Your mission starts today at
+                                            prevention-dot-mil."
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+    </main>
+
+    <!-- MOOD GALLERY MODAL -->
+    <div id="mood-gallery-modal">
+        <div class="gallery-controls">
+            <div class="gallery-title-wrapper">
+                <span id="gallery-title"
+                    class="text-[10px] font-mono text-cmd-accent uppercase tracking-[0.5em]">Approach A // Mood
+                    Deck</span>
+                <span id="gallery-subtitle"
+                    class="text-[11px] font-mono text-cmd-text-muted uppercase tracking-widest opacity-60">Scanning
+                    Assets: assets/mood-board-a/</span>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <div class="flex flex-col items-end gap-1 px-6 border-r border-white/10">
+                    <span class="text-[9px] font-mono text-cmd-text-muted/40 uppercase tracking-widest">Workspace
+                        Instructions</span>
+                    <span class="text-[10px] font-mono text-cmd-text lowercase opacity-40 italic">Drop images named
+                        1.jpg, 2.jpg... into the folder to populate</span>
+                </div>
+
+                <button onclick="closeMoodGallery()"
+                    class="w-12 h-12 glass-panel rounded-full flex items-center justify-center text-cmd-text hover:text-cmd-danger hover:border-cmd-danger/40 transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="gallery-grid pt-24" id="gallery-grid">
+            <!-- Asset cards will be generated here -->
+        </div>
+    </div>
+
+    <!-- LIGHTBOX VIEWER -->
+    <div id="gallery-lightbox" onclick="closeLightbox()">
+        <div class="lightbox-container" onclick="event.stopPropagation()">
+            <div class="lightbox-close" onclick="closeLightbox()">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+
+            <div class="lightbox-nav prev" onclick="navigateLightbox(-1)">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </div>
+
+            <img id="lightbox-image" src="" alt="Full view">
+
+            <div class="lightbox-nav next" onclick="navigateLightbox(1)">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </div>
+
+            <div class="lightbox-counter" id="lightbox-counter">01 / 12</div>
+        </div>
+    </div>
+
+    <!-- REVIEW MODE SIDEBAR (v2.0) -->
+    <div id="feedback-sidebar">
+        <div class="flex justify-between items-center mb-6">
+            <h4 class="font-mono text-xs uppercase tracking-[0.3em] font-bold text-cmd-accent">Live Feedback Loop</h4>
+            <span class="text-[9px] font-mono opacity-40 uppercase">[ 1 ] to Exit</span>
+        </div>
+
+        <div id="feedback-list" class="flex-1 overflow-y-auto space-y-4 pr-2 scrollbar-hide">
+            <!-- Dynamic feedback cards appear here -->
+        </div>
+
+        <button onclick="exportReview()"
+            class="w-full py-4 bg-cmd-accent hover:bg-cmd-accent/80 text-white rounded-xl shadow-lg transition-all flex flex-col items-center justify-center gap-1">
+            <span class="text-[10px] font-mono font-bold uppercase tracking-widest">Capture Brief</span>
+            <span class="text-[8px] font-mono opacity-50 uppercase tracking-tighter">Export to High-Res PNG</span>
+        </button>
+    </div>
+
+    <div class="review-instruction">Press [ 1 ] to toggle Global Review Mode</div>
+
+    <!-- FOOTER NAV -->
+    <footer class="mt-40 py-20 px-12 glass-panel border-t border-white/5 bg-black/20">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-6">
+                <div>
+                    <span class="font-mono text-[9px] uppercase tracking-[0.5em] text-cmd-text-muted">Briefs Studio
+                        Studio</span>
+                    <p class="text-xs italic text-cmd-text-muted mt-1 font-serif font-serif opacity-60">Mapping the
+                        mission. Shaping the signal.</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-12">
+                <div class="text-right">
+                    <span
+                        class="block font-mono text-[9px] uppercase tracking-widest text-cmd-text-muted opacity-40">Contract
+                        Reference</span>
+                    <span class="text-[10px] font-mono font-medium tracking-wider text-cmd-text">OCCWI-PREV-2026 //
+                        READY TEAMS</span>
+                </div>
+                <div class="text-right border-l border-white/10 pl-12">
+                    <span
+                        class="block font-mono text-[9px] uppercase tracking-widest text-cmd-text-muted opacity-40">Phase</span>
+                    <span class="text-[10px] font-mono font-medium tracking-wider text-cmd-accent uppercase">Production
+                        Spec // v1.0</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TAB LOGIC SCRIPT -->
+    <script>
+        let currentTabId = 'strategic';
+
+        function switchTab(tabId) {
+            currentTabId = tabId;
+            // Update Main Tabs Styles
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById('tab-' + tabId).classList.add('active');
+
+            // Switch Content with Animation
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.add('opacity-0');
+                setTimeout(() => {
+                    content.classList.add('hidden');
+                }, 300);
+            });
+
+            // Toggle Sticky Visibility by Tab
+            document.querySelectorAll('.sticky-marker, .literal-sticky').forEach(el => {
+                if (el.dataset.tab === tabId) {
+                    el.style.display = reviewModeActive ? 'flex' : 'none';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+
+            // Toggle Sidebar Note Visibility by Tab
+            document.querySelectorAll('.feedback-item').forEach(el => {
+                if (el.dataset.tab === tabId) {
+                    el.style.display = 'flex';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+
+            setTimeout(() => {
+                const targetContent = document.getElementById('content-' + tabId);
+                targetContent.classList.remove('hidden');
+                setTimeout(() => {
+                    targetContent.classList.remove('opacity-0');
+                    targetContent.classList.add('opacity-100');
+                    reorderStickies(); // Refresh visual numbers on tab switch
+                }, 50);
+            }, 305);
+        }
+
+        function switchSubTab(subTabId) {
+            // Update Sub-Tab Buttons
+            document.querySelectorAll('.sub-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('opacity-50');
+            });
+            const activeBtn = document.getElementById('btn-' + subTabId);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('opacity-50', 'hover:opacity-100');
+
+            // Update Progress/Depth Bar
+            const bar = document.getElementById('depth-bar');
+            const indicator = document.getElementById('depth-indicator');
+            if (subTabId === 'approach-a') {
+                bar.style.width = '33%';
+                indicator.innerText = 'Linear // 1:1';
+            } else if (subTabId === 'approach-b') {
+                bar.style.width = '66%';
+                indicator.innerText = 'Functional // HQ';
+            } else {
+                bar.style.width = '100%';
+                indicator.innerText = 'Marquee // Innovation';
+            }
+
+            // Switch Sub-Content with Animation
+            const subContents = document.querySelectorAll('.sub-tab-content');
+            subContents.forEach(content => {
+                content.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    content.classList.add('hidden');
+                }, 300);
+            });
+
+            setTimeout(() => {
+                const targetSubContent = document.getElementById('sub-content-' + subTabId);
+                targetSubContent.classList.remove('hidden');
+                setTimeout(() => {
+                    targetSubContent.classList.remove('opacity-0', 'scale-95');
+                    targetSubContent.classList.add('opacity-100', 'scale-100');
+                }, 50);
+            }, 305);
+        }
+
+        /* MOOD GALLERY LOGIC */
+        let activeGalleryItems = [];
+        let currentLightboxIndex = 0;
+
+        function openMoodGallery(contextId) {
+            const modal = document.getElementById('mood-gallery-modal');
+            const grid = document.getElementById('gallery-grid');
+            const title = document.getElementById('gallery-title');
+            const subtitle = document.getElementById('gallery-subtitle');
+
+            const approachName = contextId.replace('approach-', '').toUpperCase();
+            title.innerText = `Approach ${approachName} // Mood Deck`;
+            subtitle.innerText = `Scanning Assets: assets/mood-board-${approachName.toLowerCase()}/`;
+
+            grid.innerHTML = '';
+            activeGalleryItems = [];
+
+            for (let i = 1; i <= 12; i++) {
+                const card = document.createElement('div');
+                card.className = 'asset-card';
+
+                const placeholder = document.createElement('div');
+                placeholder.className = 'asset-placeholder';
+                placeholder.innerHTML = `
+                    <svg class="w-8 h-8 opacity-10 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Slot ${i.toString().padStart(2, '0')} // Awaiting Asset</span>
+                `;
+
+                const img = document.createElement('img');
+                const imagePath = `assets/mood-board-${approachName.toLowerCase()}/${i}.jpg`;
+                const fallbackPath = `assets/mood-board-${approachName.toLowerCase()}/${i}.png`;
+                img.src = imagePath;
+
+                img.onload = () => {
+                    img.classList.add('loaded');
+                    placeholder.style.display = 'none';
+                    card.style.cursor = 'pointer';
+
+                    const itemIndex = activeGalleryItems.length;
+                    activeGalleryItems.push(img.src);
+
+                    card.onclick = () => openLightbox(itemIndex);
+                };
+
+                img.onerror = () => {
+                    if (img.src.includes('.jpg')) {
+                        img.src = fallbackPath;
+                    } else {
+                        img.style.display = 'none';
+                    }
+                };
+
+                card.appendChild(placeholder);
+                card.appendChild(img);
+                grid.appendChild(card);
+            }
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMoodGallery() {
+            document.getElementById('mood-gallery-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        /* LIGHTBOX FUNCTIONS */
+        function openLightbox(index) {
+            currentLightboxIndex = index;
+            const lightbox = document.getElementById('gallery-lightbox');
+            updateLightboxContent();
+            lightbox.style.display = 'flex';
+            setTimeout(() => lightbox.classList.add('active'), 10);
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('gallery-lightbox');
+            lightbox.classList.remove('active');
+            setTimeout(() => lightbox.style.display = 'none', 400);
+        }
+
+        function navigateLightbox(direction) {
+            currentLightboxIndex += direction;
+            if (currentLightboxIndex < 0) currentLightboxIndex = activeGalleryItems.length - 1;
+            if (currentLightboxIndex >= activeGalleryItems.length) currentLightboxIndex = 0;
+            updateLightboxContent();
+        }
+
+        function updateLightboxContent() {
+            const img = document.getElementById('lightbox-image');
+            const counter = document.getElementById('lightbox-counter');
+            img.src = activeGalleryItems[currentLightboxIndex];
+            counter.innerText = `${(currentLightboxIndex + 1).toString().padStart(2, '0')} / ${activeGalleryItems.length.toString().padStart(2, '0')}`;
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('gallery-lightbox');
+            if (lightbox && lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            }
+        });
+
+        /* REVIEW MODE 2.0 LOGIC */
+        let reviewModeActive = false;
+        let stickyCount = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '1') {
+                if (document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT') return;
+                toggleReviewMode();
+            }
+        });
+
+        let isDragging = false;
+        let activeMarker = null;
+
+        function toggleReviewMode() {
+            reviewModeActive = !reviewModeActive;
+            document.body.classList.toggle('review-mode-active');
+
+            // Toggle visibility of stickies for CURRENT tab
+            document.querySelectorAll('.sticky-marker, .literal-sticky').forEach(el => {
+                if (el.dataset.tab === currentTabId) {
+                    el.style.display = reviewModeActive ? 'flex' : 'none';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+
+            if (reviewModeActive) {
+                document.addEventListener('click', handlePageClick);
+                document.addEventListener('mousedown', handleDragStart);
+                document.addEventListener('mousemove', handleMouseMove);
+                document.addEventListener('mouseup', handleMouseUp);
+            } else {
+                document.removeEventListener('click', handlePageClick);
+                document.removeEventListener('mousedown', handleDragStart);
+                document.removeEventListener('mousemove', handleMouseMove);
+                document.removeEventListener('mouseup', handleMouseUp);
+            }
+        }
+
+        function handleDragStart(e) {
+            const marker = e.target.closest('.sticky-marker');
+            if (marker && reviewModeActive) {
+                isDragging = true;
+                activeMarker = marker;
+                marker.style.cursor = 'grabbing';
+                e.stopPropagation();
+            }
+        }
+
+        function handlePageClick(e) {
+            // If clicking sidebar, do nothing
+            if (e.target.closest('#feedback-sidebar')) return;
+
+            const marker = e.target.closest('.sticky-marker');
+            const activeMarkerElement = document.querySelector('.sticky-marker.active');
+
+            if (marker) {
+                // Clicking a marker: select it
+                if (activeMarkerElement) activeMarkerElement.classList.remove('active');
+                marker.classList.add('active');
+
+                const num = marker.id.replace('sticky-', '');
+                const note = document.getElementById(`note-${num}`);
+                if (note) {
+                    note.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    note.style.borderColor = '#3B82F6';
+                    const textarea = note.querySelector('textarea');
+                    if (textarea) textarea.focus();
+                    setTimeout(() => { if (note) note.style.borderColor = 'rgba(255,255,255,0.05)'; }, 2000);
+                }
+                return;
+            }
+
+            // Clicking background:
+            if (activeMarkerElement) {
+                // If something was active, just deselect it
+                activeMarkerElement.classList.remove('active');
+                if (document.activeElement.tagName === 'TEXTAREA') document.activeElement.blur();
+            } else {
+                // If nothing was active, place a NEW sticky
+                stickyCount++;
+                placeSticky(e.pageX, e.pageY, stickyCount);
+                addSidebarNote(stickyCount);
+            }
+        }
+
+        function placeSticky(x, y, num) {
+            const sticky = document.createElement('div');
+            sticky.className = 'sticky-marker animate-ping-once';
+            sticky.style.left = x + 'px';
+            sticky.style.top = y + 'px';
+            sticky.innerText = num;
+            sticky.id = `sticky-${num}`;
+            sticky.dataset.tab = currentTabId;
+            sticky.style.cursor = 'grab';
+            document.body.appendChild(sticky);
+
+            const literal = document.createElement('div');
+            literal.className = 'literal-sticky';
+            literal.style.left = (x + 30) + 'px';
+            literal.style.top = (y - 30) + 'px';
+            literal.id = `literal-sticky-${num}`;
+            literal.dataset.tab = currentTabId;
+            literal.innerText = "...";
+            document.body.appendChild(literal);
+
+            // Hide immediately if not on current tab
+            if (sticky.dataset.tab !== currentTabId) {
+                sticky.style.display = 'none';
+                literal.style.display = 'none';
+            } else {
+                sticky.style.display = 'flex';
+                literal.style.display = 'flex';
+            }
+
+            // Event listeners are now handled globally via handlePageClick and handleDragStart in toggleReviewMode
+        }
+
+        function handleMouseMove(e) {
+            if (!isDragging || !activeMarker) return;
+
+            const num = activeMarker.id.replace('sticky-', '');
+            const literal = document.getElementById(`literal-sticky-${num}`);
+
+            activeMarker.style.left = e.pageX + 'px';
+            activeMarker.style.top = e.pageY + 'px';
+
+            if (literal) {
+                literal.style.left = (e.pageX + 30) + 'px';
+                literal.style.top = (e.pageY - 30) + 'px';
+            }
+        }
+
+        function handleMouseUp() {
+            if (activeMarker) {
+                activeMarker.style.cursor = 'grab';
+            }
+            isDragging = false;
+            activeMarker = null;
+        }
+
+        function addSidebarNote(num) {
+            const list = document.getElementById('feedback-list');
+            const item = document.createElement('div');
+            item.className = 'feedback-item';
+            item.id = `note-${num}`;
+            item.dataset.tab = currentTabId; // Tag note with tab
+            item.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span>Point #${num.toString().padStart(2, '0')}</span>
+                    <button class="opacity-20 hover:opacity-100 transition-opacity" onclick="removeSticky(${num})">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <textarea placeholder="Type operational feedback here..."></textarea>
+            `;
+            list.appendChild(item);
+
+            const textarea = item.querySelector('textarea');
+            textarea.focus();
+
+            textarea.oninput = (e) => {
+                const literal = document.getElementById(`literal-sticky-${num}`);
+                if (literal) literal.innerText = e.target.value;
+            };
+            reorderStickies();
+        }
+
+        function removeSticky(num) {
+            document.getElementById(`sticky-${num}`)?.remove();
+            document.getElementById(`literal-sticky-${num}`)?.remove();
+            document.getElementById(`note-${num}`)?.remove();
+            reorderStickies();
+        }
+
+        function reorderStickies() {
+            // Re-order strictly BY TAB
+            const markers = Array.from(document.querySelectorAll(`.sticky-marker[data-tab="${currentTabId}"]`));
+
+            markers.forEach((m, i) => {
+                const displayNum = i + 1;
+                m.innerText = displayNum;
+
+                const originalId = m.id.replace('sticky-', '');
+                const note = document.getElementById(`note-${originalId}`);
+
+                if (note) {
+                    note.querySelector('span').innerText = `Point #${displayNum.toString().padStart(2, '0')}`;
+                }
+            });
+        }
+
+        async function exportReview() {
+            const sidebar = document.getElementById('feedback-sidebar');
+            const instruction = document.querySelector('.review-instruction');
+
+            // Visual prep for capture
+            sidebar.style.background = 'rgba(11, 15, 26, 0.98)';
+            instruction.style.display = 'none';
+
+            try {
+                const canvas = await html2canvas(document.body, {
+                    backgroundColor: '#04070C',
+                    scale: 2,
+                    logging: false,
+                    useCORS: true,
+                    // Ensure we capture everything in viewport
+                    windowWidth: document.body.scrollWidth,
+                    windowHeight: document.body.scrollHeight
+                });
+
+                const link = document.createElement('a');
+                link.download = `pitch-strategy-feedback-${new Date().getTime()}.png`;
+                link.href = canvas.toDataURL("image/png");
+                link.click();
+            } catch (err) {
+                console.error('Export failed:', err);
+            } finally {
+                sidebar.style.background = '';
+                instruction.style.display = '';
+                toggleReviewMode();
+            }
+        }
+
+        window.openInfiniteCanvas = openMoodGallery;
+    </script>
+</body>
+
+</html>

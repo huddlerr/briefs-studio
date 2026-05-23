@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrative Maps // Christopher Liechty — The Old Flamingo (V2)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: '#FDFCF0',
+                        coral: '#F28F8F',
+                        sage: '#88A090',
+                        ink: '#1A1A1A',
+                        paper: '#F9F7F2',
+                        creme: '#FAF9F6',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #FDFCF0;
+            --text: #1A1A1A;
+            --accent: #F28F8F;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .texture-bg {
+            background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+        }
+
+        .glass-nav {
+            background: rgba(253, 252, 240, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(136, 160, 144, 0.1);
+        }
+
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .line-draw {
+            width: 0;
+            height: 1px;
+            background-color: var(--accent);
+        }
+
+        .coral-gradient {
+            background: linear-gradient(135deg, #F28F8F 0%, #D97373 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-btn {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .tab-btn.active { color: #F28F8F; }
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #F28F8F;
+            transition: width 0.3s ease;
+        }
+        .tab-btn.active::after { width: 100%; }
+
+        .wisdom-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(136, 160, 144, 0.1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .wisdom-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+        }
+
+        .sidebar-marker {
+            width: 2px;
+            height: 0;
+            background: var(--accent);
+            position: absolute;
+            left: -20px;
+            top: 0;
+        }
+
+        /* Lenis smooth scroll fix */
+        html.lenis {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased texture-bg">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav h-16 flex items-center px-6 md:px-12">
+        <div class="max-w-screen-2xl mx-auto w-full flex justify-between items-center">
+            <div class="flex items-center gap-12">
+                <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-sage/60">Liechty.sys // 01.05.2026</span>
+                <div class="hidden md:flex gap-8">
+                    <button onclick="showTab('narrative')" id="btn-narrative" class="tab-btn active font-mono text-[10px] uppercase tracking-[0.2em] hover:text-coral">Portrait</button>
+                    <button onclick="showTab('value')" id="btn-value" class="tab-btn font-mono text-[10px] uppercase tracking-[0.2em] hover:text-coral">Value Impact Report</button>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-1.5 h-1.5 rounded-full bg-coral animate-pulse"></div>
+                <span class="font-mono text-[10px] uppercase tracking-widest text-ink/40">Status: Authentic</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- NARRATIVE TAB -->
+    <div id="tab-narrative" class="tab-content active">
+        <!-- HERO -->
+        <section class="min-h-screen flex flex-col justify-center px-6 md:px-12 pt-24 relative overflow-hidden">
+            <div class="max-w-screen-xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <div class="lg:col-span-8">
+                    <div class="line-draw mb-8" data-gsap="draw-line"></div>
+                    <div class="overflow-hidden">
+                        <span class="block font-mono text-[11px] uppercase tracking-[0.4em] text-sage mb-6 reveal-text" data-gsap="reveal">The Old Flamingo</span>
+                    </div>
+                    <h1 class="font-serif text-[clamp(3.5rem,10vw,8rem)] leading-[0.9] font-light mb-12 tracking-tight">
+                        The <span class="italic font-normal">Truth-Seeker</span><br>
+                        <span class="coral-gradient">in the Machine.</span>
+                    </h1>
+                    <div class="max-w-xl">
+                        <p class="font-serif text-2xl md:text-3xl text-sage/80 italic leading-relaxed mb-8 reveal-text" data-gsap="reveal">
+                            "I am transparent while I'm being sneaky. That's my story. I'm sticking to it."
+                        </p>
+                        <p class="font-mono text-[10px] uppercase tracking-widest text-sage/50">— Christopher Liechty, Jan 2026</p>
+                    </div>
+                </div>
+                <div class="lg:col-span-4 flex flex-col justify-end">
+                    <div class="space-y-8 pb-12 border-l border-sage/10 pl-8">
+                        <div>
+                            <span class="block font-mono text-[10px] uppercase text-sage/40 mb-2 tracking-[0.2em]">Strategist</span>
+                            <span class="font-medium">Christopher Liechty</span>
+                        </div>
+                        <div>
+                            <span class="block font-mono text-[10px] uppercase text-sage/40 mb-2 tracking-[0.2em]">Core Discipline</span>
+                            <span class="font-medium italic text-coral">Change Management</span>
+                        </div>
+                        <div>
+                            <span class="block font-mono text-[10px] uppercase text-sage/40 mb-2 tracking-[0.2em]">Philosophy</span>
+                            <span class="font-medium italic">Zen Mormon</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- STICKY SIDEBAR DECORATION -->
+            <div class="absolute left-6 bottom-12 hidden md:block">
+                <div class="font-mono text-[9px] uppercase tracking-[0.5em] rotate-90 origin-left text-sage/30 whitespace-nowrap">Scroll Narrative / System // 01</div>
+            </div>
+        </section>
+
+        <!-- SECTION 01: THE SQUID PARENT RESILIENCE -->
+        <section class="py-32 bg-white/40">
+            <div class="max-w-screen-xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16">
+                <div class="lg:col-span-4">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-coral mb-4 block">01 // Origin</span>
+                    <h2 class="font-serif text-4xl leading-tight">The <span class="italic">Squid Parent</span> <br>Response.</h2>
+                </div>
+                <div class="lg:col-span-8 text-sage leading-relaxed space-y-8 text-xl">
+                    <p>
+                        Christopher describes his upbringing as a <span class="text-ink font-medium">Squid Parenting</span> model—ejected into the ocean as one of thirteen siblings, hoping a few would survive. Moving every five months on average, he found stability in a trauma response that many call talent: <span class="text-coral italic underline decoration-coral/20">Perfectionism.</span>
+                    </p>
+                    <div class="p-8 border-l-2 border-coral bg-sand/50 italic font-serif text-2xl leading-relaxed text-ink/80">
+                        "I decided I'm gonna be the best in the world at something. At nine years old, I decided I'm gonna be the best in gymnastics. I'd show up early and stay late. I went toward high performance as a survival mechanism."
+                    </div>
+                    <p class="text-lg">
+                        This is the engine under the hood. He doesn't just "do" work; he locks in with a focus that corporate cultures often mistake for obsession. It is, in fact, an architectural requirement for his peace of mind.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 02: THE CHANGE AGENT (ALTA BANK) -->
+        <section class="py-32 border-y border-sage/10">
+            <div class="max-w-screen-xl mx-auto px-6 md:px-12">
+                <div class="flex items-center gap-6 mb-20">
+                    <span class="font-mono text-[10px] text-sage">02 // Legacy Track</span>
+                    <div class="flex-1 h-px bg-sage/10"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
+                    <div class="lg:col-span-7">
+                        <h3 class="font-serif text-5xl md:text-6xl mb-12 leading-[1.1]">The Architect of <br><span class="text-sage italic">Alta Bank's</span> Evolution.</h3>
+                        <p class="text-xl leading-relaxed text-sage/80 mb-12">
+                            A specialist in bringing organizations from <span class="text-coral italic font-medium">State A</span> to <span class="text-sage italic font-medium">State B.</span> At Alta Bank (formerly BAF), Christopher was the silent engine behind a triple-growth phase.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="wisdom-card p-10">
+                                <h4 class="font-mono text-[10px] uppercase tracking-widest text-coral mb-4">The Senior Protection Framework</h4>
+                                <p class="text-sm leading-relaxed mb-6">
+                                    Invented a banking product to protect seniors from financial elder abuse—a system adopted globally across <span class="font-medium text-ink">England, Canada, and Wells Fargo.</span>
+                                </p>
+                            </div>
+                            <div class="wisdom-card p-10">
+                                <h4 class="font-mono text-[10px] uppercase tracking-widest text-coral mb-4">Culture Conversion</h4>
+                                <p class="text-sm leading-relaxed">
+                                    Led the transition from traditional banking to digital-first culture; managed 3 acquisitions and a successful IPO through CRM-led systems.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 bg-sage/5 p-12 flex items-center">
+                        <div>
+                            <div class="font-mono text-[10px] uppercase tracking-widest text-sage mb-8">Change Metric Log</div>
+                            <ul class="space-y-8">
+                                <li class="flex gap-4">
+                                    <span class="font-mono text-2xl text-coral/40 tracking-tighter italic font-bold leading-none">3X</span>
+                                    <span class="text-sm font-medium">Volume Growth at Alta Bank</span>
+                                </li>
+                                <li class="flex gap-4">
+                                    <span class="font-mono text-2xl text-coral/40 tracking-tighter italic font-bold leading-none">700%</span>
+                                    <span class="text-sm font-medium">Team Scaling at Medical Lab Venture</span>
+                                </li>
+                                <li class="flex gap-4">
+                                    <span class="font-mono text-2xl text-coral/40 tracking-tighter italic font-bold leading-none">IPO</span>
+                                    <span class="text-sm font-medium">Strategic Readiness & Exit Support</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 03: THE RELATIONSHIP OVER EXTRACTION -->
+        <section class="py-32 overflow-hidden">
+            <div class="max-w-screen-xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-16">
+                <div class="lg:col-span-4 lg:order-2">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-coral mb-4 block">03 // Ethics</span>
+                    <h2 class="font-serif text-4xl leading-tight">The <span class="italic">RV News</span> <br>Discrepancy.</h2>
+                </div>
+                <div class="lg:col-span-8 lg:order-1">
+                    <div class="space-y-12 text-sage leading-relaxed text-xl">
+                        <p>
+                            Christopher has a physical reaction to <span class="text-ink font-medium">Extractive Marketing.</span> He refuses to "spam" audiences or "burn" through URLs for short-term gains. His power lies in <span class="text-coral italic underline decoration-coral/20 font-medium">Authenticity Management.</span>
+                        </p>
+                        
+                        <div class="bg-creme p-12 border border-sage/10 relative">
+                            <h4 class="font-mono text-[11px] uppercase tracking-widest text-sage mb-6 italic">Case Study // Relationship PR</h4>
+                            <p class="text-lg leading-relaxed mb-8">
+                                While the corporate holding company was under SEC investigation for "fraud" (hiring PR to write fake stock articles), Christopher was building a bridge of truth with editors at <span class="text-ink font-medium italic">RV News.</span>
+                            </p>
+                            <div class="p-8 border border-coral text-ink/70 italic bg-white flex items-start gap-4">
+                                <span class="text-4xl text-coral font-serif leading-none">"</span>
+                                <p class="text-lg">
+                                    The editor trusts me so much they send me drafts for comment before they publish. That's a courtesy unheard of for 'big dog' firms—won through truth, not manipulation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 04: THE TAO OF THE RESET -->
+        <section class="py-32 border-t border-sage/10">
+            <div class="max-w-screen-xl mx-auto px-6 md:px-12 text-center">
+                <span class="font-mono text-xs text-coral mb-12 block">04 // Strategy</span>
+                <h2 class="font-serif text-6xl md:text-8xl leading-none mb-24 reveal-text" data-gsap="reveal">
+                    The Negative <span class="coral-gradient italic">Space</span>.
+                </h2>
+                
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
+                    <div class="space-y-8">
+                        <p class="text-xl text-sage italic font-serif leading-relaxed">
+                            "The vessel is valuable because of the empty space inside of it. The restaurant is only useful because of the windows and the doors. I am paying attention to the negative space."
+                        </p>
+                        <p class="text-sm text-sage leading-relaxed">
+                            In early 2025, Christopher posited the question that changed the trajectory: <span class="text-ink font-bold">"If you could reset marketing completely, what would that look like?"</span>
+                        </p>
+                    </div>
+                    <div class="bg-ink text-white p-12 rounded-sm space-y-6">
+                        <h4 class="font-mono text-[10px] uppercase tracking-widest text-coral">Management Proof</h4>
+                        <p class="text-sm leading-relaxed opacity-80">
+                            By initiating the "Reset" dialogue months before the current SVPs arrived, Christopher "set the table" for a clean transition. He saved the company the learning curve costs by recommending talent that was ready to plug-and-play.
+                        </p>
+                        <div class="pt-6 border-t border-white/10">
+                            <span class="font-serif text-3xl font-light italic">Saved: $150k+</span>
+                            <span class="block font-mono text-[9px] uppercase tracking-widest mt-1">In learning curve mitigation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-32 px-6 border-t border-sage/10 bg-white">
+            <div class="max-w-screen-xl mx-auto text-center">
+                <h3 class="font-serif text-[clamp(2rem,5vw,4rem)] italic text-coral mb-12">Christopher Liechty</h3>
+                <div class="flex justify-center gap-12 font-mono text-[10px] uppercase tracking-widest text-sage/60">
+                    <span class="hover:text-coral transition-all cursor-crosshair">Narrative Map</span>
+                    <span class="hover:text-coral transition-all cursor-crosshair">Liechty.sys</span>
+                    <span class="hover:text-coral transition-all cursor-crosshair">The Old Flamingo</span>
+                </div>
+                <p class="mt-20 font-mono text-[9px] uppercase tracking-[0.6em] text-sage/30">Reflective Data Self-Portrait // Jan 2026</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- VALUE IMPACT REPORT TAB -->
+    <div id="tab-value" class="tab-content pt-32 pb-24 px-6 md:px-12">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-24">
+                <div class="line-draw w-full mb-8"></div>
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-coral block mb-4">Confidential Management View</span>
+                        <h1 class="font-serif text-6xl md:text-8xl leading-[0.9] font-light italic">The Long Play.</h1>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <span class="font-mono text-[10px] uppercase text-sage/50">Compensation Objective</span>
+                        <span class="font-serif text-4xl text-ink">$150,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
+                <div class="lg:col-span-8 space-y-20">
+                    <!-- BLOCK 01 -->
+                    <div>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-sage mb-6 block font-bold">01 // The Strategic Contribution</span>
+                        <h2 class="font-serif text-3xl mb-8 leading-relaxed">
+                            Transitioning from <span class="italic text-coral">Reactive Tactics</span> to <span class="italic text-sage">Modern Systems.</span>
+                        </h2>
+                        <ul class="space-y-6 text-sage text-lg leading-relaxed">
+                            <li class="flex gap-4">
+                                <span class="text-coral">●</span>
+                                <p><strong>Efficiency Architecture:</strong> Christopher identified the 2025 Marketing Reset in early March, effectively acting as an interim Strategist before the SVP roles were even defined.</p>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="text-coral">●</span>
+                                <p><strong>Talent Scoping:</strong> His recommendation to hire specialists with deep Hubbard/Industry backgrounds mitigated roughly 6 months of corporate learning curve costs.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- BLOCK 02 -->
+                    <div>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-sage mb-6 block font-bold">02 // The "35 Hour" Performance Model</span>
+                        <h2 class="font-serif text-3xl mb-8 leading-relaxed">
+                            Focus as a <span class="italic">Competitive Advantage.</span>
+                        </h2>
+                        <p class="text-lg text-sage leading-relaxed mb-8">
+                            Due to health constraints (chronic pain/migraines/sleep), Christopher utilizes a 35-hour week not as a limitation, but as a <span class="text-ink font-medium">high-intensity constraint.</span> 
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="p-8 border border-sage/10 bg-white">
+                                <h4 class="font-mono text-[9px] uppercase text-sage mb-4">Phase Sync</h4>
+                                <p class="text-sm">Works the "Hot Wick"—locking in with earbuds for 7-hour bursts of deep focus that outpace the "corporate chatter" of an 8-10 hour week.</p>
+                            </div>
+                            <div class="p-8 border border-sage/10 bg-white">
+                                <h4 class="font-mono text-[9px] uppercase text-sage mb-4">Sustainability</h4>
+                                <p class="text-sm">Avoids the "Crash & Burn" cycle of corporate over-performance, ensuring consistent strategic presence during critical business hours.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BLOCK 03 -->
+                    <div class="p-12 bg-creme border border-coral/20">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-coral mb-6 block font-bold">03 // Final Recommendation</span>
+                        <h2 class="font-serif text-4xl mb-8 italic">Maintaining Salary Parity.</h2>
+                        <p class="text-lg text-sage leading-relaxed mb-12 italic">
+                            "Maintain a salary of $150k while accepting a structural title shift. This reflects his strategic value as a 'Change Management' consultant who keeps the wheels on the bus while SVPs integrate."
+                        </p>
+                        <div class="flex gap-12">
+                            <div>
+                                <span class="block text-2xl font-mono text-ink">$150k</span>
+                                <span class="block font-mono text-[9px] uppercase text-sage/60 mt-2">Target Base</span>
+                            </div>
+                            <div>
+                                <span class="block text-2xl font-mono text-ink">EVP</span>
+                                <span class="block font-mono text-[9px] uppercase text-sage/60 mt-2">Legacy Role</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-4 sticky top-32 h-fit space-y-12">
+                    <div class="wisdom-card p-10 bg-white">
+                        <h4 class="font-mono text-[10px] uppercase tracking-widest text-sage mb-6">The Smart Mouse Effect</h4>
+                        <p class="text-xs leading-relaxed text-sage/80 mb-6">
+                            "In the Smart Mouse/Dumb Mouse study, the tech's belief dictated the outcome. I cannot succeed if leadership doesn't believe I can. Resourcing me at a lower level communicates a lack of belief that will inevitably results in 'Dumb Mouse' performance."
+                        </p>
+                        <div class="pt-6 border-t border-sage/10 italic text-[11px] text-coral font-medium uppercase tracking-widest">
+                            Demand Belief to Drive Growth.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="py-32 text-center opacity-30 font-mono text-[9px] uppercase tracking-[0.5em]">
+            // System Exit: V2 Narrative Portrait //
+        </footer>
+    </div>
+
+    <script>
+        // GSAP Initialization
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Smooth Scrolling with Lenis
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Animations
+        window.addEventListener('load', () => {
+            // Line draws
+            gsap.to('.line-draw', {
+                width: '100%',
+                duration: 2,
+                ease: 'expo.out',
+                stagger: 0.5
+            });
+
+            // Reveal texts
+            gsap.to('[data-gsap="reveal"]', {
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+                ease: 'expo.out',
+                stagger: 0.2,
+                scrollTrigger: {
+                    trigger: '[data-gsap="reveal"]',
+                    start: 'top 90%',
+                }
+            });
+
+            // Section fades
+            gsap.utils.toArray('section').forEach(section => {
+                gsap.from(section, {
+                    opacity: 0.8,
+                    y: 20,
+                    duration: 1.2,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top bottom-=100',
+                        toggleActions: 'play none none reverse'
+                    }
+                });
+            });
+        });
+
+        // Tab Switching
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabId).classList.add('active');
+            document.getElementById('btn-' + tabId).classList.add('active');
+
+            window.scrollTo(0, 0);
+            ScrollTrigger.refresh();
+        }
+    </script>
+</body>
+</html>

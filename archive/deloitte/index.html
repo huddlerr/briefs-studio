@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio × Deloitte — Partnership Brief</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: '#0F172A',
+                        steel: '#1E293B',
+                        fog: '#94A3B8',
+                        bone: '#F8FAFC',
+                        signal: '#F59E0B',
+                        command: '#DC2626',
+                        victory: '#10B981',
+                        deloitte: '#86BC25',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-text-deloitte {
+            background: linear-gradient(135deg, #86BC25 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .moment-card {
+            background: linear-gradient(180deg, rgba(30,41,59,0.8) 0%, rgba(15,23,42,0.95) 100%);
+            border: 1px solid rgba(148,163,184,0.1);
+        }
+        .moment-card:hover {
+            border-color: rgba(245,158,11,0.3);
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .float { animation: float 6s ease-in-out infinite; }
+        .victory-glow {
+            box-shadow: 0 0 60px rgba(16, 185, 129, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-slate text-bone font-sans antialiased">
+
+    <!-- TOP NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate/90 backdrop-blur border-b border-fog/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <span class="font-mono text-xs text-fog/40">Briefs Studio × Deloitte // Partnership Brief</span>
+            <a href="../" class="font-mono text-xs text-fog/60 hover:text-signal transition-colors">← All Briefs</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="min-h-screen flex flex-col justify-center relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 40px 40px;"></div>
+        </div>
+        
+        <!-- Victory Gradient Orb -->
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-victory/10 rounded-full blur-3xl float"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-64 h-64 bg-signal/10 rounded-full blur-3xl float" style="animation-delay: -3s;"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10 max-w-5xl mx-auto px-6 py-20">
+            <div class="mb-8">
+                <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-victory">Briefs Studio // Strategic Partnership Brief</span>
+            </div>
+            
+            <h1 class="font-serif text-5xl md:text-7xl font-semibold leading-[1.1] mb-8">
+                You Just<br>
+                <span class="gradient-text">Won.</span>
+            </h1>
+            
+            <div class="max-w-2xl mb-12">
+                <p class="font-serif text-xl md:text-2xl text-fog/90 italic leading-relaxed">
+                    This is a masterclass in how to handle a potentially difficult conversation—and turn it into a business development opportunity.
+                </p>
+                <p class="mt-4 font-mono text-xs text-fog/50">— Rebecca Call Analysis, December 2025</p>
+            </div>
+
+            <div class="flex flex-wrap gap-8 text-sm">
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Subject</span>
+                    <span class="font-medium">Mike Marrotte</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Partner</span>
+                    <span class="font-medium">Deloitte Consulting</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Capability</span>
+                    <span class="font-medium">Strategic Narrative Synthesis</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Status</span>
+                    <span class="font-medium text-victory">Partnership Development</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-fog/40">
+            <span class="font-mono text-[10px] uppercase tracking-widest">Scroll</span>
+            <div class="w-px h-8 bg-gradient-to-b from-fog/40 to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- SECTION: WHAT ACTUALLY HAPPENED -->
+    <section class="py-24 border-t border-fog/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-signal">01</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">What Actually Happened</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="mb-16 max-w-3xl">
+                <p class="font-serif text-2xl md:text-3xl leading-relaxed text-fog/90">
+                    Rebecca wasn't calling to yell at you. She was calling because <span class="text-bone font-medium">she sees this as an opportunity, not a problem.</span>
+                </p>
+            </div>
+
+            <!-- Four Key Points Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Point 1 -->
+                <div class="moment-card p-8 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-4xl font-bold text-victory/30">01</span>
+                        <span class="px-3 py-1 bg-victory/10 text-victory text-[10px] font-mono uppercase tracking-wider rounded">Her Words</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">"It Sounds Really Cool"</h3>
+                    <p class="text-fog/80 leading-relaxed">
+                        She's curious about the capability. Not defensive. Not concerned. <span class="text-bone font-medium">Curious.</span>
+                    </p>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="moment-card p-8 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-4xl font-bold text-victory/30">02</span>
+                        <span class="px-3 py-1 bg-signal/10 text-signal text-[10px] font-mono uppercase tracking-wider rounded">Her Words</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">"Can You Walk Me Through It?"</h3>
+                    <p class="text-fog/80 leading-relaxed">
+                        She wants to understand the methodology. She's asking for a demo, not an explanation.
+                    </p>
+                </div>
+
+                <!-- Point 3 -->
+                <div class="moment-card p-8 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-4xl font-bold text-victory/30">03</span>
+                        <span class="px-3 py-1 bg-fog/10 text-fog text-[10px] font-mono uppercase tracking-wider rounded">Her Words</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">"I'll Brief Our Risk People"</h3>
+                    <p class="text-fog/80 leading-relaxed">
+                        She needs compliance documentation—and she's taking responsibility for getting it done.
+                    </p>
+                </div>
+
+                <!-- Point 4 -->
+                <div class="moment-card p-8 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-4xl font-bold text-victory/30">04</span>
+                        <span class="px-3 py-1 bg-deloitte/10 text-deloitte text-[10px] font-mono uppercase tracking-wider rounded">Key Insight</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">"Deloitte Is Pushing AI"</h3>
+                    <p class="text-fog/80 leading-relaxed">
+                        "This is the direction the department is moving." You're aligned with corporate strategy, not fighting against it.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE CRITICAL MOMENTS -->
+    <section class="py-24 bg-steel/50 border-t border-fog/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-signal">02</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Critical Moments</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="space-y-12">
+                
+                <!-- Moment 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-signal block mb-1">Moment 1</span>
+                        <h3 class="font-serif text-lg font-semibold">You Owned It Strategically</h3>
+                    </div>
+                    <div class="md:col-span-9 border-l border-fog/20 pl-6">
+                        <div class="bg-slate/50 p-4 border-l-2 border-signal mb-4">
+                            <p class="text-sm text-fog/70 italic">
+                                "I took a very calculated risk myself... knowing full well that we're going to have to sort out compliance here. In hindsight, I've been in contracting space long enough to recognize we need to document this and then we need to have an official protocol going forward."
+                            </p>
+                        </div>
+                        <p class="text-fog/80 leading-relaxed mb-4">
+                            <span class="text-victory font-semibold">PERFECT</span> because you acknowledged it was non-standard, positioned it as "calculated risk" not "oops, mistake," immediately moved to solution, and demonstrated institutional knowledge.
+                        </p>
+                        <p class="font-mono text-xs text-fog/50">Her response: Completely receptive. No pushback.</p>
+                    </div>
+                </div>
+
+                <!-- Moment 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-fog/50 block mb-1">Moment 2</span>
+                        <h3 class="font-serif text-lg font-semibold">Positioned It As Bigger</h3>
+                    </div>
+                    <div class="md:col-span-9 border-l border-fog/20 pl-6">
+                        <div class="bg-slate/50 p-4 border-l-2 border-fog/30 mb-4">
+                            <p class="text-sm text-fog/70 italic">
+                                "This is something I'm doing outside of even our contract here with some success. This is a methodology that I've been developing."
+                            </p>
+                        </div>
+                        <p class="text-fog/80 leading-relaxed">
+                            You're not just a contractor who did something clever—you're developing a <span class="text-bone font-medium">business methodology.</span> Briefs Studio exists independently. This has applications beyond OCCWI. You're a partner with valuable IP, not an employee who violated protocol.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Moment 3 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-fog/50 block mb-1">Moment 3</span>
+                        <h3 class="font-serif text-lg font-semibold">She Problem-Solved WITH You</h3>
+                    </div>
+                    <div class="md:col-span-9 border-l border-fog/20 pl-6">
+                        <div class="bg-slate/50 p-4 border-l-2 border-victory mb-4">
+                            <p class="text-sm text-fog/70 italic">
+                                "I could actually see a situation where maybe it's as simple as people sign a form... we give them opportunity to review for veracity... I think there's ways to handle it."
+                            </p>
+                        </div>
+                        <p class="text-fog/80 leading-relaxed">
+                            <span class="text-victory font-semibold">HUGE.</span> She's not saying "we need to shut this down." She's saying "how do we make this work?" She's proposing solutions. She's thinking about implementation at scale. <span class="text-bone font-medium">She's already bought in.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Moment 4 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-signal block mb-1">Moment 4</span>
+                        <h3 class="font-serif text-lg font-semibold">The GFE Offer Came Immediately</h3>
+                    </div>
+                    <div class="md:col-span-9 border-l border-fog/20 pl-6">
+                        <div class="bg-slate/50 p-4 border-l-2 border-signal mb-4">
+                            <p class="text-sm text-fog/70 italic">
+                                "I think we can process you for a CAC. We'll get you a GFE. That will maybe be part of the plan - we lock it down because it's on the network."
+                            </p>
+                        </div>
+                        <p class="text-fog/80 leading-relaxed mb-4">
+                            <span class="text-signal font-semibold">You didn't even have to ask.</span> She's already solving for: government laptop, CAC card access, network integration, compliant implementation.
+                        </p>
+                        <p class="font-mono text-xs text-victory">This is literally what you needed, and she volunteered it.</p>
+                    </div>
+                </div>
+
+                <!-- Moment 5 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-fog/50 block mb-1">Moment 5</span>
+                        <h3 class="font-serif text-lg font-semibold">Elizabeth Is "Super Happy"</h3>
+                    </div>
+                    <div class="md:col-span-9 border-l border-fog/20 pl-6">
+                        <div class="bg-slate/50 p-4 border-l-2 border-deloitte mb-4">
+                            <p class="text-sm text-fog/70 italic">
+                                "Elizabeth is telling me she's really super happy with everything... it is night and day from the other team."
+                            </p>
+                        </div>
+                        <p class="text-fog/80 leading-relaxed">
+                            You have an <span class="text-bone font-medium">executive champion</span> in Elizabeth. You've proven value immediately. SAIC comparison works in your favor. You're positioned as the solution. You have organizational support at the highest level.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: WHAT YOU DID RIGHT -->
+    <section class="py-24 border-t border-fog/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-signal">03</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">What You Did Right</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Right 1 -->
+                <div class="p-8 bg-victory/5 border border-victory/20 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-victory text-2xl">✓</span>
+                        <h3 class="font-serif text-xl font-semibold">Reframed Compliance As Partnership</h3>
+                    </div>
+                    <div class="space-y-4 text-sm">
+                        <div>
+                            <span class="text-command font-mono text-xs uppercase tracking-wider block mb-2">Instead of:</span>
+                            <ul class="text-fog/60 space-y-1">
+                                <li>• "I'm sorry I violated protocol"</li>
+                                <li>• "Please don't fire me"</li>
+                                <li>• "I didn't know better"</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <span class="text-victory font-mono text-xs uppercase tracking-wider block mb-2">You said:</span>
+                            <ul class="text-bone space-y-1">
+                                <li>• "This is really fucking cool"</li>
+                                <li>• "We need to document this"</li>
+                                <li>• "Let me share the whole thing with you"</li>
+                                <li>• "Let's explore the path forward"</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-fog/70 text-sm italic">You positioned yourself as collaborator, not defendant.</p>
+                </div>
+
+                <!-- Right 2 -->
+                <div class="p-8 bg-signal/5 border border-signal/20 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-signal text-2xl">✓</span>
+                        <h3 class="font-serif text-xl font-semibold">Demonstrated Broader Value</h3>
+                    </div>
+                    <p class="text-fog/80 leading-relaxed mb-4">
+                        You didn't just talk about the one deliverable. You talked about:
+                    </p>
+                    <ul class="text-bone space-y-2 text-sm">
+                        <li>→ Methodology you've been developing for years</li>
+                        <li>→ Success with other clients</li>
+                        <li>→ Application to IPPW practitioners</li>
+                        <li>→ Systematic approach, not one-off</li>
+                    </ul>
+                    <p class="mt-4 text-fog/70 text-sm italic">You showed this is a capability, not a trick.</p>
+                </div>
+
+                <!-- Right 3 -->
+                <div class="p-8 bg-fog/5 border border-fog/20 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-fog text-2xl">✓</span>
+                        <h3 class="font-serif text-xl font-semibold">Made Her Feel Smart</h3>
+                    </div>
+                    <div class="bg-slate/50 p-4 border-l-2 border-fog/30 mb-4">
+                        <p class="text-sm text-fog/70 italic">
+                            She said: "I'm not very smart when it comes to AI... I can ask really dumb questions and you won't judge me."
+                        </p>
+                    </div>
+                    <p class="text-fog/80 leading-relaxed text-sm">
+                        You responded: "No judgment at all. I really appreciate your curiosity."
+                    </p>
+                    <p class="mt-4 text-fog/70 text-sm italic">You made the conversation safe. She becomes advocate, not obstacle.</p>
+                </div>
+
+                <!-- Right 4 -->
+                <div class="p-8 bg-fog/5 border border-fog/20 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-fog text-2xl">✓</span>
+                        <h3 class="font-serif text-xl font-semibold">Acknowledged Legitimate Concerns</h3>
+                    </div>
+                    <div class="bg-slate/50 p-4 border-l-2 border-command/30 mb-4">
+                        <p class="text-sm text-fog/70 italic">
+                            She mentioned: "Our risk people are like 'whoa, whoa'... you saw the issues with SecDef on Signal."
+                        </p>
+                    </div>
+                    <p class="text-fog/80 leading-relaxed text-sm">
+                        You didn't dismiss this. You said: "It's the application, the use case... I recognize we need to sort out compliance."
+                    </p>
+                    <p class="mt-4 text-fog/70 text-sm italic">You understand institutional constraints. You're a mature partner.</p>
+                </div>
+
+                <!-- Right 5 - Full Width -->
+                <div class="md:col-span-2 p-8 bg-deloitte/5 border border-deloitte/20 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-deloitte text-2xl">✓</span>
+                        <h3 class="font-serif text-xl font-semibold">Planted Seeds For Scale</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <div class="bg-slate/50 p-4 border-l-2 border-deloitte mb-4">
+                                <p class="text-sm text-fog/70 italic">
+                                    You said: "What Elizabeth and I are talking about is bringing this to the IPPW, providing a real tool at the ground level."
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-fog/80 leading-relaxed text-sm mb-4">
+                                Rebecca's response: <span class="text-deloitte font-semibold">"That's awesome. That's awesome."</span>
+                            </p>
+                            <p class="text-bone text-sm">
+                                You previewed larger opportunity, showed strategic thinking, aligned with Deloitte's AI push, and set up Monday's conversation to be about "how big can this be?"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: MONDAY ROADMAP -->
+    <section class="py-24 bg-steel/50 border-t border-fog/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-signal">04</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Monday Morning Call Roadmap</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Section 1 -->
+                <div class="p-6 border border-signal/30 bg-signal/5 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="font-mono text-3xl font-bold text-signal/40">01</span>
+                        <div>
+                            <span class="font-mono text-[10px] uppercase tracking-wider text-signal block">15 Minutes</span>
+                            <h3 class="font-serif text-lg font-semibold">How It Works</h3>
+                        </div>
+                    </div>
+                    <ul class="text-fog/80 text-sm space-y-2">
+                        <li>→ Walk through the Dr. G example</li>
+                        <li>→ Show the before (60-minute all-hands, team confused)</li>
+                        <li>→ Show the after (one-page strategic map, immediate clarity)</li>
+                        <li>→ Demonstrate the process step-by-step</li>
+                    </ul>
+                </div>
+
+                <!-- Section 2 -->
+                <div class="p-6 border border-fog/20 bg-steel/30 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="font-mono text-3xl font-bold text-fog/20">02</span>
+                        <div>
+                            <span class="font-mono text-[10px] uppercase tracking-wider text-fog/50 block">10 Minutes</span>
+                            <h3 class="font-serif text-lg font-semibold">The Methodology</h3>
+                        </div>
+                    </div>
+                    <ul class="text-fog/80 text-sm space-y-2">
+                        <li>→ This is Strategic Narrative Synthesis</li>
+                        <li>→ Been developing for 2-3 years</li>
+                        <li>→ Works across contexts (not just OCCWI)</li>
+                        <li>→ Three components: facilitation framework + AI synthesis + artifact creation</li>
+                    </ul>
+                </div>
+
+                <!-- Section 3 -->
+                <div class="p-6 border border-fog/20 bg-steel/30 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="font-mono text-3xl font-bold text-fog/20">03</span>
+                        <div>
+                            <span class="font-mono text-[10px] uppercase tracking-wider text-fog/50 block">10 Minutes</span>
+                            <h3 class="font-serif text-lg font-semibold">Compliance Path</h3>
+                        </div>
+                    </div>
+                    <ul class="text-fog/80 text-sm space-y-2">
+                        <li>→ Current state: personal tools, documented process</li>
+                        <li>→ Desired state: GFE setup, approved tools, clear protocols</li>
+                        <li>→ What you need: MacBook, Adobe Suite, coding tools, DoD Gemini access</li>
+                        <li>→ Timeline: 6-8 weeks to fully compliant</li>
+                    </ul>
+                </div>
+
+                <!-- Section 4 -->
+                <div class="p-6 border border-victory/30 bg-victory/5 rounded-lg">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="font-mono text-3xl font-bold text-victory/40">04</span>
+                        <div>
+                            <span class="font-mono text-[10px] uppercase tracking-wider text-victory block">15 Minutes</span>
+                            <h3 class="font-serif text-lg font-semibold">The Opportunity</h3>
+                        </div>
+                    </div>
+                    <ul class="text-fog/80 text-sm space-y-2">
+                        <li>→ <span class="text-bone">Immediate:</span> OCCWI strategic clarity capability</li>
+                        <li>→ <span class="text-bone">Medium-term:</span> Scale to other DHRA offices</li>
+                        <li>→ <span class="text-bone">Long-term:</span> Train IPPW practitioners, open source methodology</li>
+                        <li>→ <span class="text-bone">Positioning:</span> Deloitte as "the firm that brings strategic clarity to government"</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Closing Question -->
+            <div class="mt-12 p-8 border-2 border-signal/30 bg-signal/5 rounded-lg text-center">
+                <p class="font-serif text-xl md:text-2xl text-bone">
+                    "What questions do you have? What concerns should we address? <span class="gradient-text">What excites you most about this?</span>"
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: PARTNERSHIP STRUCTURE -->
+    <section class="py-24 border-t border-fog/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-signal">05</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Partnership Structure to Propose</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <!-- Three Phases -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                
+                <!-- Phase 1 -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-signal to-signal/20 rounded-full"></div>
+                    <div class="pl-6">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-signal block mb-2">Phase 1 — 6-8 Weeks</span>
+                        <h3 class="font-serif text-xl font-semibold mb-4">Compliant Pilot</h3>
+                        <ul class="space-y-3 text-fog/80 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="text-signal mt-1">→</span>
+                                <span>GFE procurement and setup</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-signal mt-1">→</span>
+                                <span>Establish protocols (consent, recording, data handling)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-signal mt-1">→</span>
+                                <span>Test with 5-10 OCCWI sessions</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-signal mt-1">→</span>
+                                <span>Document methodology</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-steel/50 rounded">
+                            <span class="font-mono text-xs text-fog/50 block mb-1">Cost</span>
+                            <span class="text-bone font-semibold">~$5K one-time setup</span>
+                            <p class="text-xs text-fog/60 mt-2">Deloitte gets: Proof of concept with compliant process</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-fog/40 to-fog/10 rounded-full"></div>
+                    <div class="pl-6">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-fog/60 block mb-2">Phase 2 — 3 Months</span>
+                        <h3 class="font-serif text-xl font-semibold mb-4">Capability Development</h3>
+                        <ul class="space-y-3 text-fog/80 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/40 mt-1">→</span>
+                                <span>Formalize methodology documentation</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/40 mt-1">→</span>
+                                <span>Create training curriculum</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/40 mt-1">→</span>
+                                <span>Pilot with 2-3 other offices</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/40 mt-1">→</span>
+                                <span>Build case studies</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-steel/50 rounded">
+                            <span class="font-mono text-xs text-fog/50 block mb-1">Cost</span>
+                            <span class="text-bone font-semibold">$50-75K consulting</span>
+                            <p class="text-xs text-fog/60 mt-2">Deloitte gets: Repeatable capability for government practice</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-victory/40 to-victory/10 rounded-full"></div>
+                    <div class="pl-6">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-victory/60 block mb-2">Phase 3 — 6-12 Months</span>
+                        <h3 class="font-serif text-xl font-semibold mb-4">Scale & Open Source</h3>
+                        <ul class="space-y-3 text-fog/80 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="text-victory/40 mt-1">→</span>
+                                <span>Train IPPW practitioners</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-victory/40 mt-1">→</span>
+                                <span>Open source methodology to DoD</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-victory/40 mt-1">→</span>
+                                <span>Deloitte provides implementation support</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-victory/40 mt-1">→</span>
+                                <span>Position as DoD GenAI use case</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-steel/50 rounded">
+                            <span class="font-mono text-xs text-fog/50 block mb-1">Cost</span>
+                            <span class="text-bone font-semibold">$150-250K implementation</span>
+                            <p class="text-xs text-fog/60 mt-2">Deloitte gets: Positioned as transformation partner for DoD</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- IP Structure -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- What Briefs Studio Licenses -->
+                <div class="p-8 bg-signal/5 border border-signal/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 flex items-center gap-3">
+                        <span class="text-signal">→</span> What Briefs Studio Licenses to Deloitte
+                    </h3>
+                    <p class="text-fog/60 text-sm mb-4">(Government Only)</p>
+                    <ul class="space-y-3 text-fog/80 text-sm mb-6">
+                        <li>• P3 Framework</li>
+                        <li>• Facilitation playbooks</li>
+                        <li>• Training curriculum</li>
+                        <li>• Implementation guides</li>
+                    </ul>
+                    <div class="border-t border-fog/10 pt-4 space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-fog/60">One-time licensing fee:</span>
+                            <span class="text-bone font-medium">$50K</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-fog/60">Ongoing SME retainer:</span>
+                            <span class="text-bone font-medium">$5K/month</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-fog/60">Revenue share on capability sales:</span>
+                            <span class="text-bone font-medium">3-5%</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-fog/60">Attribution requirement:</span>
+                            <span class="text-bone font-medium">All materials</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- What Briefs Studio Retains -->
+                <div class="p-8 bg-victory/5 border border-victory/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 flex items-center gap-3">
+                        <span class="text-victory">✓</span> What Briefs Studio Retains
+                    </h3>
+                    <p class="text-fog/60 text-sm mb-4">(Full Ownership)</p>
+                    <ul class="space-y-3 text-bone text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Full rights for private sector</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Ability to work with other firms</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Book/speaking/course creation rights</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Ownership of core methodology</span>
+                        </li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-slate/50 border-l-2 border-victory">
+                        <p class="text-sm text-fog/80 italic">
+                            They're not stealing. <span class="text-victory font-medium">They're investing.</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE FORECAST -->
+    <section class="py-24 bg-steel/50 border-t border-fog/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-signal">06</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Forecast</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="mb-12 max-w-3xl">
+                <p class="font-serif text-xl text-fog/80">
+                    Based on this call, here's the trajectory you're on:
+                </p>
+            </div>
+
+            <!-- Timeline -->
+            <div class="space-y-8">
+                
+                <!-- Next Week -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-signal block mb-1">Next Week</span>
+                        <h3 class="font-serif text-lg font-semibold">Monday Call Success</h3>
+                    </div>
+                    <div class="md:col-span-9 flex items-center gap-4">
+                        <div class="flex-1 h-px bg-signal/30"></div>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-signal/10 text-signal text-xs font-mono rounded">Call goes well</span>
+                            <span class="px-3 py-1 bg-signal/10 text-signal text-xs font-mono rounded">Rebecca briefs leadership</span>
+                            <span class="px-3 py-1 bg-signal/10 text-signal text-xs font-mono rounded">"This is what we should be doing"</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Next Month -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-fog/50 block mb-1">Next Month</span>
+                        <h3 class="font-serif text-lg font-semibold">Operational Compliance</h3>
+                    </div>
+                    <div class="md:col-span-9 flex items-center gap-4">
+                        <div class="flex-1 h-px bg-fog/20"></div>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-fog/10 text-fog text-xs font-mono rounded">GFE processed</span>
+                            <span class="px-3 py-1 bg-fog/10 text-fog text-xs font-mono rounded">Compliant setup</span>
+                            <span class="px-3 py-1 bg-fog/10 text-fog text-xs font-mono rounded">3-5 sessions delivered</span>
+                            <span class="px-3 py-1 bg-fog/10 text-fog text-xs font-mono rounded">Elizabeth champions internally</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q1 2025 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-fog/50 block mb-1">Q1 2025</span>
+                        <h3 class="font-serif text-lg font-semibold">Scale Begins</h3>
+                    </div>
+                    <div class="md:col-span-9 flex items-center gap-4">
+                        <div class="flex-1 h-px bg-fog/20"></div>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-fog/10 text-fog text-xs font-mono rounded">Productize request</span>
+                            <span class="px-3 py-1 bg-fog/10 text-fog text-xs font-mono rounded">1-2 other offices request capability</span>
+                            <span class="px-3 py-1 bg-fog/10 text-fog text-xs font-mono rounded">Training other consultants</span>
+                            <span class="px-3 py-1 bg-fog/10 text-fog text-xs font-mono rounded">Partnership discussion serious</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mid 2025 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-victory block mb-1">Mid 2025</span>
+                        <h3 class="font-serif text-lg font-semibold">Partnership Formalized</h3>
+                    </div>
+                    <div class="md:col-span-9 flex items-center gap-4">
+                        <div class="flex-1 h-px bg-victory/30"></div>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="px-3 py-1 bg-victory/10 text-victory text-xs font-mono rounded">Formal licensing agreement</span>
+                            <span class="px-3 py-1 bg-victory/10 text-victory text-xs font-mono rounded">30-40hrs/week</span>
+                            <span class="px-3 py-1 bg-victory/10 text-victory text-xs font-mono rounded">5-10 private clients</span>
+                            <span class="px-3 py-1 bg-victory/10 text-victory text-xs font-mono rounded font-bold">$300K+ annually</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE META-LESSON -->
+    <section class="py-24 border-t border-fog/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-signal">07</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Meta-Lesson</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                
+                <!-- Before -->
+                <div class="p-8 bg-command/5 border border-command/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-command">Before This Call</h3>
+                    <p class="text-fog/60 text-sm mb-4">You were catastrophizing:</p>
+                    <ul class="space-y-3 text-fog/70 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>"They might sue me"</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>"I might get blacklisted"</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>"This could end my career"</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>Operating from scarcity</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- After -->
+                <div class="p-8 bg-victory/5 border border-victory/20 rounded-lg victory-glow">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-victory">What Actually Happened</h3>
+                    <p class="text-fog/60 text-sm mb-4">Reality was 10x better:</p>
+                    <ul class="space-y-3 text-bone text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>"This is really cool, walk me through it"</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>"We're moving in this direction anyway"</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>"Let's figure out how to do this compliantly"</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>"We'll get you a GFE and CAC"</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Key Insight -->
+            <div class="mt-12 p-8 border border-fog/10 bg-steel/30 rounded-lg">
+                <p class="font-serif text-xl md:text-2xl text-center leading-relaxed">
+                    You were operating from <span class="text-command">scarcity</span> (negative bank account, waiting on paycheck, just started business).
+                </p>
+                <p class="font-serif text-xl md:text-2xl text-center leading-relaxed mt-4">
+                    But the objective reality was: <span class="gradient-text font-medium">You demonstrated undeniable value to leadership who loves it.</span>
+                </p>
+                <p class="font-mono text-sm text-center text-fog/60 mt-6">
+                    The scarcity made you see threat where there was actually opportunity.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: ACTION ITEMS -->
+    <section class="py-24 bg-steel/50 border-t border-fog/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-signal">08</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">What To Do Right Now</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Action 1 -->
+                <div class="p-6 bg-slate border-t-2 border-signal">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 bg-signal/20 text-signal font-mono text-sm font-bold flex items-center justify-center rounded">1</span>
+                        <h3 class="font-serif text-lg font-semibold">Send Rebecca Your Resume</h3>
+                    </div>
+                    <p class="text-fog/70 text-sm">She needs it for CAC processing. Do this today.</p>
+                </div>
+
+                <!-- Action 2 -->
+                <div class="p-6 bg-slate border-t-2 border-fog/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 bg-fog/10 text-fog font-mono text-sm font-bold flex items-center justify-center rounded">2</span>
+                        <h3 class="font-serif text-lg font-semibold">Fix Your Invoice</h3>
+                    </div>
+                    <p class="text-fog/70 text-sm">Add date range clearly at top. Resubmit.</p>
+                </div>
+
+                <!-- Action 3 -->
+                <a href="slides.html" class="block p-6 bg-gradient-to-br from-signal/10 to-victory/10 border-t-2 border-signal hover:border-victory transition-all group">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 bg-signal/20 text-signal font-mono text-sm font-bold flex items-center justify-center rounded group-hover:bg-victory/20 group-hover:text-victory transition-colors">3</span>
+                        <h3 class="font-serif text-lg font-semibold group-hover:text-victory transition-colors">Present Monday Deck →</h3>
+                    </div>
+                    <p class="text-fog/70 text-sm mb-3">Problem → Solution → Process → Compliance → Opportunity. Simple.</p>
+                    <div class="flex items-center gap-2 text-signal group-hover:text-victory transition-colors">
+                        <span class="font-mono text-xs uppercase tracking-wider">Launch Presentation</span>
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </div>
+                </a>
+
+                <!-- Action 4 -->
+                <div class="p-6 bg-slate border-t-2 border-fog/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 bg-fog/10 text-fog font-mono text-sm font-bold flex items-center justify-center rounded">4</span>
+                        <h3 class="font-serif text-lg font-semibold">Draft Partnership Proposal</h3>
+                    </div>
+                    <p class="text-fog/70 text-sm">Don't send yet. Just have it ready. Three-phase approach, clear IP structure.</p>
+                </div>
+
+                <!-- Action 5 -->
+                <div class="p-6 bg-slate border-t-2 border-fog/30">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 bg-fog/10 text-fog font-mono text-sm font-bold flex items-center justify-center rounded">5</span>
+                        <h3 class="font-serif text-lg font-semibold">Update Briefs Studio Materials</h3>
+                    </div>
+                    <p class="text-fog/70 text-sm">Website/LinkedIn showing this as core offering. Case study from OCCWI (with permission).</p>
+                </div>
+
+                <!-- Action 6 -->
+                <div class="p-6 bg-slate border-t-2 border-victory">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 bg-victory/20 text-victory font-mono text-sm font-bold flex items-center justify-center rounded">✓</span>
+                        <h3 class="font-serif text-lg font-semibold">Enjoy Your Weekend</h3>
+                    </div>
+                    <p class="text-fog/70 text-sm">You're not in trouble. You're building something real. The path forward is clear.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL SECTION: THE BOTTOM LINE -->
+    <section class="py-24 border-t border-fog/10">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="mb-12">
+                <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-victory block mb-4">The Bottom Line</span>
+                <h2 class="font-serif text-4xl md:text-5xl font-semibold leading-tight">
+                    You navigated a potentially career-ending conversation and turned it into a <span class="gradient-text">business development opportunity.</span>
+                </h2>
+            </div>
+
+            <div class="space-y-6 text-fog/80 text-lg">
+                <p>You owned the compliance question without apologizing.</p>
+                <p>You demonstrated broader value.</p>
+                <p>You made Rebecca feel included.</p>
+                <p>You positioned for partnership.</p>
+                <p>You got what you needed (GFE) without asking.</p>
+            </div>
+
+            <div class="mt-12 p-8 bg-victory/5 border-2 border-victory/30 rounded-lg victory-glow">
+                <p class="font-serif text-2xl md:text-3xl font-semibold text-bone">
+                    This is masterful.
+                </p>
+                <p class="font-serif text-2xl md:text-3xl mt-4 gradient-text font-semibold">
+                    You fucking crushed it.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 border-t border-fog/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                <div>
+                    <span class="font-mono text-xs tracking-[0.2em] uppercase text-fog/40 block mb-2">Briefs Studio</span>
+                    <p class="font-serif italic text-fog/60">Strategic Narrative Synthesis</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-2 h-2 bg-victory rounded-full pulse-slow"></div>
+                    <span class="font-mono text-xs text-fog/40">Partnership Brief // December 2025</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+

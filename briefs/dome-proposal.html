@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOME Proposal | Briefs Studio</title>
+
+    <!-- OG Tags -->
+    <meta property="og:title" content="CISA CDM | Engagement Proposal">
+    <meta property="og:description" content="Narrative Architecture & Creative Direction for SAIC's CISA CDM Capture Video Project">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://briefs.Briefs Studiostudio.com/briefs/dome-proposal.html">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="CISA CDM | Engagement Proposal">
+    <meta name="twitter:description" content="Narrative Architecture & Creative Direction for SAIC's CISA CDM Capture Video Project">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --paper: #FAFAF8;
+            --paper-warm: #F5F4F0;
+            --ink: #1C1C1C;
+            --ink-soft: #3A3A3A;
+            --slate: #5A6B7A;
+            --slate-light: rgba(90, 107, 122, 0.08);
+            --mission-blue: #0F3057;
+            --mission-blue-light: rgba(15, 48, 87, 0.06);
+            --gold: #C9973F;
+            --gold-light: rgba(201, 151, 63, 0.12);
+            --border: #E5E4E0;
+            --border-strong: #D0CFC8;
+            --muted: #8A8A85;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            background: #E8E6E0;
+            color: var(--ink);
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-weight: 400;
+            line-height: 1.65;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            padding: 2rem 1rem;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .document {
+            max-width: 820px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+            border-top: 4px solid var(--mission-blue);
+        }
+
+        /* HEADER */
+        .doc-header {
+            padding: 2.5rem 3rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .brand-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--mission-blue);
+        }
+
+        .brand-tagline {
+            font-family: 'Newsreader', serif;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--slate);
+        }
+
+        .doc-meta {
+            text-align: right;
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+
+        .doc-meta strong {
+            color: var(--ink-soft);
+            font-weight: 500;
+        }
+
+        .project-title {
+            width: 100%;
+            padding: 1.5rem 3rem 2rem;
+            background: var(--mission-blue-light);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-name {
+            font-family: 'Newsreader', serif;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 500;
+            color: var(--mission-blue);
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+
+        .project-subtitle {
+            font-size: 0.9rem;
+            color: var(--slate);
+            margin-top: 0.5rem;
+        }
+
+        /* TAB NAVIGATION */
+        .tab-nav {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--paper-warm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            text-align: center;
+        }
+
+        .tab-btn:hover {
+            color: var(--ink-soft);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            color: var(--mission-blue);
+            background: var(--paper);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--mission-blue);
+        }
+
+        .tab-btn span.tab-num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--gold);
+            margin-right: 0.5rem;
+        }
+
+        /* TAB CONTENT */
+        .tab-content {
+            display: none;
+            padding: 2.5rem 3rem 3rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* PROPOSAL STYLES */
+        .memo-header {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .memo-field {
+            display: grid;
+            grid-template-columns: 70px 1fr;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .memo-field:last-child {
+            margin-bottom: 0;
+        }
+
+        .memo-label {
+            font-weight: 500;
+            color: var(--slate);
+        }
+
+        .memo-value {
+            color: var(--ink);
+        }
+
+        .memo-value.subject {
+            font-weight: 600;
+            color: var(--mission-blue);
+        }
+
+        /* SECTION HEADERS */
+        .section-header {
+            font-family: 'Newsreader', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--mission-blue);
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-header:first-child {
+            margin-top: 0;
+        }
+
+        /* BODY TEXT */
+        p {
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+            color: var(--ink-soft);
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .lead-text {
+            font-size: 0.95rem;
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        /* NUMBERED LISTS */
+        .numbered-list {
+            list-style: none;
+            margin: 1.25rem 0;
+            padding-left: 0;
+        }
+
+        .numbered-list li {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--ink-soft);
+        }
+
+        .numbered-list .num {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        /* BULLET LISTS */
+        .bullet-list {
+            list-style: none;
+            margin: 1.25rem 0;
+            padding-left: 0;
+        }
+
+        .bullet-list li {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            color: var(--ink-soft);
+        }
+
+        .bullet-list li::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: var(--gold);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 0.55rem;
+        }
+
+        /* STRUCTURE BOX */
+        .structure-box {
+            background: var(--mission-blue-light);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 3px solid var(--mission-blue);
+        }
+
+        .structure-box .structure-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .structure-box .structure-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .structure-box .structure-label {
+            color: var(--slate);
+        }
+
+        .structure-box .structure-value {
+            font-weight: 600;
+            color: var(--mission-blue);
+        }
+
+        /* DELIVERABLES BOX */
+        .deliverables-box {
+            background: var(--paper-warm);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .deliverables-box h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--slate);
+            margin-bottom: 1rem;
+        }
+
+        /* VALUE BOX */
+        .value-box {
+            background: var(--gold-light);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 3px solid var(--gold);
+        }
+
+        /* CTA BOX */
+        .cta-box {
+            background: var(--mission-blue);
+            color: var(--paper);
+            padding: 1.25rem 1.5rem;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cta-box p {
+            color: var(--paper);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .cta-box .cta-action {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gold);
+        }
+
+        /* SOW STYLES */
+        .sow-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--mission-blue);
+        }
+
+        .sow-title h2 {
+            font-family: 'Newsreader', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--mission-blue);
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+
+        .sow-meta {
+            font-size: 0.85rem;
+            color: var(--ink-soft);
+            line-height: 1.8;
+        }
+
+        .sow-meta strong {
+            color: var(--ink);
+        }
+
+        .sow-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .sow-section-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--mission-blue);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .phase-block {
+            background: var(--paper-warm);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--gold);
+        }
+
+        .phase-title {
+            font-family: 'Newsreader', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--mission-blue);
+            margin-bottom: 0.75rem;
+        }
+
+        .phase-block ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .phase-block li {
+            font-size: 0.85rem;
+            color: var(--ink-soft);
+            margin-bottom: 0.4rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .phase-block li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--muted);
+        }
+
+        .phase-block .deliverable {
+            background: var(--gold-light);
+            padding: 0.5rem 0.75rem;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--mission-blue);
+        }
+
+        /* PAYMENT TABLE */
+        .payment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+
+        .payment-table th,
+        .payment-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .payment-table th {
+            background: var(--paper-warm);
+            font-weight: 500;
+            color: var(--slate);
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .payment-table td {
+            color: var(--ink-soft);
+        }
+
+        .payment-table .amount {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 500;
+            color: var(--mission-blue);
+        }
+
+        .payment-note {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-style: italic;
+            margin-top: 1rem;
+        }
+
+        /* SIGNATURE BLOCK */
+        .signature-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--mission-blue);
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 1.5rem;
+        }
+
+        .signature-block h4 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--slate);
+            margin-bottom: 1.5rem;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid var(--ink);
+            margin-bottom: 0.5rem;
+            min-height: 2rem;
+        }
+
+        .signature-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 1.25rem;
+        }
+
+        /* EXECUTION STYLES */
+        .checklist {
+            margin: 1.5rem 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border-strong);
+            border-radius: 2px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .checklist-item span {
+            font-size: 0.9rem;
+            color: var(--ink-soft);
+        }
+
+        /* EMAIL BLOCK */
+        .email-block {
+            background: var(--paper-warm);
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .email-header {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .email-header h4 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--slate);
+        }
+
+        .copy-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            padding: 0.35rem 0.6rem;
+            background: transparent;
+            border: 1px solid var(--border-strong);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .copy-btn:hover {
+            background: var(--mission-blue);
+            border-color: var(--mission-blue);
+            color: var(--paper);
+        }
+
+        .copy-btn.copied {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--paper);
+        }
+
+        .email-content {
+            padding: 1.25rem;
+        }
+
+        .email-field {
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+            color: var(--ink-soft);
+        }
+
+        .email-field strong {
+            color: var(--slate);
+            font-weight: 500;
+        }
+
+        .email-body {
+            font-size: 0.85rem;
+            color: var(--ink-soft);
+            line-height: 1.7;
+            white-space: pre-wrap;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* FOOTER */
+        .doc-footer {
+            padding: 1.5rem 3rem;
+            border-top: 1px solid var(--border);
+            background: var(--paper-warm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .footer-date {
+            font-size: 0.7rem;
+            color: var(--muted);
+        }
+
+        /* EXPORT MENU */
+        .export-menu {
+            position: relative;
+        }
+
+        .export-toggle {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            padding: 0.4rem 0.6rem;
+            background: transparent;
+            border: 1px solid var(--border-strong);
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .export-toggle:hover {
+            border-color: var(--mission-blue);
+            color: var(--mission-blue);
+        }
+
+        .export-toggle svg {
+            width: 10px;
+            height: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .export-menu.open .export-toggle svg {
+            transform: rotate(180deg);
+        }
+
+        .export-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.35rem;
+            background: var(--paper);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-5px);
+            transition: all 0.2s ease;
+            z-index: 200;
+        }
+
+        .export-menu.open .export-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .export-dropdown a {
+            display: block;
+            padding: 0.6rem 0.8rem;
+            font-size: 0.75rem;
+            color: var(--ink-soft);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.15s ease;
+        }
+
+        .export-dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        .export-dropdown a:hover {
+            background: var(--mission-blue-light);
+            color: var(--mission-blue);
+        }
+
+        .export-dropdown a span {
+            display: block;
+            font-size: 0.6rem;
+            color: var(--muted);
+            margin-top: 0.15rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .doc-header,
+            .project-title,
+            .tab-content,
+            .doc-footer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .tab-btn {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.6rem;
+            }
+
+            .tab-btn span.tab-num {
+                display: none;
+            }
+
+            .signature-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .memo-field {
+                grid-template-columns: 50px 1fr;
+            }
+
+            .structure-box .structure-item {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .document {
+                box-shadow: none;
+                border-top: 2px solid var(--mission-blue);
+            }
+
+            .tab-nav {
+                display: none;
+            }
+
+            .tab-content {
+                display: block !important;
+                page-break-before: always;
+                padding-top: 2rem;
+            }
+
+            .tab-content:first-of-type {
+                page-break-before: avoid;
+            }
+
+            .tab-content::before {
+                content: attr(data-print-title);
+                display: block;
+                font-family: 'Newsreader', serif;
+                font-size: 1.4rem;
+                font-weight: 500;
+                color: var(--mission-blue);
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.75rem;
+                border-bottom: 2px solid var(--mission-blue);
+            }
+
+            .copy-btn,
+            .export-menu {
+                display: none;
+            }
+
+            .cta-box {
+                background: var(--paper-warm);
+                color: var(--ink);
+                border: 2px solid var(--mission-blue);
+            }
+
+            .cta-box p {
+                color: var(--ink);
+            }
+
+            .doc-footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document">
+        <!-- HEADER -->
+        <header class="doc-header">
+            <div class="brand">
+                <div class="brand-name">Briefs Studio</div>
+                <div class="brand-tagline">Narrative Architecture</div>
+            </div>
+            <div class="doc-meta">
+                <strong>Confidential Proposal</strong><br>
+                February 2026
+            </div>
+            <div class="export-menu" id="exportMenu">
+                <button class="export-toggle" onclick="toggleExportMenu()">
+                    Export PDF
+                    <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M1 1l4 4 4-4"/>
+                    </svg>
+                </button>
+                <div class="export-dropdown">
+                    <a href="dome-proposal-print-proposal.html" target="_blank">
+                        Proposal One-Pager
+                        <span>1 page</span>
+                    </a>
+                    <a href="dome-proposal-print-sow.html" target="_blank">
+                        Statement of Work
+                        <span>~2 pages</span>
+                    </a>
+                    <a href="dome-proposal-print-execution.html" target="_blank">
+                        Execution Checklist
+                        <span>~2 pages</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- PROJECT TITLE -->
+        <div class="project-title">
+            <div class="project-label">Engagement Proposal</div>
+            <h1 class="project-name">CISA CDM Capture Video Project</h1>
+            <p class="project-subtitle">Narrative Architecture & Creative Direction for SAIC</p>
+        </div>
+
+        <!-- TAB NAVIGATION -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="proposal">
+                <span class="tab-num">01</span>Proposal
+            </button>
+            <button class="tab-btn" data-tab="sow">
+                <span class="tab-num">02</span>Statement of Work
+            </button>
+            <button class="tab-btn" data-tab="execution">
+                <span class="tab-num">03</span>Execution
+            </button>
+        </nav>
+
+        <!-- TAB 1: PROPOSAL -->
+        <section class="tab-content active" id="proposal" data-print-title="Part 1: Proposal Summary">
+            <h3 class="section-header">The Challenge</h3>
+            <p class="lead-text">SAIC is realigning its innovation portfolio to directly fuel capture success on must-win opportunities. For CISA CDM—a cornerstone of SAIC's position as the premier Mission Integrator for the federal civilian enterprise—the challenge is translating complex technical capabilities into a unified, compelling narrative that resonates with both technical evaluators and executive decision-makers before the proposal is even submitted.</p>
+
+            <h3 class="section-header">The Solution</h3>
+            <p>A dedicated <strong>Visual Narrative Architect</strong> embedded on the capture team—creating the visual narrative architecture required for SAIC to demonstrate its role as the lead Mission Integrator for the FCEB digital defense shield. This role acts as a "Decision Accelerator," the strategic bridge between capture strategy, marketing, and creative execution:</p>
+            <ol class="numbered-list">
+                <li><span class="num">1.</span><span><strong>Architect</strong> the core win story from all technical and strategic inputs.</span></li>
+                <li><span class="num">2.</span><span><strong>Translate</strong> that story into video assets that resonate with decision-makers.</span></li>
+                <li><span class="num">3.</span><span><strong>Direct</strong> VCS production to ensure strategic alignment through final delivery.</span></li>
+            </ol>
+
+            <h3 class="section-header">Proposed Structure</h3>
+            <div class="structure-box">
+                <div class="structure-item">
+                    <span class="structure-label">Contract Type</span>
+                    <span class="structure-value">Firm Fixed Price</span>
+                </div>
+                <div class="structure-item">
+                    <span class="structure-label">Total Investment</span>
+                    <span class="structure-value">$35,000</span>
+                </div>
+                <div class="structure-item">
+                    <span class="structure-label">Term</span>
+                    <span class="structure-value">February 10 – March 24, 2026 (6 weeks)</span>
+                </div>
+                <div class="structure-item">
+                    <span class="structure-label">Payment</span>
+                    <span class="structure-value">Single payment at kick-off</span>
+                </div>
+            </div>
+
+            <h3 class="section-header">Key Deliverables</h3>
+            <div class="deliverables-box">
+                <ol class="numbered-list">
+                    <li><span class="num">1.</span><span><strong>Narrative Framework Deck</strong> — The single source of truth for the proposal's story.</span></li>
+                    <li><span class="num">2.</span><span><strong>Approved Video Script & Storyboard</strong> — Stress-tested against CISA requirements.</span></li>
+                    <li><span class="num">3.</span><span><strong>Final Video Assets</strong> — In all required formats.</span></li>
+                </ol>
+            </div>
+
+            <h3 class="section-header">The Value</h3>
+            <div class="value-box">
+                <ul class="bullet-list">
+                    <li><span><strong>Low Risk:</strong> Final deliverables are SAIC IP. Incremental acceptance at each phase ensures alignment.</span></li>
+                    <li><span><strong>Proven Model:</strong> Replicates the T-Cloud integrated strategy-execution process.</span></li>
+                    <li><span><strong>Speed:</strong> Compressed 6-week timeline aligns with capture deadlines.</span></li>
+                </ul>
+            </div>
+
+            <div class="cta-box">
+                <p>Next Step: Approve the attached Statement of Work to initiate.</p>
+                <span class="cta-action">→ See Tab 2</span>
+            </div>
+        </section>
+
+        <!-- TAB 2: STATEMENT OF WORK -->
+        <section class="tab-content" id="sow" data-print-title="Part 2: Statement of Work">
+            <div class="sow-title">
+                <h2>Statement of Work</h2>
+                <div class="sow-meta">
+                    <strong>Briefs Studio</strong> — Narrative Architecture Services<br>
+                    For: <strong>SAIC, Civilian Markets Group</strong><br>
+                    Project: <strong>CISA CDM Capture Video Project</strong> — Narrative Development & Video Production<br>
+                    Period of Performance: <strong>February 10 – March 24, 2026 (6 weeks)</strong><br>
+                    Total Firm Fixed Price: <strong>$35,000 USD</strong>
+                </div>
+            </div>
+
+            <div class="sow-section">
+                <h3 class="sow-section-title">1.0 Objective</h3>
+                <p>Briefs Studio shall act as the Narrative Architect for the CISA CDM capture effort. The objective is to architect the winning narrative, translate it into a compelling video asset, and provide creative direction to ensure strategic alignment across capture, marketing, and creative execution teams.</p>
+            </div>
+
+            <div class="sow-section">
+                <h3 class="sow-section-title">2.0 Scope of Services & Deliverables</h3>
+                <p>The Consultant (Mike Marrotte) will perform the following:</p>
+
+                <div class="phase-block">
+                    <h4 class="phase-title">Phase 1: Narrative Foundation (Weeks 1-2)</h4>
+                    <ul>
+                        <li>Synthesize existing materials (e.g., workshop outputs, strategy docs).</li>
+                        <li>Facilitate alignment sessions with key stakeholders (Capture, Marketing, SMEs, and Mighty Union where applicable).</li>
+                    </ul>
+                    <div class="deliverable">Deliverable 1: Narrative Framework Document — A deck defining the core win story, proof points, and themes.</div>
+                </div>
+
+                <div class="phase-block">
+                    <h4 class="phase-title">Phase 2: Video Architecture (Weeks 2-3)</h4>
+                    <ul>
+                        <li>Develop video concept, script, and storyboard based on the approved Narrative Framework.</li>
+                        <li>Ensure storyboard demonstrates "Interactive Cyber Defense"—real-time, host-level visibility rather than static compliance reporting.</li>
+                        <li>Incorporate "Secure by Design" principles into visual messaging.</li>
+                        <li>Present and iterate on creative concepts.</li>
+                    </ul>
+                    <div class="deliverable">Deliverable 2: Approved Video Script & Storyboard.</div>
+                </div>
+
+                <div class="phase-block">
+                    <h4 class="phase-title">Phase 3: Production Oversight (Weeks 4-6)</h4>
+                    <ul>
+                        <li>Act as Creative Director for the VCS production team (Fern Ramos, et al.).</li>
+                        <li>Lead review sessions and provide feedback on design/animation.</li>
+                        <li>Ensure final video aligns with approved narrative and storyboard.</li>
+                    </ul>
+                    <div class="deliverable">Deliverable 3: Final Video Assets.</div>
+                </div>
+            </div>
+
+            <div class="sow-section">
+                <h3 class="sow-section-title">3.0 Key Assumptions</h3>
+                <ul class="bullet-list">
+                    <li>SAIC will provide timely access to key personnel for interviews and reviews.</li>
+                    <li>SAIC's internal VCS team (led by Fern Ramos) will handle production execution. VCS production costs are separate and will be estimated collaboratively based on approved creative direction.</li>
+                    <li>All necessary background IP will be provided by SAIC.</li>
+                </ul>
+            </div>
+
+            <div class="sow-section">
+                <h3 class="sow-section-title">4.0 Payment</h3>
+                <table class="payment-table">
+                    <thead>
+                        <tr>
+                            <th>Milestone</th>
+                            <th>Timing</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SOW Signing & Kick-off</td>
+                            <td>Upon execution</td>
+                            <td class="amount">$35,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="payment-note">Single payment due upon SOW execution. Invoice Net 15. Invoice shall be submitted to Linda Hanus and Fern Ramos. Note: Production costs for video execution (animation, editing, rendering) by VCS team are separate and will be invoiced directly by VCS based on approved scope.</p>
+            </div>
+
+            <div class="sow-section">
+                <h3 class="sow-section-title">5.0 Governance & Acceptance</h3>
+                <ul class="bullet-list">
+                    <li>Primary SAIC POCs: Meng Wengzhu (Capture Lead), Linda Hanus & Fern Ramos (VCS).</li>
+                    <li>Weekly 30-minute alignment call.</li>
+                    <li><strong>Incremental Acceptance:</strong> Each phase deliverable requires formal sign-off before the next phase begins. Deliverables are deemed accepted within 5 business days unless specific, written feedback is provided.</li>
+                    <li><strong>Locked Narrative Baseline:</strong> Formal acceptance of Phase 1 (Narrative Foundation) creates the "Locked Narrative Baseline." Any deviations requested after Phase 2 begins that contradict this baseline will be handled as a change in scope.</li>
+                </ul>
+            </div>
+
+            <div class="sow-section">
+                <h3 class="sow-section-title">6.0 Terms & Intellectual Property</h3>
+                <p>This is a firm fixed-price engagement. The Consultant is an independent contractor. <strong>IP:</strong> All final deliverables (Narrative Framework, Storyboard, Video Assets) become SAIC property upon acceptance. Consultant retains rights to proprietary workflows and methodologies.</p>
+            </div>
+
+            <div class="signature-section">
+                <h3 class="sow-section-title">Signatures</h3>
+                <div class="signature-grid">
+                    <div class="signature-block">
+                        <h4>For SAIC</h4>
+                        <div class="signature-line"></div>
+                        <p class="signature-label">Name: Meng Wenghzu</p>
+                        <p class="signature-label">Title: Capture Lead, CISA CDM</p>
+                        <div class="signature-line"></div>
+                        <p class="signature-label">Date</p>
+                    </div>
+                    <div class="signature-block">
+                        <h4>For Briefs Studio</h4>
+                        <div class="signature-line"></div>
+                        <p class="signature-label">Name: Mike Marrotte</p>
+                        <p class="signature-label">Title: Principal</p>
+                        <div class="signature-line"></div>
+                        <p class="signature-label">Date</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: EXECUTION -->
+        <section class="tab-content" id="execution" data-print-title="Part 3: Execution Checklist">
+            <h3 class="section-header">Your Checklist</h3>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <span>Finalize SOW with all corrections.</span>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <span>Send DRAFT SOW + One-Pager to Linda Hanus and Fern Ramos via email.</span>
+                </div>
+            </div>
+
+            <h3 class="section-header">Email to Linda & Fern</h3>
+            <div class="email-block">
+                <div class="email-header">
+                    <h4>Draft Email</h4>
+                    <button class="copy-btn" data-copy="email-linda-fern">Copy</button>
+                </div>
+                <div class="email-content">
+                    <p class="email-field"><strong>Subject:</strong> For review - Final draft SOW for Meng & DOME</p>
+                    <div class="email-body" id="email-linda-fern">Linda / Fern – attached is the final draft SOW and one-pager, with all details corrected (names, dates, spelling). The one-pager is for Meng; the SOW is for signature.
+
+One clarification: the $80K covers my narrative architecture and creative direction. VCS production costs (Ben's animation, etc.) should be quoted separately by you, Fern, once we have the approved creative - probably in the $20-30K range based on T-Cloud complexity. Want to make sure Meng sees those as distinct line items.
+
+Next Step: If this looks good, I suggest you, Linda, send it to Meng with a brief note of endorsement (template below), copying Fern and me. This carries the most weight coming from you.
+
+Let me know any final edits. Ready to go.
+
+—Mike</div>
+                </div>
+            </div>
+
+            <h3 class="section-header">Template for Linda to Send to Meng</h3>
+            <div class="email-block">
+                <div class="email-header">
+                    <h4>Linda's Email Template</h4>
+                    <button class="copy-btn" data-copy="email-linda-meng">Copy</button>
+                </div>
+                <div class="email-content">
+                    <p class="email-field"><strong>Subject:</strong> Proposed path for DOME narrative/video - Mike Marrotte/Briefs Studio</p>
+                    <div class="email-body" id="email-linda-meng">Meng – following up on our discussions about the narrative and video for DOME. We've worked with Mike Marrotte (Briefs Studio) to structure a formal proposal that captures the integrated 'T-Cloud' process you wanted to replicate.
+
+The value is a dedicated owner for the narrative from capture strategy through to final creative, ensuring perfect alignment and a compelling output. It addresses the integration gap directly.
+
+He's proposed a clean, phased engagement ($20k/month for 4 months, $80k total) to own this for DOME. The one-pager summarizes the 'why,' and the SOW details the 'what.'
+
+Fern and I have reviewed and recommend this model. Mike is ready to start upon SOW approval.
+
+Attached:
+1. One-Page Proposal Summary
+2. Statement of Work (for signature)
+
+Please review and let us know your approval to proceed.
+
+Thanks,
+Linda</div>
+                </div>
+            </div>
+
+            <div class="cta-box" style="margin-top: 3rem;">
+                <p>All details locked. The proposal is sharp, strategic, and personalized.</p>
+                <span class="cta-action">Go time.</span>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="doc-footer">
+            <span class="footer-brand">Briefs Studio</span>
+            <span class="footer-date">February 2026</span>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
+
+                // Update buttons
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Update content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === targetTab) {
+                        content.classList.add('active');
+                    }
+                });
+            });
+        });
+
+        // Export menu functionality
+        function toggleExportMenu() {
+            document.getElementById('exportMenu').classList.toggle('open');
+        }
+
+        // Close export menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('exportMenu');
+            if (!menu.contains(e.target)) {
+                menu.classList.remove('open');
+            }
+        });
+
+        // Copy functionality
+        const copyButtons = document.querySelectorAll('.copy-btn');
+
+        copyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.dataset.copy;
+                const targetElement = document.getElementById(targetId);
+                const textToCopy = targetElement.innerText;
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    button.textContent = 'Copied';
+                    button.classList.add('copied');
+
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                        button.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

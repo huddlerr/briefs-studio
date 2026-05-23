@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrative OS // Matt Robillard — High-Consequence Engineering</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: '#0A0C10',
+                        carbon: '#161B22',
+                        cobalt: '#2F81F7',
+                        steel: '#8B949E',
+                        bone: '#C9D1D9',
+                        power: '#F85149',
+                        gold: '#D29922',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(135deg, #2F81F7 0%, #F85149 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .pillar-card {
+            background: linear-gradient(180deg, rgba(22,27,34,0.8) 0%, rgba(10,12,16,0.95) 100%);
+            border: 1px solid rgba(139,148,158,0.1);
+        }
+        .pillar-card:hover {
+            border-color: rgba(47,129,247,0.3);
+            transform: translateY(-2px);
+        }
+        .circuit-bg {
+            background-image: radial-gradient(circle at 1px 1px, rgba(47,129,247,0.1) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+    </style>
+</head>
+<body class="bg-slate text-bone font-sans antialiased">
+
+    <!-- TOP NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate/90 backdrop-blur border-b border-steel/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <span class="font-mono text-xs text-steel/40">Narrative OS // Robillard.sys</span>
+            <div class="flex gap-6 items-center">
+                <span class="font-mono text-[10px] text-cobalt/60">STATUS: INITIALIZING</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="min-h-screen flex flex-col justify-center relative overflow-hidden">
+        <div class="absolute inset-0 circuit-bg opacity-30"></div>
+        
+        <div class="relative z-10 max-w-5xl mx-auto px-6 py-20">
+            <div class="mb-8 flex items-center gap-3">
+                <span class="h-px w-8 bg-cobalt"></span>
+                <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-cobalt">High-Consequence Architecture</span>
+            </div>
+            
+            <h1 class="font-serif text-5xl md:text-8xl font-semibold leading-[1.05] mb-8">
+                Software & <br>
+                <span class="gradient-text">Hard Power</span>
+            </h1>
+            
+            <div class="max-w-2xl mb-12">
+                <p class="font-serif text-2xl md:text-3xl text-steel italic leading-relaxed">
+                    "We have a misallocation of talented capital towards the trivial and the ephemeral. I'm interested in things that meaningfully move the world."
+                </p>
+                <p class="mt-6 font-mono text-xs text-steel/50">— Matt Robillard, Briefs Studio Briefing, Dec 2025</p>
+            </div>
+
+            <div class="flex flex-wrap gap-10 text-sm">
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-steel/40 mb-1">Architect</span>
+                    <span class="font-medium text-cobalt">Matt Robillard</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-steel/40 mb-1">Current Load</span>
+                    <span class="font-medium">Verbal Technologies / SmartEC</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-steel/40 mb-1">Phase</span>
+                    <span class="font-medium">Capability Generation [1%]</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-steel/40 mb-1">Nexus</span>
+                    <span class="font-medium">Bell Labs 2.0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-steel/30">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-cobalt/40 text-center">System<br>Architecture</span>
+            <div class="w-px h-12 bg-gradient-to-b from-cobalt/40 to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- SECTION: THE COHERENCE FRAMEWORK -->
+    <section class="py-24 border-t border-steel/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-cobalt">01</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Coherence Framework</h2>
+                <div class="flex-1 h-px bg-steel/10"></div>
+            </div>
+
+            <div class="mb-16 max-w-3xl">
+                <p class="font-serif text-2xl md:text-3xl leading-relaxed text-steel">
+                    Robillard operates at the intersection of <span class="text-bone font-medium">engineering rigor</span> and <span class="text-bone font-medium">strategic leverage.</span> The challenge isn't a lack of vision, but the bandwidth required to weave disparate high-stakes threads into a unified narrative.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Pillar 1 -->
+                <div class="pillar-card p-8 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="h-10 w-10 bg-cobalt/10 rounded flex items-center justify-center">
+                            <span class="font-mono text-xl font-bold text-cobalt">01</span>
+                        </div>
+                        <span class="px-3 py-1 bg-cobalt/10 text-cobalt text-[10px] font-mono uppercase tracking-wider rounded">Thesis</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4 text-bone">First-Order Impact</h3>
+                    <p class="text-steel leading-relaxed mb-6">
+                        Moving past the "ephemeral" of modern tech. Robillard prioritizes technologies that serve as the fundamental layer for societal advancement.
+                    </p>
+                    <div class="border-t border-steel/10 pt-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-steel/40 block mb-2">Ref Pattern</span>
+                        <p class="text-sm text-steel/70 italic">
+                            "I don't think cloud storage is going to change our lives... I want to work on things that actually matter."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="pillar-card p-8 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="h-10 w-10 bg-power/10 rounded flex items-center justify-center">
+                            <span class="font-mono text-xl font-bold text-power">02</span>
+                        </div>
+                        <span class="px-3 py-1 bg-power/10 text-power text-[10px] font-mono uppercase tracking-wider rounded">Strategy</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4 text-bone">Operational Leverage</h3>
+                    <p class="text-steel leading-relaxed mb-6">
+                        Building self-serving systems. From Chief of Staff to financial architectures, the goal is to create "set it and forget it" machinery that maximizes bandwidth.
+                    </p>
+                    <div class="border-t border-steel/10 pt-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-steel/40 block mb-2">Tactical Intent</span>
+                        <p class="text-sm text-steel/70 italic">
+                            "Architect things in such a way that they are self-serving... the less time I spend thinking about it, the better."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="pillar-card p-8 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="h-10 w-10 bg-gold/10 rounded flex items-center justify-center">
+                            <span class="font-mono text-xl font-bold text-gold">03</span>
+                        </div>
+                        <span class="px-3 py-1 bg-gold/10 text-gold text-[10px] font-mono uppercase tracking-wider rounded">Institution</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4 text-bone">The Bell Labs Model</h3>
+                    <p class="text-steel leading-relaxed mb-6">
+                        Verbal Technologies as a nexus for capability generation. Not a fund, not a studio, but a monopolistic-grade research and development engine.
+                    </p>
+                    <div class="border-t border-steel/10 pt-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-steel/40 block mb-2">Aspiration</span>
+                        <p class="text-sm text-steel/70 italic">
+                            "Recreating Bell Labs... an umbrella that creates coherence between all the high-consequence things I'm involved in."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="pillar-card p-8 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="h-10 w-10 bg-bone/10 rounded flex items-center justify-center">
+                            <span class="font-mono text-xl font-bold text-bone">04</span>
+                        </div>
+                        <span class="px-3 py-1 bg-bone/10 text-bone text-[10px] font-mono uppercase tracking-wider rounded">Interface</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4 text-bone">Narrative Automation</h3>
+                    <p class="text-steel leading-relaxed mb-6">
+                        Converting conversation and intent directly into operational reality. Solving the coherence problem by automating the "translation layer" for stakeholders.
+                    </p>
+                    <div class="border-t border-steel/10 pt-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-steel/40 block mb-2">Current State</span>
+                        <p class="text-sm text-steel/70 italic">
+                            "I just pick one singular thing... I don't know how to weave that into something that people can digest."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE OPERATING SYSTEM -->
+    <section class="py-24 bg-carbon/50 border-t border-steel/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-cobalt">02</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Operating System [Next 180 Days]</h2>
+                <div class="flex-1 h-px bg-steel/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Immediate -->
+                <div class="relative pl-8">
+                    <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-cobalt"></div>
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-cobalt block mb-4">Phase I: Codify</span>
+                    <h3 class="font-serif text-xl font-semibold mb-4 text-bone">Structure the Umbrella</h3>
+                    <ul class="space-y-4 text-steel text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-cobalt">→</span>
+                            <span>Formalize Verbal Technologies as the central narrative nexus.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-cobalt">→</span>
+                            <span>Map cross-venture capability synergies (Project X & SmartEC).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-cobalt">→</span>
+                            <span>Reduce "Introduction Friction" via automated brief generation.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Medium -->
+                <div class="relative pl-8 opacity-60">
+                    <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-steel/40"></div>
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-steel block mb-4">Phase II: Scale</span>
+                    <h3 class="font-serif text-xl font-semibold mb-4 text-bone">Automate Intuition</h3>
+                    <ul class="space-y-4 text-steel text-sm">
+                        <li class="flex items-start gap-2">
+                            <span>→</span>
+                            <span>Scale Chief of Staff capacity through narrative AI tooling.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span>→</span>
+                            <span>Deploy "Front Door" interfaces for investors and partners.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span>→</span>
+                            <span>Convert internal dialogue into external reputation capital.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Long -->
+                <div class="relative pl-8 opacity-40">
+                    <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-steel/20"></div>
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-steel block mb-4">Phase III: Realize</span>
+                    <h3 class="font-serif text-xl font-semibold mb-4 text-bone">The There</h3>
+                    <ul class="space-y-4 text-steel text-sm">
+                        <li class="flex items-start gap-2">
+                            <span>→</span>
+                            <span>Horizontal and Vertical impact at civilizational scale.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span>→</span>
+                            <span>100% mission realization. Bell Labs level prestige.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span>→</span>
+                            <span>Set it and forget it. Maximum impact, minimum friction.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE ORIGIN STORY -->
+    <section class="py-24 border-t border-steel/10 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-cobalt">03</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Signal Origins</h2>
+                <div class="flex-1 h-px bg-steel/10"></div>
+            </div>
+
+            <div class="space-y-20">
+                <!-- Point 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4">
+                        <div class="font-mono text-[10px] text-cobalt mb-2 uppercase tracking-widest">Age 12 // The Source</div>
+                        <h3 class="font-serif text-2xl font-semibold text-bone">The C Programming Language</h3>
+                    </div>
+                    <div class="md:col-span-8 border-l border-steel/20 pl-8">
+                        <p class="text-steel leading-relaxed">
+                            Taught by his father (Electrical Engineer), Robillard learned the underlying elements of computer memory. This "low-level" start defined a lifetime of first-principles thinking.
+                        </p>
+                        <p class="mt-4 font-mono text-xs text-cobalt/50">"I was an engineer at heart since I was five or six... I just love building technology."</p>
+                    </div>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4">
+                        <div class="font-mono text-[10px] text-cobalt mb-2 uppercase tracking-widest">Age 17 // Hard Power</div>
+                        <h3 class="font-serif text-2xl font-semibold text-bone">DoD Underwater Acoustics</h3>
+                    </div>
+                    <div class="md:col-span-8 border-l border-steel/20 pl-8">
+                        <p class="text-steel leading-relaxed">
+                            Benchmarking wavefront curvature algorithms on GPUs before it was fashionable. Writing mission-critical software for warfighters while his peers were building consumer apps.
+                        </p>
+                        <div class="mt-6 bg-cobalt/5 p-4 border-l border-cobalt">
+                            <p class="text-sm italic text-steel">
+                                "Dropbox is cool, but there's things that actually matter. I had software running in mission-critical environments in war... I had this appreciation for things that have consequence."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Point 3 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4">
+                        <div class="font-mono text-[10px] text-cobalt mb-2 uppercase tracking-widest">Present // The Nexus</div>
+                        <h3 class="font-serif text-2xl font-semibold text-bone">Capability Orchestration</h3>
+                    </div>
+                    <div class="md:col-span-8 border-l border-steel/20 pl-8">
+                        <p class="text-steel leading-relaxed">
+                            Transitioning from builder to architect. Hiring CEOs, building teams, and resourcing himself to handle the scale of his ambitions. The 1% of the mission is the foundation for the next 99%.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE MISSION LOGIC -->
+    <section class="py-24 bg-slate border-t border-steel/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="font-serif text-4xl font-semibold mb-8 text-bone leading-tight">
+                        Scaling the <br>
+                        <span class="text-cobalt">Genius Interface</span>
+                    </h2>
+                    <div class="space-y-6">
+                        <div class="p-6 bg-carbon border border-steel/10 rounded-lg">
+                            <span class="font-mono text-[10px] uppercase text-cobalt block mb-2">The Challenge</span>
+                            <p class="text-sm text-steel">"I'm only one person... focus is the best thing, but I often don't take my own advice because these things are deeply important."</p>
+                        </div>
+                        <div class="p-6 bg-carbon border border-steel/10 rounded-lg">
+                            <span class="font-mono text-[10px] uppercase text-cobalt block mb-2">The Solution</span>
+                            <p class="text-sm text-steel">Automating the narrative so stakeholders "get it" without the 60-minute download. Creating horizontal impact through vertical technological excellence.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-cobalt/10 blur-3xl rounded-full"></div>
+                    <div class="relative bg-carbon border border-steel/20 p-10 rounded-xl">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="h-3 w-3 rounded-full bg-power"></div>
+                            <div class="h-3 w-3 rounded-full bg-gold"></div>
+                            <div class="h-3 w-3 rounded-full bg-cobalt"></div>
+                        </div>
+                        <div class="font-mono text-sm space-y-4">
+                            <p class="text-cobalt"># INITIALIZING ROBILLARD_OS</p>
+                            <p class="text-steel">> Loading worldview: High-Consequence Technology</p>
+                            <p class="text-steel">> Loading system: Operational Leverage</p>
+                            <p class="text-steel">> Optimizing coherence...</p>
+                            <p class="text-bone font-bold mt-8">NARRATIVE OPERATIONALIZED.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-steel/10 bg-slate">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="font-mono text-[10px] text-steel/40 uppercase tracking-widest">
+                © 2025 Briefs Studio // Matt Robillard Narrative OS
+            </div>
+            <div class="flex gap-8 text-[10px] font-mono uppercase tracking-widest">
+                <a href="#" class="text-steel/60 hover:text-cobalt transition-colors">Documentation</a>
+                <a href="#" class="text-steel/60 hover:text-cobalt transition-colors">Access Logic</a>
+                <a href="#" class="text-steel/60 hover:text-cobalt transition-colors">Systems Info</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

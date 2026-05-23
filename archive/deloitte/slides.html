@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio × Deloitte — Monday Presentation</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: '#0F172A',
+                        steel: '#1E293B',
+                        fog: '#94A3B8',
+                        bone: '#F8FAFC',
+                        signal: '#F59E0B',
+                        command: '#DC2626',
+                        victory: '#10B981',
+                        deloitte: '#86BC25',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-text-deloitte {
+            background: linear-gradient(135deg, #86BC25 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pillar-card {
+            background: linear-gradient(180deg, rgba(30,41,59,0.8) 0%, rgba(15,23,42,0.95) 100%);
+            border: 1px solid rgba(148,163,184,0.1);
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+        @media print {
+            .slide { 
+                page-break-after: always; 
+                min-height: 100vh;
+            }
+            nav, footer { display: none; }
+        }
+        /* Version Toggle Styles */
+        .version-toggle {
+            display: flex;
+            background: rgba(30,41,59,0.8);
+            border: 1px solid rgba(148,163,184,0.2);
+            border-radius: 6px;
+            padding: 2px;
+        }
+        .version-btn {
+            padding: 4px 12px;
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 4px;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: rgba(148,163,184,0.6);
+        }
+        .version-btn.active {
+            background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+            color: #0F172A;
+            font-weight: 600;
+        }
+        .version-btn:hover:not(.active) {
+            color: #F8FAFC;
+        }
+        .v1-content, .v2-content { display: none; }
+        .v1-active .v1-content { display: block; }
+        .v2-active .v2-content { display: block; }
+        .v1-active .v1-slide { display: flex; }
+        .v2-active .v2-slide { display: flex; }
+        .v1-slide, .v2-slide { display: none; }
+        .quote-block {
+            background: rgba(30,41,59,0.6);
+            border-left: 3px solid #F59E0B;
+            padding: 1rem 1.5rem;
+            font-style: italic;
+            margin: 1rem 0;
+        }
+        .red-flag {
+            background: rgba(220,38,38,0.1);
+            border: 1px solid rgba(220,38,38,0.3);
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="bg-slate text-bone font-sans antialiased v1-active">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate/95 backdrop-blur border-b border-fog/10 print:hidden">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+            <a href="index.html" class="font-mono text-xs text-fog/60 hover:text-signal transition-colors">← Full Brief</a>
+            
+            <!-- VERSION TOGGLE -->
+            <div class="version-toggle">
+                <button onclick="setVersion('v1')" id="v1-btn" class="version-btn active">V1 Full Deck</button>
+                <button onclick="setVersion('v2')" id="v2-btn" class="version-btn">V2 Process Overview</button>
+            </div>
+            
+            <div class="flex items-center gap-4 overflow-x-auto">
+                <span class="text-fog/20">|</span>
+                <button onclick="window.print()" class="font-mono text-[10px] text-victory hover:text-victory/80 transition-colors whitespace-nowrap">Export PDF ↓</button>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+        function setVersion(version) {
+            const body = document.body;
+            body.classList.remove('v1-active', 'v2-active');
+            body.classList.add(version + '-active');
+            
+            document.getElementById('v1-btn').classList.toggle('active', version === 'v1');
+            document.getElementById('v2-btn').classList.toggle('active', version === 'v2');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+    <!-- ========================================== -->
+    <!-- V1 SLIDES: PARTNERSHIP OPPORTUNITY -->
+    <!-- ========================================== -->
+
+    <!-- ========================================== -->
+    <!-- SLIDE 01: TITLE -->
+    <!-- ========================================== -->
+    <section id="slide-01" class="slide v1-slide bg-slate relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 40px 40px;"></div>
+        </div>
+        
+        <!-- Gradient Orbs -->
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-victory/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-64 h-64 bg-signal/10 rounded-full blur-3xl"></div>
+        
+        <div class="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center">
+            <div class="mb-8">
+                <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-victory">Briefs Studio × Deloitte // Partnership Opportunity</span>
+            </div>
+            
+            <h1 class="font-serif text-5xl md:text-7xl font-semibold leading-[1.1] mb-8">
+                Strategic Narrative<br>
+                <span class="gradient-text">Synthesis</span>
+            </h1>
+            
+            <p class="font-serif text-lg text-fog/60 mb-12">A capability for transforming conversations into clarity</p>
+            
+            <div class="inline-flex flex-wrap justify-center gap-8 text-sm">
+                <div class="text-left">
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Presented By</span>
+                    <span class="font-medium">Mike Marrotte</span>
+                </div>
+                <div class="text-left">
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">For</span>
+                    <span class="font-medium">Rebecca & Deloitte Leadership</span>
+                </div>
+                <div class="text-left">
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Date</span>
+                    <span class="font-medium">December 2025</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 02: THE PROBLEM -->
+    <!-- ========================================== -->
+    <section id="slide-02" class="slide v1-slide bg-steel/30">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">01</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Problem</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="mb-16">
+                <p class="font-serif text-3xl md:text-5xl leading-[1.3] text-bone">
+                    Leaders need <span class="gradient-text font-semibold">strategic clarity</span>—fast.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 border border-command/30 bg-command/5 rounded-lg">
+                    <span class="font-mono text-4xl font-bold text-command/40 block mb-4">60</span>
+                    <h3 class="font-serif text-lg font-semibold mb-2">Minutes of All-Hands</h3>
+                    <p class="text-fog/70 text-sm">Critical information buried in long meetings</p>
+                </div>
+                <div class="p-6 border border-command/30 bg-command/5 rounded-lg">
+                    <span class="font-mono text-4xl font-bold text-command/40 block mb-4">?</span>
+                    <h3 class="font-serif text-lg font-semibold mb-2">What Was the Takeaway?</h3>
+                    <p class="text-fog/70 text-sm">Teams leave confused about priorities</p>
+                </div>
+                <div class="p-6 border border-command/30 bg-command/5 rounded-lg">
+                    <span class="font-mono text-4xl font-bold text-command/40 block mb-4">0</span>
+                    <h3 class="font-serif text-lg font-semibold mb-2">Actionable Artifacts</h3>
+                    <p class="text-fog/70 text-sm">Institutional knowledge lost to time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 03: THE SOLUTION -->
+    <!-- ========================================== -->
+    <section id="slide-03" class="slide v1-slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">02</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Solution</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="mb-16">
+                <p class="font-serif text-3xl md:text-5xl leading-[1.3] text-bone">
+                    <span class="gradient-text font-semibold">Strategic Narrative Synthesis</span>
+                </p>
+                <p class="font-serif text-xl text-fog/70 mt-4">Transform conversations into strategic clarity in hours, not weeks.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 border border-victory/30 bg-victory/5 rounded-lg">
+                    <span class="font-mono text-4xl font-bold text-victory/40 block mb-4">1</span>
+                    <h3 class="font-serif text-lg font-semibold mb-2">Facilitation Framework</h3>
+                    <p class="text-fog/70 text-sm">Structured conversations that surface what matters</p>
+                </div>
+                <div class="p-6 border border-victory/30 bg-victory/5 rounded-lg">
+                    <span class="font-mono text-4xl font-bold text-victory/40 block mb-4">2</span>
+                    <h3 class="font-serif text-lg font-semibold mb-2">AI-Powered Synthesis</h3>
+                    <p class="text-fog/70 text-sm">Pattern recognition across complex narratives</p>
+                </div>
+                <div class="p-6 border border-victory/30 bg-victory/5 rounded-lg">
+                    <span class="font-mono text-4xl font-bold text-victory/40 block mb-4">3</span>
+                    <h3 class="font-serif text-lg font-semibold mb-2">Artifact Creation</h3>
+                    <p class="text-fog/70 text-sm">Beautiful, actionable strategic documents</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 04: BEFORE & AFTER -->
+    <!-- ========================================== -->
+    <section id="slide-04" class="slide v1-slide bg-steel/30">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">03</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Proof</h2>
+                <span class="font-mono text-xs text-fog/40 ml-4">// Dr. Galbreath Example</span>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                
+                <!-- Before -->
+                <div class="p-8 bg-command/5 border border-command/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-command">Before</h3>
+                    <ul class="space-y-4 text-fog/70 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>60-minute all-hands introduction</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>Team unsure of new director's priorities</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>Philosophy scattered across anecdotes</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>No reference document for alignment</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- After -->
+                <div class="p-8 bg-victory/5 border border-victory/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-victory">After</h3>
+                    <ul class="space-y-4 text-bone text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>One-page Leadership Philosophy Brief</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Four pillars of the "Accessibility Doctrine"</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Strategic priorities with timeline</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Immediate clarity on what matters</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="mt-12 p-6 border border-signal/30 bg-signal/5 rounded-lg text-center">
+                <p class="font-serif text-lg text-bone">
+                    Response from Elizabeth: <span class="text-signal font-semibold">"Super happy with everything... night and day from the other team."</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 05: THE PROCESS -->
+    <!-- ========================================== -->
+    <section id="slide-05" class="slide v1-slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">04</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">How It Works</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="space-y-8">
+                
+                <!-- Step 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-2">
+                        <span class="font-mono text-5xl font-bold text-signal/30">01</span>
+                    </div>
+                    <div class="md:col-span-10 border-l border-signal/30 pl-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Capture</h3>
+                        <p class="text-fog/70">Facilitated conversation or existing recording → transcription → structured data extraction</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-2">
+                        <span class="font-mono text-5xl font-bold text-fog/20">02</span>
+                    </div>
+                    <div class="md:col-span-10 border-l border-fog/20 pl-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Synthesize</h3>
+                        <p class="text-fog/70">AI-powered pattern recognition → theme extraction → framework development</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-2">
+                        <span class="font-mono text-5xl font-bold text-fog/20">03</span>
+                    </div>
+                    <div class="md:col-span-10 border-l border-fog/20 pl-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Create</h3>
+                        <p class="text-fog/70">Custom artifact generation → web brief, slide deck, PDF export → veracity review</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-2">
+                        <span class="font-mono text-5xl font-bold text-victory/30">04</span>
+                    </div>
+                    <div class="md:col-span-10 border-l border-victory/30 pl-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Deploy</h3>
+                        <p class="text-fog/70">Instant access via secure URL → shareable with leadership → living document updates</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 06: COMPLIANCE PATH -->
+    <!-- ========================================== -->
+    <section id="slide-06" class="slide v1-slide bg-steel/30">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">05</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Compliance Path</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                
+                <!-- Current State -->
+                <div class="p-8 bg-slate/50 border border-fog/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-fog/80">Current State</h3>
+                    <ul class="space-y-4 text-fog/70 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-fog/40">→</span>
+                            <span>Personal tools (MacBook, commercial AI)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-fog/40">→</span>
+                            <span>Documented process with consent protocols</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-fog/40">→</span>
+                            <span>No PII in AI prompts</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-fog/40">→</span>
+                            <span>Veracity review before publication</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Desired State -->
+                <div class="p-8 bg-victory/5 border border-victory/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-victory">Desired State</h3>
+                    <ul class="space-y-4 text-bone text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>GFE MacBook with approved toolset</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>CAC card access / network integration</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>DoD-approved AI tools (Gemini/Azure)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Formal consent & data handling protocols</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="p-4 bg-slate/50 rounded text-center">
+                    <span class="block font-mono text-xs text-fog/50 mb-1">Equipment</span>
+                    <span class="text-bone font-medium">MacBook Pro</span>
+                </div>
+                <div class="p-4 bg-slate/50 rounded text-center">
+                    <span class="block font-mono text-xs text-fog/50 mb-1">Software</span>
+                    <span class="text-bone font-medium">Adobe Suite + VS Code</span>
+                </div>
+                <div class="p-4 bg-slate/50 rounded text-center">
+                    <span class="block font-mono text-xs text-fog/50 mb-1">AI Access</span>
+                    <span class="text-bone font-medium">DoD Gemini</span>
+                </div>
+                <div class="p-4 bg-slate/50 rounded text-center">
+                    <span class="block font-mono text-xs text-fog/50 mb-1">Timeline</span>
+                    <span class="text-victory font-medium">6-8 Weeks</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 07: IMMEDIATE OPPORTUNITY -->
+    <!-- ========================================== -->
+    <section id="slide-07" class="slide v1-slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">06</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Opportunity</h2>
+                <span class="font-mono text-xs text-fog/40 ml-4">// Immediate</span>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="mb-16">
+                <p class="font-serif text-3xl md:text-4xl leading-[1.3] text-bone">
+                    OCCWI becomes the first government office with <span class="text-signal font-semibold">embedded strategic clarity capability.</span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="pillar-card p-8">
+                    <h3 class="font-serif text-xl font-semibold mb-4">For OCCWI</h3>
+                    <ul class="space-y-3 text-fog/80 text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-signal mt-1">→</span>
+                            <span>Leadership briefs for Dr. Galbreath's priorities</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-signal mt-1">→</span>
+                            <span>IPPW practitioner story synthesis</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-signal mt-1">→</span>
+                            <span>Commander-ready evidence packages</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-signal mt-1">→</span>
+                            <span>Meeting-to-action artifact pipeline</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pillar-card p-8">
+                    <h3 class="font-serif text-xl font-semibold mb-4">For Deloitte</h3>
+                    <ul class="space-y-3 text-fog/80 text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-deloitte mt-1">→</span>
+                            <span>Proof of concept in active government contract</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-deloitte mt-1">→</span>
+                            <span>Differentiated AI capability for DoD practice</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-deloitte mt-1">→</span>
+                            <span>Aligned with corporate AI transformation push</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-deloitte mt-1">→</span>
+                            <span>Client satisfaction already demonstrated</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 08: SCALE OPPORTUNITY -->
+    <!-- ========================================== -->
+    <section id="slide-08" class="slide v1-slide bg-steel/30">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">06</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Opportunity</h2>
+                <span class="font-mono text-xs text-fog/40 ml-4">// Scale</span>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Phase 1 -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-signal to-signal/20 rounded-full"></div>
+                    <div class="pl-6">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-signal block mb-2">Phase 1 — 6-8 Weeks</span>
+                        <h3 class="font-serif text-xl font-semibold mb-4">Compliant Pilot</h3>
+                        <ul class="space-y-2 text-fog/80 text-sm">
+                            <li>→ GFE procurement</li>
+                            <li>→ Protocol establishment</li>
+                            <li>→ 5-10 OCCWI sessions</li>
+                            <li>→ Methodology documentation</li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-slate/50 rounded">
+                            <span class="font-mono text-xs text-fog/50">~$5K setup</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-fog/40 to-fog/10 rounded-full"></div>
+                    <div class="pl-6">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-fog/60 block mb-2">Phase 2 — 3 Months</span>
+                        <h3 class="font-serif text-xl font-semibold mb-4">Capability Development</h3>
+                        <ul class="space-y-2 text-fog/80 text-sm">
+                            <li>→ Methodology formalization</li>
+                            <li>→ Training curriculum</li>
+                            <li>→ 2-3 other office pilots</li>
+                            <li>→ Case study development</li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-slate/50 rounded">
+                            <span class="font-mono text-xs text-fog/50">$50-75K consulting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-victory/40 to-victory/10 rounded-full"></div>
+                    <div class="pl-6">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-victory/60 block mb-2">Phase 3 — 6-12 Months</span>
+                        <h3 class="font-serif text-xl font-semibold mb-4">Scale & Open Source</h3>
+                        <ul class="space-y-2 text-fog/80 text-sm">
+                            <li>→ IPPW practitioner training</li>
+                            <li>→ Open source to DoD</li>
+                            <li>→ Implementation support</li>
+                            <li>→ DoD GenAI use case</li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-slate/50 rounded">
+                            <span class="font-mono text-xs text-fog/50">$150-250K implementation</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 09: PARTNERSHIP MODEL -->
+    <!-- ========================================== -->
+    <section id="slide-09" class="slide v1-slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">07</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Partnership Model</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- What Deloitte Gets -->
+                <div class="p-8 bg-deloitte/5 border border-deloitte/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 flex items-center gap-3">
+                        <span class="text-deloitte">→</span> What Deloitte Licenses
+                    </h3>
+                    <p class="text-fog/60 text-sm mb-4">(Government Sector Only)</p>
+                    <ul class="space-y-3 text-bone text-sm mb-6">
+                        <li>• P3 Framework (methodology core)</li>
+                        <li>• Facilitation playbooks</li>
+                        <li>• Training curriculum</li>
+                        <li>• Implementation guides</li>
+                    </ul>
+                </div>
+
+                <!-- What Briefs Studio Retains -->
+                <div class="p-8 bg-signal/5 border border-signal/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 flex items-center gap-3">
+                        <span class="text-signal">✓</span> What Briefs Studio Retains
+                    </h3>
+                    <p class="text-fog/60 text-sm mb-4">(Full Ownership)</p>
+                    <ul class="space-y-3 text-bone text-sm">
+                        <li>✓ Full rights for private sector</li>
+                        <li>✓ Ability to work with other firms</li>
+                        <li>✓ Book/speaking/course creation</li>
+                        <li>✓ Core methodology ownership</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="mt-12 p-6 border border-fog/10 bg-steel/30 rounded-lg">
+                <p class="font-serif text-xl text-center text-bone">
+                    Deloitte as <span class="gradient-text-deloitte font-semibold">"the firm that brings strategic clarity to government"</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 10: WHY NOW -->
+    <!-- ========================================== -->
+    <section id="slide-10" class="slide v1-slide bg-steel/30">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">08</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Why Now</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="mb-16">
+                <p class="font-serif text-3xl md:text-4xl leading-[1.3] text-bone">
+                    The window is <span class="text-signal font-semibold">open.</span>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 bg-signal/20 text-signal font-mono text-sm font-bold flex items-center justify-center rounded flex-shrink-0">1</span>
+                        <div>
+                            <h3 class="font-serif text-lg font-semibold mb-1">Deloitte is pushing AI</h3>
+                            <p class="text-fog/70 text-sm">"This is the direction the department is moving"</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 bg-fog/10 text-fog font-mono text-sm font-bold flex items-center justify-center rounded flex-shrink-0">2</span>
+                        <div>
+                            <h3 class="font-serif text-lg font-semibold mb-1">New administration incoming</h3>
+                            <p class="text-fog/70 text-sm">OCCWI needs to demonstrate value fast</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 bg-fog/10 text-fog font-mono text-sm font-bold flex items-center justify-center rounded flex-shrink-0">3</span>
+                        <div>
+                            <h3 class="font-serif text-lg font-semibold mb-1">IPPW workforce at risk</h3>
+                            <p class="text-fog/70 text-sm">Dr. Galbreath's #1 priority needs evidence</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 bg-fog/10 text-fog font-mono text-sm font-bold flex items-center justify-center rounded flex-shrink-0">4</span>
+                        <div>
+                            <h3 class="font-serif text-lg font-semibold mb-1">Executive champion in place</h3>
+                            <p class="text-fog/70 text-sm">Elizabeth is "super happy" with the work</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 bg-fog/10 text-fog font-mono text-sm font-bold flex items-center justify-center rounded flex-shrink-0">5</span>
+                        <div>
+                            <h3 class="font-serif text-lg font-semibold mb-1">Compliance path is clear</h3>
+                            <p class="text-fog/70 text-sm">GFE + CAC + DoD tools = problem solved</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <span class="w-8 h-8 bg-victory/20 text-victory font-mono text-sm font-bold flex items-center justify-center rounded flex-shrink-0">6</span>
+                        <div>
+                            <h3 class="font-serif text-lg font-semibold mb-1">Methodology is proven</h3>
+                            <p class="text-fog/70 text-sm">2+ years in development, multiple clients</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 11: NEXT STEPS -->
+    <!-- ========================================== -->
+    <section id="slide-11" class="slide v1-slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">09</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Next Steps</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="space-y-6">
+                
+                <div class="flex items-start gap-6 p-6 bg-signal/5 border border-signal/20 rounded-lg">
+                    <span class="w-10 h-10 bg-signal/20 text-signal font-mono text-lg font-bold flex items-center justify-center rounded flex-shrink-0">1</span>
+                    <div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Rebecca briefs risk team</h3>
+                        <p class="text-fog/70">Share methodology documentation, establish consent protocols, align on data handling</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-6 p-6 bg-fog/5 border border-fog/20 rounded-lg">
+                    <span class="w-10 h-10 bg-fog/10 text-fog font-mono text-lg font-bold flex items-center justify-center rounded flex-shrink-0">2</span>
+                    <div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">GFE procurement initiated</h3>
+                        <p class="text-fog/70">MacBook + required software + CAC processing begins</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-6 p-6 bg-fog/5 border border-fog/20 rounded-lg">
+                    <span class="w-10 h-10 bg-fog/10 text-fog font-mono text-lg font-bold flex items-center justify-center rounded flex-shrink-0">3</span>
+                    <div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Pilot sessions continue</h3>
+                        <p class="text-fog/70">Document methodology in parallel with compliant setup</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-6 p-6 bg-victory/5 border border-victory/20 rounded-lg">
+                    <span class="w-10 h-10 bg-victory/20 text-victory font-mono text-lg font-bold flex items-center justify-center rounded flex-shrink-0">4</span>
+                    <div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Partnership discussion (Q1)</h3>
+                        <p class="text-fog/70">Formal structure, licensing terms, scale planning</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 12: CLOSING -->
+    <!-- ========================================== -->
+    <section id="slide-12" class="slide v1-slide bg-gradient-to-b from-steel/50 to-slate relative overflow-hidden">
+        <!-- Background Orbs -->
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-victory/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-64 h-64 bg-signal/10 rounded-full blur-3xl"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 py-20 text-center">
+            <div class="mb-12">
+                <p class="font-serif text-3xl md:text-5xl leading-[1.3] text-bone mb-8">
+                    Let's build something <span class="gradient-text font-semibold">remarkable</span> together.
+                </p>
+                <p class="font-serif text-xl text-fog/70">
+                    Strategic clarity as a capability. Not a one-off—a transformation.
+                </p>
+            </div>
+
+            <div class="inline-block p-8 border-2 border-signal/30 bg-signal/5 rounded-lg mb-12">
+                <p class="font-mono text-sm text-fog/60 mb-4">Questions to consider:</p>
+                <div class="space-y-3 text-left">
+                    <p class="text-bone">What questions do you have?</p>
+                    <p class="text-bone">What concerns should we address?</p>
+                    <p class="text-signal font-medium">What excites you most about this?</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-2 h-2 bg-victory rounded-full pulse-slow"></div>
+                    <span class="font-mono text-xs text-fog/40">Briefs Studio × Deloitte</span>
+                </div>
+                <p class="font-serif italic text-fog/60">Strategic Narrative Synthesis</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- V2 SLIDES: PROCESS OVERVIEW (FOR REBECCA) -->
+    <!-- ========================================== -->
+
+    <!-- V2 SLIDE 01: TITLE -->
+    <section class="slide v2-slide bg-slate relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 40px 40px;"></div>
+        </div>
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-victory/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-64 h-64 bg-signal/10 rounded-full blur-3xl"></div>
+        
+        <div class="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center">
+            <div class="mb-8">
+                <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-victory">Briefs Studio × Deloitte // Process Overview</span>
+            </div>
+            <h1 class="font-serif text-5xl md:text-7xl font-semibold leading-[1.1] mb-8">
+                Strategic Narrative<br>
+                <span class="gradient-text">Synthesis</span>
+            </h1>
+            <p class="font-serif text-lg text-fog/60 mb-12">How we transform conversations into strategic clarity</p>
+            <div class="inline-flex flex-wrap justify-center gap-8 text-sm">
+                <div class="text-left">
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Presented By</span>
+                    <span class="font-medium">Mike Marrotte</span>
+                </div>
+                <div class="text-left">
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">For</span>
+                    <span class="font-medium">Rebecca & Deloitte Leadership</span>
+                </div>
+                <div class="text-left">
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Date</span>
+                    <span class="font-medium">December 2025</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- V2 SLIDE 02: THE VALUE -->
+    <section class="slide v2-slide bg-steel/30">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">01</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Value Delivered</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+            <div class="mb-12">
+                <p class="font-serif text-3xl md:text-4xl leading-[1.3] text-bone">
+                    Turning complex conversations into <span class="text-victory font-semibold">actionable strategic documents.</span>
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 border border-command/30 bg-command/5 rounded-lg">
+                    <span class="font-mono text-4xl font-bold text-command/40 block mb-4">Before</span>
+                    <h3 class="font-serif text-lg font-semibold mb-2">60-Min All-Hands</h3>
+                    <p class="text-fog/70 text-sm">Critical information scattered across long meetings. Teams leave unclear on priorities.</p>
+                </div>
+                <div class="p-6 border border-signal/30 bg-signal/5 rounded-lg">
+                    <span class="font-mono text-4xl font-bold text-signal/40 block mb-4">Process</span>
+                    <h3 class="font-serif text-lg font-semibold mb-2">Strategic Synthesis</h3>
+                    <p class="text-fog/70 text-sm">Professional listening, pattern recognition, visual design execution.</p>
+                </div>
+                <div class="p-6 border border-victory/30 bg-victory/5 rounded-lg">
+                    <span class="font-mono text-4xl font-bold text-victory/40 block mb-4">After</span>
+                    <h3 class="font-serif text-lg font-semibold mb-2">Strategic Clarity</h3>
+                    <p class="text-fog/70 text-sm">One-page leadership briefs. Visual frameworks. Immediate alignment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- V2 SLIDE 03: THE PROCESS -->
+    <section class="slide v2-slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">02</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Process</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+            <div class="mb-8">
+                <p class="font-serif text-2xl text-fog/80">Applied strategic communications in four steps:</p>
+            </div>
+            <div class="space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-2">
+                        <span class="font-mono text-5xl font-bold text-signal/30">01</span>
+                    </div>
+                    <div class="md:col-span-10 border-l border-signal/30 pl-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Strategic Listening</h3>
+                        <p class="text-fog/70">Facilitated conversation or existing recording. Structured note-taking focused on extracting patterns, priorities, and themes.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-2">
+                        <span class="font-mono text-5xl font-bold text-fog/20">02</span>
+                    </div>
+                    <div class="md:col-span-10 border-l border-fog/20 pl-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Pattern Synthesis</h3>
+                        <p class="text-fog/70">Identifying key themes, recurring priorities, and strategic frameworks from the conversation. Professional judgment applied to structure the narrative.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-2">
+                        <span class="font-mono text-5xl font-bold text-fog/20">03</span>
+                    </div>
+                    <div class="md:col-span-10 border-l border-fog/20 pl-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Visual Design</h3>
+                        <p class="text-fog/70">Creating professional strategic documents using design tools. Custom layouts, clear information hierarchy, brand-appropriate execution.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-2">
+                        <span class="font-mono text-5xl font-bold text-victory/30">04</span>
+                    </div>
+                    <div class="md:col-span-10 border-l border-victory/30 pl-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Veracity Review</h3>
+                        <p class="text-fog/70">Subject reviews output for accuracy. Revisions incorporated. Final deliverable approved before sharing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- V2 SLIDE 04: TOOLS & APPROACH -->
+    <section class="slide v2-slide bg-steel/30">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">03</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Tools & Approach</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-8 bg-slate/50 border border-fog/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6">Current Toolkit</h3>
+                    <ul class="space-y-4 text-fog/80 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-signal">→</span>
+                            <span><strong>Design Software:</strong> Professional design tools for visual execution (Adobe Suite, Figma)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-signal">→</span>
+                            <span><strong>AI Augmentation:</strong> Consumer AI tools for synthesis assistance and note-taking efficiency</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-signal">→</span>
+                            <span><strong>Web Development:</strong> VS Code for creating interactive web-based deliverables</span>
+                        </li>
+                    </ul>
+                    <div class="mt-6 p-4 bg-signal/5 border border-signal/20 rounded">
+                        <p class="text-fog/70 text-sm"><strong class="text-bone">Key Point:</strong> AI tools are used the same way design software is used—as augmentation for professional judgment, not replacement. The strategic thinking and design decisions remain mine.</p>
+                    </div>
+                </div>
+                <div class="p-8 bg-victory/5 border border-victory/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-victory">Data Handling</h3>
+                    <ul class="space-y-4 text-bone text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>No PII included in any AI prompts</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Work stays in personal workspace</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Final deliverables are PDFs/web pages</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Nothing integrated with Deloitte systems</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Subject veracity review before publication</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- V2 SLIDE 05: PROOF OF VALUE -->
+    <section class="slide v2-slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">04</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Proof of Value</h2>
+                <span class="font-mono text-xs text-fog/40 ml-4">// Dr. Galbreath Example</span>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="p-8 bg-command/5 border border-command/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-command">Before</h3>
+                    <ul class="space-y-4 text-fog/70 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>60-minute all-hands introduction</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>Team unsure of new director's priorities</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>Philosophy scattered across anecdotes</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-command">✗</span>
+                            <span>No reference document for alignment</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-victory/5 border border-victory/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-victory">After</h3>
+                    <ul class="space-y-4 text-bone text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>One-page Leadership Philosophy Brief</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Four pillars of the "Accessibility Doctrine"</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Strategic priorities with timeline</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span>Immediate clarity on what matters</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 p-6 border border-signal/30 bg-signal/5 rounded-lg text-center">
+                <p class="font-serif text-lg text-bone">
+                    Response from Elizabeth: <span class="text-signal font-semibold">"Super happy with everything... night and day from the other team."</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- V2 SLIDE 06: APPLICATIONS -->
+    <section class="slide v2-slide bg-steel/30">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">05</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Where This Applies</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+            <div class="mb-8">
+                <p class="font-serif text-2xl text-fog/80">This capability can serve OCCWI across multiple needs:</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-6 border border-fog/20 bg-slate/50 rounded-lg">
+                    <h3 class="font-serif text-lg font-semibold mb-3">Leadership Briefs</h3>
+                    <p class="text-fog/70 text-sm">Synthesize executive communications into clear strategic documents for team alignment.</p>
+                </div>
+                <div class="p-6 border border-fog/20 bg-slate/50 rounded-lg">
+                    <h3 class="font-serif text-lg font-semibold mb-3">IPPW Practitioner Stories</h3>
+                    <p class="text-fog/70 text-sm">Capture and structure practitioner experiences into compelling evidence packages.</p>
+                </div>
+                <div class="p-6 border border-fog/20 bg-slate/50 rounded-lg">
+                    <h3 class="font-serif text-lg font-semibold mb-3">Campaign Integration</h3>
+                    <p class="text-fog/70 text-sm">Map narrative ecosystems across Ready Teams, Prevention.mil, and public health campaigns.</p>
+                </div>
+                <div class="p-6 border border-fog/20 bg-slate/50 rounded-lg">
+                    <h3 class="font-serif text-lg font-semibold mb-3">Commander-Ready Evidence</h3>
+                    <p class="text-fog/70 text-sm">Transform complex data into decision-ready materials for leadership.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- V2 SLIDE 07: CONTINUING THIS VALUE -->
+    <section class="slide v2-slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">06</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Continuing This Value</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+            <div class="mb-12">
+                <p class="font-serif text-3xl leading-[1.3] text-bone">
+                    To deliver this capability <span class="text-signal font-semibold">compliantly at scale</span>, here's what we need:
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-8 bg-slate/50 border border-fog/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-fog/80">Current State</h3>
+                    <ul class="space-y-4 text-fog/70 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-fog/40">→</span>
+                            <span>Personal MacBook</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-fog/40">→</span>
+                            <span>Commercial AI tools (consumer tier)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-fog/40">→</span>
+                            <span>Documented process with consent</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-fog/40">→</span>
+                            <span>Works but not optimal for scale</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-victory/5 border border-victory/20 rounded-lg">
+                    <h3 class="font-serif text-xl font-semibold mb-6 text-victory">What We Need</h3>
+                    <ul class="space-y-4 text-bone text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span><strong>Government Furnished Equipment (GFE)</strong> — MacBook with approved software</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span><strong>CAC Card Access</strong> — Network integration and authentication</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span><strong>DoD-Approved AI Tools</strong> — Gemini or Azure for synthesis</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-victory">✓</span>
+                            <span><strong>Formal Protocols</strong> — Consent forms, data handling documentation</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- V2 SLIDE 08: EQUIPMENT REQUIREMENTS -->
+    <section class="slide v2-slide bg-steel/30">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">07</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">GFE Requirements</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                <div class="p-6 bg-slate/50 border border-fog/20 rounded-lg text-center">
+                    <span class="block font-mono text-xs text-fog/50 mb-2">Hardware</span>
+                    <span class="text-bone font-semibold text-lg">MacBook Pro</span>
+                    <p class="text-fog/60 text-xs mt-2">For design work and development</p>
+                </div>
+                <div class="p-6 bg-slate/50 border border-fog/20 rounded-lg text-center">
+                    <span class="block font-mono text-xs text-fog/50 mb-2">Design Software</span>
+                    <span class="text-bone font-semibold text-lg">Adobe Suite</span>
+                    <p class="text-fog/60 text-xs mt-2">Creative Cloud or equivalent</p>
+                </div>
+                <div class="p-6 bg-slate/50 border border-fog/20 rounded-lg text-center">
+                    <span class="block font-mono text-xs text-fog/50 mb-2">Development</span>
+                    <span class="text-bone font-semibold text-lg">VS Code</span>
+                    <p class="text-fog/60 text-xs mt-2">For web-based deliverables</p>
+                </div>
+                <div class="p-6 bg-signal/5 border border-signal/30 rounded-lg text-center">
+                    <span class="block font-mono text-xs text-signal mb-2">AI Access</span>
+                    <span class="text-bone font-semibold text-lg">DoD Gemini</span>
+                    <p class="text-fog/60 text-xs mt-2">Approved synthesis tool</p>
+                </div>
+            </div>
+            <div class="p-6 border border-victory/30 bg-victory/5 rounded-lg">
+                <div class="flex items-center gap-4">
+                    <div class="flex-1">
+                        <h3 class="font-serif text-lg font-semibold mb-2">Timeline to Compliant Setup</h3>
+                        <p class="text-fog/70 text-sm">Once GFE is procured and CAC processed, we can transition to a fully compliant workflow.</p>
+                    </div>
+                    <div class="text-center px-6 border-l border-victory/30">
+                        <span class="text-victory font-mono text-3xl font-bold">6-8</span>
+                        <span class="block text-fog/60 text-xs uppercase tracking-wider">Weeks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- V2 SLIDE 09: CONSENT PROTOCOL -->
+    <section class="slide v2-slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">08</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Consent & Review Protocol</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+            <div class="mb-8">
+                <p class="font-serif text-2xl text-fog/80">Proposed workflow for compliant delivery:</p>
+            </div>
+            <div class="space-y-6">
+                <div class="flex items-start gap-6 p-6 bg-signal/5 border border-signal/20 rounded-lg">
+                    <span class="w-10 h-10 bg-signal/20 text-signal font-mono text-lg font-bold flex items-center justify-center rounded flex-shrink-0">1</span>
+                    <div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Recording Consent</h3>
+                        <p class="text-fog/70">Participant signs consent form before any recorded session. Clear explanation of how content will be used.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-6 p-6 bg-fog/5 border border-fog/20 rounded-lg">
+                    <span class="w-10 h-10 bg-fog/10 text-fog font-mono text-lg font-bold flex items-center justify-center rounded flex-shrink-0">2</span>
+                    <div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Synthesis on Approved Tools</h3>
+                        <p class="text-fog/70">All AI-assisted synthesis performed on DoD-approved platforms. No PII in prompts. No external data sharing.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-6 p-6 bg-fog/5 border border-fog/20 rounded-lg">
+                    <span class="w-10 h-10 bg-fog/10 text-fog font-mono text-lg font-bold flex items-center justify-center rounded flex-shrink-0">3</span>
+                    <div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Veracity Review</h3>
+                        <p class="text-fog/70">Subject reviews draft output for accuracy. Opportunity to correct, clarify, or remove content before finalization.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-6 p-6 bg-victory/5 border border-victory/20 rounded-lg">
+                    <span class="w-10 h-10 bg-victory/20 text-victory font-mono text-lg font-bold flex items-center justify-center rounded flex-shrink-0">4</span>
+                    <div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">Approved Publication</h3>
+                        <p class="text-fog/70">Final sign-off before any sharing. Deliverables stay within appropriate channels.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- V2 SLIDE 10: CLOSING -->
+    <section class="slide v2-slide bg-gradient-to-b from-steel/50 to-slate relative overflow-hidden">
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-victory/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-64 h-64 bg-signal/10 rounded-full blur-3xl"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 py-20 text-center">
+            <div class="mb-12">
+                <p class="font-serif text-3xl md:text-5xl leading-[1.3] text-bone mb-8">
+                    Let's build this capability <span class="gradient-text font-semibold">the right way.</span>
+                </p>
+                <p class="font-serif text-xl text-fog/70">
+                    Strategic clarity as a repeatable service. Compliant. Scalable. Valuable.
+                </p>
+            </div>
+
+            <div class="inline-block p-8 border-2 border-signal/30 bg-signal/5 rounded-lg mb-12">
+                <p class="font-mono text-sm text-fog/60 mb-4">Questions to discuss:</p>
+                <div class="space-y-3 text-left">
+                    <p class="text-bone">What's the process for GFE procurement?</p>
+                    <p class="text-bone">What does the risk team need from me?</p>
+                    <p class="text-signal font-medium">How can we make this work for everyone?</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-2 h-2 bg-victory rounded-full pulse-slow"></div>
+                    <span class="font-mono text-xs text-fog/40">Briefs Studio × Deloitte</span>
+                </div>
+                <p class="font-serif italic text-fog/60">Strategic Narrative Synthesis</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 border-t border-fog/10 print:hidden">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="font-mono text-xs text-fog/40 hover:text-signal transition-colors">← Back to Full Brief</a>
+            <div class="flex items-center gap-6">
+                <button onclick="window.print()" class="font-mono text-xs text-victory hover:text-victory/80 transition-colors">Export PDF ↓</button>
+                <span class="font-mono text-xs text-fog/40">12 Slides // December 2025</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+
+
+

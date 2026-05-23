@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYCELIUM x PATAGONIA // Regenerative Creative Infrastructure</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pataBlue: '#003145',
+                        pataOrange: '#f37021',
+                        pataGreen: '#445c3c',
+                        pataTan: '#f1ede4',
+                        pataInk: '#1a1a1a',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Crimson Pro', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #f1ede4;
+            --text: #1a1a1a;
+            --accent: #f37021;
+        }
+
+        ::-selection {
+            background: var(--accent);
+            color: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .paper-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .pata-border {
+            border: 1px solid var(--text);
+        }
+
+        .pata-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--text);
+            color: var(--bg);
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 11px;
+            transition: all 0.3s ease;
+        }
+
+        .pata-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .reveal-y {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Lenis smooth scroll fix */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .tag-pata {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #445c3c;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+        }
+
+        .activism-grid {
+            border-top: 2px solid var(--text);
+            border-bottom: 2px solid var(--text);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased">
+    <div class="paper-grain"></div>
+
+    <!-- NAVIGATION -->
+    <nav
+        class="fixed top-0 left-0 right-0 z-[100] bg-pataTan/90 border-b border-pataInk/10 h-16 flex items-center px-6 md:px-12 backdrop-blur-sm">
+        <div class="max-w-screen-2xl mx-auto w-full flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-5 bg-pataBlue relative overflow-hidden">
+                    <div class="absolute bottom-0 left-0 w-full h-2 bg-pataOrange"></div>
+                </div>
+                <span class="font-extrabold uppercase tracking-tight text-sm">Patagonia x Mycelium</span>
+            </div>
+            <div class="font-mono text-[9px] uppercase tracking-widest opacity-60 flex items-center gap-8">
+                <a href="patagonia-deck.html"
+                    class="hover:text-pataOrange transition-colors border border-pataInk/20 px-4 py-2">View
+                    Presentations</a>
+                <span>Regenerative Production Proposal // 2026.01.09</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-screen-xl mx-auto px-6 md:px-12 pt-32 pb-48">
+
+        <!-- HERO SECTION -->
+        <header class="mb-48 reveal-y" data-gsap="reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+                <div class="lg:col-span-8">
+                    <div class="mb-8">
+                        <span class="tag-pata">Solution to the Crisis</span>
+                    </div>
+                    <h1 class="font-serif text-[clamp(4rem,14vw,11rem)] font-bold heavy-title mb-12">
+                        Cause No <br>
+                        <span class="italic text-pataOrange">Unnecessary</span> <br>
+                        Harm.
+                    </h1>
+
+                    <!-- PRESENTATION LAUNCH BLOCK -->
+                    <div class="flex flex-col md:flex-row gap-8 mt-12 mb-16">
+                        <a href="patagonia-deck.html"
+                            class="group flex items-center gap-6 border-2 border-pataInk p-6 pr-12 hover:bg-pataInk hover:text-white transition-all bg-white">
+                            <div class="w-12 h-12 bg-pataOrange flex items-center justify-center text-white">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                                    <path d="M7 12l10 0" />
+                                    <path d="M7 8l10 0" />
+                                    <path d="M7 16l6 0" />
+                                </svg>
+                            </div>
+                            <div>
+                                <span
+                                    class="block font-mono text-[9px] uppercase tracking-widest text-pataOrange mb-1 group-hover:text-white transition-colors italic">For
+                                    External Review</span>
+                                <span class="block font-serif text-xl font-bold">Launch Patagonia Hub Deck</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <p class="font-serif text-3xl md:text-5xl leading-tight text-pataBlue max-w-4xl italic">
+                        "We're in business to save our home planet. Mycelium is the infrastructure that allows our
+                        stories to do the same."
+                    </p>
+                </div>
+                <div class="lg:col-span-4 mt-12 lg:mb-4">
+                    <div class="p-10 border-2 border-pataInk bg-white shadow-[8px_8px_0px_#1a1a1a]">
+                        <span class="font-mono text-[10px] uppercase tracking-widest opacity-40 mb-4 block">Executive
+                            Brief</span>
+                        <h3 class="font-serif text-xl font-bold mb-6">Subject: Regenerative Creative Production & The
+                            Zambia Water Project</h3>
+                        <p class="text-[11px] leading-relaxed opacity-70 font-sans uppercase mb-8">
+                            Moving from extractive agency models to distributed, artist-owned ecosystems.
+                        </p>
+                        <a href="#action" class="pata-btn w-full text-center">Review Proposal</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 01 // THE THESIS -->
+        <section class="mb-64 reveal-y" data-gsap="reveal">
+            <div class="flex items-center gap-6 mb-16">
+                <span class="font-mono text-xs font-bold">01</span>
+                <div class="h-px flex-grow bg-pataInk/10"></div>
+                <span class="font-mono text-[10px] uppercase tracking-[0.4em] opacity-40">Regenerative Philosophy</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-24 items-start">
+                <div class="space-y-8">
+                    <h2 class="font-serif text-5xl md:text-7xl">Infrastructure <br><span
+                            class="text-pataGreen italic">as Activism.</span></h2>
+                    <p class="text-xl md:text-2xl leading-relaxed text-pataBlue font-serif">
+                        Traditional advertising is extractive. It consumes attention and resources but leaves nothing
+                        behind.
+                    </p>
+                    <p class="text-lg leading-relaxed opacity-70">
+                        Mycelium operates like a forest floor. Each project for Patagonia is designed to seed the next
+                        generation of storytellers, retain value within the artist community, and fund direct action on
+                        the ground.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 gap-12">
+                    <div class="p-10 bg-pataGreen text-white pata-border">
+                        <h3 class="font-mono text-[10px] uppercase tracking-widest mb-6 border-b border-white/20 pb-4">
+                            The Mycelial Model</h3>
+                        <p class="text-2xl font-serif italic mb-6">"We don't build agencies. We build connective
+                            tissue."</p>
+                        <ul class="space-y-4 text-xs font-mono uppercase tracking-widest">
+                            <li class="flex gap-4"><span>01</span> 1:1 Production Transparency</li>
+                            <li class="flex gap-4"><span>02</span> Artist IP Ownership</li>
+                            <li class="flex gap-4"><span>03</span> Shared Community Metrics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02 // THE PILOT: ZAMBIA -->
+        <section id="action" class="mb-64 reveal-y" data-gsap="reveal">
+            <div class="flex items-center gap-6 mb-16">
+                <span class="font-mono text-xs font-bold">02</span>
+                <div class="h-px flex-grow bg-pataInk/10"></div>
+                <span class="font-mono text-[10px] uppercase tracking-[0.4em] opacity-40">The Immediate Project</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-px activism-grid bg-pataInk/10">
+                <div class="lg:col-span-8 bg-pataTan py-24 pr-12">
+                    <span class="tag-pata bg-pataOrange">Feature Focus</span>
+                    <h2 class="font-serif text-6xl md:text-8xl font-bold mb-12">Zambia <br>Water Project</h2>
+                    <p class="text-2xl font-serif max-w-2xl text-pataBlue italic mb-12">
+                        Co-creating a campaign centered on water sovereignty, featuring local activists and Mycelium's
+                        distributed artist network.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="space-y-6">
+                            <h4 class="font-mono text-[10px] uppercase tracking-widest opacity-40">Impact Metrics</h4>
+                            <ul class="text-xs font-mono space-y-3 uppercase tracking-wider">
+                                <li>• Production Funded by Patagonia: $12,000</li>
+                                <li>• Direct Local Community Grant: $3,000</li>
+                                <li>• Artists Paid Fair Living Wage: 5</li>
+                                <li>• Carbon Offset Shared Report: 100%</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-6">
+                            <h4 class="font-mono text-[10px] uppercase tracking-widest opacity-40">Story Deliverables
+                            </h4>
+                            <p class="text-[11px] font-mono leading-relaxed uppercase">
+                                1x Mini-Documentary<br>
+                                20x Educational Social Clips<br>
+                                High-Res Photo Archive<br>
+                                Shared Distribution Rights
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-4 bg-pataInk text-white p-12 lg:p-16 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-mono text-[10px] uppercase tracking-[0.3em] text-pataOrange mb-12">The
+                            Collaboration Hub</h3>
+                        <div class="space-y-8">
+                            <div class="pata-border p-6 border-white/20">
+                                <span class="block font-mono text-[9px] opacity-40 mb-2 uppercase">Brand Role</span>
+                                <p class="text-xs uppercase font-bold tracking-widest">Patagonia provides the seed
+                                    capital ($15K) and product support.</p>
+                            </div>
+                            <div class="pata-border p-6 border-white/20">
+                                <span class="block font-mono text-[9px] opacity-40 mb-2 uppercase">Mycelium Role</span>
+                                <p class="text-xs uppercase font-bold tracking-widest">Architects the project, selects
+                                    the "Spore Team," and manages delivery.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-12">
+                        <p class="text-[9px] font-mono opacity-40 leading-relaxed uppercase">
+                            *This proposal adheres to 1% for the Planet principles and ensures all technical gear
+                            utilized is recycled or reparable.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 // THE CALL TO ACTION -->
+        <section class="max-w-4xl mx-auto text-center reveal-y" data-gsap="reveal">
+            <div class="bg-white p-12 md:p-32 border-2 border-pataInk shadow-[20px_20px_0px_#445c3c]">
+                <h2 class="font-serif text-5xl md:text-7xl font-bold mb-12">The planet <br><span
+                        class="text-pataOrange italic">doesn't wait.</span></h2>
+                <p class="text-xl font-serif max-w-2xl mx-auto mb-16 leading-relaxed">
+                    We are currently selecting three partners for the 2026 Zambia Water Pilot. We want Patagonia to be
+                    the anchor foundation.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                    <button class="pata-btn px-16">Accept Proposed Partnership</button>
+                    <span class="font-mono text-[10px] uppercase tracking-widest opacity-40 italic">Deadline for Slot:
+                        Feb 01</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer
+            class="mt-48 pt-16 border-t border-pataInk/10 flex flex-col md:flex-row justify-between items-start opacity-40 font-mono text-[9px] uppercase tracking-[0.5em] gap-8">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-6 h-4 bg-pataInk"></div>
+                    <span>Mycelium // Patagonia Strategy</span>
+                </div>
+                <p class="max-w-xs leading-loose tracking-widest">Supporting the network that supports the earth.</p>
+            </div>
+            <div class="flex flex-col items-end gap-2">
+                <span>Est. 2026.01.09</span>
+                <span>Briefs Studio Infrastructure</span>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        window.addEventListener('load', () => {
+            gsap.utils.toArray('.reveal-y').forEach(item => {
+                gsap.to(item, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.5,
+                    ease: 'expo.out',
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 85%',
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

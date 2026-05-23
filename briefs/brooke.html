@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brooke | Anonymous Intimacy</title>
+    
+    <!-- OG Tags for social sharing -->
+    <meta property="og:title" content="Brooke | Anonymous Intimacy">
+    <meta property="og:description" content="What happens when we are given permission to feel together without the pressure to perform?">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://briefs.Briefs Studiostudio.com/briefs/brooke.html">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Brooke | Anonymous Intimacy">
+    <meta name="twitter:description" content="What happens when we are given permission to feel together without the pressure to perform?">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #080808;
+            --surface: #0e0e0e;
+            --spotlight: #c9a227;
+            --cream: #e8e4dc;
+            --muted: #6b6560;
+            --border: #1a1918;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--cream);
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-weight: 300;
+            line-height: 1.75;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 12vh 24px 16vh;
+        }
+
+        /* Header - extreme whitespace */
+        header {
+            margin-bottom: 16vh;
+            padding-top: 8vh;
+        }
+
+        .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 10vw, 5rem);
+            font-weight: 300;
+            letter-spacing: 0.04em;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .epithet {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--muted);
+            letter-spacing: 0.02em;
+        }
+
+        /* Sections with generous spacing */
+        .section {
+            margin-bottom: 12vh;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--spotlight);
+            margin-bottom: 2rem;
+        }
+
+        p {
+            font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+            margin-bottom: 1.75em;
+            color: var(--cream);
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Lead quote - full width break */
+        .lead {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--cream);
+            margin: 16vh 0;
+            text-align: center;
+            padding: 0 8%;
+        }
+
+        /* Memory block - subtle offset */
+        .memory {
+            background: var(--surface);
+            padding: 2.5rem;
+            margin: 8vh 0;
+            margin-left: -12px;
+            border-left: 2px solid var(--spotlight);
+        }
+
+        .memory p {
+            font-style: italic;
+            color: var(--cream);
+            opacity: 0.9;
+        }
+
+        .memory .note {
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        /* Worlds - simple list, not cards */
+        .worlds {
+            margin: 4vh 0;
+        }
+
+        .world {
+            padding: 1.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .world:first-child {
+            border-top: 1px solid var(--border);
+        }
+
+        .world-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .world-desc {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* Blockquote - stark */
+        blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--cream);
+            margin: 14vh 0;
+            padding: 0 5%;
+            text-align: center;
+        }
+
+        /* Terms - inline, not tags */
+        .terms {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 2;
+        }
+
+        .terms span {
+            color: var(--cream);
+        }
+
+        .terms span::after {
+            content: " · ";
+            color: var(--muted);
+        }
+
+        .terms span:last-child::after {
+            content: "";
+        }
+
+        /* Closing */
+        .closing {
+            margin-top: 16vh;
+            padding-top: 6vh;
+            border-top: 1px solid var(--border);
+        }
+
+        .closing p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            font-style: italic;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        footer {
+            margin-top: 16vh;
+            text-align: center;
+        }
+
+        .date {
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 8vh 20px 12vh;
+            }
+            
+            header {
+                margin-bottom: 12vh;
+                padding-top: 4vh;
+            }
+            
+            .section {
+                margin-bottom: 10vh;
+            }
+            
+            .lead {
+                margin: 12vh 0;
+                padding: 0;
+            }
+            
+            .memory {
+                margin-left: 0;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="name">Brooke</h1>
+            <p class="epithet">Architect of Anonymous Intimacy</p>
+        </header>
+
+        <p class="lead">"What happens when we all get together and we are given permission to feel together without the pressure to perform?"</p>
+
+        <section class="section">
+            <p class="section-label">The Core</p>
+            <p>Anonymous intimacy: a paradoxical state of existence. A deep emotional connection that passes between strangers without the requisite social machinery.</p>
+            <p>No need for a known identity. No need for a transactional relationship. No need for performance.</p>
+            <p>You know the feeling. Your favorite band's concert. Everyone singing along. You lock eyes with someone you've never met. You know they're deep in this with you. You're having this moment together. You have no idea who they are. But here, you get to be vulnerable and whole and human and together.</p>
+        </section>
+
+        <div class="memory">
+            <p>Age seven. Dallas Summer Musicals. The Lion King. A giant elephant walks down the aisle. So much awe and wonder and magic. She looks at her dad. He feels the exact same way.</p>
+            <p>They have a difficult relationship—they did then, they still do. It waxes and wanes. But in that moment, it didn't matter. The experience created conditions where that didn't matter.</p>
+            <p class="note">That's the it.</p>
+        </div>
+
+        <section class="section">
+            <p class="section-label">The Practice</p>
+            <p>Her work lives at the intersection of storytelling, community, ephemerality, and radical play. Creating containers and permission structures for grief, wonder, and care to exist in public spaces—without being extractive, without necessarily having to be spectacle.</p>
+            <p>What's in your mailbox? What's in your phone? What happened on the street?</p>
+        </section>
+
+        <section class="section">
+            <p class="section-label">The Worlds</p>
+            <div class="worlds">
+                <div class="world">
+                    <div class="world-name">Theater & Immersive</div>
+                    <div class="world-desc">Regional theater. The Sleepy Hollow Experience on Washington Irving's estate. Christmas with the Marches—an immersive Little Women. Sleep No More's extended universe: parties, narrative extensions, deepening relationships through email.</div>
+                </div>
+                <div class="world">
+                    <div class="world-name">Corporate & Brand</div>
+                    <div class="world-desc">Tribeca Film Festival. Hershey Park—recrafting how ride operators interact with guests. Cash App. MailChimp. Making sure people feel like they're part of a community using something for a purpose.</div>
+                </div>
+                <div class="world">
+                    <div class="world-name">Community</div>
+                    <div class="world-desc">Speak—a nonprofit using theatrical practices and nonviolent communication with teen girls in DC. Teaching storytelling in design departments.</div>
+                </div>
+                <div class="world">
+                    <div class="world-name">Intimate Interventions</div>
+                    <div class="world-desc">Urban adventures via text message for people new to New York. Little kits to find modes of belonging. What does longing look like? What does home look like? How many hugs did you see?</div>
+                </div>
+            </div>
+        </section>
+
+        <blockquote>"I am mostly only interested in process. Product is great. But that's not where the cool shit happens."</blockquote>
+
+        <section class="section">
+            <p class="section-label">Unfinished Endings</p>
+            <p>A living archive for disenfranchised grief. The losses we don't have tools to create space for—from a favorite pen to somebody passing away.</p>
+            <p>Visitors approach at their own comfort level. Cardboard sculptures based on stories of loss. Listening phones on the exterior—an exercise in collective witnessing. Shadow puppets playing alongside recordings.</p>
+            <p>The invitation: choose your own adventure. You can listen, you can read, you can record. The space doesn't demand anything of you other than being there. An opportunity to practice listening without being face-to-face with somebody and potentially fucking it up.</p>
+        </section>
+
+        <section class="section">
+            <p class="section-label">The Language</p>
+            <p class="terms">
+                <span>anonymous intimacy</span>
+                <span>radical play</span>
+                <span>collective effervescence</span>
+                <span>collective witnessing</span>
+                <span>care infrastructure</span>
+                <span>permission structures</span>
+                <span>grief as scale</span>
+            </p>
+        </section>
+
+        <section class="section">
+            <p class="section-label">The Framework</p>
+            <p>Invitation. Floor. Play. Rules. Aftercare.</p>
+            <p>Everything in the middle could be almost anything—but how you bring people in and how you take care of them after? That's where she gets excited.</p>
+        </section>
+
+        <div class="closing">
+            <p>Come when you're stuck. Come when you need kindness and rigor. She's a diagrammer, a diagnostician, a dramaturg—here to help you see what is inside the stone.</p>
+        </div>
+
+        <footer>
+            <p class="date">February 2026</p>
+        </footer>
+    </div>
+</body>
+</html>

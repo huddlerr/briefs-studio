@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Babylift Collection // Presentation Deck</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Satisfy&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        manila: '#F2E8CF',
+                        archiveNavy: '#1B365D',
+                        archiveOrange: '#FF7F32',
+                        archiveRed: '#BC4749',
+                        archiveInk: '#2B2D42',
+                        folderTan: '#E7D8B1',
+                    },
+                    fontFamily: {
+                        stamp: ['Bebas Neue', 'cursive'],
+                        script: ['Satisfy', 'cursive'],
+                        body: ['Libre Baskerville', 'serif'],
+                        mono: ['Space Mono', 'monospace'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #FDFCF0; color: #2B2D42; }
+        
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+            background-image: radial-gradient(#E7D8B1 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .stamp-blue {
+            color: #1B365D;
+            border: 4px double #1B365D;
+            padding: 0.5rem 1rem;
+            display: inline-block;
+            text-transform: uppercase;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.1em;
+            transform: rotate(-2deg);
+        }
+
+        .polaroid {
+            background: white;
+            padding: 1rem 1rem 4rem 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .film-strip {
+            background-color: #1A1A1A;
+            padding: 15px 0;
+            background-image: 
+                linear-gradient(90deg, #FDFCF0 20px, transparent 20px);
+            background-size: 40px 100%;
+            opacity: 0.1;
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+
+        .slide-nav {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 100;
+            background: rgba(27, 54, 93, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        .nav-dot.active {
+            background: #FF7F32;
+            transform: scale(1.5);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- NAVIGATION OVERLAY -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-archiveNavy/90 backdrop-blur-sm text-white px-6 py-2 flex items-center justify-between">
+        <a href="index.html" class="font-mono text-[9px] hover:text-archiveOrange transition-colors uppercase tracking-widest">← Back to Full Dossier</a>
+        <div class="font-stamp text-xl tracking-wider text-archiveOrange">Operation Babylift Collection</div>
+        <div class="font-mono text-[9px] opacity-40 uppercase">Slide_View // v1.0</div>
+    </nav>
+
+    <!-- SLIDE 01: TITLE -->
+    <section id="slide-01" class="slide">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="film-strip top-20"></div>
+            <div class="film-strip bottom-20"></div>
+            <h1 class="font-stamp text-[120px] md:text-[200px] leading-[0.8] text-archiveOrange mb-4 uppercase">
+                Operation<br>Babylift<br>Collection
+            </h1>
+            <p class="font-sans text-xl md:text-3xl font-medium text-archiveNavy tracking-tight border-y-2 border-archiveNavy/10 py-6 inline-block">
+                Reuniting Operation Babylift Adoptees with Their Stories
+            </p>
+        </div>
+    </section>
+
+    <!-- SLIDE 02: THE CONFESSION -->
+    <section id="slide-02" class="slide bg-archiveNavy text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-script text-6xl md:text-8xl text-archiveOrange mb-12 leading-tight">
+                "I’m not sure I should be doing this."
+            </h2>
+            <p class="font-body text-2xl md:text-3xl text-manila/80 italic leading-relaxed">
+                "The truth is more complicated, and you deserve the truth."
+            </p>
+            <div class="mt-16">
+                <div class="stamp-blue !border-archiveOrange !text-archiveOrange scale-125">Radical Transparency</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 03: THE CRASH -->
+    <section id="slide-03" class="slide">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="font-mono text-xs uppercase tracking-[0.3em] text-archiveNavy/40 mb-4 block">April 4, 1975 // 12 Minutes</span>
+                    <h2 class="font-stamp text-7xl md:text-9xl text-archiveNavy leading-[0.9] mb-8">The Incident.</h2>
+                    <p class="font-body text-2xl text-archiveInk italic mb-8">
+                        Strapped into a cardboard box. C-5A Galaxy blowout. Impact in a rice paddy 6 miles short.
+                    </p>
+                    <div class="p-8 border-4 border-double border-archiveRed text-archiveRed font-stamp text-4xl text-center rotate-1">
+                        178 Survived. I was one.
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="polaroid -rotate-3">
+                        <div class="bg-archiveNavy/10 aspect-[4/5] flex items-center justify-center border border-archiveNavy/10">
+                            <span class="font-mono text-[10px] uppercase opacity-30">[PHOTO: REAR_RAMP_FAIL]</span>
+                        </div>
+                    </div>
+                    <div class="polaroid rotate-6 absolute inset-0 -z-10 opacity-30"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 04: THE INHERITANCE -->
+    <section id="slide-04" class="slide bg-folderTan/20">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="font-mono text-xs uppercase tracking-[0.3em] text-archiveNavy/40 mb-8 block">Legacy Stewardship</span>
+            <h2 class="font-stamp text-8xl md:text-[150px] text-archiveNavy leading-[0.8] mb-12 uppercase">33 Boxes in a<br>Basement.</h2>
+            <div class="font-script text-5xl md:text-7xl text-archiveRed transform -rotate-2">
+                "Connect as many adoptees as you can."
+            </div>
+            <p class="font-body text-xl md:text-2xl text-archiveInk mt-12 max-w-2xl mx-auto italic opacity-70">
+                Sister Mary Nelle Gage entrusted the Friends For All Children archive to an accidental archivist.
+            </p>
+        </div>
+    </section>
+
+    <!-- SLIDE 05: THE MAGIC -->
+    <section id="slide-05" class="slide">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-stamp text-6xl md:text-8xl text-archiveNavy mb-16 text-center">The Magic.</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 bg-white border-2 border-archiveNavy/5 shadow-xl rotate-1">
+                    <h4 class="font-stamp text-3xl text-archiveOrange mb-4">The Wrong Door</h4>
+                    <p class="font-body text-sm italic">Library of Congress manuscript building. Back rooms with Walt Whitman's papers.</p>
+                </div>
+                <div class="p-8 bg-white border-2 border-archiveNavy/5 shadow-xl -rotate-1">
+                    <h4 class="font-stamp text-3xl text-archiveOrange mb-4">The Pilot</h4>
+                    <p class="font-body text-sm italic">Coffee in Col. Bud Traynor's kitchen. We laughed. We cried. We remembered.</p>
+                </div>
+                <div class="p-8 bg-white border-2 border-archiveNavy/5 shadow-xl rotate-2">
+                    <h4 class="font-stamp text-3xl text-archiveOrange mb-4">The Classmate</h4>
+                    <p class="font-body text-sm italic">My Maui High classmate standing in a Denver gallery 30 years later.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 06: THE CONFRONTATION -->
+    <section id="slide-06" class="slide bg-archiveRed text-white">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="stamp-blue !border-white !text-white mb-12">ETHICAL_FLASHPOINT</div>
+            <h2 class="font-stamp text-7xl md:text-9xl mb-8 leading-[0.9]">Truth vs. Safety.</h2>
+            <p class="font-body text-2xl md:text-4xl italic text-manila/80 max-w-3xl mx-auto leading-relaxed">
+                "What if the files I deliver contain information that could be used against them in deportation proceedings?"
+            </p>
+            <p class="font-mono text-sm uppercase tracking-widest mt-12 opacity-50">600% Increase in Denaturalization Cases since 2017</p>
+        </div>
+    </section>
+
+    <!-- SLIDE 07: POSITION -->
+    <section id="slide-07" class="slide">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+                <div class="relative">
+                    <div class="bg-folderTan p-12 border-2 border-archiveNavy/10 shadow-2xl rotate-2">
+                        <div class="stamp-blue mb-8">CASE_FILE: DEVAKI_M</div>
+                        <h4 class="font-stamp text-3xl text-archiveNavy mb-6 uppercase">Why This Steward?</h4>
+                        <ul class="font-body text-lg italic space-y-4">
+                            <li>• Operation Babylift Adoptee</li>
+                            <li>• C-5A Crash Survivor</li>
+                            <li>• Trusted by Sister Mary Nelle</li>
+                            <li>• Trusted by Vietnamese Diaspora</li>
+                            <li>• Expert in Safe Space Production</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="font-stamp text-7xl md:text-9xl text-archiveNavy leading-[0.9] mb-8">Positionality.</h2>
+                    <p class="font-body text-2xl text-archiveInk italic">
+                        The right person for work that requires constant ethical vigilance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 08: LOVE ETHIC -->
+    <section id="slide-08" class="slide bg-manila/30">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-script text-7xl md:text-9xl text-archiveRed mb-4">Love Ethic Archival</h2>
+                <div class="h-1 w-32 bg-archiveNavy mx-auto mb-8"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="p-8 bg-white border border-archiveNavy/10 text-center shadow-xl">
+                    <h4 class="font-stamp text-2xl mb-4">Trauma Informed</h4>
+                    <p class="font-mono text-[9px] uppercase opacity-50">Care beyond delivery.</p>
+                </div>
+                <div class="p-8 bg-white border border-archiveNavy/10 text-center shadow-xl">
+                    <h4 class="font-stamp text-2xl mb-4">5-Layer Consent</h4>
+                    <p class="font-mono text-[9px] uppercase opacity-50">Radical permission.</p>
+                </div>
+                <div class="p-8 bg-white border border-archiveNavy/10 text-center shadow-xl">
+                    <h4 class="font-stamp text-2xl mb-4">Community Led</h4>
+                    <p class="font-mono text-[9px] uppercase opacity-50">Adoptee ownership.</p>
+                </div>
+                <div class="p-8 bg-white border border-archiveNavy/10 text-center shadow-xl">
+                    <h4 class="font-stamp text-2xl mb-4">Strategic Silence</h4>
+                    <p class="font-mono text-[9px] uppercase opacity-50">Safety over data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 09: THE ASK -->
+    <section id="slide-09" class="slide bg-archiveNavy text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+                <div>
+                    <span class="stamp-blue !border-archiveOrange !text-archiveOrange mb-8">BUDGET_FY2026</span>
+                    <h2 class="font-stamp text-[100px] leading-[0.8] text-manila uppercase mb-12">Total Need:<br>$105,000</h2>
+                    <ul class="font-body text-xl italic space-y-6 text-manila/60">
+                        <li>• Process 33 Boxes ($35k)</li>
+                        <li>• Deliver 50 Files ($20k)</li>
+                        <li>• 20 Oral Histories ($25k)</li>
+                        <li>• Honor Veterans ($15k)</li>
+                    </ul>
+                </div>
+                <div class="bg-white text-archiveInk p-12 shadow-2xl rotate-1 self-center">
+                    <h4 class="font-stamp text-3xl mb-8 text-archiveNavy">The Investment</h4>
+                    <p class="font-body text-lg italic leading-relaxed mb-8">
+                        "You’re not investing in someone who has all the answers. You’re investing in someone who’s asking all the right questions."
+                    </p>
+                    <div class="text-center border-t-2 border-archiveNavy/10 pt-8">
+                        <div class="font-stamp text-4xl text-archiveOrange">$100,000</div>
+                        <p class="font-mono text-[9px] uppercase opacity-50">Legacy Partner (2 Year Commitment)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 10: CLOSING -->
+    <section id="slide-10" class="slide">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-script text-[120px] md:text-[200px] text-archiveRed leading-tight mb-8 transform -rotate-3">
+                "Keep going."
+            </h2>
+            <p class="font-body text-3xl md:text-5xl italic text-archiveInk opacity-40 mb-16">
+                The universe keeps saying: Keep going.
+            </p>
+            <div class="flex flex-col items-center gap-8">
+                <div class="stamp-blue scale-150">Devaki Murch</div>
+                <p class="font-mono text-xs uppercase tracking-[0.4em] opacity-40">Accidental Archivist // Survivor // Steward</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NAV DOTS -->
+    <div class="slide-nav">
+        <a href="#slide-01" class="nav-dot active"></a>
+        <a href="#slide-02" class="nav-dot"></a>
+        <a href="#slide-03" class="nav-dot"></a>
+        <a href="#slide-04" class="nav-dot"></a>
+        <a href="#slide-05" class="nav-dot"></a>
+        <a href="#slide-06" class="nav-dot"></a>
+        <a href="#slide-07" class="nav-dot"></a>
+        <a href="#slide-08" class="nav-dot"></a>
+        <a href="#slide-09" class="nav-dot"></a>
+        <a href="#slide-10" class="nav-dot"></a>
+    </div>
+
+    <script>
+        // EASTER EGG: Type "babylift" to enter the Command Center
+        let keys = [];
+        const code = 'babylift';
+        window.addEventListener('keydown', (e) => {
+            keys.push(e.key.toLowerCase());
+            keys = keys.slice(-code.length);
+            if (keys.join('') === code) {
+                window.location.href = 'command-center.html';
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.nav-dot');
+            let current = "";
+            slides.forEach(slide => {
+                if (pageYOffset >= slide.offsetTop - 200) {
+                    current = slide.getAttribute('id');
+                }
+            });
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('href') === `#${current}`) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

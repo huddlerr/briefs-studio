@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio // Resilience System Alignment — Slide Deck</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: '#0F172A',
+                        charcoal: '#1E293B',
+                        amber: '#F59E0B',
+                        emerald: '#10B981',
+                        teal: '#0D9488',
+                        fog: '#94A3B8',
+                        bone: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0F172A;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .moment-card {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 2rem;
+            right: 4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #F59E0B;
+            letter-spacing: 0.2em;
+            opacity: 0.4;
+        }
+
+        .slide-tag {
+            position: absolute;
+            top: 4rem;
+            left: 4rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: #F59E0B;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        @media print {
+            @page {
+                size: landscape;
+                margin: 0;
+            }
+
+            body {
+                background-color: #0F172A !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .slide {
+                height: 100vh !important;
+                width: 100vw !important;
+                page-break-after: always;
+                break-after: page;
+                border: none !important;
+                padding: 4rem !important;
+            }
+
+            .moment-card {
+                background: #1E293B !important;
+                border: 1px solid rgba(148, 163, 184, 0.2) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .gradient-text {
+                background: none !important;
+                -webkit-background-clip: initial !important;
+                -webkit-text-fill-color: initial !important;
+                background-clip: initial !important;
+                color: #F59E0B !important;
+            }
+
+            #export-controls {
+                display: none !important;
+            }
+
+            p,
+            h1,
+            h2,
+            h3,
+            h4,
+            span,
+            div,
+            li {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-bone font-sans antialiased">
+
+    <!-- EXPORT CONTROLS -->
+    <div id="export-controls" class="fixed top-8 right-8 z-50 flex items-center gap-6">
+        <a href="index.html"
+            class="font-mono text-[9px] uppercase tracking-[0.4em] text-fog/60 hover:text-bone transition-all">← Back to
+            Brief</a>
+        <button onclick="window.print()"
+            class="px-5 py-2 bg-amber/10 border border-amber/20 hover:bg-amber/20 text-amber font-mono text-[9px] uppercase tracking-[0.4em] transition-all rounded">
+            Export PDF
+        </button>
+    </div>
+
+    <!-- SLIDE 01: TITLE -->
+    <section class="slide">
+        <span class="slide-tag">Briefs Studio // Strategic Session</span>
+        <div class="max-w-5xl">
+            <h1 class="font-serif text-7xl md:text-8xl font-semibold leading-tight mb-8">
+                Teresa & Elizabeth<br>
+                <span class="gradient-text italic">Alignment Session</span>
+            </h1>
+            <p class="font-serif text-3xl text-fog italic max-w-3xl">
+                Defining the "Resilience System" and clarifying cross-organizational equities.
+            </p>
+        </div>
+        <span class="slide-number">01 // TITLE</span>
+    </section>
+
+    <!-- SLIDE 02: THE CHALLENGE -->
+    <section class="slide bg-charcoal/20">
+        <span class="slide-tag">01 // Context</span>
+        <div class="max-w-5xl">
+            <h2 class="font-serif text-5xl font-semibold mb-12 italic text-amber">The Convergence Challenge</h2>
+            <div class="moment-card p-12 rounded-3xl">
+                <p class="font-serif text-4xl leading-relaxed text-bone italic">
+                    "How do we take two leaders with different organizational contexts and create shared understanding
+                    that outlives leadership transitions?"
+                </p>
+            </div>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <p class="text-sm text-fog font-mono uppercase tracking-widest leading-relaxed">• Strategic
+                    conversations happening without durable outputs</p>
+                <p class="text-sm text-fog font-mono uppercase tracking-widest leading-relaxed">• OCCWI and TFF
+                    organizational boundaries need clarification</p>
+                <p class="text-sm text-fog font-mono uppercase tracking-widest leading-relaxed">• "Resilience system"
+                    defined differently by different stakeholders</p>
+            </div>
+        </div>
+        <span class="slide-number">02 // CHALLENGE</span>
+    </section>
+
+    <!-- SLIDE 03: METHODOLOGY -->
+    <section class="slide">
+        <span class="slide-tag">02 // Methodology</span>
+        <div class="max-w-5xl">
+            <h2 class="font-serif text-5xl font-semibold mb-12 italic text-emerald">Story Portrait Framework</h2>
+            <div class="grid grid-cols-3 gap-12">
+                <div class="space-y-4">
+                    <span class="font-mono text-xs text-amber tracking-[0.4em] uppercase">Phase 01</span>
+                    <h3 class="font-serif text-3xl italic">Problem</h3>
+                    <p class="text-lg text-fog">Identifying exact friction points and shared misconceptions.</p>
+                </div>
+                <div class="space-y-4">
+                    <span class="font-mono text-xs text-amber tracking-[0.4em] uppercase">Phase 02</span>
+                    <h3 class="font-serif text-3xl italic">Path</h3>
+                    <p class="text-lg text-fog">Mapping relationships between OCCWI, TFF, and IPPW equities.</p>
+                </div>
+                <div class="space-y-4">
+                    <span class="font-mono text-xs text-amber tracking-[0.4em] uppercase">Phase 03</span>
+                    <h3 class="font-serif text-3xl italic">Purpose</h3>
+                    <p class="text-lg text-fog">Defining success and unlocking strategic bottlenecks.</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">03 // METHOD</span>
+    </section>
+
+    <!-- SLIDE 04: THE ARTIFACT -->
+    <section class="slide bg-charcoal/20">
+        <span class="slide-tag">03 // The Output</span>
+        <div class="max-w-5xl">
+            <h2 class="font-serif text-5xl font-semibold mb-12 italic text-amber">The Narrative Map</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                <div class="moment-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-mono text-[10px] text-emerald mb-4 uppercase tracking-widest opacity-60">01 //
+                            System Architecture</h4>
+                        <p class="text-fog text-sm leading-relaxed">Visual mapping of nodes, flows, and organizational
+                            boundaries.</p>
+                    </div>
+                </div>
+                <div class="moment-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-mono text-[10px] text-emerald mb-4 uppercase tracking-widest opacity-60">02 //
+                            Strategic Framing</h4>
+                        <p class="text-fog text-sm leading-relaxed">Written narrative in shared language both
+                            organizations can operationalize.</p>
+                    </div>
+                </div>
+                <div class="moment-card p-6 rounded-2xl flex flex-col justify-between border-emerald/30">
+                    <div>
+                        <h4 class="font-mono text-[10px] text-amber mb-4 uppercase tracking-widest opacity-80">03 //
+                            Implementation Pathway</h4>
+                        <p class="text-fog text-sm leading-relaxed">Clear next steps and stakeholder validation process.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 flex justify-center">
+                <p class="font-serif text-xl text-bone italic text-center max-w-2xl opacity-60">
+                    A structured (8-15 page) document that survives leadership changes and serves as a durable reference
+                    point for briefings.
+                </p>
+            </div>
+        </div>
+        <span class="slide-number">04 // ARTIFACT</span>
+    </section>
+
+    <!-- SLIDE 05: SUCCESS CRITERIA -->
+    <section class="slide">
+        <span class="slide-tag">04 // Expected Outcomes</span>
+        <div class="max-w-5xl">
+            <h2 class="font-serif text-5xl font-semibold mb-12 italic text-emerald">Session Success</h2>
+            <div class="space-y-8">
+                <div class="flex items-center gap-8 border-b border-fog/10 pb-6">
+                    <span class="font-mono text-2xl text-emerald">01</span>
+                    <p class="font-serif text-3xl">Elizabeth & Teresa establish a shared vocabulary for "Resilience
+                        System".</p>
+                </div>
+                <div class="flex items-center gap-8 border-b border-fog/10 pb-6">
+                    <span class="font-mono text-2xl text-emerald">02</span>
+                    <p class="font-serif text-3xl">Organizational boundaries between OCCWI and TFF are clarified in
+                        writing.</p>
+                </div>
+                <div class="flex items-center gap-8 border-b border-fog/10 pb-6">
+                    <span class="font-mono text-2xl text-emerald">03</span>
+                    <p class="font-serif text-3xl">Specific strategic decisions or conversations become unblocked
+                        immediately.</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">05 // SUCCESS</span>
+    </section>
+
+    <!-- SLIDE 06: INVESTMENT -->
+    <section class="slide bg-charcoal/20">
+        <span class="slide-tag">05 // Logistics</span>
+        <div class="max-w-5xl">
+            <h2 class="font-serif text-5xl font-semibold mb-12 italic text-amber">Timeline & Investment</h2>
+            <div class="grid grid-cols-2 gap-12">
+                <div class="p-12 moment-card rounded-3xl text-center">
+                    <span class="font-mono text-xs text-fog uppercase tracking-widest block mb-4">Total Time
+                        Commitment</span>
+                    <div class="font-serif text-6xl text-amber italic mb-4">120 Min</div>
+                    <p class="text-sm text-fog opacity-60 uppercase tracking-tighter">90-Min Session + 30-Min Review</p>
+                </div>
+                <div class="p-12 moment-card rounded-3xl text-center">
+                    <span class="font-mono text-xs text-fog uppercase tracking-widest block mb-4">Delivery Window</span>
+                    <div class="font-serif text-6xl text-amber italic mb-4">3–4 Weeks</div>
+                    <p class="text-sm text-fog opacity-60 uppercase tracking-tighter">From Scheduling to Final Artifact
+                    </p>
+                </div>
+            </div>
+            <div class="mt-12 text-center space-y-2">
+                <p class="font-mono text-xs text-emerald uppercase tracking-[0.2em] italic opacity-60">
+                    Supports Prevention Comms tasking and cross-organizational coordination.
+                </p>
+                <p class="font-mono text-[10px] text-fog uppercase tracking-[0.1em] opacity-40">
+                    Future applications to IPPW capability-building would involve separate scoping discussions.
+                </p>
+            </div>
+        </div>
+        <span class="slide-number">06 // LOGISTICS</span>
+    </section>
+
+    <!-- SLIDE 07: BOUNDARIES -->
+    <section class="slide">
+        <span class="slide-tag">06 // Clarity</span>
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-serif text-5xl font-semibold mb-12 italic text-amber text-center">Safeguards & Boundaries
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- WHAT IT IS NOT -->
+                <div class="moment-card p-10 rounded-3xl border-red-500/10">
+                    <h3 class="font-mono text-[10px] text-red-400 mb-8 uppercase tracking-[0.3em] opacity-60">This
+                        Session is NOT</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <span class="text-red-400">❌</span>
+                            <span class="text-fog/80 text-lg">A policy development process</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-red-400">❌</span>
+                            <span class="text-fog/80 text-lg">An organizational restructuring proposal</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-red-400">❌</span>
+                            <span class="text-fog/80 text-lg">A comprehensive prevention strategy review</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-red-400">❌</span>
+                            <span class="text-fog/80 text-lg">A decision-making forum requiring immediate
+                                commitments</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- WHAT IT IS -->
+                <div class="moment-card p-10 rounded-3xl border-emerald-500/10">
+                    <h3 class="font-mono text-[10px] text-emerald mb-8 uppercase tracking-[0.3em] opacity-60">This
+                        Session IS</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <span class="text-emerald">✅</span>
+                            <span class="text-bone/90 text-lg leading-snug">A focused dialogue to define "resilience
+                                system"</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-emerald">✅</span>
+                            <span class="text-bone/90 text-lg leading-snug">A mapping exercise to clarify organizational
+                                relationships</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-emerald">✅</span>
+                            <span class="text-bone/90 text-lg leading-snug">An artifact creation process for shared
+                                reference</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-emerald">✅</span>
+                            <span class="text-bone/90 text-lg leading-snug">A foundation for more productive future
+                                conversations</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">07 // BOUNDARIES</span>
+    </section>
+
+</body>
+
+</html>

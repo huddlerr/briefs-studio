@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topo Studio V1 | Briefs Studio</title>
+    <style>
+        :root {
+            --bg: #0d0d12;
+            --panel: #16161f;
+            --accent: #d4a574;
+            --text: #e0e0e0;
+            --border: #2a2a35;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        #studio {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Left Sidebar */
+        #sidebar {
+            width: 340px;
+            background: var(--panel);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            z-index: 100;
+        }
+
+        /* Viewport */
+        #viewport {
+            flex-grow: 1;
+            position: relative;
+            cursor: crosshair;
+        }
+
+        h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .section {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: black;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #222;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .control-row {
+            margin-bottom: 16px;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            margin-bottom: 8px;
+            color: #aaa;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            -webkit-appearance: none;
+            background: #333;
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #drop-zone {
+            border: 2px dashed var(--border);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #555;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        #drop-zone.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(212, 165, 116, 0.05);
+        }
+
+        #stats {
+            margin-top: auto;
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .hud {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .hud-item {
+            font-family: monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        #preview-canvas {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            border: 1px solid var(--border);
+            width: 128px;
+            height: 128px;
+            background: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="studio">
+        <div id="sidebar">
+            <h1>Topo Studio v1</h1>
+
+            <div class="section">
+                <div class="section-title">1. Import Data</div>
+                <input type="file" id="file-input" style="display:none" accept="image/*">
+                <div id="drop-zone" onclick="document.getElementById('file-input').click()">
+                    CLICK TO SELECT<br>TOPO_01.PNG
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">2. Mesh Resolution</div>
+                <div class="control-row">
+                    <div class="control-label">Segments <span id="res-val">256</span></div>
+                    <input type="range" id="res" min="64" max="512" step="64" value="256">
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">3. Terrain Calibration</div>
+                <div class="control-row">
+                    <div class="control-label">Height Scale <span id="scale-val">3.0</span></div>
+                    <input type="range" id="scale" min="0" max="10" step="0.1" value="3.0">
+                </div>
+                <div class="control-row">
+                    <div class="control-label">Base Level <span id="base-val">0.0</span></div>
+                    <input type="range" id="base" min="-5" max="5" step="0.1" value="0.0">
+                </div>
+            </div>
+
+            <button class="btn" id="regen-btn">GENERATE 3D MESH</button>
+            <button class="btn btn-secondary" id="export-btn">EXPORT SETTINGS</button>
+
+            <div id="stats">
+                System: Ready<br>
+                Vertices: <span id="v-count">0</span><br>
+                Protocol: File (Local)
+            </div>
+        </div>
+
+        <div id="viewport">
+            <div class="hud">
+                <div class="hud-item">[VIEWPORT: ACTIVE]</div>
+                <div class="hud-item">[SHADERS: COMPILED]</div>
+                <div class="hud-item">[TARGET: T_IMAGE_DATA]</div>
+            </div>
+            <canvas id="preview-canvas"></canvas>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        let scene, camera, renderer, orbit, mesh;
+        let heightData = null;
+        let sourceImage = null; // Store the original image
+
+        const resInput = document.getElementById('res');
+        const scaleInput = document.getElementById('scale');
+        const baseInput = document.getElementById('base');
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+
+        function initScene() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(45, (window.innerWidth - 340) / window.innerHeight, 0.1, 1000);
+            camera.position.set(15, 12, 15);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth - 340, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            document.getElementById('viewport').appendChild(renderer.domElement);
+
+            orbit = new THREE.OrbitControls(camera, renderer.domElement);
+            orbit.enableDamping = true;
+            orbit.dampingFactor = 0.05;
+
+            const sun = new THREE.DirectionalLight(0xffffff, 1.2);
+            sun.position.set(10, 20, 10);
+            scene.add(sun);
+
+            const fill = new THREE.PointLight(0xd4a574, 1.5);
+            fill.position.set(-10, 5, -10);
+            scene.add(fill);
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+
+            window.addEventListener('resize', onResize);
+            animate();
+        }
+
+        function onResize() {
+            const w = window.innerWidth - 340;
+            const h = window.innerHeight;
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w, h);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            orbit.update();
+            renderer.render(scene, camera);
+        }
+
+        // --- File Handling ---
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleFile(file);
+        });
+
+        function handleFile(file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    sourceImage = img;
+                    processImage();
+                    dropZone.innerText = "IMAGE LOADED: " + file.name;
+                    dropZone.style.borderColor = "#d4a574";
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function processImage() {
+            if (!sourceImage) return;
+
+            const res = parseInt(resInput.value);
+            const previewCanvas = document.getElementById('preview-canvas');
+            previewCanvas.width = res;
+            previewCanvas.height = res;
+            const ctx = previewCanvas.getContext('2d');
+
+            // Draw image with smoothing to prevent "field of spikes"
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(sourceImage, 0, 0, res, res);
+
+            // Apply a subtle blur on the canvas pixels to smooth out sharp topo lines
+            ctx.globalAlpha = 0.3;
+            for (let i = 0; i < 3; i++) {
+                ctx.drawImage(previewCanvas, 1, 1);
+                ctx.drawImage(previewCanvas, -1, -1);
+            }
+            ctx.globalAlpha = 1.0;
+
+            const pixels = ctx.getImageData(0, 0, res, res).data;
+            heightData = new Float32Array(res * res);
+
+            for (let i = 0; i < pixels.length; i += 4) {
+                // Luminosity brightness
+                const brightness = (pixels[i] + pixels[i + 1] + pixels[i + 2]) / 765;
+                heightData[i / 4] = brightness;
+            }
+
+            generateMesh();
+        }
+
+        function generateMesh() {
+            if (!heightData || !sourceImage) return;
+
+            const res = parseInt(resInput.value);
+            // Re-process if resolution changed but heightData not yet updated
+            if (heightData.length !== res * res) {
+                processImage();
+                return;
+            }
+
+            if (mesh) {
+                scene.remove(mesh);
+                mesh.geometry.dispose();
+            }
+
+            const scale = parseFloat(scaleInput.value);
+            const base = parseFloat(baseLevelValue()); // Safely get base
+
+            // PlaneGeometry vertices are res x res
+            const geometry = new THREE.PlaneGeometry(20, 20, res - 1, res - 1);
+            const pos = geometry.attributes.position.array;
+
+            for (let i = 0; i < heightData.length; i++) {
+                // pos ordered [v0.x, v0.y, v0.z, v1.x, v1.y, v1.z, ...]
+                pos[i * 3 + 2] = base + (heightData[i] * scale);
+            }
+
+            geometry.computeVertexNormals();
+
+            const material = new THREE.MeshStandardMaterial({
+                color: 0xd4a574,
+                roughness: 0.6,
+                metalness: 0.4,
+                side: THREE.DoubleSide
+            });
+
+            // Enhanced Contours
+            material.onBeforeCompile = (shader) => {
+                shader.vertexShader = `varying float vZ;\n${shader.vertexShader}`.replace(
+                    '#include <begin_vertex>', '#include <begin_vertex>\nvZ = position.z;'
+                );
+                shader.fragmentShader = `varying float vZ;\n${shader.fragmentShader}`.replace(
+                    '#include <dithering_fragment>', `
+                    #include <dithering_fragment>
+                    float lineSpacing = 0.2;
+                    float c = abs(fract(vZ / lineSpacing - 0.5) - 0.5) / fwidth(vZ / lineSpacing);
+                    c = 1.0 - smoothstep(0.0, 1.0, c);
+                    gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(1.0, 0.95, 0.8), c * 0.4);
+                    `
+                );
+            };
+
+            mesh = new THREE.Mesh(geometry, material);
+            mesh.rotation.x = -Math.PI / 2;
+            scene.add(mesh);
+
+            document.getElementById('v-count').innerText = geometry.attributes.position.count;
+        }
+
+        function baseLevelValue() {
+            return document.getElementById('base').value;
+        }
+
+        // --- UI Events ---
+        document.getElementById('regen-btn').onclick = processImage;
+
+        resInput.oninput = (e) => {
+            document.getElementById('res-val').innerText = e.target.value;
+        };
+        resInput.onchange = processImage;
+
+        scaleInput.oninput = (e) => {
+            document.getElementById('scale-val').innerText = parseFloat(e.target.value).toFixed(1);
+            generateMesh();
+        };
+        baseInput.oninput = (e) => {
+            document.getElementById('base-val').innerText = parseFloat(e.target.value).toFixed(1);
+            generateMesh();
+        };
+
+        document.getElementById('export-btn').onclick = () => {
+            const settings = {
+                resolution: resInput.value,
+                heightScale: scaleInput.value,
+                baseLevel: baseInput.value
+            };
+            console.log("FINAL EXPORTED SETTINGS:", settings);
+            alert("Settings exported to Console (F12)");
+        };
+
+        initScene();
+    </script>
+</body>
+
+</html>

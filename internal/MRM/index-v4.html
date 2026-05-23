@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRM // A Living Brief</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#F5F0E1',
+                        creamDark: '#E8E0CC',
+                        creamLight: '#FAF8F2',
+                        ink: '#1A1A1A',
+                        inkLight: '#4A4A4A',
+                        inkFaint: '#8A8A8A',
+                        coral: '#E85A3C',
+                        coralLight: '#F07858',
+                        coralDark: '#C44832',
+                        teal: '#4A7C7C',
+                        tealLight: '#5A9090',
+                        tealDark: '#3A6060',
+                        gold: '#C4A35A',
+                        goldDark: '#8B7355',
+                        olive: '#6B7B3A',
+                        slate: '#64748B',
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        sans: ['DM Sans', 'sans-serif'],
+                        hand: ['Caveat', 'cursive'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { 
+            scroll-behavior: smooth;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* BASE & TEXTURES */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        body {
+            background-color: #F5F0E1;
+        }
+        
+        /* Paper texture overlay */
+        .paper-texture {
+            position: relative;
+        }
+        .paper-texture::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Grid paper texture */
+        .grid-paper {
+            background-image: 
+                linear-gradient(rgba(74, 124, 124, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(74, 124, 124, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* Sketch marks */
+        .sketch-marks {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Organic blob shapes */
+        .organic-blob {
+            position: absolute;
+            border-radius: 50% 40% 60% 50%;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* SCROLL BLUR - Only for nav overlay content */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        #main-nav {
+            transition: all 0.3s ease;
+        }
+        #main-nav.scrolling {
+            backdrop-filter: blur(12px);
+            background: rgba(245, 240, 225, 0.85);
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* CORAL BAR - Connecting to The Why */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .coral-connector {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            background: linear-gradient(to top, #E85A3C, #E85A3C 70%, transparent);
+            z-index: 5;
+        }
+        
+        /* Breadcrumb dots along the bar */
+        .breadcrumb-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: #E85A3C;
+            border-radius: 50%;
+            border: 3px solid #F5F0E1;
+            z-index: 10;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* BUTTON STYLES */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .btn-lectern {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.75rem;
+            background: #4A7C7C;
+            color: white;
+            border-radius: 9999px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+        }
+        .btn-lectern::before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            right: 1.25rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-lectern:hover::before {
+            right: calc(100% - 1.75rem);
+        }
+        .btn-lectern:hover {
+            background: #3A6060;
+            padding-left: 2.5rem;
+            padding-right: 1.25rem;
+        }
+        
+        .btn-coral { background: #E85A3C; }
+        .btn-coral:hover { background: #C44832; }
+        
+        .btn-ink { background: #1A1A1A; }
+        .btn-ink:hover { background: #333; }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid currentColor;
+            color: inherit;
+        }
+        .btn-outline::before { background: currentColor; }
+        .btn-outline:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* FAQ ACCORDION */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .faq-item { border-bottom: 1px solid rgba(26, 26, 26, 0.1); }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .faq-question:hover { color: #E85A3C; }
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            border: 1px solid currentColor;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .faq-icon svg { transition: transform 0.3s ease; }
+        .faq-item.open .faq-icon {
+            background: #E85A3C;
+            border-color: #E85A3C;
+            color: white;
+        }
+        .faq-item.open .faq-icon svg { transform: rotate(45deg); }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+            padding-bottom: 1.5rem;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* SKETCHY CARDS */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .sketch-card {
+            background: #FFFEF9;
+            border: 2px solid #1A1A1A;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .sketch-card::before {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px dashed rgba(26, 26, 26, 0.2);
+            pointer-events: none;
+        }
+        .sketch-card::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: 3px;
+            bottom: 3px;
+            border: 2px solid #1A1A1A;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .sketch-card:hover {
+            transform: translate(-2px, -2px);
+        }
+        .sketch-card:hover::after {
+            top: 0;
+            left: 0;
+            right: -6px;
+            bottom: -6px;
+        }
+        
+        /* Sketch portrait placeholder */
+        .sketch-portrait {
+            background: linear-gradient(135deg, #E8E0CC 0%, #D4C9B5 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .sketch-portrait::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 20 Q45 35 50 45 Q55 55 50 70' stroke='%231A1A1A' stroke-width='0.5' fill='none' opacity='0.3'/%3E%3Ccircle cx='42' cy='35' r='3' stroke='%231A1A1A' stroke-width='0.5' fill='none' opacity='0.3'/%3E%3Ccircle cx='58' cy='35' r='3' stroke='%231A1A1A' stroke-width='0.5' fill='none' opacity='0.3'/%3E%3Cpath d='M40 55 Q50 65 60 55' stroke='%231A1A1A' stroke-width='0.5' fill='none' opacity='0.3'/%3E%3Cellipse cx='50' cy='45' rx='25' ry='35' stroke='%231A1A1A' stroke-width='1' fill='none' opacity='0.2'/%3E%3C/svg%3E");
+            background-size: cover;
+            opacity: 0.8;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* VINTAGE CARD (for other sections) */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .vintage-card {
+            background: #FFFEF9;
+            border: 1px solid rgba(26, 26, 26, 0.08);
+            box-shadow: 0 4px 20px rgba(26, 26, 26, 0.04);
+            transition: all 0.4s ease;
+        }
+        .vintage-card:hover {
+            box-shadow: 0 8px 30px rgba(26, 26, 26, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* LABEL TAGS */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .label-tag {
+            display: inline-block;
+            background: #1A1A1A;
+            color: #FFFEF9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 2px;
+        }
+        .label-tag.coral { background: #E85A3C; }
+        .label-tag.teal { background: #4A7C7C; }
+        .label-tag.gold { background: #C4A35A; color: #1A1A1A; }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* ANIMATED HAMBURGER */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .hamburger {
+            width: 24px;
+            height: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background: currentColor;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 9px; }
+        .hamburger span:nth-child(3) { bottom: 0; }
+        .hamburger.active span:nth-child(1) { top: 9px; transform: rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { bottom: 9px; transform: rotate(-45deg); }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* FADE ANIMATIONS */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* FLOATING ELEMENTS */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+        .float-element {
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* SIMULATOR INPUTS */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .sim-input {
+            background: rgba(255,255,255,0.9);
+            border: 1px solid rgba(26, 26, 26, 0.1);
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .sim-input:focus {
+            outline: none;
+            border-color: #E85A3C;
+            box-shadow: 0 0 0 3px rgba(232, 90, 60, 0.1);
+        }
+        
+        .map-node {
+            animation: nodeAppear 0.4s ease-out forwards;
+            background: #FFFEF9;
+            border: 2px solid;
+            border-radius: 6px;
+        }
+        @keyframes nodeAppear {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* CUSTOM SCROLLBAR */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F5F0E1; }
+        ::-webkit-scrollbar-thumb { background: #C4A35A; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #E85A3C; }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* VERSION TOGGLE */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .version-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.25;
+            transition: opacity 0.3s ease;
+        }
+        .version-toggle:hover { opacity: 0.6; }
+        
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* PERSISTENT ANCHOR */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        .sticky-anchor {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 40;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        @media (max-width: 1024px) {
+            .sticky-anchor { display: none; }
+        }
+    </style>
+</head>
+<body class="text-ink font-sans antialiased overflow-x-hidden">
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- PERSISTENT ANCHOR -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <div class="sticky-anchor font-mono text-[10px] tracking-[0.2em] uppercase text-inkFaint">
+        <span class="block mb-4">MRM</span>
+        <span class="block w-px h-16 bg-inkFaint/30 mx-auto mb-4"></span>
+        <span class="block text-coral">Living Brief</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- NAVIGATION -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-cream/95 border-b border-ink/5">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <button id="scroll-up-trigger" class="font-display text-2xl font-medium text-ink hover:text-coral transition-colors">
+                MRM
+            </button>
+            
+            <div class="version-toggle">
+                <button class="px-2 py-1 text-[9px] font-mono uppercase tracking-wider text-inkFaint hover:text-ink" onclick="window.location.href='index-v1.html'">v1</button>
+                <span class="text-inkFaint/30">|</span>
+                <button class="px-2 py-1 text-[9px] font-mono uppercase tracking-wider text-inkFaint hover:text-ink" onclick="window.location.href='index-v2.html'">v2</button>
+                <span class="text-inkFaint/30">|</span>
+                <button class="px-2 py-1 text-[9px] font-mono uppercase tracking-wider text-inkFaint hover:text-ink" onclick="window.location.href='index-v3.html'">v3</button>
+                <span class="text-inkFaint/30">|</span>
+                <span class="px-2 py-1 text-[9px] font-mono uppercase tracking-wider text-coral">v4</span>
+                <span class="text-inkFaint/30">|</span>
+                <button class="px-2 py-1 text-[9px] font-mono uppercase tracking-wider text-inkFaint hover:text-ink" onclick="window.location.href='index.html'">v5</button>
+            </div>
+            
+            <button id="menu-toggle" class="hamburger text-ink" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        
+        <div id="nav-menu" class="hidden bg-cream border-t border-ink/5">
+            <div class="max-w-6xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <a href="#recognition" class="group">
+                    <span class="label-tag mb-2">01</span>
+                    <span class="block font-display text-xl group-hover:text-coral transition-colors">Practices</span>
+                </a>
+                <a href="#work" class="group">
+                    <span class="label-tag mb-2">02</span>
+                    <span class="block font-display text-xl group-hover:text-coral transition-colors">Work</span>
+                </a>
+                <a href="#process" class="group">
+                    <span class="label-tag mb-2">03</span>
+                    <span class="block font-display text-xl group-hover:text-coral transition-colors">Experience</span>
+                </a>
+                <a href="#faq" class="group">
+                    <span class="label-tag mb-2">04</span>
+                    <span class="block font-display text-xl group-hover:text-coral transition-colors">Questions</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- THE WHY - Hidden Above Section -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="the-why" class="min-h-[150vh] bg-cream relative paper-texture grid-paper">
+        
+        <!-- Organic background elements -->
+        <div class="organic-blob w-[400px] h-[400px] bg-teal top-[10%] left-[5%]" style="animation: float 12s ease-in-out infinite;"></div>
+        <div class="organic-blob w-[300px] h-[300px] bg-coral top-[30%] right-[10%]" style="animation: float 10s ease-in-out infinite; animation-delay: -3s;"></div>
+        <div class="organic-blob w-[200px] h-[200px] bg-gold bottom-[20%] left-[15%]" style="animation: float 14s ease-in-out infinite; animation-delay: -5s;"></div>
+        
+        <!-- Sketch marks decoration -->
+        <svg class="sketch-marks w-full h-full opacity-10" preserveAspectRatio="none">
+            <line x1="50%" y1="60%" x2="50%" y2="100%" stroke="#E85A3C" stroke-width="4"/>
+            <circle cx="50%" cy="65%" r="6" fill="#E85A3C"/>
+            <circle cx="50%" cy="75%" r="4" fill="#E85A3C" opacity="0.6"/>
+            <circle cx="50%" cy="85%" r="3" fill="#E85A3C" opacity="0.4"/>
+        </svg>
+        
+        <!-- The coral connector bar -->
+        <div class="coral-connector bottom-0 h-[50%]"></div>
+        <div class="breadcrumb-dot" style="bottom: 50%;"></div>
+        <div class="breadcrumb-dot" style="bottom: 35%; opacity: 0.7; width: 10px; height: 10px;"></div>
+        <div class="breadcrumb-dot" style="bottom: 20%; opacity: 0.5; width: 8px; height: 8px;"></div>
+        
+        <!-- Content -->
+        <div class="max-w-4xl mx-auto px-6 pt-32 pb-40 relative z-10">
+            
+            <div class="text-center mb-20 fade-up">
+                <span class="label-tag gold mb-6">The Why</span>
+                <h2 class="font-display text-4xl md:text-6xl mb-6 text-ink">Why This Works</h2>
+            </div>
+            
+            <!-- Philosophy Placeholder -->
+            <div class="max-w-2xl mx-auto mb-24 fade-up">
+                <div class="sketch-card p-12 text-center">
+                    <div class="text-6xl text-coral mb-8">✎</div>
+                    <p class="font-display text-2xl md:text-3xl text-ink italic mb-6">
+                        "Something is forming here..."
+                    </p>
+                    <p class="text-inkLight max-w-md mx-auto mb-8 leading-relaxed">
+                        This is where the philosophy lives — the why behind the how. 
+                        The words are finding themselves.
+                    </p>
+                    <div class="inline-block border-2 border-coral border-dashed px-8 py-4 bg-coral/5">
+                        <p class="font-hand text-2xl text-coral">Mike, this space is waiting.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Secret Stats -->
+            <div class="grid grid-cols-3 gap-6 max-w-xl mx-auto mb-24 fade-up">
+                <div class="text-center p-4 sketch-card">
+                    <span class="text-2xl mb-2 block">🌙</span>
+                    <span class="font-mono text-xl text-coral block">247</span>
+                    <span class="text-inkFaint text-xs">Dreams</span>
+                </div>
+                <div class="text-center p-4 sketch-card">
+                    <span class="text-2xl mb-2 block">📚</span>
+                    <span class="font-mono text-xl text-teal block">12</span>
+                    <span class="text-inkFaint text-xs">Books</span>
+                </div>
+                <div class="text-center p-4 sketch-card">
+                    <span class="text-2xl mb-2 block">✦</span>
+                    <span class="font-mono text-xl text-gold block" id="eggs-found">0</span>
+                    <span class="text-inkFaint text-xs">Secrets</span>
+                </div>
+            </div>
+            
+            <!-- Return button -->
+            <div class="text-center fade-up">
+                <button id="return-to-surface" class="btn-lectern btn-ink">
+                    <span>Return to surface</span>
+                </button>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 1: ENTRY / HERO -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="entry" class="min-h-screen flex flex-col justify-center relative pt-20 bg-cream paper-texture grid-paper">
+        
+        <!-- The coral bar continues from above -->
+        <div class="coral-connector top-0 h-[20vh] -translate-y-0" style="background: linear-gradient(to bottom, #E85A3C, transparent);"></div>
+        <div class="breadcrumb-dot" style="top: 5%;"></div>
+        
+        <!-- Organic background elements -->
+        <div class="organic-blob w-[500px] h-[500px] bg-teal top-[20%] right-[-10%] float-element"></div>
+        <div class="organic-blob w-[300px] h-[300px] bg-gold bottom-[10%] left-[-5%] float-element" style="animation-delay: -4s;"></div>
+        
+        <!-- Sketch decorations -->
+        <svg class="sketch-marks w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <circle cx="85" cy="30" r="15" stroke="#4A7C7C" stroke-width="0.3" fill="none" opacity="0.2"/>
+            <circle cx="85" cy="30" r="10" stroke="#4A7C7C" stroke-width="0.2" fill="none" opacity="0.15"/>
+            <path d="M10 80 Q20 70 30 80 Q40 90 50 80" stroke="#C4A35A" stroke-width="0.3" fill="none" opacity="0.2"/>
+        </svg>
+        
+        <div class="max-w-5xl mx-auto px-6 py-24 lg:py-32 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-8 fade-up">
+                    <h1 class="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.15] mb-6 text-ink">
+                        You already know<br>
+                        what you're trying to say.
+                    </h1>
+                    <h2 class="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-inkLight italic mb-12">
+                        You just can't<br>
+                        hear it yet.
+                    </h2>
+                    
+                    <div class="mb-10">
+                        <label class="font-hand text-2xl text-coral block mb-3">↳ We begin —</label>
+                        <input 
+                            type="text" 
+                            id="visitor-name" 
+                            class="w-full max-w-md py-3 px-0 bg-transparent border-b-2 border-gold/50 font-display text-2xl text-ink focus:outline-none focus:border-coral transition-colors"
+                            placeholder="your name"
+                            autocomplete="off"
+                        >
+                    </div>
+                    
+                    <!-- Scroll down to explore -->
+                    <button id="begin-journey" class="btn-lectern btn-coral">
+                        <span>Explore the work below</span>
+                    </button>
+                    
+                    <!-- Scroll up hint -->
+                    <div class="mt-8">
+                        <button id="discover-why" class="group flex items-center gap-3 text-inkFaint hover:text-coral transition-colors">
+                            <svg class="w-4 h-4 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+                            </svg>
+                            <span class="font-mono text-[11px] uppercase tracking-wider">Or scroll up to discover the why</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-4 hidden lg:flex items-center justify-center fade-up" style="transition-delay: 0.3s;">
+                    <div class="relative w-48 h-48">
+                        <div class="absolute inset-0 border-2 border-teal/30 rounded-full" style="animation: float 6s ease-in-out infinite;"></div>
+                        <div class="absolute inset-4 border border-teal/20 rounded-full" style="animation: float 6s ease-in-out infinite; animation-delay: -1s;"></div>
+                        <div class="absolute inset-8 border border-coral/20 rounded-full" style="animation: float 6s ease-in-out infinite; animation-delay: -2s;"></div>
+                        <div class="absolute inset-12 bg-coral/10 rounded-full"></div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 2: RECOGNITION -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="recognition" class="py-32 bg-teal text-white relative paper-texture">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 40px 40px;"></div>
+        
+        <!-- Organic elements -->
+        <div class="organic-blob w-[400px] h-[400px] bg-white top-[-10%] right-[10%] float-element"></div>
+        <div class="organic-blob w-[250px] h-[250px] bg-gold bottom-[5%] left-[5%] float-element" style="animation-delay: -3s;"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center mb-20 fade-up">
+                <span class="label-tag gold mb-6">Recognition</span>
+                <h2 class="font-display text-4xl md:text-5xl lg:text-6xl mb-4">Two practices.</h2>
+                <h2 class="font-display text-3xl md:text-4xl italic text-white/70">One methodology.</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                
+                <div class="vintage-card p-8 md:p-10 text-ink rounded-2xl fade-up">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="label-tag coral">Briefs Studio</span>
+                        <span class="font-mono text-[10px] text-inkFaint uppercase tracking-wider">Organizations</span>
+                    </div>
+                    <h3 class="font-display text-2xl md:text-3xl mb-6">Strategic Communications</h3>
+                    <ul class="space-y-3 text-inkLight mb-8">
+                        <li class="flex items-start gap-3"><span class="text-coral font-bold">→</span> Clarity Sprints & narrative mapping</li>
+                        <li class="flex items-start gap-3"><span class="text-coral font-bold">→</span> 90 minutes to fundable narrative</li>
+                        <li class="flex items-start gap-3"><span class="text-coral font-bold">→</span> Visual story maps you can use</li>
+                    </ul>
+                    <p class="font-hand text-2xl text-coral">"What are you really saying?"</p>
+                </div>
+                
+                <div class="vintage-card p-8 md:p-10 text-ink rounded-2xl fade-up" style="transition-delay: 0.1s;">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="label-tag teal">Sleepy Planet</span>
+                        <span class="font-mono text-[10px] text-inkFaint uppercase tracking-wider">Individuals</span>
+                    </div>
+                    <h3 class="font-display text-2xl md:text-3xl mb-6">Symbolic Storytelling</h3>
+                    <ul class="space-y-3 text-inkLight mb-8">
+                        <li class="flex items-start gap-3"><span class="text-teal font-bold">→</span> Guided imagination sessions</li>
+                        <li class="flex items-start gap-3"><span class="text-teal font-bold">→</span> Journey to behavioral insight</li>
+                        <li class="flex items-start gap-3"><span class="text-teal font-bold">→</span> Landscapes you can return to</li>
+                    </ul>
+                    <p class="font-hand text-2xl text-teal">"What do you already know?"</p>
+                </div>
+                
+            </div>
+            
+            <div class="text-center fade-up">
+                <div class="inline-block bg-white/10 backdrop-blur-sm px-8 py-6 rounded-2xl border border-white/10">
+                    <p class="font-display text-lg md:text-xl leading-relaxed text-white/90">
+                        "Both transform abstract understanding into <em>visible pattern</em>.<br>
+                        I help you hear what you already know."
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 3: WORK - Sketchy Cards -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="work" class="py-32 bg-cream relative paper-texture grid-paper">
+        
+        <!-- Organic elements -->
+        <div class="organic-blob w-[350px] h-[350px] bg-coral top-[10%] left-[-5%] float-element"></div>
+        <div class="organic-blob w-[280px] h-[280px] bg-teal bottom-[15%] right-[-5%] float-element" style="animation-delay: -2s;"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-16">
+                
+                <!-- Left: Text -->
+                <div class="lg:col-span-5 fade-up">
+                    <span class="label-tag mb-6">The Work</span>
+                    <h2 class="font-display text-3xl md:text-4xl mb-6">What clarity looks like</h2>
+                    <p class="text-inkLight leading-relaxed mb-8">
+                        Each brief captures a transformation — 
+                        the moment when scattered thinking becomes visible pattern.
+                    </p>
+                </div>
+                
+            </div>
+            
+            <!-- Sketchy Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card 1 -->
+                <a href="/leadership-bryan/" class="sketch-card p-0 group fade-up">
+                    <div class="sketch-portrait h-48 w-full"></div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="label-tag">Leadership</span>
+                        </div>
+                        <h4 class="font-display text-xl mb-2 group-hover:text-coral transition-colors">Josh Bryan</h4>
+                        <p class="text-sm text-inkLight">Strategic positioning for leadership transition</p>
+                        <div class="mt-4 pt-4 border-t border-dashed border-ink/10">
+                            <span class="font-hand text-lg text-inkFaint group-hover:text-coral transition-colors">View brief →</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Card 2 -->
+                <a href="/kate-lewis/" class="sketch-card p-0 group fade-up" style="transition-delay: 0.1s;">
+                    <div class="sketch-portrait h-48 w-full"></div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="label-tag coral">Practitioner</span>
+                        </div>
+                        <h4 class="font-display text-xl mb-2 group-hover:text-coral transition-colors">Kate Lewis</h4>
+                        <p class="text-sm text-inkLight">Complex expertise made visible</p>
+                        <div class="mt-4 pt-4 border-t border-dashed border-ink/10">
+                            <span class="font-hand text-lg text-inkFaint group-hover:text-coral transition-colors">View brief →</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Card 3 -->
+                <a href="/nate-galbreath/" class="sketch-card p-0 group fade-up" style="transition-delay: 0.2s;">
+                    <div class="sketch-portrait h-48 w-full"></div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="label-tag teal">Philosophy</span>
+                        </div>
+                        <h4 class="font-display text-xl mb-2 group-hover:text-teal transition-colors">Dr. Nate Galbreath</h4>
+                        <p class="text-sm text-inkLight">Leadership doctrine made accessible</p>
+                        <div class="mt-4 pt-4 border-t border-dashed border-ink/10">
+                            <span class="font-hand text-lg text-inkFaint group-hover:text-teal transition-colors">View brief →</span>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Card 4 - Placeholder -->
+                <div class="sketch-card p-0 opacity-50 fade-up" style="transition-delay: 0.3s;">
+                    <div class="sketch-portrait h-48 w-full flex items-center justify-center">
+                        <span class="font-hand text-3xl text-inkFaint">?</span>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="label-tag gold">Emerging</span>
+                        </div>
+                        <h4 class="font-display text-xl mb-2 text-inkLight">Your Story</h4>
+                        <p class="text-sm text-inkFaint">What pattern is waiting to emerge?</p>
+                        <div class="mt-4 pt-4 border-t border-dashed border-ink/10">
+                            <span class="font-hand text-lg text-inkFaint">Coming soon</span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 4: PROCESS - Interactive -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="process" class="py-32 bg-creamDark relative paper-texture">
+        
+        <!-- Organic elements -->
+        <div class="organic-blob w-[300px] h-[300px] bg-ink top-[5%] right-[10%] float-element"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center mb-20 fade-up">
+                <span class="label-tag mb-6">Experience</span>
+                <h2 class="font-display text-3xl md:text-4xl mb-4">Try it yourself</h2>
+                <p class="text-inkLight">A taste of the methodology.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Sprint Simulator -->
+                <div class="fade-up">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="label-tag coral">Briefs Studio</span>
+                        <span class="font-display text-lg">Mini Sprint</span>
+                    </div>
+                    
+                    <div class="sketch-card p-8">
+                        <div class="space-y-5 mb-6">
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">What are you building?</label>
+                                <input type="text" class="sim-input w-full" placeholder="A product, service, idea..." id="sprint-q1">
+                            </div>
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">Who needs to hear about it?</label>
+                                <input type="text" class="sim-input w-full" placeholder="Your audience..." id="sprint-q2">
+                            </div>
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">What happens if they don't get it?</label>
+                                <input type="text" class="sim-input w-full" placeholder="The stakes..." id="sprint-q3">
+                            </div>
+                        </div>
+                        
+                        <div id="sprint-map" class="p-4 bg-cream border-2 border-dashed border-ink/10 min-h-[80px]">
+                            <div id="map-placeholder" class="text-inkFaint font-hand text-center">Your map emerges as you type...</div>
+                            <div id="map-nodes" class="hidden flex flex-wrap items-center justify-center gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Landscape Creator -->
+                <div class="fade-up" style="transition-delay: 0.1s;">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="label-tag teal">Sleepy Planet</span>
+                        <span class="font-display text-lg">Build a Landscape</span>
+                    </div>
+                    
+                    <div class="sketch-card p-8">
+                        <div class="space-y-5 mb-6">
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">You're standing at the edge of a...</label>
+                                <input type="text" class="sim-input w-full" placeholder="forest, desert, ocean..." id="land-q1">
+                            </div>
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">In the distance, there's a...</label>
+                                <input type="text" class="sim-input w-full" placeholder="Something calling to you..." id="land-q2">
+                            </div>
+                            <div>
+                                <label class="font-hand text-lg text-ink block mb-2">Between you and it, there's...</label>
+                                <input type="text" class="sim-input w-full" placeholder="What's in the way?" id="land-q3">
+                            </div>
+                        </div>
+                        
+                        <div id="landscape-preview" class="p-4 bg-cream border-2 border-dashed border-teal/20 min-h-[80px]">
+                            <div id="landscape-placeholder" class="text-inkFaint font-hand text-center">Your landscape takes shape...</div>
+                            <div id="landscape-description" class="hidden font-display text-lg italic text-ink leading-relaxed"></div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 5: FAQ -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="faq" class="py-32 bg-cream relative paper-texture grid-paper">
+        
+        <div class="organic-blob w-[250px] h-[250px] bg-gold top-[20%] left-[5%] float-element"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                
+                <!-- Left: Sticky header -->
+                <div class="lg:col-span-4 lg:sticky lg:top-32 lg:self-start fade-up">
+                    <h2 class="font-display text-4xl md:text-5xl leading-tight mb-6">
+                        Your questions.<br>
+                        <span class="text-coral">Answered.</span>
+                    </h2>
+                    <p class="text-inkLight mb-8">
+                        Not sure what to expect? These answers might help you feel more confident as you begin.
+                    </p>
+                    <a href="#participate" class="btn-lectern btn-coral">
+                        <span>Get in touch</span>
+                    </a>
+                </div>
+                
+                <!-- Right: Accordion -->
+                <div class="lg:col-span-8">
+                    
+                    <div class="faq-item fade-up">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h3 class="font-display text-xl pr-4">What happens in a Clarity Sprint?</h3>
+                            <div class="faq-icon">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-inkLight leading-relaxed">
+                                We spend 90 minutes in conversation. I map in real-time on a shared screen. 
+                                You watch your narrative emerge — patterns you couldn't see before become visible. 
+                                You leave with a visual story map and the language you've been looking for.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-up" style="transition-delay: 0.05s;">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h3 class="font-display text-xl pr-4">How is Sleepy Planet different from therapy?</h3>
+                            <div class="faq-icon">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-inkLight leading-relaxed">
+                                It's not therapy. It's guided imagination — creating symbolic landscapes that reveal 
+                                patterns you already know but can't articulate. Think of it as collaborative 
+                                storytelling where you're both the author and the explorer.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-up" style="transition-delay: 0.1s;">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h3 class="font-display text-xl pr-4">What if I don't know what I need?</h3>
+                            <div class="faq-icon">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-inkLight leading-relaxed">
+                                That's actually the perfect place to start. The methodology is designed for exactly this — 
+                                helping you articulate what you can't yet name. We begin with what you have, 
+                                and clarity emerges through the conversation.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-up" style="transition-delay: 0.15s;">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h3 class="font-display text-xl pr-4">What does "100 Strangers" mean?</h3>
+                            <div class="faq-icon">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-inkLight leading-relaxed">
+                                It's an ongoing research project — guided imagination sessions with 100 people I've never met. 
+                                Free sessions for those willing to contribute to the research. 
+                                The patterns emerging across these landscapes are becoming a map of their own.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-up" style="transition-delay: 0.2s;">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h3 class="font-display text-xl pr-4">Can organizations use Sleepy Planet?</h3>
+                            <div class="faq-icon">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-inkLight leading-relaxed">
+                                Yes. Group sessions work beautifully for team retreats, leadership offsites, 
+                                or anywhere a shared symbolic language would help a team see themselves differently. 
+                                The methodology scales while keeping its intimate, revelatory quality.
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SECTION 6: PARTICIPATE - Final Form -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <section id="participate" class="py-32 bg-coral text-white relative paper-texture">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.4) 1px, transparent 0); background-size: 50px 50px;"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            
+            <div class="text-center mb-16 fade-up">
+                <h2 class="font-display text-4xl md:text-5xl mb-4">
+                    Ready to hear your own voice<br>
+                    <span class="text-goldDark">transformed?</span>
+                </h2>
+            </div>
+            
+            <div class="sketch-card p-8 md:p-12 text-ink max-w-2xl mx-auto fade-up">
+                <span class="label-tag mb-6">Here's what you've shared</span>
+                
+                <div class="space-y-5 mb-8">
+                    <div>
+                        <label class="font-hand text-lg text-inkLight block mb-2">Name</label>
+                        <div id="form-name" class="font-display text-xl border-b-2 border-dashed border-gold/30 pb-2 min-h-[2rem]">
+                            <span class="text-inkFaint italic">Your name appears here</span>
+                        </div>
+                    </div>
+                    
+                    <div id="form-sprint-section" class="hidden">
+                        <label class="font-hand text-lg text-inkLight block mb-2">What you're building</label>
+                        <div id="form-sprint" class="text-ink border-b-2 border-dashed border-gold/30 pb-2"></div>
+                    </div>
+                    
+                    <div id="form-landscape-section" class="hidden">
+                        <label class="font-hand text-lg text-inkLight block mb-2">Your landscape</label>
+                        <div id="form-landscape" class="font-display italic text-ink border-b-2 border-dashed border-gold/30 pb-2"></div>
+                    </div>
+                    
+                    <div>
+                        <label class="font-hand text-lg text-inkLight block mb-2">Email</label>
+                        <input type="email" class="sim-input w-full" placeholder="your@email.com" id="form-email">
+                    </div>
+                    
+                    <div>
+                        <label class="font-hand text-lg text-inkLight block mb-2">Anything else?</label>
+                        <textarea class="sim-input w-full resize-none" rows="2" placeholder="Optional..." id="form-message"></textarea>
+                    </div>
+                </div>
+                
+                <button class="btn-lectern btn-ink w-full justify-center">
+                    <span>Let's Talk</span>
+                </button>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- FOOTER -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <footer class="py-24 bg-ink text-white">
+        <div class="max-w-6xl mx-auto px-6">
+            
+            <!-- Newsletter Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20 pb-20 border-b border-white/10">
+                <div>
+                    <h3 class="font-display text-3xl md:text-4xl mb-4">
+                        Stay in the<br>conversation.
+                    </h3>
+                    <p class="text-white/50">
+                        Occasional thoughts on clarity, narrative, and the patterns that emerge 
+                        when you learn to listen differently.
+                    </p>
+                </div>
+                <div class="flex items-end">
+                    <div class="w-full">
+                        <div class="flex gap-4">
+                            <input type="email" class="flex-1 py-4 px-6 bg-white/5 border border-white/10 rounded-full text-white placeholder-white/30 focus:outline-none focus:border-coral" placeholder="your@email.com">
+                            <button class="btn-lectern btn-coral">
+                                <span>Subscribe</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Links -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+                <div>
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-white/30 block mb-4">Practices</span>
+                    <ul class="space-y-2 text-white/60">
+                        <li><a href="#" class="hover:text-coral transition-colors">Briefs Studio</a></li>
+                        <li><a href="#" class="hover:text-coral transition-colors">Sleepy Planet</a></li>
+                        <li><a href="#" class="hover:text-coral transition-colors">100 Strangers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-white/30 block mb-4">Work</span>
+                    <ul class="space-y-2 text-white/60">
+                        <li><a href="/leadership-bryan/" class="hover:text-coral transition-colors">Josh Bryan</a></li>
+                        <li><a href="/kate-lewis/" class="hover:text-coral transition-colors">Kate Lewis</a></li>
+                        <li><a href="/nate-galbreath/" class="hover:text-coral transition-colors">Dr. Galbreath</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-white/30 block mb-4">Connect</span>
+                    <ul class="space-y-2 text-white/60">
+                        <li><a href="#participate" class="hover:text-coral transition-colors">Get in touch</a></li>
+                        <li><a href="#faq" class="hover:text-coral transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-white/30 block mb-4">Explore</span>
+                    <ul class="space-y-2 text-white/60">
+                        <li><button onclick="document.getElementById('the-why').scrollIntoView({behavior:'smooth'})" class="hover:text-coral transition-colors text-left">The Why ↑</button></li>
+                        <li><span class="text-white/20 cursor-pointer hover:text-coral transition-colors" id="secret-glyph">✦</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 border-t border-white/5">
+                <div class="flex items-center gap-4">
+                    <span class="font-display text-xl cursor-pointer hover:text-coral transition-colors" id="footer-mrm">MRM</span>
+                    <span class="text-white/20">|</span>
+                    <span class="font-mono text-[10px] text-white/30">Mike Marrotte</span>
+                </div>
+                <p class="font-mono text-[10px] text-white/30">
+                    A Living Brief · December 2025
+                </p>
+            </div>
+            
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- MODALS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    
+    <!-- Konami Easter Egg -->
+    <div id="easter-egg-modal" class="fixed inset-0 z-[110] hidden items-center justify-center bg-ink/95 backdrop-blur-md">
+        <div class="max-w-2xl mx-4 w-full transform scale-95 opacity-0 transition-all duration-500" id="easter-egg-content">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-coral/20 flex items-center justify-center">
+                    <span class="text-4xl text-coral">✦</span>
+                </div>
+                <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-4">You found it</span>
+                <h2 class="font-display text-4xl md:text-5xl text-white">The Real Map</h2>
+            </div>
+            <div class="sketch-card p-8">
+                <p class="font-display text-xl text-ink/90 leading-relaxed mb-6 italic">
+                    "Every methodology is autobiography in disguise."
+                </p>
+                <p class="text-inkLight leading-relaxed mb-6">
+                    Briefs Studio started because I couldn't hear my own voice. Sleepy Planet started because I kept dreaming the same landscapes. 
+                    Both practices emerged from trying to understand my own patterns.
+                </p>
+                <div class="border-t-2 border-dashed border-ink/10 pt-6">
+                    <p class="font-hand text-2xl text-coral">This page is its own story map.</p>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <button onclick="closeEasterEgg()" class="btn-lectern">
+                    <span>Return to surface</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Triple-Click Easter Egg -->
+    <div id="triple-click-egg" class="fixed inset-0 z-[110] hidden items-center justify-center bg-cream">
+        <div class="max-w-lg mx-4 text-center transform scale-95 opacity-0 transition-all duration-500" id="triple-click-content">
+            <div class="text-6xl text-coral mb-8">☉</div>
+            <p class="font-display text-3xl text-ink mb-4">You're paying attention.</p>
+            <p class="text-inkLight mb-8">That's the first step in any transformation.</p>
+            <button onclick="closeTripleClick()" class="btn-lectern btn-coral">
+                <span>Continue</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- JAVASCRIPT -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <script>
+        // ============================================
+        // SCROLL TO ENTRY ON LOAD
+        // ============================================
+        window.addEventListener('load', () => {
+            const entrySection = document.getElementById('entry');
+            if (entrySection) {
+                setTimeout(() => {
+                    window.scrollTo({ top: entrySection.offsetTop, behavior: 'instant' });
+                }, 50);
+            }
+        });
+        
+        // ============================================
+        // NAVIGATION TRIGGERS
+        // ============================================
+        document.getElementById('scroll-up-trigger').addEventListener('click', () => {
+            document.getElementById('the-why').scrollIntoView({ behavior: 'smooth' });
+            incrementEgg('hidden');
+        });
+        
+        document.getElementById('discover-why').addEventListener('click', () => {
+            document.getElementById('the-why').scrollIntoView({ behavior: 'smooth' });
+            incrementEgg('hidden');
+        });
+        
+        document.getElementById('return-to-surface').addEventListener('click', () => {
+            document.getElementById('entry').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Begin journey scrolls to next section
+        document.getElementById('begin-journey').addEventListener('click', () => {
+            document.getElementById('recognition').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // ============================================
+        // NAV BLUR ON SCROLL
+        // ============================================
+        let scrollTimeout;
+        const nav = document.getElementById('main-nav');
+        
+        window.addEventListener('scroll', () => {
+            nav.classList.add('scrolling');
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                nav.classList.remove('scrolling');
+            }, 150);
+        });
+        
+        // ============================================
+        // EASTER EGG COUNTER
+        // ============================================
+        let eggsFound = parseInt(localStorage.getItem('mrm-eggs') || '0');
+        document.getElementById('eggs-found').textContent = eggsFound;
+        
+        function incrementEgg(type) {
+            if (!localStorage.getItem(`mrm-${type}-found`)) {
+                eggsFound++;
+                localStorage.setItem('mrm-eggs', eggsFound);
+                localStorage.setItem(`mrm-${type}-found`, 'true');
+                document.getElementById('eggs-found').textContent = eggsFound;
+            }
+        }
+        
+        // ============================================
+        // MENU TOGGLE
+        // ============================================
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('hidden');
+        });
+        
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navMenu.classList.add('hidden');
+            });
+        });
+        
+        // ============================================
+        // FAQ ACCORDION
+        // ============================================
+        function toggleFaq(el) {
+            const item = el.parentElement;
+            const wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!wasOpen) item.classList.add('open');
+        }
+        
+        // ============================================
+        // FADE ON SCROLL
+        // ============================================
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+        
+        // ============================================
+        // NAME INPUT → FORM
+        // ============================================
+        const nameInput = document.getElementById('visitor-name');
+        const formName = document.getElementById('form-name');
+        
+        nameInput.addEventListener('input', (e) => {
+            formName.innerHTML = e.target.value.trim() 
+                ? e.target.value 
+                : '<span class="text-inkFaint italic">Your name appears here</span>';
+        });
+        
+        // ============================================
+        // SPRINT SIMULATOR
+        // ============================================
+        const sprintQ1 = document.getElementById('sprint-q1');
+        const sprintQ2 = document.getElementById('sprint-q2');
+        const sprintQ3 = document.getElementById('sprint-q3');
+        const mapPlaceholder = document.getElementById('map-placeholder');
+        const mapNodes = document.getElementById('map-nodes');
+        const formSprintSection = document.getElementById('form-sprint-section');
+        const formSprint = document.getElementById('form-sprint');
+        
+        function updateSprintMap() {
+            const q1 = sprintQ1.value.trim();
+            const q2 = sprintQ2.value.trim();
+            const q3 = sprintQ3.value.trim();
+            
+            if (q1 || q2 || q3) {
+                mapPlaceholder.classList.add('hidden');
+                mapNodes.classList.remove('hidden');
+                mapNodes.classList.add('flex');
+                
+                let html = '';
+                if (q1) html += `<div class="map-node px-3 py-2 border-coral text-sm"><span class="text-coral font-bold">WHAT:</span> ${q1.substring(0, 20)}${q1.length > 20 ? '...' : ''}</div>`;
+                if (q1 && q2) html += `<span class="text-gold mx-2">→</span>`;
+                if (q2) html += `<div class="map-node px-3 py-2 border-teal text-sm"><span class="text-teal font-bold">WHO:</span> ${q2.substring(0, 20)}${q2.length > 20 ? '...' : ''}</div>`;
+                if (q2 && q3) html += `<span class="text-gold mx-2">→</span>`;
+                if (q3) html += `<div class="map-node px-3 py-2 border-ink text-sm"><span class="font-bold">STAKES:</span> ${q3.substring(0, 20)}${q3.length > 20 ? '...' : ''}</div>`;
+                
+                mapNodes.innerHTML = html;
+                formSprintSection.classList.remove('hidden');
+                formSprint.textContent = `${q1 || '...'} → ${q2 || '...'} → ${q3 || '...'}`;
+            } else {
+                mapPlaceholder.classList.remove('hidden');
+                mapNodes.classList.add('hidden');
+                formSprintSection.classList.add('hidden');
+            }
+        }
+        
+        [sprintQ1, sprintQ2, sprintQ3].forEach(input => input.addEventListener('input', updateSprintMap));
+        
+        // ============================================
+        // LANDSCAPE CREATOR
+        // ============================================
+        const landQ1 = document.getElementById('land-q1');
+        const landQ2 = document.getElementById('land-q2');
+        const landQ3 = document.getElementById('land-q3');
+        const landscapePlaceholder = document.getElementById('landscape-placeholder');
+        const landscapeDescription = document.getElementById('landscape-description');
+        const formLandscapeSection = document.getElementById('form-landscape-section');
+        const formLandscape = document.getElementById('form-landscape');
+        
+        function updateLandscape() {
+            const q1 = landQ1.value.trim();
+            const q2 = landQ2.value.trim();
+            const q3 = landQ3.value.trim();
+            
+            if (q1 || q2 || q3) {
+                landscapePlaceholder.classList.add('hidden');
+                landscapeDescription.classList.remove('hidden');
+                
+                let text = 'You stand at the edge of ';
+                text += q1 ? `a ${q1}` : '...';
+                text += '. ';
+                if (q2) text += `In the distance, ${q2} waits. `;
+                if (q3) text += `Between you and it: ${q3}.`;
+                
+                landscapeDescription.textContent = text;
+                formLandscapeSection.classList.remove('hidden');
+                formLandscape.textContent = text;
+            } else {
+                landscapePlaceholder.classList.remove('hidden');
+                landscapeDescription.classList.add('hidden');
+                formLandscapeSection.classList.add('hidden');
+            }
+        }
+        
+        [landQ1, landQ2, landQ3].forEach(input => input.addEventListener('input', updateLandscape));
+        
+        // ============================================
+        // KONAMI CODE
+        // ============================================
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+        let konamiIndex = 0;
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.code === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    showEasterEgg();
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+        
+        document.getElementById('secret-glyph').addEventListener('click', showEasterEgg);
+        
+        function showEasterEgg() {
+            const modal = document.getElementById('easter-egg-modal');
+            const content = document.getElementById('easter-egg-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 50);
+            incrementEgg('konami');
+        }
+        
+        function closeEasterEgg() {
+            const modal = document.getElementById('easter-egg-modal');
+            const content = document.getElementById('easter-egg-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 500);
+        }
+        
+        document.getElementById('easter-egg-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'easter-egg-modal') closeEasterEgg();
+        });
+        
+        // ============================================
+        // TRIPLE-CLICK
+        // ============================================
+        let clickCount = 0;
+        let clickTimer;
+        
+        document.getElementById('footer-mrm').addEventListener('click', () => {
+            clickCount++;
+            clearTimeout(clickTimer);
+            if (clickCount === 3) {
+                showTripleClick();
+                clickCount = 0;
+            } else {
+                clickTimer = setTimeout(() => clickCount = 0, 500);
+            }
+        });
+        
+        function showTripleClick() {
+            const modal = document.getElementById('triple-click-egg');
+            const content = document.getElementById('triple-click-content');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 50);
+            incrementEgg('triple');
+        }
+        
+        function closeTripleClick() {
+            const modal = document.getElementById('triple-click-egg');
+            const content = document.getElementById('triple-click-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+        
+        // ============================================
+        // ESCAPE KEY
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeEasterEgg();
+                closeTripleClick();
+            }
+        });
+        
+        // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+
+</body>
+</html>

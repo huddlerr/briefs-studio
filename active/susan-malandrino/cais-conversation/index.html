@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Brief // Center for AI Safety</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Bormiolo:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        command: '#0A0B10',
+                        intel: '#161B22',
+                        signal: '#38BDF8',
+                        warning: '#FFB000',
+                        success: '#00FF41',
+                        ghost: '#8B949E',
+                        paper: '#F0F6FC',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        serif: ['Bormiolo', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/cascadia-code');
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::selection {
+            background: #38BDF8;
+            color: #0A0B10;
+        }
+
+        body {
+            background-color: #0A0B10;
+            background-image:
+                linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .terminal-border {
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            position: relative;
+        }
+
+        .terminal-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 0;
+            width: 20px;
+            height: 1px;
+            background: #38BDF8;
+        }
+
+        .terminal-border::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            right: 0;
+            width: 20px;
+            height: 1px;
+            background: #38BDF8;
+        }
+
+        .data-header {
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            font-size: 0.65rem;
+            color: #38BDF8;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .data-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(56, 189, 248, 0.3), transparent);
+        }
+
+        .shadow-signal {
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .translation-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(56, 189, 248, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% {
+                bottom: 100%;
+            }
+
+            100% {
+                bottom: -100px;
+            }
+        }
+
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3column%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+        }
+    </style>
+</head>
+
+<body class="text-paper font-sans antialiased overflow-x-hidden">
+    <div class="fixed inset-0 bg-noise pointer-events-none z-50"></div>
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="scanline"></div>
+    </div>
+
+    <!-- COMMAND NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 px-8 py-4 border-b border-white/5 backdrop-blur-xl bg-command/80">
+        <div class="max-w-7xl mx-auto flex justify-between items-center font-mono text-[10px]">
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <div class="w-1.5 h-1.5 bg-success rounded-full shadow-[0_0_8px_#00FF41]"></div>
+                    <span class="tracking-[0.3em] uppercase opacity-70">System Identity: Susan Malandrino</span>
+                </div>
+                <div class="hidden md:flex items-center gap-2 border-l border-white/10 pl-6">
+                    <span class="opacity-40 uppercase">Location:</span>
+                    <span class="text-signal">East Coast Operation // CAIS</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-8">
+                <div class="hidden sm:block">
+                    <span class="opacity-40 uppercase tracking-widest mr-2">Timestamp:</span>
+                    <span class="text-warning">14 JAN 2026 // 17:15</span>
+                </div>
+                <div class="px-3 py-1 border border-warning/30 text-warning animate-pulse">
+                    PRIORITY: STRATEGIC
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-8 pt-32 pb-32">
+
+        <!-- HEADER / MISSION START -->
+        <header class="mb-32 relative">
+            <div class="data-header">Mission Initialization</div>
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-12">
+                <div class="max-w-3xl">
+                    <div class="font-mono text-xs text-signal mb-1 tracking-widest uppercase opacity-80 select-none">
+                        Subject: Susan Malandrino</div>
+                    <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-8">
+                        The Center for<br>
+                        <span class="text-signal italic tracking-tighter">AI Safety Brief</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-ghost leading-relaxed font-light">
+                        Strategy for tomorrow's conversation with Dan Hendrycks and the CAIS team.
+                    </p>
+                </div>
+                <div class="flex flex-col gap-4 text-right">
+                    <div class="p-6 terminal-border bg-intel/50 backdrop-blur-md">
+                        <div class="font-mono text-[10px] uppercase opacity-40 mb-2">Primary Objective</div>
+                        <div class="text-sm font-bold tracking-wider leading-tight">
+                            Establish Fit as Comms Lead<br>
+                            <span class="text-signal text-xs">for East Coast Operation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+            <!-- LEFT COLUMN: SYSTEM STATUS -->
+            <div class="lg:col-span-8 space-y-24">
+
+                <!-- SECTION 01: WHAT'S HAPPENING -->
+                <section id="status">
+                    <div class="data-header">Intel Report // 01</div>
+                    <h2 class="text-3xl font-bold mb-8">The Opportunity</h2>
+                    <div
+                        class="p-8 terminal-border bg-intel/30 border-l-2 border-l-signal group hover:bg-intel/40 transition-all">
+                        <p class="text-lg leading-relaxed text-ghost italic mb-6">
+                            They're flying people to California next week to explore an <span
+                                class="text-signal font-medium">East Coast operation</span> with Ike. Your role is the
+                            Comms Lead for this potential expansion.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-white/5">
+                            <div>
+                                <span class="font-mono text-[10px] uppercase text-warning block mb-2">The
+                                    Question</span>
+                                <p class="text-sm font-bold">"Are you the right person for this?"</p>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[10px] uppercase text-success block mb-2">The Answer</span>
+                                <p class="text-sm font-bold">"Yes. And here is the operational proof."</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 02: THE GAP -->
+                <section id="the-gap">
+                    <div class="data-header">Asset Gap Analysis // 02</div>
+                    <h2 class="text-3xl font-bold mb-10">What's Missing?</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <div class="p-8 bg-white/5 rounded-sm border border-white/5 opacity-50">
+                            <h3 class="font-mono text-xs uppercase tracking-widest mb-6">Current Inventory</h3>
+                            <ul class="space-y-4 text-sm font-light">
+                                <li class="flex items-center gap-3">
+                                    <div class="w-1.5 h-1.5 bg-ghost/30 rounded-full"></div>
+                                    <span>Dan Hendrycks: Technical Safety // Theory</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-1.5 h-1.5 bg-ghost/30 rounded-full"></div>
+                                    <span>Ike: DC Policy // Governance Frameworks</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-1.5 h-1.5 bg-ghost/30 rounded-full"></div>
+                                    <span>PR Firm: Media Placement // Tactics</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-8 bg-signal/10 rounded-sm border border-signal/20 relative shadow-signal">
+                            <div
+                                class="absolute -top-3 -right-3 px-2 py-1 bg-signal text-command text-[9px] font-bold uppercase tracking-widest">
+                                The Gap</div>
+                            <h3 class="font-mono text-xs uppercase tracking-widest mb-6 text-signal">The Critical Need
+                            </h3>
+                            <p class="text-xs text-paper/80 leading-relaxed mb-4">
+                                Someone who can navigate Trump's administration without capitulating OR alienating.
+                                Someone who speaks military/DOD AND policy AND humanitarian language.
+                            </p>
+                            <p class="text-sm font-bold text-signal">You are that gap.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-10 terminal-border bg-command border-l-4 border-l-warning">
+                        <div class="font-mono text-[10px] uppercase text-warning mb-4 tracking-widest">Value Proposition
+                        </div>
+                        <p class="text-3xl font-bold leading-tight">
+                            "You translate <span class="text-signal italic tracking-tighter">existential technical
+                                complexity</span> into operational clarity for people with power."
+                        </p>
+                    </div>
+                </section>
+
+                <!-- SECTION 03: STRATEGIC PROBES -->
+                <section id="probes">
+                    <div class="data-header">Strategic Probes // 03</div>
+                    <h2 class="text-3xl font-bold mb-4">Operational Interrogations</h2>
+                    <p class="text-ghost mb-12 text-sm italic font-serif">Questions that prove you see the gaps they
+                        haven't addressed.</p>
+
+                    <div class="space-y-6">
+                        <!-- Probe 01 -->
+                        <div
+                            class="p-8 bg-intel/20 border border-white/5 hover:border-signal/30 transition-all rounded-sm">
+                            <div class="flex items-start gap-6">
+                                <div class="font-mono text-xs text-signal pt-1">01</div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2">The Deterrence Paradox</h4>
+                                    <p class="text-paper/80 italic mb-4">"How does deterrence actually look
+                                        operationally when the technology is this distributed and weights will just be
+                                        stolen anyway?"</p>
+                                    <div
+                                        class="text-[10px] font-mono text-ghost bg-command p-3 rounded-sm border border-white/5">
+                                        RATIONALE: Dan identified the gap (weights can't be restricted). You are asking
+                                        for the operational solution. That's your lane.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Probe 02 -->
+                        <div
+                            class="p-8 bg-intel/20 border border-white/5 hover:border-signal/30 transition-all rounded-sm">
+                            <div class="flex items-start gap-6">
+                                <div class="font-mono text-xs text-signal pt-1">02</div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2">The Communication Problem</h4>
+                                    <p class="text-paper/80 italic mb-4">"How do we communicate deterrence capabilities
+                                        publicly enough to matter without providing a roadmap for rogue actors?"</p>
+                                    <div
+                                        class="text-[10px] font-mono text-ghost bg-command p-3 rounded-sm border border-white/5">
+                                        RATIONALE: Translation problem. Making strategy public-facing without
+                                        weaponizing it.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Probe 03 -->
+                        <div
+                            class="p-8 bg-intel/20 border border-white/5 hover:border-signal/30 transition-all rounded-sm">
+                            <div class="flex items-start gap-6">
+                                <div class="font-mono text-xs text-signal pt-1">03</div>
+                                <div>
+                                    <h4 class="font-bold text-lg mb-2">The Political Reality</h4>
+                                    <p class="text-paper/80 italic mb-4">"How do you pitch 'not building a super weapon'
+                                        to an 'America First' administration without it sounding like voluntary
+                                        disarmament?"</p>
+                                    <div
+                                        class="text-[10px] font-mono text-ghost bg-command p-3 rounded-sm border border-white/5">
+                                        RATIONALE: Dan punted here. He knows WHAT, but not HOW to sell it. That's where
+                                        you add value.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- More Probes collapsed for focus -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-6 bg-intel/10 border border-white/5 rounded-sm">
+                                <h4 class="font-bold text-sm mb-2 opacity-60">04 // Timeline Crunch</h4>
+                                <p class="text-xs text-ghost italic italic">Operational tempo vs. institutional
+                                    adaptation speed. You understand the window.</p>
+                            </div>
+                            <div class="p-6 bg-intel/10 border border-white/5 rounded-sm">
+                                <h4 class="font-bold text-sm mb-2 opacity-60">05 // Economic Wildcard</h4>
+                                <p class="text-xs text-ghost italic">Domestic economic pain from automation is the
+                                    political constraint on safety strategy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 04: THE PATTERN -->
+                <section id="pattern">
+                    <div class="data-header">Historical Pattern Analysis // 04</div>
+                    <h2 class="text-3xl font-bold mb-10">The Translation Chain</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-6 group">
+                            <div
+                                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center font-mono text-xs opacity-40 group-hover:bg-signal group-hover:text-command group-hover:opacity-100 transition-all">
+                                01</div>
+                            <div
+                                class="flex-1 p-6 bg-intel/30 border-l border-white/5 group-hover:border-signal transition-all">
+                                <span class="font-mono text-[9px] uppercase tracking-widest text-signal">Red
+                                    Cross</span>
+                                <p class="text-sm">Translating humanitarian crisis for world leaders.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 group">
+                            <div
+                                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center font-mono text-xs opacity-40 group-hover:bg-signal group-hover:text-command group-hover:opacity-100 transition-all">
+                                02</div>
+                            <div
+                                class="flex-1 p-6 bg-intel/30 border-l border-white/5 group-hover:border-signal transition-all">
+                                <span class="font-mono text-[9px] uppercase tracking-widest text-signal">SAIC /
+                                    DOD</span>
+                                <p class="text-sm">Navigating high-stakes defense communications.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6 group">
+                            <div
+                                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center font-mono text-xs opacity-40 group-hover:bg-signal group-hover:text-command group-hover:opacity-100 transition-all">
+                                03</div>
+                            <div
+                                class="flex-1 p-6 bg-intel/30 border-l border-white/5 group-hover:border-signal transition-all">
+                                <span class="font-mono text-[9px] uppercase tracking-widest text-signal">Chiron</span>
+                                <p class="text-sm">Turning complex rambling into fundable strategic artifacts.</p>
+                            </div>
+                        </div>
+                        <p class="text-center italic text-ghost text-sm pt-8">The aperture keeps getting larger. The
+                            cognitive move stays the same.</p>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- RIGHT COLUMN: COMMAND CENTER -->
+            <div class="lg:col-span-4 relative">
+                <div class="sticky top-32 space-y-8">
+
+                    <!-- VIBE CHECK -->
+                    <div class="p-8 bg-intel/80 backdrop-blur-md terminal-border">
+                        <div class="data-header">Vibe Check // Diagnostics</div>
+                        <div class="space-y-8">
+                            <div>
+                                <span class="font-mono text-[10px] text-warning uppercase block mb-3">If Out of
+                                    Depth</span>
+                                <p class="text-xs text-paper/70 leading-relaxed italic">
+                                    "You had tea with dictators. These are tech nerds brilliant at theory but terrible
+                                    at
+                                    power. You are here to make them legible."
+                                </p>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[10px] text-signal uppercase block mb-3">If Technical Gap
+                                    Hits</span>
+                                <p class="text-xs text-paper/70 leading-relaxed italic">
+                                    "That's not my expertise—but here's how to make that matter to the Pentagon." Never
+                                    apologize for not being a researcher.
+                                </p>
+                            </div>
+                            <div>
+                                <span class="font-mono text-[10px] text-success uppercase block mb-3">The
+                                    Superpower</span>
+                                <p class="text-xs text-paper/70 leading-relaxed italic">
+                                    Your ability to speak across four incompatible systems—Military, Policy,
+                                    Humanitarian,
+                                    and Power—is the bridge CAIS doesn't know it lacks.
+                                </p>
+                            </div>
+                            <div class="pt-6 border-t border-white/5">
+                                <div class="font-mono text-[10px] text-ghost uppercase mb-2">Success Criteria</div>
+                                <ul class="text-[10px] space-y-2 text-ghost uppercase tracking-tighter">
+                                    <li>• They see operational strategy gaps</li>
+                                    <li>• They recognize your 4 multi-languages</li>
+                                    <li>• Different essential terrain identified</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+        <!-- NORTH STAR FOOTER -->
+        <footer class="mt-40 pt-20 border-t border-white/5">
+            <div class="max-w-4xl mx-auto text-center space-y-12">
+                <div class="inline-block px-12 py-10 bg-intel/30 border border-signal/20 rounded-full shadow-signal">
+                    <h3 class="text-3xl font-bold mb-4 italic tracking-tight italic">Translate Complexity into Clarity
+                    </h3>
+                    <p class="text-ghost text-sm italic font-serif">Trust the pattern. You've been here before.</p>
+                </div>
+
+                <div class="flex items-center justify-center gap-12 pt-12">
+                    <div class="flex items-center gap-3">
+                        <div class="w-2.5 h-2.5 bg-signal rounded-full animate-pulse shadow-[0_0_10px_#38BDF8]"></div>
+                        <span class="font-mono text-[10px] tracking-[0.4em] uppercase opacity-70">Briefs Studio
+                            Studio</span>
+                    </div>
+                    <div class="h-4 w-px bg-white/10"></div>
+                    <span class="font-mono text-[9px] tracking-[0.3em] uppercase opacity-30 italic">High Stakes
+                        Narrative Management</span>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            // Subtle movement of scanline or other elements can be added here
+        });
+    </script>
+</body>
+
+</html>

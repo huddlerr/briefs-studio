@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio Briefs // Intelligence Directory</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#050507',
+                        midnight: '#0A0A0E',
+                        deep: '#101017',
+                        surface: '#151522',
+                        elevated: '#1D1D2B',
+                        border: '#242435',
+                        muted: '#7F7F9D',
+                        text: '#D2D2E6',
+                        bright: '#FFFFFF',
+                        gold: '#F59E0B',
+                        emerald: '#10B981',
+                        sky: '#38BDF8',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root {
+            --midnight: #0A0A0E;
+            --surface: #151522;
+        }
+
+        body {
+            background-color: var(--midnight);
+            color: #D2D2E6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* SVG Noise Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            content: "";
+            opacity: 0.045;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        .glass-panel {
+            background: rgba(21, 21, 34, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(127, 127, 157, 0.12);
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .bento-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 240px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background: rgba(21, 21, 34, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(127, 127, 157, 0.12);
+            text-decoration: none;
+        }
+
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(800px circle at var(--x, 0px) var(--y, 0px), rgba(255,255,255,0.06), transparent 40%);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .bento-card:hover::before {
+            opacity: 1;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(245, 158, 11, 0.25);
+            box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 3px 8px;
+            font-size: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #242435;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3B3B54;
+        }
+
+        /* Grid glow dots */
+        .grid-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(245,158,11,0.05) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Slide Out Sandbox */
+        .sandbox-panel {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased min-h-screen text-text relative pb-20">
+    <div class="noise-overlay"></div>
+    <div class="grid-glow top-[-100px] left-[-100px]"></div>
+    <div class="grid-glow bottom-[200px] right-[-100px] bg-[radial-gradient(circle,rgba(16,185,129,0.03)_0%,rgba(0,0,0,0)_70%)]"></div>
+
+    <div class="max-w-7xl mx-auto p-6 md:p-12 relative z-10">
+
+        <!-- HEADER SYSTEM -->
+        <header class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div>
+                <span class="font-mono text-[9px] uppercase tracking-[0.4em] text-gold/60 block mb-2">Briefs Studio Narrative Networks</span>
+                <h1 class="font-serif text-5xl md:text-6xl font-bold text-bright tracking-tight">Briefs Directory</h1>
+                <p class="font-mono text-[10px] text-muted uppercase tracking-widest mt-2">Active Intelligence & Strategic Roadmap Manifest</p>
+            </div>
+            
+            <div class="flex gap-3">
+                <button onclick="toggleSandbox()" class="px-5 py-3 rounded-lg font-mono text-[10px] uppercase tracking-widest border border-gold/20 bg-gold/10 text-gold hover:bg-gold/20 hover:border-gold/30 transition-all flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+                    AI Sandbox Incubator
+                </button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+            <!-- MAIN GRID PORTAL -->
+            <div class="lg:col-span-3 order-2 lg:order-1">
+
+                <!-- SEARCH & INTERACTIVE FILTER BAR -->
+                <div class="mb-8 glass-panel rounded-xl p-5 border border-border/40 flex flex-col md:flex-row gap-5 items-center justify-between">
+                    
+                    <div class="flex flex-col gap-1 w-full md:w-auto">
+                        <label for="search-input" class="font-mono text-[8px] uppercase tracking-[0.25em] text-muted ml-1">Search Identifier</label>
+                        <input type="text" id="search-input" placeholder="Client, Keyword, or Tag..."
+                            class="w-full md:w-72 bg-midnight/60 border border-border/60 text-bright px-4 py-3 rounded-lg font-mono text-xs uppercase tracking-wider focus:outline-none focus:border-gold/50 transition-all">
+                    </div>
+
+                    <div class="flex flex-col gap-1 w-full md:w-auto">
+                        <label class="font-mono text-[8px] uppercase tracking-[0.25em] text-muted ml-1">Domain Portals</label>
+                        <div class="flex bg-midnight/60 border border-border/60 rounded-lg p-1">
+                            <button onclick="filterStatus('all')" id="tab-all" class="px-3 py-1.5 rounded font-mono text-[9px] uppercase tracking-wider bg-gold/10 text-gold font-semibold transition-all">All <span id="count-all" class="text-[8px] opacity-60"></span></button>
+                            <button onclick="filterStatus('active')" id="tab-active" class="px-3 py-1.5 rounded font-mono text-[9px] uppercase tracking-wider text-muted hover:text-bright transition-all">Active <span id="count-active" class="text-[8px] opacity-60"></span></button>
+                            <button onclick="filterStatus('archive')" id="tab-archive" class="px-3 py-1.5 rounded font-mono text-[9px] uppercase tracking-wider text-muted hover:text-bright transition-all">Archive <span id="count-archive" class="text-[8px] opacity-60"></span></button>
+                            <button onclick="filterStatus('skills')" id="tab-skills" class="px-3 py-1.5 rounded font-mono text-[9px] uppercase tracking-wider text-muted hover:text-bright transition-all">Skills <span id="count-skills" class="text-[8px] opacity-60"></span></button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 justify-end w-full md:w-auto">
+                        <button onclick="clearFilters()" class="px-4 py-3 border border-border text-muted rounded-lg font-mono text-[9px] uppercase tracking-widest hover:text-bright hover:bg-border/20 transition-all">Clear</button>
+                    </div>
+                </div>
+
+                <!-- BENTO GRID -->
+                <main>
+                    <div id="briefs-grid" class="bento-grid">
+                        <!-- Rendered dynamically by JavaScript -->
+                    </div>
+
+                    <!-- EMPTY STATE -->
+                    <div id="empty-state" class="hidden text-center py-32 glass-panel rounded-xl border border-border/20">
+                        <p class="font-mono text-xs uppercase tracking-widest text-muted">No matching assets cataloged in this sector.</p>
+                        <button onclick="clearFilters()" class="mt-4 px-4 py-2 bg-gold/10 text-gold rounded font-mono text-[10px] uppercase tracking-widest hover:bg-gold/20 transition-all">Reset Search Sector</button>
+                    </div>
+                </main>
+            </div>
+
+            <!-- PERMANENT METRICS SIDE PANEL -->
+            <div class="lg:col-span-1 order-1 lg:order-2 flex flex-col gap-6">
+                
+                <!-- BRAND ELEVATION UNIT -->
+                <div class="glass-panel rounded-xl p-6 border border-border/40 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-gold/10 to-transparent rounded-bl-full pointer-events-none"></div>
+                    
+                    <span class="text-gold font-mono text-[8px] uppercase tracking-[0.3em] font-semibold block mb-2">// COGNITIVE OVERLAY</span>
+                    <h3 class="font-serif text-lg font-bold text-bright leading-snug mb-3">Briefs Studio System</h3>
+                    <p class="text-xs text-muted leading-relaxed mb-4">
+                        A self-improving platform built to continuously refine strategic authority by translating raw transcripts into editorial, machine-grade briefs.
+                    </p>
+                    
+                    <div class="border-t border-border/30 pt-4 flex flex-col gap-3 font-mono text-[9px]">
+                        <div class="flex justify-between">
+                            <span class="text-muted">CORE VERSION</span>
+                            <span class="text-bright">v3.4.1 [LIVING]</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-muted">SYSTEM CAPABILITIES</span>
+                            <span class="text-bright">4 NEURAL SKINS</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-muted">INDEXED BRIEFS</span>
+                            <span class="text-gold font-bold" id="total-briefs-indicator">38 ASSETS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TACTICAL LEGEND / STATS -->
+                <div class="glass-panel rounded-xl p-6 border border-border/40">
+                    <span class="text-muted font-mono text-[8px] uppercase tracking-[0.3em] block mb-4">// SECTOR VOLUMES</span>
+                    
+                    <div class="flex flex-col gap-4">
+                        <div>
+                            <div class="flex justify-between text-[10px] font-mono mb-1.5">
+                                <span class="text-bright flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald"></span>
+                                    ACTIVE CLIENTS
+                                </span>
+                                <span class="text-muted" id="active-percentage">55%</span>
+                            </div>
+                            <div class="h-1 bg-midnight rounded-full overflow-hidden">
+                                <div id="active-bar" class="h-full bg-emerald transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-[10px] font-mono mb-1.5">
+                                <span class="text-bright flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-sky"></span>
+                                    HISTORICAL ARCHIVES
+                                </span>
+                                <span class="text-muted" id="archive-percentage">35%</span>
+                            </div>
+                            <div class="h-1 bg-midnight rounded-full overflow-hidden">
+                                <div id="archive-bar" class="h-full bg-sky transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-[10px] font-mono mb-1.5">
+                                <span class="text-bright flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-gold"></span>
+                                    SYSTEM CAPABILITIES
+                                </span>
+                                <span class="text-muted" id="skills-percentage">10%</span>
+                            </div>
+                            <div class="h-1 bg-midnight rounded-full overflow-hidden">
+                                <div id="skills-bar" class="h-full bg-gold transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC RECENT REVEALS -->
+                <div class="glass-panel rounded-xl p-6 border border-border/40">
+                    <span class="text-gold font-mono text-[8px] uppercase tracking-[0.3em] block mb-4">// REAL-TIME CHRONICLE</span>
+                    <div id="chronicle-feed" class="flex flex-col gap-3.5 font-mono text-[10px]">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI STRATEGY SANDBOX OVERLAY / DRAWER -->
+    <div id="sandbox-drawer" class="fixed top-0 right-0 w-full md:w-[500px] h-screen bg-void/95 border-l border-border/80 z-[1000] sandbox-panel translate-x-full shadow-2xl flex flex-col justify-between">
+        
+        <!-- Header -->
+        <div class="p-6 border-b border-border/50 flex justify-between items-center bg-midnight">
+            <div>
+                <span class="font-mono text-[8px] uppercase tracking-[0.3em] text-gold/80 block mb-1">// INCUBATOR OVERLAY</span>
+                <h3 class="font-serif text-xl font-bold text-bright">AI Strategy Sandbox</h3>
+            </div>
+            <button onclick="toggleSandbox()" class="w-8 h-8 rounded border border-border hover:bg-border/20 transition-all font-mono text-xs flex items-center justify-center text-muted hover:text-bright">✕</button>
+        </div>
+
+        <!-- Sandbox Form Space -->
+        <div class="p-6 flex-1 overflow-y-auto flex flex-col gap-6">
+            <p class="text-xs text-muted leading-relaxed">
+                Paste meeting transcripts, client interview logs, or raw notes. Select a linguistic archetype and watch the AI process the text into high-stakes narrative components in real time.
+            </p>
+
+            <div class="flex flex-col gap-1.5">
+                <label for="sandbox-archetype" class="font-mono text-[9px] uppercase tracking-wider text-muted">Linguistic Archetype Detection</label>
+                <select id="sandbox-archetype" class="bg-midnight border border-border text-bright px-3 py-2.5 rounded font-mono text-xs focus:outline-none focus:border-gold/50">
+                    <option value="Systems Integrator">The Systems Integrator (e.g. Greg Brandon)</option>
+                    <option value="Change Architect">The Change Architect (e.g. Christopher Liechty)</option>
+                    <option value="Deep Value Specialist">The Deep Value Specialist (e.g. Susan Malandrino)</option>
+                    <option value="Identity Archivist" selected>The Identity Archivist (e.g. Devaki Murch)</option>
+                </select>
+            </div>
+
+            <div class="flex flex-col gap-1.5 flex-1 min-h-[180px]">
+                <label for="sandbox-notes" class="font-mono text-[9px] uppercase tracking-wider text-muted">Raw Strategy Notes & Transcripts</label>
+                <textarea id="sandbox-notes" class="flex-1 w-full bg-midnight border border-border text-bright p-4 rounded font-mono text-xs focus:outline-none focus:border-gold/50 leading-relaxed resize-none">Faizan Ahmed's Strategy Session:
+- Faizan has a deep background in fine art printmaking and advanced web layout architecture.
+- He is feeling frustrated that client engagements treat him as a commodity "WordPress web developer".
+- He wants to operate as a high-stakes Narrative Systems Architect, building digital interactive installations that integrate strategic consulting and corporate governance for enterprise tech leaders.
+- Key Quote: "The alignment of pixels is useless if the system itself is structurally misaligned."</textarea>
+            </div>
+
+            <!-- Terminal output simulation -->
+            <div class="bg-black/80 rounded border border-border p-4 font-mono text-[10px] text-emerald min-h-[140px] flex flex-col gap-1 overflow-y-auto" id="terminal-screen">
+                <span class="text-muted">> SYSTEM IDLE. READY FOR TRANSCRIPT ANALYSIS...</span>
+            </div>
+        </div>
+
+        <!-- Incubator Actions -->
+        <div class="p-6 border-t border-border/50 bg-midnight flex gap-3">
+            <button onclick="incubateNarrative()" id="incubate-btn" class="flex-1 py-3.5 bg-gold text-midnight font-mono text-xs uppercase tracking-widest font-bold hover:bg-gold/90 transition-all rounded-lg flex items-center justify-center gap-2 shadow-lg shadow-gold/10">
+                🧬 Incubate Strategy Map
+            </button>
+        </div>
+    </div>
+
+    <!-- NARRATIVE INSIGHT MODAL -->
+    <div id="insight-modal" class="fixed inset-0 z-[2000] hidden bg-black/75 backdrop-blur-md flex items-center justify-center p-6">
+        <div class="glass-panel w-full max-w-2xl rounded-xl border border-border/80 shadow-2xl flex flex-col max-h-[90vh]">
+            <div class="p-6 border-b border-border/50 flex justify-between items-center bg-midnight">
+                <div>
+                    <span class="font-mono text-[8px] uppercase tracking-[0.3em] text-gold/80 block mb-1" id="modal-client"></span>
+                    <h3 class="font-serif text-2xl font-bold text-bright" id="modal-title"></h3>
+                </div>
+                <button onclick="closeModal()" class="w-8 h-8 rounded border border-border hover:bg-border/20 transition-all font-mono text-xs flex items-center justify-center text-muted hover:text-bright">✕</button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto flex flex-col gap-6 text-xs leading-relaxed" id="modal-body">
+                <!-- Injected dynamically -->
+            </div>
+
+            <div class="p-6 border-t border-border/50 bg-midnight flex justify-end gap-3">
+                <a href="#" id="modal-link" class="px-5 py-3 bg-gold text-midnight font-mono text-[10px] uppercase tracking-widest font-bold hover:bg-gold/90 transition-all rounded-lg">
+                    Open Digital Map →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allBriefs = [];
+        let activeFilter = 'all';
+        const incubatedHtmls = {};
+
+        // Custom mouse gradient-highlight on hover
+        document.addEventListener('mousemove', e => {
+            const cards = document.querySelectorAll('.bento-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+
+        function toggleSandbox() {
+            const drawer = document.getElementById('sandbox-drawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        function renderBriefCard(b) {
+            const s = b.style;
+            const borderStyle = s.dashed ? 'dashed' : 'solid';
+            const accentGlow = `style="border: 1.5px ${borderStyle} ${s.border};"`
+            
+            return `
+                <div class="bento-card group cursor-pointer" onclick="showIntel('${b.id}')" ${accentGlow}>
+                    <span class="card-badge" style="background-color: ${s.badgeBg}; color: ${s.badgeText || '#FFFFFF'}">${b.type}</span>
+                    <div>
+                        <span class="font-mono text-[8px] uppercase tracking-widest block mb-2" style="color: ${s.accent}">${b.client}</span>
+                        <h4 class="font-serif text-2xl font-bold text-bright leading-tight mb-2 group-hover:text-gold transition-colors">${b.title}</h4>
+                        <p class="text-[11px] text-muted italic leading-relaxed mb-4">"${b.description}"</p>
+                    </div>
+                    <div class="flex gap-2 flex-wrap items-center">
+                        <span class="font-mono text-[8px] text-muted mr-1">${b.date}</span>
+                        <span class="text-muted/30 text-[8px]">•</span>
+                        ${b.tags.map(t => `<span class="text-[8px] font-mono uppercase text-muted/80">${t}</span>`).join('<span class="text-muted/20 text-[8px]">•</span>')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterStatus(status) {
+            activeFilter = status;
+            
+            // Toggle active tabs
+            ['all', 'active', 'archive', 'skills'].forEach(s => {
+                const tab = document.getElementById(`tab-${s}`);
+                if (s === status) {
+                    tab.className = "px-3 py-1.5 rounded font-mono text-[9px] uppercase tracking-wider bg-gold/10 text-gold font-semibold transition-all";
+                } else {
+                    tab.className = "px-3 py-1.5 rounded font-mono text-[9px] uppercase tracking-wider text-muted hover:text-bright transition-all";
+                }
+            });
+
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            
+            const filtered = allBriefs.filter(b => {
+                // Search query matching
+                const matchesSearch = !query ||
+                    b.title.toLowerCase().includes(query) ||
+                    b.client.toLowerCase().includes(query) ||
+                    b.tags.some(t => t.toLowerCase().includes(query)) ||
+                    b.description.toLowerCase().includes(query) ||
+                    b.type.toLowerCase().includes(query);
+
+                // Category status matching
+                let matchesStatus = true;
+                const pathLower = b.path.toLowerCase();
+                
+                if (activeFilter === 'active') {
+                    matchesStatus = pathLower.includes('active/') || b.id === 'six-irons' || b.id === 'saic-dome-narrative' || b.id === 'dome-proposal' || b.id === 'jackie' || b.id === 'brooke';
+                } else if (activeFilter === 'archive') {
+                    matchesStatus = pathLower.includes('archive/') || b.id === 'operation-babylift' || b.id === 'krisnan';
+                } else if (activeFilter === 'skills') {
+                    matchesStatus = pathLower.includes('skills/') || pathLower.includes('.agent/');
+                }
+
+                return matchesSearch && matchesStatus;
+            });
+
+            const grid = document.getElementById('briefs-grid');
+            const empty = document.getElementById('empty-state');
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+            } else {
+                grid.innerHTML = filtered.map(renderBriefCard).join('');
+                empty.classList.add('hidden');
+            }
+
+            updateMetrics();
+        }
+
+        function clearFilters() {
+            document.getElementById('search-input').value = '';
+            filterStatus('all');
+        }
+
+        function updateMetrics() {
+            const activeCount = allBriefs.filter(b => b.path.toLowerCase().includes('active/') || b.id === 'six-irons' || b.id === 'saic-dome-narrative' || b.id === 'dome-proposal' || b.id === 'jackie' || b.id === 'brooke').length;
+            const archiveCount = allBriefs.filter(b => b.path.toLowerCase().includes('archive/') || b.id === 'operation-babylift' || b.id === 'krisnan').length;
+            const skillsCount = allBriefs.filter(b => b.path.toLowerCase().includes('skills/') || b.path.toLowerCase().includes('.agent/')).length;
+            
+            document.getElementById('count-all').innerText = `(${allBriefs.length})`;
+            document.getElementById('count-active').innerText = `(${activeCount})`;
+            document.getElementById('count-archive').innerText = `(${archiveCount})`;
+            document.getElementById('count-skills').innerText = `(${skillsCount})`;
+
+            document.getElementById('total-briefs-indicator').innerText = `${allBriefs.length} ASSETS`;
+
+            // Percentages
+            const actPct = Math.round((activeCount / allBriefs.length) * 100);
+            const arcPct = Math.round((archiveCount / allBriefs.length) * 100);
+            const sklPct = 100 - actPct - arcPct;
+
+            document.getElementById('active-percentage').innerText = `${actPct}%`;
+            document.getElementById('archive-percentage').innerText = `${arcPct}%`;
+            document.getElementById('skills-percentage').innerText = `${sklPct}%`;
+
+            document.getElementById('active-bar').style.width = `${actPct}%`;
+            document.getElementById('archive-bar').style.width = `${arcPct}%`;
+            document.getElementById('skills-bar').style.width = `${sklPct}%`;
+        }
+
+        function showIntel(id) {
+            const b = allBriefs.find(brief => brief.id === id);
+            if (!b) return;
+
+            document.getElementById('modal-client').innerText = `// INTERNAL DOSSIER: ${b.client}`;
+            document.getElementById('modal-title').innerText = b.title;
+            
+            // Build visual strategy dossier inside the modal
+            let content = `
+                <div class="border-l-2 border-gold pl-4 py-1 italic text-bright mb-4 font-serif text-sm">
+                    "${b.description}"
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 font-mono text-[10px] bg-midnight p-4 rounded border border-border/30">
+                    <div>
+                        <span class="text-muted block mb-0.5">METADATA STATUS</span>
+                        <span class="text-bright font-bold uppercase">${b.path.includes('active') ? 'ACTIVE / LIVE' : 'ARCHIVE / BASELINE'}</span>
+                    </div>
+                    <div>
+                        <span class="text-muted block mb-0.5">CHRONOLOGY</span>
+                        <span class="text-bright">${b.date}</span>
+                    </div>
+                    <div>
+                        <span class="text-muted block mb-0.5">INTEL SECTOR</span>
+                        <span class="text-gold font-bold">${b.type}</span>
+                    </div>
+                    <div>
+                        <span class="text-muted block mb-0.5">FILE REFERENCE</span>
+                        <span class="text-bright tracking-tight break-all">${b.path}</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <span class="font-mono text-[9px] uppercase tracking-wider text-muted">// COGNITIVE BLUEPRINT SUMMARY</span>
+                    <p class="text-[11px] leading-relaxed text-muted">
+                        This strategic dossier operationalizes critical insights harvested during corporate alignment workshops. Mapped carefully using <strong>Story Forensics</strong> linguistics and <strong>Narrative Architecture</strong>, it establishes client reframing parameters, bypassing traditional commodity positioning.
+                    </p>
+                </div>
+            `;
+
+            // Mockup full narrative elements for high-stakes briefs
+            if (b.id === 'occwi-sip') {
+                content += `
+                    <div class="border-t border-border/30 pt-4 flex flex-col gap-3">
+                        <span class="font-mono text-[9px] uppercase tracking-wider text-gold">// Briefs Studio STRUCTURE SUMMARY</span>
+                        <div>
+                            <span class="block font-bold text-bright mb-1">1. The Throughline</span>
+                            <span class="text-[11px] text-muted">"Transitioning prevention training from a compliance-oriented check-box lecture to an immersive, operational behavior blueprint."</span>
+                        </div>
+                        <div>
+                            <span class="block font-bold text-bright mb-1">2. Linguistic Gap Detected</span>
+                            <span class="text-[11px] text-muted">Stated: "We need prevention slide decks" ➔ Structural: "We must construct scenario-based behavioral laboratories to reveal operational patterns."</span>
+                        </div>
+                        <div>
+                            <span class="block font-bold text-bright mb-1">3. Stakeholder Alignment</span>
+                            <span class="text-[11px] text-muted">Prepared for: <strong>Elizabeth Walther</strong> (Media/Video Lead, OCCWI)</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('modal-body').innerHTML = content;
+            
+            const btnLink = document.getElementById('modal-link');
+            if (incubatedHtmls[id]) {
+                btnLink.href = "#";
+                btnLink.onclick = (e) => {
+                    e.preventDefault();
+                    const newWin = window.open();
+                    newWin.document.write(incubatedHtmls[id]);
+                    newWin.document.close();
+                };
+            } else {
+                btnLink.href = b.path;
+                btnLink.onclick = null;
+            }
+
+            document.getElementById('insight-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('insight-modal').classList.add('hidden');
+        }
+
+        // Terminal animation logging simulation
+        function appendTerminalLine(text, delay, colorClass = "text-emerald") {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const screen = document.getElementById('terminal-screen');
+                    const line = document.createElement('span');
+                    line.className = colorClass;
+                    line.innerText = text;
+                    screen.appendChild(line);
+                    screen.scrollTop = screen.scrollHeight;
+                    resolve();
+                }, delay);
+            });
+        }
+
+        async function incubateNarrative() {
+            const btn = document.getElementById('incubate-btn');
+            btn.disabled = true;
+            btn.innerHTML = `🧬 Aligning Nodes...`;
+            
+            const screen = document.getElementById('terminal-screen');
+            screen.innerHTML = ''; // Clear terminal
+
+            const rawNotes = document.getElementById('sandbox-notes').value;
+            const archetype = document.getElementById('sandbox-archetype').value;
+
+            // Generate clean client name
+            let clientName = "Faizan Ahmed";
+            if (rawNotes.includes("Faizan")) clientName = "Faizan Ahmed";
+            else if (rawNotes.includes("Elizabeth")) clientName = "OCCWI";
+            else clientName = "Incubated Client";
+
+            // If serving from Node.js web server, make a real network request!
+            const isLocalServer = window.location.protocol.startsWith('http');
+            
+            if (isLocalServer) {
+                await appendTerminalLine(`> [story-forensics] CONNECTING TO LOCAL SERVER INCUBATOR...`, 100, "text-gold");
+                try {
+                    const response = await fetch('/api/incubate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ notes: rawNotes, archetype })
+                    });
+                    
+                    if (!response.ok) throw new Error(await response.text());
+                    const incubatedData = await response.json();
+                    if (incubatedData.renderedHtml) {
+                        incubatedHtmls[incubatedData.id] = incubatedData.renderedHtml;
+                    }
+                    
+                    await appendTerminalLine(`> [story-forensics] Server response validated. Running local matching...`, 300);
+                    await appendTerminalLine(`> [story-forensics] Archetype Mapped: [${incubatedData.archetype.toUpperCase()}]`, 200, "text-bright font-bold");
+                    await appendTerminalLine(`> [story-forensics] REFRAMING AS STRATEGIC STRUCTURE: "Narrative Systems Architect"`, 200, "text-emerald font-bold");
+                    
+                    await appendTerminalLine(`> [narrative-architecture] STRUCTURING BLUEPRINT MODULES...`, 300, "text-gold");
+                    await appendTerminalLine(`> [narrative-architecture] Throughline: "${incubatedData.description}"`, 200);
+                    
+                    await appendTerminalLine(`> [tactical-viz] bespoke HTML rendered at ${incubatedData.path}`, 200, "text-gold");
+                    
+                    await appendTerminalLine(`> [mission-ops] REGISTERING BESPOKE INTEL CARD...`, 300, "text-gold");
+                    await appendTerminalLine(`> [mission-ops] Appended directly to briefs.json manifest.`, 200);
+                    await appendTerminalLine(`> [mission-ops] SYSTEM DEPLOYED SUCCESSFULLY. ASSET COMPILED ON DISK!`, 300, "text-emerald font-bold animate-pulse");
+
+                    // Prepend new real brief
+                    allBriefs.unshift(incubatedData);
+                    
+                    // Re-render
+                    applyFilters();
+                    
+                    addChronicleEvent(`Incubated & deployed ${incubatedData.client} Narrative Brief successfully.`);
+                } catch (err) {
+                    console.error("Local server incubation failed:", err);
+                    await appendTerminalLine(`> [error] Server error: ${err.message}. Falling back to client-side simulator...`, 200, "text-red-400 font-bold");
+                    await runBrowserSimulation(clientName, rawNotes, archetype);
+                }
+            } else {
+                await runBrowserSimulation(clientName, rawNotes, archetype);
+            }
+
+            // Reset button
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = `🧬 Incubate Strategy Map`;
+                toggleSandbox();
+            }, 800);
+        }
+
+        async function runBrowserSimulation(clientName, rawNotes, archetype) {
+            await appendTerminalLine(`> [story-forensics] SPINNING UP TRANSCRIPT FORENSICS ENGINE...`, 100, "text-gold");
+            await appendTerminalLine(`> [story-forensics] Ingesting raw transcript bytes... (${rawNotes.length} characters)`, 300);
+            await appendTerminalLine(`> [story-forensics] Running Linguistic Archetype detector...`, 400);
+            await appendTerminalLine(`> [story-forensics] Archetype Mapped: [${archetype.toUpperCase()}]`, 300, "text-bright font-bold");
+            await appendTerminalLine(`> [story-forensics] Extracting stated goals vs structural constraints...`, 400);
+            await appendTerminalLine(`> [story-forensics] COMMODITY LANGUAGE ISOLATED: "WordPress developer"`, 300, "text-red-400");
+            await appendTerminalLine(`> [story-forensics] REFRAMING AS STRATEGIC STRUCTURE: "Narrative Systems Architect"`, 200, "text-emerald font-bold");
+            
+            await appendTerminalLine(`> [narrative-architecture] STRUCTURING BLUEPRINT MODULES...`, 400, "text-gold");
+            await appendTerminalLine(`> [narrative-architecture] Throughline: "Bridging the gap between fine-art layout architecture and enterprise consulting engine."`, 300);
+            await appendTerminalLine(`> [narrative-architecture] Roadmap Calibration: 18-month strategic deployment validated.`, 200);
+            
+            await appendTerminalLine(`> [tactical-viz] CALIBRATING STYLING MATRIX...`, 300, "text-gold");
+            await appendTerminalLine(`> [tactical-viz] Hex colors configured: bg=#12121E border=#EBFF00 text=#FFFFFF`, 200);
+            
+            await appendTerminalLine(`> [mission-ops] REGISTERING INTERACTIVE INTEL CARD...`, 400, "text-gold");
+            await appendTerminalLine(`> [mission-ops] Appending to central registry briefs.json... OK`, 200);
+            await appendTerminalLine(`> [mission-ops] Syncing landing page data.briefs array... OK`, 100);
+            await appendTerminalLine(`> [mission-ops] SYSTEM DEPLOYED SUCCESSFULLY. ASSET COMPILED!`, 300, "text-emerald font-bold animate-pulse");
+
+            // Build new simulated card
+            const newBrief = {
+                "id": `incubated-${Date.now()}`,
+                "title": `${clientName} // Narrative Systems Architecture`,
+                "client": clientName,
+                "path": "archive/faizan-ahmed/index.html",
+                "type": "Incubated Brief",
+                "date": new Date().toISOString().split('T')[0],
+                "description": "Reframing a fine-art developer into a high-performance narrative infrastructure engineer.",
+                "tags": ["Systems", "Identity", "Incubated"],
+                "style": { "bg": "#12121E", "border": "#EBFF00", "text": "#FFFFFF", "badgeBg": "#EBFF00", "badgeText": "#000000", "accent": "#EBFF00" }
+            };
+
+            // Prepend new brief
+            allBriefs.unshift(newBrief);
+            
+            // Re-render
+            applyFilters();
+            
+            // Add a dynamic Chronicle entry
+            addChronicleEvent(`Incubated ${clientName} Narrative Brief successfully.`);
+        }
+
+        function addChronicleEvent(msg) {
+            const feed = document.getElementById('chronicle-feed');
+            const item = document.createElement('div');
+            item.className = "flex gap-2 text-muted leading-tight border-b border-border/10 pb-2";
+            item.innerHTML = `
+                <span class="text-gold font-bold">➔</span>
+                <div>
+                    <span class="text-bright">${msg}</span>
+                    <span class="text-[8px] opacity-40 block mt-0.5">${new Date().toLocaleTimeString()}</span>
+                </div>
+            `;
+            feed.insertBefore(item, feed.firstChild);
+            
+            // Cap at 4 items
+            while (feed.children.length > 4) {
+                feed.removeChild(feed.lastChild);
+            }
+        }
+
+        async function init() {
+            // Raw 38-brief database fully registered to run completely offline!
+            const data = {
+                "briefs": [
+                    {
+                        "id": "saic-dome-narrative",
+                        "title": "CDM Dome Narrative Architecture",
+                        "client": "SAIC",
+                        "path": "active/saic/index.html",
+                        "type": "Engagement Proposal",
+                        "date": "2026-02-04",
+                        "description": "Architecting narrative captures and high-stakes media positioning for CISA CDM captures.",
+                        "tags": ["Proposal", "SAIC", "GovCon"],
+                        "style": { "bg": "#0F172A", "border": "#0EA5E9", "text": "#F8FAFC", "badgeBg": "#0EA5E9", "badgeText": "#FFFFFF", "accent": "#0EA5E9" }
+                    },
+                    {
+                        "id": "dome-proposal",
+                        "title": "CISA CDM Capture Video Project",
+                        "client": "SAIC",
+                        "path": "briefs/dome-proposal.html",
+                        "type": "Engagement Proposal",
+                        "date": "2026-02-04",
+                        "description": "Narrative Architecture & Creative Direction for SAIC's CISA CDM Capture.",
+                        "tags": ["Proposal", "SAIC", "GovCon"],
+                        "style": { "bg": "#FAFAF8", "border": "#0F3057", "text": "#1C1C1C", "badgeBg": "#0F3057", "badgeText": "#FFFFFF", "accent": "#C9973F" }
+                    },
+                    {
+                        "id": "jackie",
+                        "title": "Architect of Conditions",
+                        "client": "Jackie",
+                        "path": "briefs/jackie.html",
+                        "type": "Colleague Map",
+                        "date": "2026-02-02",
+                        "description": "A linear mind in a cloud world. Building the rails so creative trains can run.",
+                        "tags": ["Colleague", "Deloitte"],
+                        "style": { "bg": "#FAFAF8", "border": "#5A6B7A", "text": "#1C1C1C", "badgeBg": "#5A6B7A", "badgeText": "#FFFFFF", "accent": "#5A6B7A" }
+                    },
+                    {
+                        "id": "devaki-resume-v2",
+                        "title": "Professional Resume // Devaki Murch",
+                        "client": "Devaki Murch",
+                        "path": "archive/devaki-resume/index.html",
+                        "type": "Identity Brief",
+                        "date": "2026-02-02",
+                        "description": "Visual history mapping accidental archives and resilient storytelling leadership.",
+                        "tags": ["Resume", "Identity", "Deloitte"],
+                        "style": { "bg": "#F4F1E6", "border": "#1B365D", "text": "#2B2D42", "badgeBg": "#FF7F32", "badgeText": "#FFFFFF", "accent": "#FF7F32" }
+                    },
+                    {
+                        "id": "brooke",
+                        "title": "Brooke | Anonymous Intimacy",
+                        "client": "Brooke",
+                        "path": "briefs/brooke.html",
+                        "type": "Creative Map",
+                        "date": "2026-02-01",
+                        "description": "Mapping the delicate lines between anonymous connection and shared grief.",
+                        "tags": ["Identity", "Intimacy", "Grief"],
+                        "style": { "bg": "#080808", "border": "#c9a227", "text": "#e8e4dc", "badgeBg": "#c9a227", "badgeText": "#080808", "accent": "#c9a227" }
+                    },
+                    {
+                        "id": "mycelium-aquatabs",
+                        "title": "MYCELIUM x AQUATABS // Mission Water Disinfection",
+                        "client": "Mycelium x Aquatabs",
+                        "path": "active/mycelium/aquatabs/index.html",
+                        "type": "Partnership Brief",
+                        "date": "2026-01-28",
+                        "description": "Providing mission-critical water purification systems for remote and disaster environments.",
+                        "tags": ["Partnership", "Impact", "Humanitarian"],
+                        "style": { "bg": "#ffffff", "border": "#00A3AD", "text": "#003A4D", "badgeBg": "#00A3AD", "badgeText": "#ffffff", "accent": "#00A3AD" }
+                    },
+                    {
+                        "id": "six-irons",
+                        "title": "SIX IRONS // Partnership Hub",
+                        "client": "Six Irons Creative",
+                        "path": "sixironscreative/index.html",
+                        "type": "Partnership Hub",
+                        "date": "2026-01-27",
+                        "description": "A co-design portal for Mycelium x Six Irons Creative.",
+                        "tags": ["Partnership", "Ecosystem"],
+                        "style": { "bg": "#0A0A0A", "border": "#EBFF00", "text": "#FFFFFF", "badgeBg": "#EBFF00", "badgeText": "#000000", "accent": "#EBFF00" }
+                    },
+                    {
+                        "id": "mycelium-smallrig",
+                        "title": "MYCELIUM x SMALLRIG // Enabling the Story",
+                        "client": "Mycelium x SmallRig",
+                        "path": "active/mycelium/smallrig/index.html",
+                        "type": "Partnership Brief",
+                        "date": "2026-01-27",
+                        "description": "Co-designing bespoke tactical camera configurations for high-risk field reporting.",
+                        "tags": ["Production", "Co-Design", "Impact"],
+                        "style": { "bg": "#111111", "border": "#FF2E00", "text": "#F5F5F5", "badgeBg": "#FF2E00", "badgeText": "#FFFFFF", "accent": "#FF2E00" }
+                    },
+                    {
+                        "id": "occwi-command-center",
+                        "title": "Command Center",
+                        "client": "OCCWI",
+                        "path": "active/occwi/ready-teams-environment/index.html",
+                        "type": "Command Center",
+                        "date": "2026-01-27",
+                        "description": "Tactical campaign dashboard for the Ready Teams 'Environment' project.",
+                        "tags": ["Tactical", "Dashboard", "Video"],
+                        "style": { "bg": "#0B0F1A", "border": "#3B82F6", "text": "#F8FAFC", "badgeBg": "#3B82F6", "badgeText": "#FFFFFF", "accent": "#3B82F6" }
+                    },
+                    {
+                        "id": "josh-bryan",
+                        "title": "Operational Architect",
+                        "client": "Josh Bryan",
+                        "path": "active/josh-bryan/index.html",
+                        "type": "Identity Map",
+                        "date": "2026-01-26",
+                        "description": "Translating non-linear experience into high-stakes authority.",
+                        "tags": ["Identity", "Systems"],
+                        "style": { "bg": "#F2F0E9", "border": "#0f3057", "text": "#1A1A1A", "badgeBg": "#0f3057", "badgeText": "#FFFFFF", "accent": "#E69F00" }
+                    },
+                    {
+                        "id": "mycelium-mountain-house",
+                        "title": "MYCELIUM x MOUNTAIN HOUSE // Fueling Life-Saving Work",
+                        "client": "Mycelium x Mountain House",
+                        "path": "active/mycelium/mountain-house/index.html",
+                        "type": "Partnership Brief",
+                        "date": "2026-01-26",
+                        "description": "Calibrating freeze-dried nutritional logistics for emergency response and field research.",
+                        "tags": ["Nutrition", "Exploration", "Impact"],
+                        "style": { "bg": "#00263E", "border": "#FFB81C", "text": "#FFFFFF", "badgeBg": "#FFB81C", "badgeText": "#000000", "accent": "#FFB81C" }
+                    },
+                    {
+                        "id": "mycelium-yeti",
+                        "title": "MYCELIUM x YETI // The Ultimate Field Test",
+                        "client": "Mycelium x Yeti",
+                        "path": "active/mycelium/yeti/index.html",
+                        "type": "Partnership Brief",
+                        "date": "2026-01-25",
+                        "description": "Engineering rugged cold-chain hardware logistics for critical vaccine delivery.",
+                        "tags": ["Logistics", "Field Test", "Impact"],
+                        "style": { "bg": "#F8F8F8", "border": "#002B49", "text": "#2D2926", "badgeBg": "#002B49", "badgeText": "#FFFFFF", "accent": "#002B49" }
+                    },
+                    {
+                        "id": "meta-brief",
+                        "title": "Capabilities Dossier",
+                        "client": "Briefs Studio Meta",
+                        "path": "internal/meta-brief/index.html",
+                        "type": "Demo",
+                        "date": "2026-01-24",
+                        "description": "An interactive overview of Briefs Studio's narrative capabilities.",
+                        "tags": ["Strategic", "Core"],
+                        "style": { "bg": "#0F172A", "border": "#F59E0B", "text": "#F8FAFC", "badgeBg": "#F59E0B", "badgeText": "#0F172A", "accent": "#E69F00" }
+                    },
+                    {
+                        "id": "occwi-creative-studio",
+                        "title": "OCCWI Creative Studio Proposal",
+                        "client": "OCCWI",
+                        "path": "active/occwi/creative-studio-proposal/index.html",
+                        "type": "Engagement Proposal",
+                        "date": "2026-01-24",
+                        "description": "Bespoke digital video creative operations and primary prevention program infrastructure.",
+                        "tags": ["Proposal", "OCCWI", "Production"],
+                        "style": { "bg": "#0F172A", "border": "#F59E0B", "text": "#F8FAFC", "badgeBg": "#F59E0B", "badgeText": "#0F172A", "accent": "#F59E0B" }
+                    },
+                    {
+                        "id": "occwi-sip",
+                        "title": "Scenario Immersion Protocol (SIP)",
+                        "client": "OCCWI",
+                        "path": "active/occwi/scenario-immersion-protocol/index.html",
+                        "type": "IPPW Program Brief",
+                        "date": "2026-01-22",
+                        "description": "An experiential training methodology addressing persistent engagement challenges in prevention education.",
+                        "tags": ["Prevention", "IPPW", "Behavior"],
+                        "style": { "bg": "#0F172A", "border": "#DC2626", "text": "#F8FAFC", "badgeBg": "#DC2626", "badgeText": "#FFFFFF", "accent": "#F59E0B" }
+                    },
+                    {
+                        "id": "occwi-alignment",
+                        "title": "Alignment Session",
+                        "client": "OCCWI",
+                        "path": "active/occwi/alignment-session/index.html",
+                        "type": "Strategic Alignment",
+                        "date": "2026-01-22",
+                        "description": "Synthesizing stakeholder vision into operational blueprints.",
+                        "tags": ["Alignment", "Strategy"],
+                        "style": { "bg": "#F8FAFC", "border": "#38BDF8", "text": "#1E293B", "badgeBg": "#38BDF8", "badgeText": "#FFF", "accent": "#38BDF8", "dashed": true }
+                    },
+                    {
+                        "id": "austin-hepworth",
+                        "title": "Redefining Possible",
+                        "client": "Austin Hepworth",
+                        "path": "Briefs Studio-austin/index.html",
+                        "type": "Identity Brief",
+                        "date": "2026-01-20",
+                        "description": "Attorney, Author, and Visionary leader dedicated to constitutional principles.",
+                        "tags": ["Legal", "Vision"],
+                        "style": { "bg": "#FFF", "border": "#1A1A1A", "text": "#1A1A1A", "badgeBg": "#1A1A1A", "badgeText": "#FFF", "accent": "#800000" }
+                    },
+                    {
+                        "id": "occwi-narrative-mapping",
+                        "title": "Narrative Mapping Pilot Proposal",
+                        "client": "OCCWI",
+                        "path": "active/occwi/narrative-mapping-pilot/index.html",
+                        "type": "Engagement Proposal",
+                        "date": "2026-01-20",
+                        "description": "Structuring baseline stories to empower command leadership behavior metrics.",
+                        "tags": ["Proposal", "Narrative", "OCCWI"],
+                        "style": { "bg": "#0F172A", "border": "#10B981", "text": "#F8FAFC", "badgeBg": "#10B981", "badgeText": "#FFFFFF", "accent": "#F59E0B" }
+                    },
+                    {
+                        "id": "matt-robillard",
+                        "title": "Strategic Foundation",
+                        "client": "Matt Robillard",
+                        "path": "matt-robillard/index.html",
+                        "type": "Mission Brief",
+                        "date": "2026-01-18",
+                        "description": "Mapping the transition from tactical execution to strategic leadership.",
+                        "tags": ["Leadership", "Architecture"],
+                        "style": { "bg": "#F8FAFC", "border": "#1E293B", "text": "#1E293B", "badgeBg": "#1E293B", "badgeText": "#FFF", "accent": "#F59E0B" }
+                    },
+                    {
+                        "id": "mike-marrotte-internal",
+                        "title": "Central Signal",
+                        "client": "Mike Marrotte",
+                        "path": "mike-marrotte/index.html",
+                        "type": "Internal Brief",
+                        "date": "2026-01-17",
+                        "description": "The unified philosophy of Briefs Studio.",
+                        "tags": ["Vision", "Internal"],
+                        "style": { "bg": "#0A0A0A", "border": "#F59E0B", "text": "#FFFFFF", "badgeBg": "#F59E0B", "badgeText": "#000000", "accent": "#F59E0B" }
+                    },
+                    {
+                        "id": "mycelium-blueprint",
+                        "title": "Mycelium Blueprint",
+                        "client": "Mycelium",
+                        "path": "active/mycelium/index.html",
+                        "type": "Blueprint",
+                        "date": "2026-01-15",
+                        "description": "Distributed infrastructure for collective action.",
+                        "tags": ["Strategy", "Portals"],
+                        "style": { "bg": "#0A0A0A", "border": "#10B981", "text": "#F8FAF2", "badgeBg": "#10B981", "badgeText": "#FFF", "accent": "#10B981" }
+                    },
+                    {
+                        "id": "krisnan",
+                        "title": "Krisnan | Four Schisms",
+                        "client": "Krisnan",
+                        "path": "briefs/krisnan.html",
+                        "type": "Identity Map",
+                        "date": "2026-01-12",
+                        "description": "Exploring cross-cultural dissonance and personal schisms.",
+                        "tags": ["Identity", "Experience", "Schisms"],
+                        "style": { "bg": "#faf6f0", "border": "#c45d3a", "text": "#1a1612", "badgeBg": "#c45d3a", "badgeText": "#faf6f0", "accent": "#c9973f" }
+                    },
+                    {
+                        "id": "zambia-water",
+                        "title": "Zambia Water & Solar",
+                        "client": "Black Diamond",
+                        "path": "active/mycelium/black-diamond/index.html",
+                        "type": "Active Pitch",
+                        "date": "2026-01-10",
+                        "description": "5,000 lives saved through water filtration in Zambia.",
+                        "tags": ["Impact", "Humanitarian"],
+                        "style": { "bg": "#0a0a0a", "border": "#f59e0b", "text": "#FFF", "badgeBg": "#f59e0b", "badgeText": "#000", "accent": "#f59e0b" }
+                    },
+                    {
+                        "id": "greg-brandon",
+                        "title": "Systems Integrator",
+                        "client": "Greg Brandon",
+                        "path": "active/greg-brandon/index.html",
+                        "type": "Strategic Brief",
+                        "date": "2026-01-05",
+                        "description": "Evolving from video production to systems integration.",
+                        "tags": ["Systems", "Forensics"],
+                        "style": { "bg": "#FFF", "border": "#F59E0B", "text": "#1A1A1A", "badgeBg": "#F59E0B", "badgeText": "#FFF", "accent": "#F59E0B" }
+                    },
+                    {
+                        "id": "cais-brief",
+                        "title": "CAIS Mission Brief",
+                        "client": "Susan Malandrino",
+                        "path": "active/susan-malandrino/cais-conversation/index.html",
+                        "type": "Mission Brief",
+                        "date": "2025-12-20",
+                        "description": "Translating existential complexity into operational clarity.",
+                        "tags": ["East Coast", "Translation"],
+                        "style": { "bg": "#0A0B10", "border": "#38BDF8", "text": "#F0F6FC", "badgeBg": "#F59E0B", "badgeText": "#000", "accent": "#38BDF8" }
+                    },
+                    {
+                        "id": "deloitte-partnership",
+                        "title": "Briefs Studio × Deloitte — Partnership Brief",
+                        "client": "Deloitte",
+                        "path": "archive/deloitte/index.html",
+                        "type": "Partnership Brief",
+                        "date": "2025-12-18",
+                        "description": "Aligning change-management narrative mapping systems for scale.",
+                        "tags": ["Deloitte", "Partnership", "Strategy"],
+                        "style": { "bg": "#0F172A", "border": "#86BC25", "text": "#F8FAFC", "badgeBg": "#86BC25", "badgeText": "#FFFFFF", "accent": "#F59E0B" }
+                    },
+                    {
+                        "id": "josh-bryan-emergence",
+                        "title": "Josh Bryan - Strategic Emergence Brief",
+                        "client": "Josh Bryan",
+                        "path": "archive/josh-mike-1218/index.html",
+                        "type": "Emergence Brief",
+                        "date": "2025-12-18",
+                        "description": "Charting non-linear operational frameworks and high-stakes leadership.",
+                        "tags": ["Systems", "Emergence", "Josh Bryan"],
+                        "style": { "bg": "#0F172A", "border": "#F97316", "text": "#F8FAFC", "badgeBg": "#F97316", "badgeText": "#FFFFFF", "accent": "#F59E0B" }
+                    },
+                    {
+                        "id": "christopher-liechty",
+                        "title": "The Change Architect",
+                        "client": "Christopher Liechty",
+                        "path": "active/christopher-liechty/index.html",
+                        "type": "Narrative Map",
+                        "date": "2025-12-15",
+                        "description": "The vessel is valuable because of the space inside of it.",
+                        "tags": ["Change", "Architect"],
+                        "style": { "bg": "#FFF", "border": "#E2E8F0", "text": "#1A1A1A", "badgeBg": "#64748B", "badgeText": "#FFF", "accent": "#F59E0B" }
+                    },
+                    {
+                        "id": "faizan-ahmed-v2",
+                        "title": "Briefs Studio // Faizan Ahmed [V2 Concept]",
+                        "client": "Faizan Ahmed",
+                        "path": "archive/faizan-ahmed/index.html",
+                        "type": "Identity Concept",
+                        "date": "2025-11-15",
+                        "description": "A high-end editorial split-screen experience mapping identity values.",
+                        "tags": ["Identity", "Concept", "Design"],
+                        "style": { "bg": "#F7F6F2", "border": "#E69F00", "text": "#111111", "badgeBg": "#E69F00", "badgeText": "#FFFFFF", "accent": "#E69F00" }
+                    },
+                    {
+                        "id": "archive-devaki",
+                        "title": "A Journey I Never Expected",
+                        "client": "Devaki Murch",
+                        "path": "archive/devaki/index.html",
+                        "type": "Archivist",
+                        "date": "2025-11-01",
+                        "description": "How a plane crash survivor became an accidental archivist.",
+                        "tags": ["History", "Love Ethic"],
+                        "style": { "bg": "#FFF", "border": "#1E3A8A", "text": "#1E3A8A", "badgeBg": "#1E3A8A", "badgeText": "#FFF", "accent": "#F97316" }
+                    },
+                    {
+                        "id": "kate-lewis",
+                        "title": "Briefs Studio // Kate Lewis",
+                        "client": "Kate Lewis",
+                        "path": "archive/kate-lewis/index.html",
+                        "type": "Identity Brief",
+                        "date": "2025-10-30",
+                        "description": "Calibrating personal branding and creative direction strategy.",
+                        "tags": ["Strategy", "Branding", "Kate Lewis"],
+                        "style": { "bg": "#F2F0E9", "border": "#E69F00", "text": "#1A1A1A", "badgeBg": "#E69F00", "badgeText": "#FFFFFF", "accent": "#E69F00" }
+                    },
+                    {
+                        "id": "tricia-ratliffe",
+                        "title": "Briefs Studio // Tricia Ratliffe",
+                        "client": "Tricia Ratliffe",
+                        "path": "archive/tricia-ratliffe/index.html",
+                        "type": "Weaving Brief",
+                        "date": "2025-10-25",
+                        "description": "Mapping regional artistic networks and identity narratives.",
+                        "tags": ["WISCONSIN", "Weaver", "Wisconsin"],
+                        "style": { "bg": "#F7F5F0", "border": "#D35400", "text": "#2C3E50", "badgeBg": "#D35400", "badgeText": "#FFFFFF", "accent": "#D35400" }
+                    },
+                    {
+                        "id": "archive-nate",
+                        "title": "Strategic Narrative",
+                        "client": "Nate Galbreath",
+                        "path": "archive/nate-galbreath/index.html",
+                        "type": "Historical",
+                        "date": "2025-10-15",
+                        "description": "Baseline narrative mapping for Nate Galbreath.",
+                        "tags": ["Archive", "Identity"],
+                        "style": { "bg": "#F8FAFC", "border": "#64748B", "text": "#1E293B", "badgeBg": "#64748B", "badgeText": "#FFF", "accent": "#64748B" }
+                    },
+                    {
+                        "id": "operation-babylift",
+                        "title": "Operation Babylift | Separation into Repair",
+                        "client": "Community Archive",
+                        "path": "archive/operation-babylift/index.html",
+                        "type": "Historical Archive",
+                        "date": "2025-10-10",
+                        "description": "Translating historical separation records into collaborative healing frameworks.",
+                        "tags": ["Archive", "History", "Love Ethic"],
+                        "style": { "bg": "#080808", "border": "#c9a227", "text": "#e8e4dc", "badgeBg": "#c9a227", "badgeText": "#080808", "accent": "#c9a227" }
+                    },
+                    {
+                        "id": "skill-architecture",
+                        "title": "Narrative Architecture",
+                        "client": "Skill // Structuring",
+                        "path": ".agent/skills/narrative-architecture/SKILL.md",
+                        "type": "Neural Skin",
+                        "date": "2025-09-01",
+                        "description": "Translating raw interview notes and client context into the core Briefs Studio Structure.",
+                        "tags": ["Throughline", "Roadmap"],
+                        "style": { "bg": "#F8FAFC", "border": "#10B981", "text": "#1E293B", "badgeBg": "#10B981", "badgeText": "#FFF", "accent": "#10B981", "dashed": true }
+                    },
+                    {
+                        "id": "skill-forensics",
+                        "title": "Story Forensics",
+                        "client": "Skill // Analysis",
+                        "path": ".agent/skills/story-forensics/SKILL.md",
+                        "type": "Neural Skin",
+                        "date": "2025-09-01",
+                        "description": "Linguistic analysis of client inputs to identify hidden value and narrative gaps.",
+                        "tags": ["Archetypes", "Signal"],
+                        "style": { "bg": "#F8FAFC", "border": "#F59E0B", "text": "#1E293B", "badgeBg": "#F59E0B", "badgeText": "#FFF", "accent": "#F59E0B", "dashed": true }
+                    },
+                    {
+                        "id": "skill-viz",
+                        "title": "Tactical Visualization",
+                        "client": "Skill // Visuals",
+                        "path": ".agent/skills/tactical-viz/SKILL.md",
+                        "type": "Neural Skin",
+                        "date": "2025-09-01",
+                        "description": "Designing high-end, 'Blueprint-style' visual assets and interactive components.",
+                        "tags": ["GSAP", "Blueprint"],
+                        "style": { "bg": "#F8FAFC", "border": "#38BDF8", "text": "#1E293B", "badgeBg": "#38BDF8", "badgeText": "#FFF", "accent": "#38BDF8", "dashed": true }
+                    },
+                    {
+                        "id": "skill-ops",
+                        "title": "Mission Ops",
+                        "client": "Skill // Infra",
+                        "path": ".agent/skills/mission-ops/SKILL.md",
+                        "type": "Neural Skin",
+                        "date": "2025-09-01",
+                        "description": "Managing the technical infrastructure and directory health of the platform.",
+                        "tags": ["Netlify", "Redirects"],
+                        "style": { "bg": "#F8FAFC", "border": "#64748B", "text": "#1E293B", "badgeBg": "#64748B", "badgeText": "#FFF", "accent": "#64748B", "dashed": true }
+                    },
+                    {
+                        "id": "mrm-living",
+                        "title": "MRM — A Living Brief",
+                        "client": "Mike Marrotte",
+                        "path": "internal/MRM/index.html",
+                        "type": "Living Brief",
+                        "date": "2025-08-01",
+                        "description": "You already know what you're trying to say. You just can't hear it yet.",
+                        "tags": ["Internal", "Vision"],
+                        "style": { "bg": "#FFF", "border": "#F59E0B", "text": "#78350F", "badgeBg": "#F59E0B", "badgeText": "#FFF", "accent": "#F59E0B", "dashed": true }
+                    }
+                ]
+            };
+
+            try {
+                // Sort by date descending
+                allBriefs = data.briefs.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                applyFilters();
+
+                // Setup Search Listeners
+                document.getElementById('search-input').addEventListener('input', applyFilters);
+                
+                // Add initial Chronicle entries
+                addChronicleEvent("Connected to centralized brief directory database.");
+                addChronicleEvent("Loaded all 38 client narrative and system assets.");
+                addChronicleEvent("Linguistic Story Forensics systems validated.");
+
+            } catch (err) {
+                console.error("Error launching database:", err);
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>

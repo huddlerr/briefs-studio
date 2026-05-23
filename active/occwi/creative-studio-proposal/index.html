@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCCWI Creative Studio Proposal // Briefs Studio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: '#0F172A',
+                        charcoal: '#1E293B',
+                        amber: '#F59E0B',
+                        emerald: '#10B981',
+                        teal: '#0D9488',
+                        fog: '#94A3B8',
+                        bone: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+            font-size: 18px;
+        }
+
+        ::selection {
+            background: #F59E0B;
+            color: #0F172A;
+        }
+
+        body {
+            background-color: #0F172A;
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .moment-card {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .moment-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .tier-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tier-card.active {
+            border-color: #F59E0B;
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.12;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+
+            50% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+
+        .float {
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #F59E0B;
+            letter-spacing: 0.3em;
+            font-weight: 500;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(245, 158, 11, 0.2), transparent);
+        }
+
+        .stat-value {
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+            font-weight: 600;
+            color: #F59E0B;
+            font-size: 2.25rem;
+            line-height: 1;
+        }
+
+        .scannable-bullet {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .scannable-bullet::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6em;
+            width: 4px;
+            height: 4px;
+            background: #F59E0B;
+            border-radius: 50%;
+        }
+
+        .premium-border {
+            position: relative;
+        }
+
+        .premium-border::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(245, 158, 11, 0.5), transparent);
+        }
+
+        /* Hero Image Enhancement */
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            overflow: hidden;
+            border-radius: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .hero-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(15, 23, 42, 0.8) 100%);
+        }
+
+        /* Methodology Diagram */
+        .method-node {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .method-node:hover {
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+            transform: scale(1.05);
+        }
+
+        /* 3-Point Circle Graphic */
+        .method-circle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 450px;
+            position: relative;
+            margin: 4rem 0;
+        }
+
+        .method-point {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(245, 158, 11, 0.2);
+            z-index: 10;
+        }
+
+        .method-point:hover {
+            transform: scale(1.1);
+            border-color: #F59E0B;
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.2);
+            z-index: 20;
+        }
+
+        .method-point.active {
+            border-color: #F59E0B;
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .method-center {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+            color: #F59E0B;
+            opacity: 0.5;
+        }
+
+        /* Internal Overlays */
+        #internal-math-overlay,
+        #internal-roadmap-overlay,
+        #internal-greg-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 15, 29, 0.98);
+            backdrop-filter: blur(40px);
+            z-index: 200;
+            overflow-y: auto;
+            padding: 4rem;
+        }
+
+        .math-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            padding: 2rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .math-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+
+        /* Tier Cards Style */
+        .tier-card {
+            position: relative;
+            cursor: pointer;
+            height: 500px;
+            perspective: 1000px;
+        }
+
+        .tier-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+        }
+
+        .tier-card.flipped .tier-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .tier-card-front,
+        .tier-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .tier-card-front {
+            background: rgba(30, 41, 59, 0.4);
+        }
+
+        .tier-card-back {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: #F59E0B;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tier-card.active .tier-card-front {
+            border-color: #F59E0B;
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        /* Roadmap Specific Styles */
+        .roadmap-rail {
+            position: relative;
+            padding: 4rem 0;
+        }
+
+        .roadmap-node {
+            position: relative;
+            z-index: 5;
+            background: #0F172A;
+            border: 2px solid #F59E0B;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+        }
+
+        .roadmap-phase-card {
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            padding: 2rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .roadmap-rail::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, #F59E0B, #10B981, #0D9488);
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .roadmap-node {
+            position: relative;
+            z-index: 5;
+            background: #0F172A;
+            border: 2px solid #F59E0B;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+        }
+
+        .roadmap-phase-card {
+            position: relative;
+            z-index: 2;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            padding: 2rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .roadmap-phase-card:hover {
+            border-color: #F59E0B;
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        #internal-greg-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 15, 29, 0.99);
+            backdrop-filter: blur(40px);
+            z-index: 112;
+            overflow-y: auto;
+            padding: 5rem 2rem;
+            color: #e0e0e0;
+        }
+
+        /* ACTIVATION BLUEPRINT STYLES */
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .opportunity-grid>div {
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .opportunity-grid>div:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.1);
+        }
+
+        .critical-rule {
+            background: rgba(255, 107, 157, 0.1);
+            border: 2px solid #ff6b9d;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 0 30px rgba(255, 107, 157, 0.2);
+        }
+
+        .case-study {
+            background: rgba(0, 255, 136, 0.05);
+            border-left: 5px solid #00ff88;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .payment-model {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(0, 255, 136, 0.1));
+            border: 1px solid #00d9ff;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .risk-matrix table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        .risk-matrix th,
+        .risk-matrix td {
+            padding: 1rem;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            text-align: left;
+        }
+
+        .risk-matrix th {
+            background: rgba(0, 217, 255, 0.1);
+            color: #00d9ff;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        .success-scenarios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .success-scenarios>div {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .ultimatum {
+            background: rgba(255, 107, 157, 0.15);
+            border: 2px solid #ff6b9d;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .ultimate-question {
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 107, 157, 0.1));
+            border: 2px solid #00ff88;
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .blueprint-accent {
+            color: #00ff88;
+        }
+
+        .blueprint-info {
+            color: #00d9ff;
+        }
+
+        .blueprint-warn {
+            color: #ff6b9d;
+        }
+
+        /* FUTURE MODAL */
+        #easter-egg-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        #easter-egg-modal.active {
+            display: block;
+        }
+
+        .modal-content {
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 3rem;
+            background: #0F172A;
+            border: 3px solid #00ff88;
+            border-radius: 20px;
+            box-shadow: 0 0 60px rgba(0, 255, 136, 0.3);
+        }
+
+        .easter-egg-trigger {
+            position: fixed;
+            bottom: 32px;
+            left: 32px;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 105;
+            transition: all 0.3s ease;
+        }
+
+        .easter-egg-trigger:hover {
+            transform: scale(1.1);
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        @media print {
+            body {
+                background-color: #0F172A !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .orb,
+            nav {
+                display: none !important;
+            }
+
+            main {
+                padding-top: 2rem !important;
+                max-width: 100% !important;
+            }
+
+            section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                margin-bottom: 4rem !important;
+            }
+
+            .moment-card,
+            .tier-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                background: #1E293B !important;
+                border: 1px solid rgba(148, 163, 184, 0.2) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .gradient-text {
+                background: none !important;
+                -webkit-background-clip: initial !important;
+                -webkit-text-fill-color: initial !important;
+                background-clip: initial !important;
+                color: #F59E0B !important;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            .stat-value {
+                color: #F59E0B !important;
+            }
+
+            p,
+            span,
+            li {
+                color: #F8FAFC !important;
+            }
+
+            .section-line {
+                background: #F59E0B !important;
+                opacity: 0.2;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-bone font-sans antialiased overflow-x-hidden">
+
+
+
+    <!-- OVERLAYS REMOVED FOR DEBUGGING -->
+
+
+
+
+    <!-- BACKGROUND ELEMENTS -->
+    <div class="orb w-[800px] h-[800px] bg-emerald/10 -top-40 -right-40 float"></div>
+    <div class="orb w-[600px] h-[600px] bg-amber/10 -bottom-40 -left-60 float" style="animation-delay: -4s;"></div>
+
+    <!-- MAIN NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 px-10 py-6 border-b border-fog/10 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center text-fog">
+            <div class="flex items-center gap-4">
+                <div class="w-1.5 h-1.5 bg-amber rounded-full"></div>
+                <span class="font-mono text-[11px] tracking-[0.4em] uppercase opacity-70">Briefs Studio //
+                    OCCWI</span>
+            </div>
+            <div class="flex items-center gap-8">
+                <div class="font-mono text-[11px] tracking-[0.3em] uppercase opacity-40">January 2026 Proposal</div>
+                <a href="slides.html"
+                    class="font-mono text-[11px] tracking-[0.4em] uppercase opacity-60 hover:text-amber hover:opacity-100 transition-all">Slide
+                    View →</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-10 pt-44 pb-32">
+
+        <!-- HEADER -->
+        <header class="mb-24 max-w-5xl relative">
+            <div class="inline-flex items-center gap-3 px-3 py-1 mb-10 rounded border border-amber/20 bg-amber/5">
+                <span class="font-mono text-[11px] uppercase tracking-[0.2em] text-amber">Creative Studio
+                    Proposal</span>
+            </div>
+
+            <h1 class="font-serif text-6xl md:text-8xl font-semibold leading-[1.05] mb-12">
+                Ready Teams<br>
+                <span class="gradient-text italic">Activation Phase</span>
+            </h1>
+
+            <p class="font-serif text-2xl text-fog italic leading-relaxed mb-12">
+                Shifting from strategy to production to meet OCCWI demand for immediate mission&nbsp;movement.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 pt-12 border-t border-fog/10">
+                <div>
+                    <span class="block font-mono text-[11px] uppercase tracking-widest opacity-30 mb-2">Subject</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">Production Capacity</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[11px] uppercase tracking-widest opacity-30 mb-2">Client</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">Elizabeth / OCCWI</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[12px] uppercase tracking-widest text-amber mb-2">Lead</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">Mike Marrotte</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[11px] uppercase tracking-widest opacity-30 mb-2">Timeline</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">2 Weeks to Launch</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- HERO IMAGE -->
+        <div class="hero-image-container">
+            <img src="abstract_collaboration_vision.png" alt="Briefs Studio Creative Studio"
+                class="w-full h-full object-cover">
+            <div class="hero-image-overlay"></div>
+            <div class="absolute bottom-10 left-10 max-w-lg">
+                <p class="font-mono text-[12px] uppercase tracking-[0.3em] text-amber mb-4">Briefs Studio X Deloitte
+                    alignment</p>
+                <h2 class="font-serif text-3xl italic text-bone">"We need products. We need something interesting."
+                </h2>
+            </div>
+        </div>
+
+        <section class="mb-40" id="summary">
+            <div class="section-header">
+                <span class="section-number">01 // THE WORKING SESSION MODEL</span>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-12">
+                    <p class="font-serif text-3xl md:text-4xl leading-relaxed text-bone/90 mb-10">
+                        Bypassing the script-to-feedback lag. We design <span class="text-emerald italic">*with*</span>
+                        the client in&nbsp;real-time.
+                    </p>
+                    <div class="moment-card p-10 rounded-2xl">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                            <div class="md:col-span-2">
+                                <span class="font-mono text-[11px] text-amber uppercase tracking-widest mb-4 block">The
+                                    Mandate</span>
+                                <p class="text-lg text-fog leading-relaxed italic mb-8">
+                                    Elizabeth/OCCWI are not "average clients." They require a collaborative ‘Active
+                                    Review’ process that eliminates the standard prime-contractor gatekeeping.
+                                </p>
+                                <p class="text-base text-fog/80 leading-relaxed">
+                                    This update effectively converts a "proposal" into a Mission Order. It takes the
+                                    client’s desire for "movement, not strategy" and builds it into the very foundation
+                                    of the code. We are no longer asking for a seat at the table; we are providing the
+                                    Activation Blueprint.
+                                </p>
+                            </div>
+                            <div class="border-l border-fog/10 pl-10 flex flex-col justify-center">
+                                <span
+                                    class="text-[12px] font-mono tracking-widest uppercase text-amber block mb-4">Primary
+                                    Goal</span>
+                                <div class="p-6 bg-amber/5 border border-amber/10 rounded-xl">
+                                    <h5 class="text-bone font-serif text-xl italic mb-1">Feb 28th</h5>
+                                    <p class="text-sm text-bone font-bold uppercase tracking-widest mb-2">Go-Live
+                                        Mandate</p>
+                                    <p class="text-[11px] text-fog uppercase tracking-wider">Strategic Mission Velocity
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02 // THE OPPORTUNITY -->
+        <section class="mb-40" id="opportunity">
+            <div class="section-header">
+                <span class="section-number">02 // THE OPPORTUNITY</span>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div>
+                    <h3 class="font-serif text-3xl italic mb-8 text-amber">What OCCWI Needs RIGHT NOW</h3>
+                    <ul class="space-y-6">
+                        <li class="scannable-bullet text-lg text-fog">Novel, engaging deliverables (not traditional
+                            one-pagers)</li>
+                        <li class="scannable-bullet text-lg text-fog">Interactive toolkits that IPPWs can actually
+                            USE
+                        </li>
+                        <li class="scannable-bullet text-lg text-fog">Content that explains prevention concepts
+                            compellingly</li>
+                        <li class="scannable-bullet text-lg text-fog">Campaign creative output at sustainable
+                            velocity
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-serif text-3xl italic mb-8 text-emerald">What Briefs Studio Delivers</h3>
+                    <ul class="space-y-6">
+                        <li class="scannable-bullet text-lg text-fog">Technical execution capacity (web, video,
+                            animation, design)</li>
+                        <li class="scannable-bullet text-lg text-fog">Rapid prototyping and iteration</li>
+                        <li class="scannable-bullet text-lg text-fog">Innovation within government constraints</li>
+                        <li class="scannable-bullet text-lg text-fog">Products, not just strategy</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 // THREE-TIER RESOURCE MODEL -->
+        <section class="mb-40" id="tiers">
+            <div class="section-header">
+                <span class="section-number">03 // THREE-TIER RESOURCE MODEL</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- TIER 1 -->
+                <div class="tier-card" onclick="this.classList.toggle('flipped')">
+                    <div class="tier-card-inner">
+                        <div class="tier-card-front">
+                            <span class="font-mono text-[12px] tracking-widest uppercase text-fog/50 block mb-2">Phase
+                                01</span>
+                            <h4 class="font-serif text-2xl font-semibold mb-1">Proof of Concept</h4>
+                            <p class="font-mono text-[11px] tracking-widest opacity-40 uppercase mb-8">Lead + 1 Creative
+                            </p>
+                            <div class="text-emerald font-mono text-sm mb-6 uppercase tracking-widest">Initial
+                                Validation</div>
+                            <ul class="space-y-4 text-sm text-fog/80 mb-10">
+                                <li><strong class="text-amber">Video:</strong> 1 Proof of Concept Video</li>
+                                <li><strong class="text-amber">Focus:</strong> Immediate Mission Movement</li>
+                                <li><strong class="text-amber">Goal:</strong> Establish Creative Direction</li>
+                            </ul>
+                            <div class="pt-6 border-t border-fog/10">
+                                <span class="text-[11px] font-mono uppercase tracking-[0.2em] opacity-40">Timeline: 1-2
+                                    Weeks</span>
+                            </div>
+                        </div>
+                        <div class="tier-card-back">
+                            <h5 class="font-mono text-amber text-[10px] uppercase tracking-widest mb-4">Strategic Intent
+                            </h5>
+                            <p class="text-[13px] text-fog leading-relaxed italic mb-8">
+                                Rapid delivery of a single, high-impact asset to demonstrate capability and align visual
+                                narrative with OCCWI leadership expectations.
+                            </p>
+                            <button class="mt-auto font-mono text-[10px] text-amber/60 uppercase tracking-widest">Click
+                                to Flip</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TIER 2 -->
+                <div class="tier-card active" onclick="this.classList.toggle('flipped')">
+                    <div class="tier-card-inner">
+                        <div class="tier-card-front">
+                            <div
+                                class="absolute top-0 right-0 px-4 py-1 bg-amber text-slate font-mono text-[10px] font-bold uppercase tracking-widest rounded-tr-xl">
+                                Activation Focus</div>
+                            <span class="font-mono text-[12px] tracking-widest uppercase text-amber/80 block mb-2">Phase
+                                02</span>
+                            <h4 class="font-serif text-2xl font-semibold mb-1">Production Ecosystem</h4>
+                            <p class="font-mono text-[11px] tracking-widest opacity-60 uppercase mb-8">Lead + 3
+                                Creatives</p>
+                            <div class="text-emerald font-mono text-sm mb-6 uppercase tracking-widest">Sustainability
+                                cycle</div>
+                            <ul class="space-y-4 text-sm text-bone/90 mb-10">
+                                <li><strong class="text-amber">Ecosystem:</strong> Launching a build that expands</li>
+                                <li><strong class="text-amber">Testing:</strong> Live feedback loops with IPPWs</li>
+                                <li><strong class="text-amber">Interactive:</strong> Ready Teams Hub Activation</li>
+                            </ul>
+                            <div class="pt-6 border-t border-amber/20">
+                                <span class="text-[11px] font-mono uppercase tracking-[0.2em] text-amber">Timeline: Feb
+                                    28th Mandate</span>
+                            </div>
+                        </div>
+                        <div class="tier-card-back">
+                            <h5 class="font-mono text-amber text-[10px] uppercase tracking-widest mb-4">The Scalability
+                                Model</h5>
+                            <p class="text-[13px] text-fog italic mb-6">
+                                We are not just launching a video on the 28th. We are launching an ecosystem that we can
+                                continue to expand upon and test with stakeholders in real-time.
+                            </p>
+                            <button class="mt-auto font-mono text-[10px] text-amber/60 uppercase tracking-widest">Click
+                                to Flip</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TIER 3 -->
+                <div class="tier-card" onclick="this.classList.toggle('flipped')">
+                    <div class="tier-card-inner">
+                        <div class="tier-card-front">
+                            <span class="font-mono text-[12px] tracking-widest uppercase text-fog/50 block mb-2">Phase
+                                03</span>
+                            <h4 class="font-serif text-2xl font-semibold mb-1">Full Creative Studio</h4>
+                            <p class="font-mono text-[11px] tracking-widest opacity-40 uppercase mb-8">Lead + 5
+                                Creatives</p>
+                            <div class="text-emerald font-mono text-sm mb-6 uppercase tracking-widest">Total Horizon
+                            </div>
+                            <ul class="space-y-4 text-sm text-fog/80 mb-10">
+                                <li><strong class="text-amber">Direct:</strong> Continuous Content Delivery</li>
+                                <li><strong class="text-amber">Scope:</strong> Phases 01-02 Expanded</li>
+                                <li><strong class="text-amber">Scale:</strong> Persistent Production Momentum</li>
+                            </ul>
+                            <div class="pt-6 border-t border-fog/10">
+                                <span class="text-[11px] font-mono uppercase tracking-[0.2em] opacity-40">Timeline:
+                                    Sustainment Model</span>
+                            </div>
+                        </div>
+                        <div class="tier-card-back">
+                            <h5 class="font-mono text-amber text-[10px] uppercase tracking-widest mb-4">Long-Term Impact
+                            </h5>
+                            <p class="text-[13px] text-fog italic mb-6">
+                                Continuous Content Delivery: Incorporating everything from the first two tiers and
+                                scaling into a global deployment engine for all OCCWI products.
+                            </p>
+                            <button class="mt-auto font-mono text-[10px] text-amber/60 uppercase tracking-widest">Click
+                                to Flip</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-40" id="methodology">
+            <div class="section-header">
+                <span class="section-number">04 // PRODUCTION METHODOLOGY</span>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="moment-card p-10 rounded-2xl border-l-4 border-l-amber">
+                    <span class="font-mono text-amber text-[11px] uppercase tracking-[0.4em] block mb-4">Phase 01:
+                        Engage</span>
+                    <h4 class="font-serif text-3xl italic text-bone mb-6">Passive Hook</h4>
+                    <p class="text-lg text-fog italic leading-relaxed">
+                        Hook the user. Tutorial / onboarding. Clarifies the immediate value proposition: <span
+                            class="text-amber">"Here's why this matters."</span>
+                    </p>
+                </div>
+                <div class="moment-card p-10 rounded-2xl border-l-4 border-l-emerald">
+                    <span class="font-mono text-emerald text-[11px] uppercase tracking-[0.4em] block mb-4">Phase 02:
+                        Enlist</span>
+                    <h4 class="font-serif text-3xl italic text-bone mb-6">Interactive Narrative</h4>
+                    <p class="text-lg text-fog italic leading-relaxed">
+                        User takes action. Input installation data or context → get <span
+                            class="text-emerald">customized narrative maps</span> and asset outputs.
+                    </p>
+                </div>
+                <div class="moment-card p-10 rounded-2xl border-l-4 border-l-teal">
+                    <span class="font-mono text-teal text-[11px] uppercase tracking-[0.4em] block mb-4">Phase 03:
+                        Empower</span>
+                    <h4 class="font-serif text-3xl italic text-bone mb-6">Agency & Ownership</h4>
+                    <p class="text-lg text-fog italic leading-relaxed">
+                        User has the tools. Ability to <span class="text-teal">create their own campaigns</span> and
+                        download high-fidelity resources for local deployment.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 // PREVENTION COMMS ECOSYSTEM -->
+        <section class="mb-40" id="toolkit">
+            <div class="section-header">
+                <span class="section-number">05 // PREVENTION COMMS ECOSYSTEM</span>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-4">
+                    <h3 class="font-serif text-3xl italic mb-6">Ready Teams Page</h3>
+                    <p class="text-lg text-fog mb-8">A centralized, high-fidelity hub for IPPWs to access,
+                        customize,
+                        and deploy campaign assets.</p>
+                    <div class="p-6 bg-amber/5 border border-amber/10 rounded-xl mb-6">
+                        <span class="font-mono text-[11px] text-amber uppercase tracking-widest block mb-2">Innovation
+                            Highlight</span>
+                        <h4 class="font-serif text-xl italic text-bone mb-2">The Context Tool</h4>
+                        <p class="text-sm text-fog/80">Input installation data → Generate customized narrative
+                            maps,
+                            messaging, and social content automatically.</p>
+                    </div>
+                </div>
+                <div class="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="moment-card p-8 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-charcoal flex items-center justify-center font-mono text-xs text-amber">
+                                01</div>
+                            <h4 class="font-semibold uppercase tracking-wider text-xs">Landing Experience</h4>
+                        </div>
+                        <p class="text-sm text-fog leading-relaxed italic">Interactive pathways tailored for
+                            IPPWs,
+                            Staff, and Service Members. Beautifully designed user experience.</p>
+                    </div>
+                    <div class="moment-card p-8 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-charcoal flex items-center justify-center font-mono text-xs text-amber">
+                                02</div>
+                            <h4 class="font-semibold uppercase tracking-wider text-xs">Module: Red Teams</h4>
+                        </div>
+                        <p class="text-sm text-fog leading-relaxed italic">Interactive explainer visualizations.
+                            Breaking down complex conceptual models into digestible, scroll-triggered
+                            narratives.
+                        </p>
+                    </div>
+                    <div class="moment-card p-8 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-charcoal flex items-center justify-center font-mono text-xs text-amber">
+                                03</div>
+                            <h4 class="font-semibold uppercase tracking-wider text-xs">Asset Library</h4>
+                        </div>
+                        <p class="text-sm text-fog leading-relaxed italic">Downloadable video content, shareable
+                            graphics, and "analog" one-pagers for bulletin boards in secure environments.</p>
+                    </div>
+                    <div class="moment-card p-8 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div
+                                class="w-8 h-8 rounded-lg bg-charcoal flex items-center justify-center font-mono text-xs text-amber">
+                                04</div>
+                            <h4 class="font-semibold uppercase tracking-wider text-xs">Technical Logic</h4>
+                        </div>
+                        <p class="text-sm text-fog leading-relaxed italic">HTML/CSS/JS (Anime.js/GSAP) - no
+                            complex
+                            backend. Works within DoD constraints on .mil domains.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 06 // THE FEBRUARY SPRINT -->
+        <section class="mb-40" id="roadmap">
+            <div class="section-header">
+                <span class="section-number">06 // THE FEBRUARY SPRINT</span>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-4">
+                    <h3 class="font-serif text-4xl italic mb-8">Hard-coded activation milestones.</h3>
+                    <p class="text-xl text-fog leading-relaxed mb-8">
+                        The transition from strategy to production happens in four distinct movement cycles, ensuring
+                        consistent client touchpoints and "collaboration sessions" to guarantee mission movement.
+                    </p>
+                    <div class="p-8 bg-amber/5 border border-amber/10 rounded-2xl">
+                        <span class="font-mono text-[11px] text-amber uppercase tracking-[0.5em] block mb-2">Cycle
+                            Target</span>
+                        <span class="stat-value">Feb 28</span>
+                        <p class="text-xs text-fog italic mt-4">Full Ready Teams deployment and toolkit activation.
+                        </p>
+                    </div>
+                </div>
+                <div class="md:col-span-8 space-y-4">
+                    <!-- Milestone 1 -->
+                    <div class="moment-card p-6 rounded-xl border-l-4 border-amber">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-mono text-[11px] text-amber uppercase block mb-1">Feb 01</span>
+                                <h4 class="font-serif text-xl italic text-bone">Production Activation</h4>
+                            </div>
+                        </div>
+                        <p class="text-sm text-fog mt-2 italic">Beginning the production process and establishing
+                            core environment sync.</p>
+                    </div>
+                    <!-- Milestone 2 -->
+                    <div class="moment-card p-6 rounded-xl border-l-4 border-emerald">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-mono text-[11px] text-emerald uppercase block mb-1">Feb 15</span>
+                                <h4 class="font-serif text-xl italic text-bone">Product-Alpha</h4>
+                            </div>
+                        </div>
+                        <p class="text-sm text-fog mt-2 italic">Delivery of the initial "Engage" animated short and
+                            the
+                            E/E/E Toolkit Beta.</p>
+                    </div>
+                    <!-- Milestone 3 -->
+                    <div class="moment-card p-6 rounded-xl border-l-4 border-teal">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-mono text-[11px] text-teal uppercase block mb-1">Feb 21</span>
+                                <h4 class="font-serif text-xl italic text-bone">The Working Session</h4>
+                            </div>
+                        </div>
+                        <p class="text-sm text-fog mt-2 italic">Direct client review and real-time iteration of the
+                            "Equip" interactive module.</p>
+                    </div>
+                    <!-- Milestone 4 -->
+                    <div class="moment-card p-6 rounded-xl border-l-4 border-white">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-mono text-[11px] text-bone uppercase block mb-1">Feb 28</span>
+                                <h4 class="font-serif text-xl italic text-bone">GO-LIVE</h4>
+                            </div>
+                        </div>
+                        <p class="text-sm text-fog mt-2 italic">Full Ready Teams page deployment and toolkit
+                            activation
+                            on prevention.mil.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 07 // OPERATIONAL PROTOCOLS & SECURITY -->
+        <section class="mb-40" id="protocols">
+            <div class="section-header">
+                <span class="section-number">07 // OPERATIONAL PROTOCOLS & SECURITY</span>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-6">
+                    <h3 class="font-serif text-3xl italic mb-10">Minimal Surface Area, Maximum Security.</h3>
+                    <div class="moment-card p-10 rounded-2xl">
+                        <div class="space-y-8">
+                            <div>
+                                <span
+                                    class="font-mono text-[11px] text-amber uppercase tracking-widest block mb-2">Systems
+                                    Access</span>
+                                <p class="text-[17px] text-fog leading-relaxed italic">
+                                    Lead (Mike Marrotte) maintains GFE access for secure file transfer. All
+                                    specialist
+                                    creatives work on commercial equipment using industry-standard tools (Adobe,
+                                    Figma,
+                                    VS Code), reducing the total number of individuals requiring government system
+                                    access.
+                                </p>
+                            </div>
+                            <div>
+                                <span
+                                    class="font-mono text-[11px] text-emerald uppercase tracking-widest block mb-2">File
+                                    Transfer Protocol</span>
+                                <p class="text-[17px] text-fog leading-relaxed italic">
+                                    Deliverables are transferred via existing, approved channels including DOD Safe
+                                    and
+                                    encrypted physical drives. Small assets (HTML/CSS) are delivered directly to
+                                    Deloitte technical points of contact for GFE integration.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-span-6 grid grid-cols-1 gap-6">
+                    <div class="p-8 border border-fog/10 rounded-2xl">
+                        <h4 class="font-serif text-2xl italic text-amber mb-4">Meeting Protocol</h4>
+                        <p class="text-[17px] text-fog leading-relaxed italic">
+                            Creatives remain focused on production; client interaction occurs through focused team
+                            touchpoints and working sessions to create assets dynamically and rapidly.
+                        </p>
+                    </div>
+                    <div class="p-8 border border-fog/10 rounded-2xl">
+                        <h4 class="font-serif text-2xl italic text-emerald mb-4">Technical Integration</h4>
+                        <p class="text-[17px] text-fog leading-relaxed italic">
+                            Small-footprint HTML/JS logic and video production assets delivered via approved channels.
+                            Direct GFE integration managed by Lead Architect (Mike Marrotte).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEXT STEPS / TIMELINE -->
+        <section class="mb-20">
+            <div class="moment-card p-12 rounded-3xl bg-slate/80 border-amber/20">
+                <div class="flex flex-col md:flex-row gap-16">
+                    <div class="flex-grow">
+                        <h3 class="font-serif text-5xl italic mb-10">Immediate Next Steps</h3>
+                        <div class="space-y-12">
+                            <div class="flex gap-8">
+                                <span class="font-mono text-amber text-sm pt-1">01</span>
+                                <div>
+                                    <span
+                                        class="font-semibold text-bone block uppercase tracking-widest text-lg mb-2">Jan
+                                        16 // Alignment</span>
+                                    <p class="text-fog text-lg italic">Finalize strategy, coordinate with Deloitte team,
+                                        and prepare leadership
+                                        presentation materials.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-8">
+                                <span class="font-mono text-amber text-sm pt-1">02</span>
+                                <div>
+                                    <span
+                                        class="font-semibold text-bone block uppercase tracking-widest text-lg mb-2">Jan
+                                        21 // OCCWI Leadership Meeting</span>
+                                    <p class="text-fog text-lg italic">Present the production-first strategy,
+                                        and get final go-ahead on the Feb 1st Activation Phase.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-8">
+                                <span class="font-mono text-amber text-sm pt-1">03</span>
+                                <div>
+                                    <span
+                                        class="font-semibold text-bone block uppercase tracking-widest text-lg mb-2">Feb
+                                        01 // Launch</span>
+                                    <p class="text-fog text-lg italic">Begin high-velocity production cycle leading
+                                        to the Feb 28th deployment.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:col-span-4 p-10 bg-charcoal/50 rounded-2xl border border-fog/5">
+                        <h4 class="font-serif text-3xl italic mb-8 text-emerald">The Ask</h4>
+                        <ul class="space-y-6 text-lg text-fog">
+                            <li class="flex gap-3 items-start"><span class="text-emerald">✓</span> <span>Alignment
+                                    with Deloitte prioritization: Products over Strategy.</span></li>
+                            <li class="flex gap-3 items-start"><span class="text-emerald">✓</span> <span>Fast
+                                    feedback loops via direct 'Working Sessions'.</span></li>
+                            <li class="flex gap-3 items-start"><span class="text-emerald">✓</span>
+                                <span>Authorization for Feb 28th go-live mandate.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-32 px-10 border-t border-fog/10 bg-slate">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-2.5 h-2.5 bg-emerald rounded-full"></div>
+                    <span class="font-mono text-[12px] tracking-[0.5em] uppercase text-bone">Briefs Studio
+                        Studio</span>
+                </div>
+                <p class="font-serif italic text-fog text-base">Products, not strategy. Innovation within constraints.
+                    Rapid delivery.</p>
+            </div>
+            <div class="flex flex-col md:items-end gap-3 text-left md:text-right">
+                <span class="text-[11px] font-mono uppercase tracking-[0.4em] text-fog/30">&copy; 2026 Briefs Studio
+                    Studio
+                    // All Rights Reserved</span>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Internal Roadmap Controls
+        function triggerRoadmap() {
+            document.getElementById('internal-roadmap-overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRoadmap() {
+            document.getElementById('internal-roadmap-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Math Overlay Controls
+        function triggerMath() {
+            document.getElementById('internal-math-overlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMath() {
+            document.getElementById('internal-math-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Methodology Info Switcher
+        function showMethodInfo(phase) {
+            const title = document.getElementById('method-title');
+            const desc = document.getElementById('method-desc');
+            const box = document.getElementById('method-info-box');
+            const points = document.querySelectorAll('.method-point');
+
+            points.forEach(p => p.classList.remove('active'));
+
+            const content = {
+                engage: {
+                    title: '01 // Engage',
+                    desc: 'Bypassing standard feedback delays through real-time "Working Sessions" where designs are iterated live with stakeholders.',
+                    color: '#F59E0B'
+                },
+                enlist: {
+                    title: '02 // Enlist',
+                    desc: 'Turning concepts into interactive narratives that recruit advocates across the formation, providing products IPPWs can actually use.',
+                    color: '#10B981'
+                },
+                empower: {
+                    title: '03 // Empower',
+                    desc: 'Delivering technical tools and asset libraries directly to the point of need on .mil domains, with minimal friction and maximum impact.',
+                    color: '#0D9488'
+                }
+            };
+
+            gsap.to(box, {
+                opacity: 0, y: 10, duration: 0.2, onComplete: () => {
+                    const data = content[phase];
+                    title.innerText = data.title;
+                    desc.innerText = data.desc;
+                    title.style.color = data.color;
+
+                    // Find and activate the clicked point
+                    document.querySelectorAll('.method-point').forEach(p => {
+                        if (p.innerText.toLowerCase().includes(phase)) p.classList.add('active');
+                    });
+
+                    gsap.to(box, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" });
+                }
+            });
+        }
+
+        // Global key listener
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '1') triggerMath();
+            if (e.key === '2') triggerRoadmap();
+            if (e.key === 'Escape') {
+                closeRoadmap();
+                closeMath();
+            }
+        });
+
+        // Tier Card Flip Logic
+        document.querySelectorAll('.tier-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('flipped');
+            });
+        });
+
+        // Mouse follow orbs
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            orbs.forEach((orb, i) => {
+                const moveX = (x - 0.5) * (i + 1) * 40;
+                const moveY = (y - 0.5) * (i + 1) * 40;
+                orb.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+
+        // Intro Animation
+        window.addEventListener('load', () => {
+            gsap.from(".hero-image-container", {
+                opacity: 0, scale: 0.95, duration: 2, ease: "expo.out"
+            });
+            gsap.from("header", {
+                opacity: 0, y: 20, duration: 1, ease: "power4.out", delay: 0.5
+            });
+        });
+    </script>
+</body>
+
+</html>

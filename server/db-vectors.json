@@ -1,0 +1,172 @@
+{
+  "briefs": [
+    {
+      "id": "saic-dome-narrative",
+      "notes": "SAIC CDM Dome capture proposal for cyber defense operations. Needs high-stakes positioning to transition SAIC from a standard government contractor to the primary cyber narrative architect for CISA captures.",
+      "archetype": "Systems Integrator",
+      "title": "CDM Dome Narrative Architecture",
+      "client": "SAIC",
+      "path": "active/saic/index.html",
+      "type": "Engagement Proposal",
+      "date": "2026-02-04",
+      "description": "Architecting narrative captures and high-stakes media positioning for CISA CDM captures.",
+      "tags": ["Proposal", "SAIC", "GovCon"],
+      "style": { "bg": "#0F172A", "border": "#0EA5E9", "text": "#F8FAFC", "badgeBg": "#0EA5E9", "badgeText": "#FFFFFF", "accent": "#0EA5E9" },
+      "structured": {
+        "throughline": "Architecting the cyber defense narratives that secure high-stakes federal captures.",
+        "problem_layer": {
+          "surface": "Struggling to differentiate in technical procurement bidding.",
+          "deeper": "Standard technical proposals fail to communicate strategic national security authority.",
+          "structural": "A systemic disconnect between complex operational systems and clear narrative alignment."
+        },
+        "path": "Deploying bespoke digital captures and narrative maps to frame cybersecurity capabilities as national critical infrastructure.",
+        "purpose": "Calibrating GovCon communications to withstand rigorous federal review panels.",
+        "roadmap": [
+          "Milestone 1 (Months 1-6): Map CISA capture parameters.",
+          "Milestone 2 (Months 6-12): Align strategic technical systems.",
+          "Milestone 3 (Months 12-18): Deliver federal capture narrative framework."
+        ]
+      }
+    },
+    {
+      "id": "mycelium-aquatabs",
+      "notes": "Mycelium x Aquatabs water disinfection strategy session. Providing humanitarian impact water purification systems for global disaster response and critical field camps.",
+      "archetype": "Deep Value Specialist",
+      "title": "MYCELIUM x AQUATABS // Mission-Critical Water Disinfection",
+      "client": "Mycelium x Aquatabs",
+      "path": "active/mycelium/aquatabs/index.html",
+      "type": "Partnership Brief",
+      "date": "2026-01-28",
+      "description": "Providing mission-critical water purification systems for remote and disaster environments.",
+      "tags": ["Partnership", "Impact", "Humanitarian"],
+      "style": { "bg": "#ffffff", "border": "#00A3AD", "text": "#003A4D", "badgeBg": "#00A3AD", "badgeText": "#ffffff", "accent": "#00A3AD" },
+      "structured": {
+        "throughline": "Engineering distributed, life-saving water disinfection systems for remote communities.",
+        "problem_layer": {
+          "surface": "Supply chain friction in remote and emergency environments.",
+          "deeper": "Humanitarian logistics fail to guarantee instant, reliable clean water at scale.",
+          "structural": "The structural absence of lightweight, decentralized water infrastructure."
+        },
+        "path": "Deploying self-contained Aquatabs packs integrated with Mycelium's smart tracking networks.",
+        "purpose": "Saving lives and securing humanitarian clean water supplies in unstable territories.",
+        "roadmap": [
+          "Milestone 1 (Months 1-6): Establish global disaster response hubs.",
+          "Milestone 2 (Months 6-12): Scale smart tracking disinfection packs.",
+          "Milestone 3 (Months 12-18): Secure permanent regional distribution paths."
+        ]
+      }
+    },
+    {
+      "id": "mycelium-smallrig",
+      "notes": "Mycelium x SmallRig tactical camera rigs session. Co-designing robust, physical hardware mounts for media production crews in high-risk field scenarios and war zones.",
+      "archetype": "Systems Integrator",
+      "title": "MYCELIUM x SMALLRIG // Enabling the Story",
+      "client": "Mycelium x SmallRig",
+      "path": "active/mycelium/smallrig/index.html",
+      "type": "Partnership Brief",
+      "date": "2026-01-27",
+      "description": "Co-designing bespoke tactical camera configurations for high-risk field reporting.",
+      "tags": ["Production", "Co-Design", "Impact"],
+      "style": { "bg": "#111111", "border": "#FF2E00", "text": "#F5F5F5", "badgeBg": "#FF2E00", "badgeText": "#FFFFFF", "accent": "#FF2E00" },
+      "structured": {
+        "throughline": "Co-designing rugged tactical camera frameworks to empower high-stakes field journalism.",
+        "problem_layer": {
+          "surface": "Camera hardware failure in harsh environmental conditions.",
+          "deeper": "Standard commercial rigs lack the durability required for combat zones.",
+          "structural": "A systemic gap between technical equipment engineering and extreme field constraints."
+        },
+        "path": "Engineering bespoke camera cages and armor configurations with Mycelium distributed telemetry.",
+        "purpose": "Ensuring the message survives the field under the most extreme structural pressure.",
+        "roadmap": [
+          "Milestone 1 (Months 1-6): Prototype tactical field cages.",
+          "Milestone 2 (Months 6-12): Conduct extreme field tests with war correspondents.",
+          "Milestone 3 (Months 12-18): Automate global tactical production logistics."
+        ]
+      }
+    },
+    {
+      "id": "mycelium-mountain-house",
+      "notes": "Mycelium x Mountain House emergency nutrition session. Calibrating freeze-dried nutritional delivery systems and cold-chain hardware for field scientific expeditions and crisis areas.",
+      "archetype": "Deep Value Specialist",
+      "title": "MYCELIUM x MOUNTAIN HOUSE // Fueling Life-Saving Work",
+      "client": "Mycelium x Mountain House",
+      "path": "active/mycelium/mountain-house/index.html",
+      "type": "Partnership Brief",
+      "date": "2026-01-26",
+      "description": "Calibrating freeze-dried nutritional logistics for emergency response and field research.",
+      "tags": ["Nutrition", "Exploration", "Impact"],
+      "style": { "bg": "#00263E", "border": "#FFB81C", "text": "#FFFFFF", "badgeBg": "#FFB81C", "badgeText": "#000000", "accent": "#FFB81C" },
+      "structured": {
+        "throughline": "Calibrating high-stakes nutritional logistics to sustain life-saving operations worldwide.",
+        "problem_layer": {
+          "surface": "Nutritional degradation during prolonged crisis logistics.",
+          "deeper": "Cold-chain dependencies limit food supply drops in remote territories.",
+          "structural": "The systemic vulnerability of traditional shelf-stable food systems during acute disruptions."
+        },
+        "path": "Integrating high-performance, lightweight freeze-dried nutritional grids into Mycelium logistics.",
+        "purpose": "Sustaining operational longevity for front-line responders under extreme isolation.",
+        "roadmap": [
+          "Milestone 1 (Months 1-6): Deploy mobile nutritional reserves.",
+          "Milestone 2 (Months 6-12): Optimize remote field food drops.",
+          "Milestone 3 (Months 12-18): Secure regional strategic food grids."
+        ]
+      }
+    },
+    {
+      "id": "occwi-sip",
+      "notes": "OCCWI Scenario Immersion Protocol (SIP) brief. Structured prevention training methodologies for comand leaders and primary prevention officers, swapping compliance slides for behavioral labs. Prepared for Elizabeth Walther.",
+      "archetype": "Change Architect",
+      "title": "Scenario Immersion Protocol (SIP)",
+      "client": "OCCWI",
+      "path": "active/occwi/scenario-immersion-protocol/index.html",
+      "type": "IPPW Program Brief",
+      "date": "2026-01-22",
+      "description": "An experiential training methodology addressing persistent engagement challenges in prevention education.",
+      "tags": ["Prevention", "IPPW", "Behavior"],
+      "style": { "bg": "#0F172A", "border": "#DC2626", "text": "#F8FAFC", "badgeBg": "#DC2626", "badgeText": "#FFFFFF", "accent": "#F59E0B" },
+      "structured": {
+        "throughline": "Transitioning prevention training from compliance-oriented lectures to immersive behavioral laboratories.",
+        "problem_layer": {
+          "surface": "Persistent engagement challenges and checkbox training fatigue.",
+          "deeper": "Lecture-based prevention models fail to impact actual behavioral patterns.",
+          "structural": "A structural reliance on passive slide decks instead of active, scenario-based learning protocols."
+        },
+        "path": "Deploying active scenario immersion protocols where leaders discover their own behavioral patterns under simulated stress.",
+        "purpose": "Sustaining Command readiness and reducing prevention risk factors globally.",
+        "roadmap": [
+          "Milestone 1 (Months 1-6): Pilot SIP training units in select environments.",
+          "Milestone 2 (Months 6-12): Validate behavioral change metrics using primary feedback loops.",
+          "Milestone 3 (Months 12-18): Scale SIP framework across the command structure."
+        ]
+      }
+    },
+    {
+      "id": "operation-babylift",
+      "notes": "Operation Babylift community archival project. Translating historical records of separation from the Vietnam War era into collaborative healing and art installations.",
+      "archetype": "Identity Archivist",
+      "title": "Operation Babylift | Separation into Repair",
+      "client": "Community Archive",
+      "path": "archive/operation-babylift/index.html",
+      "type": "Historical Archive",
+      "date": "2025-10-10",
+      "description": "Translating historical separation records into collaborative healing frameworks.",
+      "tags": ["Archive", "History", "Love Ethic"],
+      "style": { "bg": "#080808", "border": "#c9a227", "text": "#e8e4dc", "badgeBg": "#c9a227", "badgeText": "#080808", "accent": "#c9a227" },
+      "structured": {
+        "throughline": "Translating historical records of wartime separation into collective, community-led acts of repair.",
+        "problem_layer": {
+          "surface": "Wartime separation records remain fragmented and inaccessible.",
+          "deeper": "Standard archiving systems treat personal histories as simple bureaucratic metadata.",
+          "structural": "The systemic trauma of severed historical identities under imperial operations."
+        },
+        "path": "Assembling open-access community databases and tactile art archives to reconnect historical lineages.",
+        "purpose": "Establishing a creative love ethic to heal generational historical fractures.",
+        "roadmap": [
+          "Milestone 1 (Months 1-6): Unify historical archive registries.",
+          "Milestone 2 (Months 6-12): Develop interactive, community-facing database portals.",
+          "Milestone 3 (Months 12-18): Launch strategic community memorial exhibitions."
+        ]
+      }
+    }
+  ]
+}

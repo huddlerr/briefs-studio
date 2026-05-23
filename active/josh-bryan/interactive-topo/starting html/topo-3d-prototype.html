@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topo Map 3D Reveal - Prototype</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-deep: #1a1a2e;
+            --bg-dark: #16213e;
+            --accent-gold: #d4a574;
+            --accent-cream: #f5e6d3;
+            --accent-red: #c45c5c;
+            --text-light: #e8e0d5;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+        
+        #three-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        .scroll-spacer {
+            height: 500vh;
+            position: relative;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .section-intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            z-index: 100;
+            transition: opacity 0.5s ease;
+        }
+        
+        .section-intro.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .section-intro h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 400;
+            color: var(--accent-cream);
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+        }
+        
+        .section-intro p {
+            font-size: 1.125rem;
+            color: var(--accent-gold);
+            max-width: 500px;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            transition: opacity 0.5s ease;
+        }
+        
+        .scroll-indicator.hidden {
+            opacity: 0;
+        }
+        
+        .scroll-indicator span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-gold);
+        }
+        
+        .scroll-indicator .line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--accent-gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes scrollPulse {
+            0%, 100% { transform: scaleY(1); opacity: 1; }
+            50% { transform: scaleY(0.6); opacity: 0.5; }
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
+            z-index: 1000;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+        
+        .roadmap-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 4rem;
+        }
+        
+        .roadmap-section.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .roadmap-content {
+            max-width: 400px;
+        }
+        
+        .roadmap-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent-cream);
+            margin-bottom: 2rem;
+        }
+        
+        .milestone {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+        
+        .milestone.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .milestone-marker {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+            border: 2px solid var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--accent-gold);
+            flex-shrink: 0;
+        }
+        
+        .milestone-content h3 {
+            font-size: 1rem;
+            color: var(--accent-cream);
+            margin-bottom: 0.25rem;
+        }
+        
+        .milestone-content p {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            opacity: 0.7;
+            line-height: 1.5;
+        }
+        
+        .info-panel {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            z-index: 1000;
+            font-size: 0.75rem;
+            color: var(--accent-gold);
+            max-width: 280px;
+        }
+        
+        .info-panel h4 {
+            color: var(--accent-cream);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progress"></div>
+    
+    <div id="canvas-container">
+        <canvas id="three-canvas"></canvas>
+    </div>
+    
+    <div class="section-intro" id="intro">
+        <h1>Navigate Your Business Terrain</h1>
+        <p>Every journey begins with understanding the landscape. Scroll to reveal the contours of your 30-60-90 day roadmap.</p>
+    </div>
+    
+    <div class="scroll-indicator" id="scrollIndicator">
+        <span>Scroll to explore</span>
+        <div class="line"></div>
+    </div>
+    
+    <div class="roadmap-section" id="roadmap">
+        <div class="roadmap-content">
+            <h2>Your Path Forward</h2>
+            <div class="milestone" data-day="30">
+                <div class="milestone-marker">30</div>
+                <div class="milestone-content">
+                    <h3>Foundation</h3>
+                    <p>Establish core systems, map stakeholders, and set baseline metrics.</p>
+                </div>
+            </div>
+            <div class="milestone" data-day="60">
+                <div class="milestone-marker">60</div>
+                <div class="milestone-content">
+                    <h3>Momentum</h3>
+                    <p>Launch key initiatives, build partnerships, and iterate on early feedback.</p>
+                </div>
+            </div>
+            <div class="milestone" data-day="90">
+                <div class="milestone-marker">90</div>
+                <div class="milestone-content">
+                    <h3>Elevation</h3>
+                    <p>Scale successful strategies, measure impact, and plan the next summit.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-panel">
+        <h4>Prototype Notes</h4>
+        This demo uses procedural terrain. For production, you'll load your topo_01.png and generate a heightmap from its pixel brightness values.
+    </div>
+    
+    <div class="scroll-spacer"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const CONFIG = {
+            heightScale: 2.0,
+            segments: 200,
+            cameraStartY: 14,
+            cameraEndY: 2.5,
+            terrainRotation: 0.35
+        };
+        
+        let scene, camera, renderer, terrain, pathLine, contourLines;
+        let scrollProgress = 0;
+        
+        const canvas = document.getElementById('three-canvas');
+        const introSection = document.getElementById('intro');
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        const roadmapSection = document.getElementById('roadmap');
+        const progressBar = document.getElementById('progress');
+        
+        // ============================================
+        // PROCEDURAL TOPO GENERATION
+        // ============================================
+        
+        // Simplex-like noise function
+        function noise2D(x, y) {
+            const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+            return n - Math.floor(n);
+        }
+        
+        function smoothNoise(x, y, scale) {
+            const sx = x / scale;
+            const sy = y / scale;
+            
+            const x0 = Math.floor(sx);
+            const y0 = Math.floor(sy);
+            const x1 = x0 + 1;
+            const y1 = y0 + 1;
+            
+            const fx = sx - x0;
+            const fy = sy - y0;
+            
+            const sfx = fx * fx * (3 - 2 * fx);
+            const sfy = fy * fy * (3 - 2 * fy);
+            
+            const n00 = noise2D(x0, y0);
+            const n10 = noise2D(x1, y0);
+            const n01 = noise2D(x0, y1);
+            const n11 = noise2D(x1, y1);
+            
+            const nx0 = n00 * (1 - sfx) + n10 * sfx;
+            const nx1 = n01 * (1 - sfx) + n11 * sfx;
+            
+            return nx0 * (1 - sfy) + nx1 * sfy;
+        }
+        
+        function generateTerrainHeight(x, y) {
+            // Create terrain inspired by topo map structure
+            // Multiple ridges running roughly vertical with valleys between
+            
+            let height = 0;
+            
+            // Main ridge system (like the center of the topo)
+            const ridge1 = Math.exp(-Math.pow(x + 0.5, 2) * 3) * 0.8;
+            const ridge2 = Math.exp(-Math.pow(x - 1.5, 2) * 2) * 0.6;
+            const ridge3 = Math.exp(-Math.pow(x + 2.5, 2) * 4) * 0.5;
+            
+            // Vary ridges along y
+            const yVar = Math.sin(y * 0.5) * 0.3 + Math.sin(y * 1.2) * 0.15;
+            
+            height += ridge1 * (1 + yVar);
+            height += ridge2 * (1 - yVar * 0.5);
+            height += ridge3 * (1 + yVar * 0.3);
+            
+            // Add some smaller features
+            height += smoothNoise(x * 30, y * 30, 8) * 0.15;
+            height += smoothNoise(x * 50, y * 50, 5) * 0.08;
+            
+            // Depression areas (like the circular features in the topo)
+            const dep1 = Math.exp(-(Math.pow(x + 3, 2) + Math.pow(y + 1, 2)) * 0.5) * 0.3;
+            const dep2 = Math.exp(-(Math.pow(x - 3.5, 2) + Math.pow(y - 2, 2)) * 0.8) * 0.25;
+            height -= dep1;
+            height -= dep2;
+            
+            return Math.max(0, height);
+        }
+        
+        // ============================================
+        // THREE.JS SETUP
+        // ============================================
+        
+        function initThree() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a2e);
+            scene.fog = new THREE.FogExp2(0x1a1a2e, 0.08);
+            
+            const aspect = window.innerWidth / window.innerHeight;
+            camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 100);
+            camera.position.set(0, CONFIG.cameraStartY, 0.01);
+            camera.lookAt(0, 0, 0);
+            
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: canvas, 
+                antialias: true 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+            scene.add(ambientLight);
+            
+            const mainLight = new THREE.DirectionalLight(0xffeedd, 0.7);
+            mainLight.position.set(5, 10, 5);
+            scene.add(mainLight);
+            
+            const rimLight = new THREE.DirectionalLight(0xd4a574, 0.4);
+            rimLight.position.set(-5, 3, -5);
+            scene.add(rimLight);
+            
+            const bottomLight = new THREE.DirectionalLight(0x4a6fa5, 0.2);
+            bottomLight.position.set(0, -5, 0);
+            scene.add(bottomLight);
+            
+            createTerrain();
+            createContourLines();
+            createRidgePath();
+            
+            window.addEventListener('resize', onWindowResize);
+        }
+        
+        function createTerrain() {
+            const geometry = new THREE.PlaneGeometry(
+                12, 12, 
+                CONFIG.segments - 1, 
+                CONFIG.segments - 1
+            );
+            
+            const positions = geometry.attributes.position.array;
+            const colors = new Float32Array(positions.length);
+            
+            for (let i = 0; i < CONFIG.segments; i++) {
+                for (let j = 0; j < CONFIG.segments; j++) {
+                    const idx = (i * CONFIG.segments + j) * 3;
+                    
+                    const x = positions[idx];
+                    const y = positions[idx + 1];
+                    
+                    const height = generateTerrainHeight(x, y);
+                    positions[idx + 2] = height * CONFIG.heightScale;
+                    
+                    // Color based on height (warm gold to darker)
+                    const t = Math.min(1, height / 0.8);
+                    colors[idx] = 0.15 + t * 0.65;     // R
+                    colors[idx + 1] = 0.12 + t * 0.45; // G
+                    colors[idx + 2] = 0.1 + t * 0.2;   // B
+                }
+            }
+            
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.computeVertexNormals();
+            
+            const material = new THREE.MeshStandardMaterial({
+                vertexColors: true,
+                roughness: 0.85,
+                metalness: 0.05,
+                flatShading: false,
+                side: THREE.DoubleSide
+            });
+            
+            terrain = new THREE.Mesh(geometry, material);
+            terrain.rotation.x = -Math.PI / 2;
+            scene.add(terrain);
+        }
+        
+        function createContourLines() {
+            contourLines = new THREE.Group();
+            
+            const levels = [0.1, 0.25, 0.4, 0.55, 0.7, 0.85];
+            const resolution = 100;
+            
+            levels.forEach((level, levelIdx) => {
+                const points = [];
+                
+                // Trace contour at this level
+                for (let angle = 0; angle < Math.PI * 2; angle += 0.05) {
+                    for (let r = 0.5; r < 5; r += 0.3) {
+                        const x = Math.cos(angle) * r;
+                        const y = Math.sin(angle) * r;
+                        const h = generateTerrainHeight(x, y);
+                        
+                        if (Math.abs(h - level) < 0.03) {
+                            points.push(new THREE.Vector3(
+                                x, 
+                                level * CONFIG.heightScale + 0.02, 
+                                y
+                            ));
+                        }
+                    }
+                }
+                
+                if (points.length > 2) {
+                    // Sort points to create continuous line
+                    const sorted = [points[0]];
+                    const used = new Set([0]);
+                    
+                    while (sorted.length < points.length && sorted.length < 200) {
+                        const last = sorted[sorted.length - 1];
+                        let nearest = -1;
+                        let nearestDist = Infinity;
+                        
+                        for (let i = 0; i < points.length; i++) {
+                            if (used.has(i)) continue;
+                            const d = last.distanceTo(points[i]);
+                            if (d < nearestDist && d < 1) {
+                                nearestDist = d;
+                                nearest = i;
+                            }
+                        }
+                        
+                        if (nearest === -1) break;
+                        sorted.push(points[nearest]);
+                        used.add(nearest);
+                    }
+                    
+                    if (sorted.length > 5) {
+                        const curve = new THREE.CatmullRomCurve3(sorted);
+                        const curvePoints = curve.getPoints(sorted.length * 2);
+                        const geometry = new THREE.BufferGeometry().setFromPoints(curvePoints);
+                        
+                        const brightness = 0.4 + levelIdx * 0.1;
+                        const material = new THREE.LineBasicMaterial({
+                            color: new THREE.Color(brightness, brightness * 0.7, brightness * 0.5),
+                            transparent: true,
+                            opacity: 0.7
+                        });
+                        
+                        const line = new THREE.Line(geometry, material);
+                        contourLines.add(line);
+                    }
+                }
+            });
+            
+            scene.add(contourLines);
+        }
+        
+        function createRidgePath() {
+            // Path following the main ridge
+            const pathPoints = [];
+            
+            for (let t = 0; t <= 1; t += 0.02) {
+                const x = -4 + t * 8;
+                // Follow the ridge roughly
+                const y = Math.sin(t * 3) * 1.5;
+                const h = generateTerrainHeight(x, y);
+                pathPoints.push(new THREE.Vector3(x, h * CONFIG.heightScale + 0.15, y));
+            }
+            
+            const curve = new THREE.CatmullRomCurve3(pathPoints);
+            const curvePoints = curve.getPoints(100);
+            
+            const geometry = new THREE.BufferGeometry().setFromPoints(curvePoints);
+            const material = new THREE.LineBasicMaterial({
+                color: 0xc45c5c,
+                linewidth: 3,
+                transparent: true,
+                opacity: 0
+            });
+            
+            pathLine = new THREE.Line(geometry, material);
+            scene.add(pathLine);
+            
+            // Milestone markers
+            const milestoneT = [0.2, 0.5, 0.8];
+            milestoneT.forEach((t, i) => {
+                const point = curve.getPoint(t);
+                
+                // Glowing sphere
+                const sphereGeom = new THREE.SphereGeometry(0.12, 16, 16);
+                const sphereMat = new THREE.MeshBasicMaterial({
+                    color: 0xd4a574,
+                    transparent: true,
+                    opacity: 0
+                });
+                const sphere = new THREE.Mesh(sphereGeom, sphereMat);
+                sphere.position.copy(point);
+                sphere.userData.milestone = true;
+                sphere.userData.index = i;
+                scene.add(sphere);
+                
+                // Ring around sphere
+                const ringGeom = new THREE.RingGeometry(0.18, 0.22, 32);
+                const ringMat = new THREE.MeshBasicMaterial({
+                    color: 0xf5e6d3,
+                    transparent: true,
+                    opacity: 0,
+                    side: THREE.DoubleSide
+                });
+                const ring = new THREE.Mesh(ringGeom, ringMat);
+                ring.position.copy(point);
+                ring.userData.milestone = true;
+                ring.userData.index = i;
+                scene.add(ring);
+            });
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        // ============================================
+        // SCROLL ANIMATION
+        // ============================================
+        
+        function setupScrollAnimation() {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            ScrollTrigger.create({
+                trigger: '.scroll-spacer',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1,
+                onUpdate: (self) => {
+                    scrollProgress = self.progress;
+                    updateScene(scrollProgress);
+                    updateUI(scrollProgress);
+                }
+            });
+        }
+        
+        function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+        
+        function updateScene(progress) {
+            if (!terrain || !camera) return;
+            
+            const eased = easeInOutCubic(progress);
+            
+            // Camera animation
+            camera.position.y = THREE.MathUtils.lerp(CONFIG.cameraStartY, CONFIG.cameraEndY, eased);
+            camera.position.z = THREE.MathUtils.lerp(0.01, 7, eased);
+            camera.position.x = THREE.MathUtils.lerp(0, -3, eased);
+            
+            const lookY = THREE.MathUtils.lerp(0, 0.8, eased);
+            const lookZ = THREE.MathUtils.lerp(0, -1, eased);
+            camera.lookAt(0, lookY, lookZ);
+            
+            // Terrain rotation
+            terrain.rotation.z = THREE.MathUtils.lerp(0, CONFIG.terrainRotation, eased);
+            contourLines.rotation.y = THREE.MathUtils.lerp(0, CONFIG.terrainRotation, eased);
+            
+            // Path reveal
+            if (pathLine) {
+                const pathProgress = Math.max(0, (progress - 0.5) / 0.5);
+                pathLine.material.opacity = pathProgress * 0.95;
+            }
+            
+            // Milestones
+            scene.traverse((child) => {
+                if (child.userData.milestone) {
+                    const delay = 0.55 + child.userData.index * 0.12;
+                    const markerProgress = Math.max(0, (progress - delay) / 0.2);
+                    child.material.opacity = Math.min(1, markerProgress);
+                    
+                    if (child.geometry.type === 'SphereGeometry') {
+                        const scale = THREE.MathUtils.lerp(0.3, 1, Math.min(1, markerProgress));
+                        child.scale.setScalar(scale);
+                        // Pulse effect
+                        if (markerProgress > 0) {
+                            child.scale.multiplyScalar(1 + Math.sin(Date.now() * 0.003) * 0.05);
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateUI(progress) {
+            progressBar.style.transform = `scaleX(${progress})`;
+            
+            if (progress > 0.08) {
+                introSection.classList.add('hidden');
+                scrollIndicator.classList.add('hidden');
+            } else {
+                introSection.classList.remove('hidden');
+                scrollIndicator.classList.remove('hidden');
+            }
+            
+            if (progress > 0.6) {
+                roadmapSection.classList.add('visible');
+                
+                const milestones = document.querySelectorAll('.milestone');
+                milestones.forEach((m, i) => {
+                    if (progress > 0.65 + i * 0.1) {
+                        m.classList.add('visible');
+                    }
+                });
+            } else {
+                roadmapSection.classList.remove('visible');
+                document.querySelectorAll('.milestone').forEach(m => m.classList.remove('visible'));
+            }
+        }
+        
+        // ============================================
+        // RENDER LOOP
+        // ============================================
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Subtle ambient motion
+            if (terrain) {
+                terrain.rotation.z += 0.00005;
+                contourLines.rotation.y = terrain.rotation.z;
+            }
+            
+            renderer.render(scene, camera);
+        }
+        
+        // ============================================
+        // INIT
+        // ============================================
+        
+        function init() {
+            initThree();
+            setupScrollAnimation();
+            animate();
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+</html>

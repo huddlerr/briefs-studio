@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrative Maps // Dr. Nate Galbreath — Slide Deck</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: '#0F172A',
+                        steel: '#1E293B',
+                        fog: '#94A3B8',
+                        bone: '#F8FAFC',
+                        signal: '#F59E0B',
+                        command: '#DC2626',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-text {
+            background: linear-gradient(135deg, #F59E0B 0%, #DC2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .pillar-card {
+            background: linear-gradient(180deg, rgba(30,41,59,0.8) 0%, rgba(15,23,42,0.95) 100%);
+            border: 1px solid rgba(148,163,184,0.1);
+        }
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="bg-slate text-bone font-sans antialiased">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-slate/95 backdrop-blur border-b border-fog/10">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+            <a href="index.html" class="font-mono text-xs text-fog/60 hover:text-signal transition-colors">← Full Brief</a>
+            <div class="flex items-center gap-4 overflow-x-auto">
+                <a href="#slide-01" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">01</a>
+                <a href="#slide-02" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">02</a>
+                <a href="#slide-03" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">03</a>
+                <a href="#slide-04" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">04</a>
+                <a href="#slide-05" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">05</a>
+                <a href="#slide-06" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">06</a>
+                <a href="#slide-07" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">07</a>
+                <a href="#slide-08" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">08</a>
+                <a href="#slide-09" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">09</a>
+                <a href="#slide-10" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">10</a>
+                <a href="#slide-11" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">11</a>
+                <a href="#slide-12" class="font-mono text-[10px] text-fog/40 hover:text-signal transition-colors whitespace-nowrap">12</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 01: TITLE -->
+    <!-- ========================================== -->
+    <section id="slide-01" class="slide bg-slate relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 40px 40px;"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center">
+            <div class="mb-8">
+                <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-signal">Narrative Maps // Leadership Philosophy Brief</span>
+            </div>
+            
+            <h1 class="font-serif text-5xl md:text-7xl font-semibold leading-[1.1] mb-8">
+                Making Prevention<br>
+                <span class="gradient-text">Accessible</span>
+            </h1>
+            
+            <p class="font-serif text-lg text-fog/60 mb-12">Dr. Nate Galbreath</p>
+            
+            <div class="inline-flex flex-wrap justify-center gap-8 text-sm">
+                <div class="text-left">
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Position</span>
+                    <span class="font-medium">Director, FRWD / ED, SAPRO</span>
+                </div>
+                <div class="text-left">
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Source</span>
+                    <span class="font-medium">All-Hands Introduction</span>
+                </div>
+                <div class="text-left">
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-fog/40 mb-1">Date</span>
+                    <span class="font-medium">December 2025</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 02: HERO QUOTE -->
+    <!-- ========================================== -->
+    <section id="slide-02" class="slide bg-steel/30">
+        <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+            <div class="mb-8">
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-signal">Core Philosophy</span>
+            </div>
+            
+            <blockquote class="font-serif text-3xl md:text-5xl leading-[1.3] text-bone italic mb-8">
+                "If what we're doing is not accessible and not understandable by the people who we are serving, then we got no business doing it."
+            </blockquote>
+            
+            <p class="font-mono text-xs text-fog/50">— Dr. Nate Galbreath, OCCWI All-Hands, December 2025</p>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 03: DOCTRINE INTRO -->
+    <!-- ========================================== -->
+    <section id="slide-03" class="slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">01</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Accessibility Doctrine</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="mb-16">
+                <p class="font-serif text-3xl md:text-5xl leading-[1.3] text-bone">
+                    Dr. Galbreath's leadership philosophy centers on a single imperative: 
+                    <span class="gradient-text font-semibold">translate complexity for operators.</span>
+                </p>
+            </div>
+
+            <div class="max-w-3xl">
+                <p class="font-serif text-xl md:text-2xl leading-relaxed text-fog/80 italic">
+                    Science that stays in headquarters is science that fails the mission.
+                </p>
+            </div>
+
+            <div class="mt-20 flex items-center gap-4">
+                <div class="w-12 h-1 bg-signal rounded-full"></div>
+                <span class="font-mono text-xs text-fog/40">Four pillars define this doctrine →</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 04: FOUR PILLARS -->
+    <!-- ========================================== -->
+    <section id="slide-04" class="slide bg-steel/30">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">01</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Accessibility Doctrine</h2>
+                <span class="font-mono text-xs text-fog/40 ml-4">// Four Pillars</span>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Pillar 1 -->
+                <div class="pillar-card p-8">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-4xl font-bold text-signal/30">01</span>
+                        <span class="px-3 py-1 bg-signal/10 text-signal text-[10px] font-mono uppercase tracking-wider rounded">Core Principle</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">Translate Science for Operators</h3>
+                    <p class="text-fog/80 leading-relaxed mb-6">
+                        "A little less science-y and a little more operational." Make research findings actionable for commanders.
+                    </p>
+                    <div class="border-t border-fog/10 pt-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-fog/40 block mb-2">Origin Example</span>
+                        <p class="text-sm text-fog/70 italic">
+                            Creating layman's versions of forensic suicide reports so families and investigators could understand the evidence—his first act of "good trouble."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="pillar-card p-8">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-4xl font-bold text-signal/30">02</span>
+                        <span class="px-3 py-1 bg-command/10 text-command text-[10px] font-mono uppercase tracking-wider rounded">Strategic Move</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">Circumvent HQ Bottlenecks</h3>
+                    <p class="text-fog/80 leading-relaxed mb-6">
+                        "All of the things we produce essentially die at the headquarters level." Get tools directly to the field.
+                    </p>
+                    <div class="border-t border-fog/10 pt-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-fog/40 block mb-2">His Words</span>
+                        <p class="text-sm text-fog/70 italic">
+                            "I work pretty hard to circumvent headquarters Army, headquarters Navy, headquarters Air Force... I am being nefarious and sneaky."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="pillar-card p-8">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-4xl font-bold text-signal/30">03</span>
+                        <span class="px-3 py-1 bg-red-500/10 text-red-400 text-[10px] font-mono uppercase tracking-wider rounded">Priority #1</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">Demonstrate IPPW Value</h3>
+                    <p class="text-fog/80 leading-relaxed mb-6">
+                        "My greatest concern is the future of our IPPW workforce." Show leadership why embedded practitioners matter.
+                    </p>
+                    <div class="border-t border-fog/10 pt-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-fog/40 block mb-2">His Mandate</span>
+                        <p class="text-sm text-fog/70 italic">
+                            "My first message to Army is put them back. You've been paid for them. You've been resourced for them for years and years. So put them back."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="pillar-card p-8">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-4xl font-bold text-signal/30">04</span>
+                        <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-mono uppercase tracking-wider rounded">Deliverable</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">Commander-Actionable Tools</h3>
+                    <p class="text-fog/80 leading-relaxed mb-6">
+                        "If I knew where these problems are, I would take action." Resilience Index as compelling data.
+                    </p>
+                    <div class="border-t border-fog/10 pt-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-fog/40 block mb-2">Active Initiative</span>
+                        <p class="text-sm text-fog/70 italic">
+                            Joint Base San Antonio dashboard combining response, prevention, and workforce data—the proof of concept he's taking to all 12 joint bases.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 05: STRATEGIC PRIORITIES -->
+    <!-- ========================================== -->
+    <section id="slide-05" class="slide bg-slate">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-sm text-signal">02</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Strategic Priorities</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Immediate -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-signal to-signal/20 rounded-full"></div>
+                    <div class="pl-6">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-signal block mb-2">Immediate — Next 90 Days</span>
+                        <h3 class="font-serif text-xl font-semibold mb-4">Stabilize & Demonstrate</h3>
+                        <ul class="space-y-3 text-fog/80 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="text-signal mt-1">→</span>
+                                <span>Stabilize IPPW workforce against further cuts</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-signal mt-1">→</span>
+                                <span>Demonstrate OCCWI value to new administration</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-signal mt-1">→</span>
+                                <span>Roll out JBSA dashboard pilot</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-signal mt-1">→</span>
+                                <span>Complete FRWD reorganization</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Medium-Term -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-fog/40 to-fog/10 rounded-full"></div>
+                    <div class="pl-6">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-fog/60 block mb-2">Medium-Term — 6-12 Months</span>
+                        <h3 class="font-serif text-xl font-semibold mb-4">Scale & Protect</h3>
+                        <ul class="space-y-3 text-fog/80 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/40 mt-1">→</span>
+                                <span>Expand Resilience Index visibility to commanders</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/40 mt-1">→</span>
+                                <span>Protect IRC SAM funding from non-prevention activities</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/40 mt-1">→</span>
+                                <span>Build evidence base for IPPW reinstatement</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/40 mt-1">→</span>
+                                <span>Roll dashboard to remaining 11 joint bases</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Long-Term -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-fog/20 to-transparent rounded-full"></div>
+                    <div class="pl-6">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-fog/40 block mb-2">Long-Term — 1-2 Years</span>
+                        <h3 class="font-serif text-xl font-semibold mb-4">Institutionalize</h3>
+                        <ul class="space-y-3 text-fog/80 text-sm">
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/20 mt-1">→</span>
+                                <span>Make prevention tools standard commander equipment</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/20 mt-1">→</span>
+                                <span>Establish OCCWI as essential DHRA capability</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/20 mt-1">→</span>
+                                <span>Create self-sustaining prevention ecosystem</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <span class="text-fog/20 mt-1">→</span>
+                                <span>IPPW personnel restored across services</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 06: ORIGIN STORY INTRO -->
+    <!-- ========================================== -->
+    <section id="slide-06" class="slide bg-steel/30">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">03</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Origin Story</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <blockquote class="font-serif text-3xl md:text-4xl leading-[1.4] text-bone italic mb-12">
+                "I got my first taste of making science accessible... and from that time on, I realized that's what I needed to do."
+            </blockquote>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center p-6 bg-slate/50 rounded">
+                    <span class="block font-mono text-3xl font-bold text-signal">35+</span>
+                    <span class="text-[10px] uppercase tracking-wider text-fog/50">GAO Pokes</span>
+                </div>
+                <div class="text-center p-6 bg-slate/50 rounded">
+                    <span class="block font-mono text-3xl font-bold text-fog/60">18</span>
+                    <span class="text-[10px] uppercase tracking-wider text-fog/50">Years in SAPRO</span>
+                </div>
+                <div class="text-center p-6 bg-slate/50 rounded">
+                    <span class="block font-mono text-3xl font-bold text-fog/60">17</span>
+                    <span class="text-[10px] uppercase tracking-wider text-fog/50">AF Bases Covered</span>
+                </div>
+                <div class="text-center p-6 bg-slate/50 rounded">
+                    <span class="block font-mono text-3xl font-bold text-fog/60">5</span>
+                    <span class="text-[10px] uppercase tracking-wider text-fog/50">Years at Hopkins</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 07: ORIGIN TIMELINE -->
+    <!-- ========================================== -->
+    <section id="slide-07" class="slide bg-slate">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">03</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Origin Story</h2>
+                <span class="font-mono text-xs text-fog/40 ml-4">// Career Arc</span>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="space-y-8">
+                <!-- OSI -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-signal block mb-1">Early Career</span>
+                        <h3 class="font-serif text-lg font-semibold">OSI Forensic Consultant</h3>
+                    </div>
+                    <div class="md:col-span-9 border-l border-fog/20 pl-6">
+                        <p class="text-fog/80 leading-relaxed mb-4">
+                            Covered 17 Air Force bases responding to violent crime—homicide, suicide, sexual assault, child abuse. Attended autopsies, processed crime scenes.
+                        </p>
+                        <div class="bg-steel/50 p-4 border-l-2 border-signal">
+                            <p class="text-sm text-fog/70 italic">
+                                <span class="text-signal font-semibold">The Pivot:</span> Created layman's versions of forensic reports—and got in trouble for it. First lesson: "Science must serve the people."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hopkins -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-fog/50 block mb-1">Clinical Training</span>
+                        <h3 class="font-serif text-lg font-semibold">Johns Hopkins Clinic</h3>
+                    </div>
+                    <div class="md:col-span-9 border-l border-fog/20 pl-6">
+                        <p class="text-fog/80 leading-relaxed">
+                            Five years at the outpatient sex offender clinic. Worked with Dr. Fred Berlin, MD PhD. Provided expert court testimony nationwide. Skill developed: Translating clinical science for courts and commanders.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- SAPRO -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                    <div class="md:col-span-3">
+                        <span class="font-mono text-xs text-fog/50 block mb-1">Since 2007</span>
+                        <h3 class="font-serif text-lg font-semibold">SAPRO — 18 Years</h3>
+                    </div>
+                    <div class="md:col-span-9 border-l border-fog/20 pl-6">
+                        <p class="text-fog/80 leading-relaxed">
+                            Joined when SAPRO was only 18 months old. Witnessed the transformation from systems hostile to victims to supportive programs. Served as military deputy, civilian deputy, HQAE. Survival strategy: Stay focused on mission.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 08: LEADERSHIP STYLE - VALUES -->
+    <!-- ========================================== -->
+    <section id="slide-08" class="slide bg-steel/30">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">04</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Leadership Style</h2>
+                <span class="font-mono text-xs text-fog/40 ml-4">// He Values</span>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex items-start gap-4 p-6 bg-emerald-500/5 border border-emerald-500/10 rounded">
+                    <span class="text-emerald-400 text-2xl">✓</span>
+                    <div>
+                        <span class="font-medium text-lg block mb-1">Direct Communication</span>
+                        <span class="text-sm text-fog/60">Not bureaucracy. "Stump the Government Chump" energy.</span>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-emerald-500/5 border border-emerald-500/10 rounded">
+                    <span class="text-emerald-400 text-2xl">✓</span>
+                    <div>
+                        <span class="font-medium text-lg block mb-1">Field-Focused Solutions</span>
+                        <span class="text-sm text-fog/60">Not HQ-centric. Tools that reach unit commanders.</span>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-emerald-500/5 border border-emerald-500/10 rounded">
+                    <span class="text-emerald-400 text-2xl">✓</span>
+                    <div>
+                        <span class="font-medium text-lg block mb-1">Evidence-Based but Accessible</span>
+                        <span class="text-sm text-fog/60">Not academic. "I understand science most of the time."</span>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-emerald-500/5 border border-emerald-500/10 rounded">
+                    <span class="text-emerald-400 text-2xl">✓</span>
+                    <div>
+                        <span class="font-medium text-lg block mb-1">Strategic Subversion</span>
+                        <span class="text-sm text-fog/60">"Get in good trouble... then say 'Oh, whoops, didn't you want that?'"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 09: LEADERSHIP STYLE - RESISTS -->
+    <!-- ========================================== -->
+    <section id="slide-09" class="slide bg-slate">
+        <div class="max-w-5xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">04</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Leadership Style</h2>
+                <span class="font-mono text-xs text-fog/40 ml-4">// He Resists</span>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div class="flex items-start gap-4 p-6 bg-command/5 border border-command/10 rounded">
+                    <span class="text-command text-2xl">✗</span>
+                    <div>
+                        <span class="font-medium text-lg block mb-1">"Science-y" Jargon</span>
+                        <span class="text-sm text-fog/60">Language that loses operators. Accessibility first.</span>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-command/5 border border-command/10 rounded">
+                    <span class="text-command text-2xl">✗</span>
+                    <div>
+                        <span class="font-medium text-lg block mb-1">Tools That Die at HQ</span>
+                        <span class="text-sm text-fog/60">"All of the things we produce essentially die at the headquarters level."</span>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-command/5 border border-command/10 rounded">
+                    <span class="text-command text-2xl">✗</span>
+                    <div>
+                        <span class="font-medium text-lg block mb-1">Non-Productive Prevention Activities</span>
+                        <span class="text-sm text-fog/60">"4-H clubs and Outward Bound" — unless you show him the research.</span>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-6 bg-command/5 border border-command/10 rounded">
+                    <span class="text-command text-2xl">✗</span>
+                    <div>
+                        <span class="font-medium text-lg block mb-1">Structural Equations</span>
+                        <span class="text-sm text-fog/60">"You are gonna see me start to drool and pass out."</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-8 bg-steel/50 border border-fog/10 rounded-lg text-center">
+                <p class="font-serif text-xl md:text-2xl italic text-fog/90">
+                    "I'm very transparent while I'm being sneaky. That's my story. I'm sticking to it."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 10: THE ASK -->
+    <!-- ========================================== -->
+    <section id="slide-10" class="slide bg-steel/30">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">05</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Ask</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <p class="font-serif text-xl text-fog/80 mb-12 max-w-2xl">
+                What would make Dr. Galbreath's job easier? Based on his stated priorities:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 border border-fog/10 bg-slate/50">
+                    <h3 class="font-mono text-xs uppercase tracking-wider text-signal mb-4">From OCCWI</h3>
+                    <ul class="space-y-3 text-sm text-fog/80">
+                        <li class="flex items-start gap-2">
+                            <span class="text-signal">•</span>
+                            Tools that demonstrate IPPW value to commanders
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-signal">•</span>
+                            Prevention narratives that leadership can defend
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-signal">•</span>
+                            Data that shows "where the problems are"
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-signal">•</span>
+                            Evidence base for workforce reinstatement
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="p-6 border border-fog/10 bg-slate/50">
+                    <h3 class="font-mono text-xs uppercase tracking-wider text-fog/60 mb-4">From Contractors</h3>
+                    <ul class="space-y-3 text-sm text-fog/80">
+                        <li class="flex items-start gap-2">
+                            <span class="text-fog/40">•</span>
+                            Accessible communication strategies
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-fog/40">•</span>
+                            Commander-facing products
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-fog/40">•</span>
+                            Field-deployable tools
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-fog/40">•</span>
+                            Continuous improvement based on feedback
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="p-6 border border-fog/10 bg-slate/50">
+                    <h3 class="font-mono text-xs uppercase tracking-wider text-fog/60 mb-4">From the Field</h3>
+                    <ul class="space-y-3 text-sm text-fog/80">
+                        <li class="flex items-start gap-2">
+                            <span class="text-fog/40">•</span>
+                            Demand signal for prevention tools
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-fog/40">•</span>
+                            Commander testimonials
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-fog/40">•</span>
+                            Success stories in operational language
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-fog/40">•</span>
+                            Proof that "this stuff works"
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 11: CONNECTION POINT -->
+    <!-- ========================================== -->
+    <section id="slide-11" class="slide bg-slate">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <div class="flex items-center gap-4 mb-12">
+                <span class="font-mono text-sm text-signal">06</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Connection Point</h2>
+                <div class="flex-1 h-px bg-fog/10"></div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="font-serif text-3xl font-semibold mb-4">Where Story Capture Meets the Doctrine</h3>
+                <p class="font-serif text-xl text-fog/80 italic">
+                    The methodology Dr. Galbreath described is the methodology we built.
+                </p>
+            </div>
+
+            <div class="overflow-x-auto mb-12">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="border-b border-fog/20">
+                            <th class="text-left py-4 pr-8 font-mono text-xs uppercase tracking-wider text-signal">His Stated Need</th>
+                            <th class="text-left py-4 font-mono text-xs uppercase tracking-wider text-fog/60">Story Capture 2.0 Solution</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-fog/10">
+                        <tr>
+                            <td class="py-4 pr-8 text-fog/80">"Make prevention accessible"</td>
+                            <td class="py-4 text-bone">Practitioner language, not academic jargon</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 pr-8 text-fog/80">"Get tools to the field"</td>
+                            <td class="py-4 text-bone">Individual briefs activate practitioners directly</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 pr-8 text-fog/80">"Demonstrate IPPW value"</td>
+                            <td class="py-4 text-bone">Synthesis shows workforce as the intervention</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 pr-8 text-fog/80">"Commander-actionable data"</td>
+                            <td class="py-4 text-bone">Frameworks extracted from ground truth</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 pr-8 text-fog/80">"New audience to capture"</td>
+                            <td class="py-4 text-bone">Evidence in language leadership understands</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 12: CLOSING -->
+    <!-- ========================================== -->
+    <section id="slide-12" class="slide bg-gradient-to-b from-steel/50 to-slate">
+        <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+            <div class="mb-8">
+                <span class="font-mono text-[10px] tracking-[0.2em] uppercase text-signal">The Opportunity</span>
+            </div>
+
+            <p class="font-serif text-2xl md:text-4xl leading-[1.4] text-bone mb-8">
+                If this works for leadership philosophy, it works for practitioner stories.
+            </p>
+            
+            <p class="font-serif text-xl md:text-2xl text-fog/80 italic mb-12">
+                If it works for Dr. Galbreath, it works for the workforce he's fighting to protect.
+            </p>
+
+            <div class="inline-block p-8 border-2 border-signal/30 bg-signal/5 rounded-lg">
+                <p class="text-fog/80 leading-relaxed max-w-2xl">
+                    This brief was created using <span class="text-signal font-medium">Narrative Maps methodology</span>—the same approach OCCWI is developing to capture IPPW practitioner stories. What you're reading is an example of how we translate complex conversations into actionable frameworks.
+                </p>
+            </div>
+
+            <div class="mt-16">
+                <span class="font-mono text-xs tracking-[0.2em] uppercase text-fog/40 block mb-2">Narrative Maps</span>
+                <p class="font-serif italic text-fog/60">Mapping the narrative. Clarifying the mission.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 border-t border-fog/10">
+        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="font-mono text-xs text-fog/40 hover:text-signal transition-colors">← Back to Full Brief</a>
+            <span class="font-mono text-xs text-fog/40">12 Slides // December 2025</span>
+        </div>
+    </footer>
+
+</body>
+</html>

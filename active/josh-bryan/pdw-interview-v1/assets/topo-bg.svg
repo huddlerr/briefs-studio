@@ -1,0 +1,38 @@
+<svg width="1000" height="1000" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <style>
+    path {
+      fill: none;
+      stroke: rgba(180, 140, 100, 0.15);
+      stroke-width: 0.5;
+      transition: stroke 0.3s ease;
+    }
+    path:hover {
+      stroke: rgba(180, 140, 100, 0.4);
+      filter: url(%23glow);
+    }
+  </style>
+  <g id="topo-paths">
+    <!-- Generated Paths mimicking a topographic map -->
+    <path d="M100,100 C150,80 200,120 250,100 S350,150 400,120 S500,80 600,100 S750,150 900,100" />
+    <path d="M100,150 C180,120 250,180 320,150 S450,200 550,160 S700,110 850,150" />
+    <path d="M80,200 C160,180 280,250 400,200 S600,300 800,200 S950,250 1050,200" />
+    <path d="M50,300 C150,280 300,350 450,300 S650,400 850,300" />
+    <path d="M20,400 C120,380 280,450 420,400 S620,500 820,400 S980,450 1100,400" />
+    <path d="M100,500 C200,480 350,550 500,500 S700,600 900,500" />
+    <path d="M150,600 C250,580 400,650 550,600 S750,700 950,600" />
+    <path d="M200,700 C300,680 450,750 600,700 S800,800 1000,700" />
+    <path d="M250,800 C350,780 500,850 650,800 S850,900 1050,800" />
+    <path d="M300,900 C400,880 550,950 700,900 S900,1000 1100,900" />
+    
+    <!-- More complex recursive shapes -->
+    <path d="M500,500 C550,450 650,450 700,500 S750,600 700,650 S600,700 500,650 S450,550 500,500" />
+    <path d="M450,450 C520,380 680,380 750,450 S820,620 750,700 S580,780 450,700 S380,520 450,450" />
+    <path d="M400,400 C490,310 710,310 800,400 S890,640 800,750 S610,890 400,750 S310,490 400,400" />
+  </g>
+</svg>

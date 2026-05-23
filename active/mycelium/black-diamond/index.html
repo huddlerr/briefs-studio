@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYCELIUM x BLACK DIAMOND // Zambia Water & Solar Project</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bdBlack: '#0a0a0a',
+                        bdGold: '#ffb400',
+                        bdSilver: '#e5e5e5',
+                        bdSteel: '#2d2d2d',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --accent: #ffb400;
+        }
+
+        ::-selection {
+            background: var(--accent);
+            color: #000;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://www.transparenttextures.com/patterns/brushed-alum.png");
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .bd-border {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bd-btn {
+            display: inline-block;
+            padding: 1.25rem 2.5rem;
+            background: var(--accent);
+            color: #000;
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 12px;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bd-btn:hover {
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .reveal-y {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        /* Lenis smooth scroll fix */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .tag-bd {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--accent);
+            color: #000;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-title {
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+        }
+
+        .technical-grid {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        .stat-box {
+            background: rgba(45, 45, 45, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .impact-number {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased selection:bg-bdGold">
+    <div class="grain"></div>
+
+    <!-- NAVIGATION -->
+    <nav
+        class="fixed top-0 left-0 right-0 z-[100] h-20 flex items-center px-6 md:px-12 backdrop-blur-md border-b border-white/5 bg-bdBlack/80">
+        <div class="max-w-screen-2xl mx-auto w-full flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="flex flex-col">
+                    <span class="font-black uppercase tracking-tighter text-lg leading-none">Black Diamond</span>
+                    <span class="font-mono text-[9px] uppercase tracking-[0.3em] opacity-50">Partnership Brief //
+                        2026</span>
+                </div>
+            </div>
+            <div class="hidden md:flex font-mono text-[10px] uppercase tracking-widest gap-8 items-center">
+                <a href="#impact" class="hover:text-bdGold transition-colors tracking-[0.2em]">Impact</a>
+                <a href="#expedition" class="hover:text-bdGold transition-colors tracking-[0.2em]">Expedition</a>
+                <a href="#content" class="hover:text-bdGold transition-colors tracking-[0.2em]">Content</a>
+                <a href="../Kuomboka/KUOMBOKA.pdf" target="_blank"
+                    class="border border-white/20 px-4 py-2 hover:bg-white hover:text-black transition-all">View Project
+                    PDF</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="technical-grid min-h-screen">
+
+        <!-- HERO SECTION -->
+        <header class="relative min-h-screen flex items-center pt-20 px-6 md:px-12 overflow-hidden">
+            <!-- Background Image -->
+            <div class="absolute inset-0 z-0">
+                <img src="../assets/zambia_water_impact_hero_1768422610773.png" alt="Zambia Water Project"
+                    class="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-1000">
+                <div class="absolute inset-0 bg-gradient-to-t from-bdBlack via-bdBlack/60 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-bdBlack via-bdBlack/40 to-transparent"></div>
+            </div>
+
+            <div class="relative z-10 max-w-screen-xl mx-auto w-full pt-24">
+                <div class="reveal-y mb-8">
+                    <span class="tag-bd">Primary Hook: Lives Over Logo</span>
+                </div>
+                <h1 class="hero-title text-[clamp(4rem,15vw,12rem)] font-black uppercase mb-8 reveal-y">
+                    5,000 <br>
+                    <span class="text-bdGold italic">Lives</span> <br>
+                    Saved.
+                </h1>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-end reveal-y">
+                    <div class="space-y-6">
+                        <p class="text-xl md:text-3xl font-light leading-snug tracking-tight text-white/80 max-w-2xl">
+                            Immediate, measurable humanitarian impact in the Tonga community. Water filtration as a
+                            foundation for cultural preservation.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-4">
+                            <a href="#partnership" class="bd-btn">Initiate Partnership</a>
+                            <a href="../Kuomboka/KUOMBOKA.pdf" target="_blank"
+                                class="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest hover:text-bdGold transition-colors">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                                Full Project Dossier
+                            </a>
+                        </div>
+                    </div>
+                    <div class="stat-box p-8 md:p-12 border-l-4 border-bdGold">
+                        <h3 class="font-mono text-xs uppercase tracking-widest opacity-50 mb-4 italic">The Crisis</h3>
+                        <p class="text-2xl font-bold mb-4 tracking-tighter">~20,000 annual deaths from waterborne
+                            diseases in the region.</p>
+                        <p class="font-mono text-[10px] uppercase leading-relaxed opacity-60">5 lives per filter
+                            calculation. Immediate deployment. No bureaucracy.</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- SECTION 1: THE REACH -->
+        <section id="impact" class="py-48 px-6 md:px-12 bg-bdBlack">
+            <div class="max-w-screen-xl mx-auto">
+                <div class="flex items-center gap-6 mb-24 reveal-y">
+                    <span class="font-mono text-sm font-bold text-bdGold">01</span>
+                    <div class="h-px flex-grow bg-white/10"></div>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.4em] opacity-40 italic">Strategic
+                        Framework</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
+                    <div class="lg:col-span-12 reveal-y mb-12">
+                        <h2 class="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-12">
+                            Built for the <br><span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-bdGold to-white italic">Journey.</span>
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-y">
+                    <div class="bd-border p-8 hover:bg-bdSteel/30 transition-colors">
+                        <h4 class="font-mono text-xs text-bdGold uppercase mb-6">01 // Authenticity</h4>
+                        <p class="text-sm uppercase tracking-widest leading-relaxed opacity-70">Raw, authentic
+                            storytelling over manufactured marketing. Projects with genuine purpose.</p>
+                    </div>
+                    <div class="bd-border p-8 hover:bg-bdSteel/30 transition-colors">
+                        <h4 class="font-mono text-xs text-bdGold uppercase mb-6">02 // Heritage</h4>
+                        <p class="text-sm uppercase tracking-widest leading-relaxed opacity-70">A legacy outdoor brand
+                            dressing the people of a 2026 expedition of high consequence.</p>
+                    </div>
+                    <div class="bd-border p-8 hover:bg-bdSteel/30 transition-colors">
+                        <h4 class="font-mono text-xs text-bdGold uppercase mb-6">03 // Durability</h4>
+                        <p class="text-sm uppercase tracking-widest leading-relaxed opacity-70">Products built to endure
+                            the most challenging environments on the planet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE EXPEDITION -->
+        <section id="expedition" class="py-48 px-6 md:px-12 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-1/2 h-full z-0 opacity-20 pointer-events-none">
+                <img src="../assets/climbing_exped_gear_detail_1768422628287.png" alt="Expedition Detail"
+                    class="w-full h-full object-cover">
+            </div>
+
+            <div class="max-w-screen-xl mx-auto relative z-10">
+                <div class="flex items-center gap-6 mb-24 reveal-y">
+                    <span class="font-mono text-sm font-bold text-bdGold">02</span>
+                    <div class="h-px flex-grow bg-white/10"></div>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.4em] opacity-40 italic">Regional
+                        Scope</span>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-12 reveal-y">
+                        <h2 class="text-4xl md:text-7xl font-black uppercase leading-none">The <span
+                                class="bg-bdGold text-bdBlack px-4">Journey</span> Angle</h2>
+                        <ul class="font-mono text-xs space-y-4 uppercase tracking-[0.2em]">
+                            <li class="flex items-start gap-4"><span class="text-bdGold">>></span> Victoria Falls
+                                climbing opportunities</li>
+                            <li class="flex items-start gap-4"><span class="text-bdGold">>></span> South Africa layover
+                                & high-altitude training</li>
+                            <li class="flex items-start gap-4"><span class="text-bdGold">>></span> Expedition as
+                                authentic outdoor challenge</li>
+                            <li class="flex items-start gap-4"><span class="text-bdGold">>></span> "Dressing people for
+                                the journey" literal application</li>
+                        </ul>
+                        <div class="p-8 bd-border bg-bdBlack/40 backdrop-blur-md">
+                            <p class="text-lg italic leading-relaxed font-light">
+                                "We're not just providing content; we're providing the bridge between Black Diamond's
+                                technical excellence and immediate human survival."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: THE DELIVERABLES -->
+        <section id="content" class="py-48 px-6 md:px-12 bg-white text-bdBlack">
+            <div class="max-w-screen-xl mx-auto">
+                <div class="flex items-center gap-6 mb-24 reveal-y">
+                    <span class="font-mono text-sm font-bold">03</span>
+                    <div class="h-px flex-grow bg-bdBlack/10"></div>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.4em] opacity-40 italic">Deliverables</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 reveal-y">
+                    <!-- Film 1 -->
+                    <div class="border-2 border-bdBlack p-8 flex flex-col justify-between min-h-[400px]">
+                        <div>
+                            <span class="font-mono text-[9px] uppercase tracking-widest opacity-50 block mb-4">01 //
+                                Festival Circuit</span>
+                            <h3 class="text-2xl font-black uppercase mb-4">Feature <br>Documentary</h3>
+                            <p class="text-xs uppercase leading-relaxed opacity-70">Focus on Tonga culture and
+                                community. Brand presence via sponsor recognition. No on-camera team presence.</p>
+                        </div>
+                        <span class="font-mono text-[8px] uppercase tracking-[0.3em] font-bold mt-8">Story-First / Local
+                            Led</span>
+                    </div>
+
+                    <!-- Film 2 -->
+                    <div
+                        class="border-2 border-bdBlack p-8 flex flex-col justify-between min-h-[400px] bg-bdBlack text-white">
+                        <div>
+                            <span
+                                class="font-mono text-[9px] uppercase tracking-widest opacity-50 block mb-4 text-bdGold">02
+                                // Impact Series</span>
+                            <h3 class="text-2xl font-black uppercase mb-4">Water <br>Filtration</h3>
+                            <p class="text-xs uppercase leading-relaxed opacity-70">Implementation documentary. Impact
+                                documentation and community transformation at the water source.</p>
+                        </div>
+                        <span class="font-mono text-[8px] uppercase tracking-[0.3em] font-bold mt-8">Measurable
+                            Outcomes</span>
+                    </div>
+
+                    <!-- Film 3 -->
+                    <div class="border-2 border-bdBlack p-8 flex flex-col justify-between min-h-[400px]">
+                        <div>
+                            <span class="font-mono text-[9px] uppercase tracking-widest opacity-50 block mb-4">03 //
+                                Infrastructure</span>
+                            <h3 class="text-2xl font-black uppercase mb-4">Solar <br>Power</h3>
+                            <p class="text-xs uppercase leading-relaxed opacity-70">Sustainable infrastructure focus.
+                                Documenting the power of the sun in rural Zambia.</p>
+                        </div>
+                        <span class="font-mono text-[8px] uppercase tracking-[0.3em] font-bold mt-8">Scaleable
+                            Tech</span>
+                    </div>
+
+                    <!-- Film 4 -->
+                    <div
+                        class="border-2 border-bdBlack p-8 flex flex-col justify-between min-h-[400px] bg-bdGold text-bdBlack">
+                        <div>
+                            <span
+                                class="font-mono text-[9px] uppercase tracking-widest text-bdBlack/60 block mb-4 font-bold">04
+                                // Marketing Primary</span>
+                            <h3 class="text-2xl font-black uppercase mb-4">Journey <br>Documentary</h3>
+                            <p class="text-xs uppercase leading-relaxed font-bold">The expedition team's logistics.
+                                Brand placement opportunities. Behind-the-scenes delivery.</p>
+                        </div>
+                        <span class="font-mono text-[8px] uppercase tracking-[0.3em] font-black mt-8">Maximum BD
+                            Visibility</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: PARTNERSHIP FRAMEWORK -->
+        <section id="partnership" class="py-48 px-6 md:px-12 bg-bdBlack">
+            <div class="max-w-screen-xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+                    <div class="reveal-y">
+                        <div class="flex items-center gap-6 mb-12">
+                            <span class="font-mono text-sm font-bold text-bdGold">04</span>
+                            <div class="h-px flex-grow bg-white/10"></div>
+                            <span
+                                class="font-mono text-[10px] uppercase tracking-[0.4em] opacity-40 italic">Framework</span>
+                        </div>
+                        <h2 class="text-4xl md:text-6xl font-black uppercase leading-none mb-12">Partnership <br>Vision.
+                        </h2>
+                        <div class="space-y-8">
+                            <div class="flex gap-6 items-start">
+                                <span class="bg-bdGold text-bdBlack font-mono font-bold text-xs p-1">01</span>
+                                <p class="text-sm uppercase tracking-widest leading-relaxed italic">Association with
+                                    immediate, tangible humanitarian impact.</p>
+                            </div>
+                            <div class="flex gap-6 items-start">
+                                <span class="bg-bdGold text-bdBlack font-mono font-bold text-xs p-1">02</span>
+                                <p class="text-sm uppercase tracking-widest leading-relaxed italic">Multiple
+                                    high-fidelity content assets across formats.</p>
+                            </div>
+                            <div class="flex gap-6 items-start">
+                                <span class="bg-bdGold text-bdBlack font-mono font-bold text-xs p-1">03</span>
+                                <p class="text-sm uppercase tracking-widest leading-relaxed italic">Festival presence
+                                    and outdoor industry credibility.</p>
+                            </div>
+                            <div class="flex gap-6 items-start">
+                                <span class="bg-bdGold text-bdBlack font-mono font-bold text-xs p-1">04</span>
+                                <p class="text-sm uppercase tracking-widest leading-relaxed italic">Connection to larger
+                                    brand ecosystem (Goal Zero, MSR, etc.)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal-y">
+                        <div class="p-12 bd-border bg-bdSteel/20 relative">
+                            <h3 class="font-mono text-xs uppercase tracking-[0.3em] text-bdGold mb-8">The Current
+                                Coalition</h3>
+                            <ul class="space-y-6 font-mono text-[11px] uppercase tracking-widest">
+                                <li class="flex justify-between border-b border-white/5 pb-4">
+                                    <span>Water Filters</span>
+                                    <span class="text-bdGold">[ CONFIRMED ]</span>
+                                </li>
+                                <li class="flex justify-between border-b border-white/5 pb-4">
+                                    <span>Goal Zero</span>
+                                    <span class="opacity-60">[ IN DISCUSSION ]</span>
+                                </li>
+                                <li class="flex justify-between border-b border-white/5 pb-4">
+                                    <span>MSR</span>
+                                    <span class="opacity-40">[ PRELIMINARY ]</span>
+                                </li>
+                                <li class="flex justify-between border-b border-white/5 pb-4">
+                                    <span>Lowa Boots</span>
+                                    <span class="opacity-40">[ PRELIMINARY ]</span>
+                                </li>
+                            </ul>
+                            <p class="mt-12 text-[10px] leading-relaxed opacity-50 uppercase tracking-wider">
+                                We are creating a momentum narrative. Black Diamond is the catalyst for the expedition's
+                                survival and story.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="py-48 px-6 md:px-12 border-t border-white/5 bg-bdBlack">
+            <div class="max-w-4xl mx-auto text-center reveal-y">
+                <h2 class="text-5xl md:text-8xl font-black uppercase mb-12 leading-none">The Planet <br><span
+                        class="text-bdGold">Doesn't Wait.</span></h2>
+                <p class="text-xl md:text-2xl font-light mb-16 opacity-70 tracking-tight">
+                    We are currently selecting three anchor partners for the 2026 Zambia Water & Solar Project. We want
+                    Black Diamond to dress the journey.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                    <a href="mailto:mike@Briefs Studio.io" class="bd-btn px-12 py-6 text-base">Request Briefing Meeting</a>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.3em] opacity-40">Attn: Mike Paul</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer
+            class="py-20 px-6 md:px-12 border-t border-white/5 opacity-30 font-mono text-[9px] uppercase tracking-[0.5em]">
+            <div class="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
+                <div class="flex items-center gap-4">
+                    <span class="font-black">MYCELIUM x BLACK DIAMOND</span>
+                    <span class="h-px w-12 bg-white/20"></span>
+                    <span>2026 ZAMBIA PILOT</span>
+                </div>
+                <div>
+                    <span>Briefs Studio INFRASTRUCTURE // AUTHENTIC INTELLIGENCE</span>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // GSAP Implementation
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Smooth Scroll
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Reveal Animations
+        window.addEventListener('load', () => {
+            gsap.utils.toArray('.reveal-y').forEach(item => {
+                gsap.to(item, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.5,
+                    ease: 'expo.out',
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 90%',
+                    }
+                });
+            });
+
+            // Parallax on hero image
+            gsap.to('header img', {
+                yPercent: 30,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "header",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+/* 
+  Briefs Studio CORE ENGINE v1.0
+  Centralized design system and utility classes.
+*/
+
+:root {
+    /* Brand Colors */
+    --navy-primary: #0F172A;
+    --navy-secondary: #1E293B;
+    --gold-accent: #F59E0B;
+    --emerald-signal: #10B981;
+    --bone-white: #F8FAFC;
+    --slate-ghost: #94A3B8;
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: all 0.2s ease;
+}
+
+/* Base Styles */
+html {
+    scroll-behavior: smooth;
+    background-color: var(--navy-primary);
+    color: var(--bone-white);
+}
+
+body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    background-image: radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.05) 1px, transparent 0);
+    background-size: 40px 40px;
+}
+
+/* Typography Selection */
+::selection {
+    background: var(--gold-accent);
+    color: var(--navy-primary);
+}
+
+.font-serif {
+    font-family: 'Newsreader', serif;
+}
+
+.font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Tactical Components */
+.gradient-text {
+    background: linear-gradient(135deg, var(--gold-accent) 0%, var(--emerald-signal) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tactical-card {
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    transition: var(--transition-smooth);
+}
+
+.tactical-card:hover {
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+/* Chrome Elements */
+.signal-chrome-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.5rem 2.5rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.status-indicator {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-active {
+    background-color: var(--emerald-signal);
+    box-shadow: 0 0 10px var(--emerald-signal);
+}
+
+.status-draft {
+    background-color: var(--gold-accent);
+}
+
+/* Animation Classes */
+.float-animation {
+    animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px) scale(1);
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.05);
+    }
+}
+
+/* Print Optimization */
+@media print {
+    body {
+        background-color: white !important;
+        color: black !important;
+    }
+
+    .signal-chrome-nav,
+    .orbs {
+        display: none !important;
+    }
+
+    .tactical-card {
+        border: 1px solid #ccc !important;
+        background: white !important;
+        color: black !important;
+    }
+}

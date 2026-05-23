@@ -1,0 +1,301 @@
+:root {
+    --bg-deep: #0a0a0b;
+    --bg-panel: #141417;
+    --bg-element: #1c1c21;
+    --border-dim: rgba(255, 255, 255, 0.08);
+    --accent-primary: #3b82f6;
+    /* Pro Blue */
+    --accent-light: #60a5fa;
+    --text-main: #e2e8f0;
+    --text-dim: #94a3b8;
+    --timeline-bg: #0f172a;
+    --playhead: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-deep);
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header / App Bar */
+.app-header {
+    height: 48px;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border-dim);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    justify-content: space-between;
+}
+
+.brand {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-primary);
+}
+
+/* Layout Grid Overhaul */
+.main-editor {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 60px 240px 1fr 300px;
+    /* Added Toolbar column */
+    grid-template-rows: 1fr;
+    overflow: hidden;
+}
+
+/* Vertical Toolbar */
+.toolbar {
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border-dim);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    gap: 12px;
+}
+
+.tool-btn {
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 18px;
+}
+
+.tool-btn:hover {
+    background: var(--bg-element);
+    color: var(--text-main);
+}
+
+.tool-btn.active {
+    background: var(--accent-primary);
+    color: white;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+}
+
+.panel {
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border-dim);
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-right {
+    border-right: none;
+    border-left: 1px solid var(--border-dim);
+}
+
+.panel-header {
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border-dim);
+}
+
+/* Canvas Area */
+.canvas-wrapper {
+    background: var(--bg-deep);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.canvas-container {
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+    background: white;
+    /* The "Paper" */
+}
+
+/* Timeline Overhaul */
+.timeline-area {
+    height: 280px;
+    /* Slightly taller */
+    background: var(--bg-panel);
+    border-top: 1px solid var(--border-dim);
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    /* Label area vs Track area */
+}
+
+.timeline-labels {
+    border-right: 1px solid var(--border-dim);
+    overflow-y: auto;
+}
+
+.timeline-track-area {
+    position: relative;
+    overflow: auto;
+    background: var(--bg-deep);
+}
+
+.track-row {
+    height: 32px;
+    border-bottom: 1px solid var(--border-dim);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 11px;
+    color: var(--text-dim);
+}
+
+.track-label {
+    height: 32px;
+    border-bottom: 1px solid var(--border-dim);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.playhead {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--playhead);
+    z-index: 100;
+    pointer-events: none;
+}
+
+.playhead-head {
+    position: absolute;
+    top: 0;
+    left: -6px;
+    width: 14px;
+    height: 14px;
+    background: var(--playhead);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%);
+}
+
+.keyframe-marker {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--accent-primary);
+    border: 1px solid white;
+    transform: rotate(45deg);
+    top: 11px;
+    /* Center in 32px row */
+    cursor: pointer;
+    z-index: 50;
+}
+
+.timeline-ruler-top {
+    height: 24px;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border-dim);
+    position: sticky;
+    top: 0;
+    z-index: 90;
+}
+
+/* Controls & Inputs */
+.btn {
+    background: var(--bg-element);
+    border: 1px solid var(--border-dim);
+    color: var(--text-main);
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+}
+
+.tool-group {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.prop-input {
+    background: var(--bg-deep);
+    border: 1px solid var(--border-dim);
+    color: var(--text-main);
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 60px;
+}
+
+.prop-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+}
+
+.playhead {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--playhead);
+    z-index: 20;
+    pointer-events: none;
+}
+
+.playhead::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -4px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--playhead);
+}
+
+.keyframe-marker {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+    cursor: grab;
+    transition: transform 0.1s ease;
+}
+
+.keyframe-marker:hover {
+    transform: rotate(45deg) scale(1.3) !important;
+    background-color: var(--accent-light) !important;
+}

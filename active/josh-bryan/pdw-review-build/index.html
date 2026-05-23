@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josh Bryan | PDW Presentation v2.0</title>
+    <meta name="description"
+        content="Josh Bryan — Senior Director of Mission Support. Precision Drone Works Interview Brief.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="initialized-false">
+    <div class="topo-background" id="topo-bg"></div>
+
+    <!-- Visual Chrome -->
+    <header class="chrome">
+        <div class="chrome-left">J. BRYAN | MISSION SUPPORT</div>
+        <div class="chrome-right easter-egg" title="Huntsville, AL - Defense Industry Hub">34.7304° N, 86.5861° W</div>
+    </header>
+
+    <!-- INITIALIZE SCREEN -->
+    <section id="init-screen" class="section full-screen active">
+        <button class="init-button" onclick="initialize()">
+            <span class="bracket">[</span> INITIALIZE <span class="bracket">]</span>
+        </button>
+    </section>
+
+    <main id="app-container" class="hidden">
+        <!-- TITLE SLIDE -->
+        <section id="title-slide" class="section full-screen">
+            <div class="content-left">
+                <h2 class="subtitle">MISSION SUPPORT OVERVIEW</h2>
+                <div class="line-divider"></div>
+                <h1 class="title-main">Josh Bryan</h1>
+                <p class="title-role">Senior Director of Mission Support<br>Precision Drone Works</p>
+
+                <button class="nav-btn-next" onclick="scrollToSection('overview-roadmap')">[ BEGIN → ]</button>
+            </div>
+        </section>
+
+        <!-- GROUND WE'RE COVERING (Meta-Roadmap) -->
+        <section id="overview-roadmap" class="section full-screen">
+            <div class="content-left">
+                <h2 class="section-title">PRESENTATION OVERVIEW</h2>
+                <div class="line-divider"></div>
+
+                <div class="meta-grid">
+                    <div class="meta-card" onclick="scrollToSection('who-is-josh')">
+                        <span class="meta-num">01</span>
+                        <h3>WHO IS JOSH BRYAN?</h3>
+                        <div class="meta-arrow-right">→</div>
+                    </div>
+                    <div class="meta-card" onclick="scrollToSection('why-pdw')">
+                        <span class="meta-num">02</span>
+                        <h3>WHY PDW?</h3>
+                        <div class="meta-arrow-right">→</div>
+                    </div>
+                    <div class="meta-card" onclick="scrollToSection('why-me')">
+                        <span class="meta-num">03</span>
+                        <h3>WHY ME?</h3>
+                        <div class="meta-arrow-right">→</div>
+                    </div>
+                    <div class="meta-card" onclick="scrollToSection('plan-30-60-90')">
+                        <span class="meta-num">04</span>
+                        <h3>30-60-90 DAY PLAN</h3>
+                        <div class="meta-arrow-right">→</div>
+                    </div>
+                </div>
+
+                <button class="nav-btn-next" onclick="scrollToSection('who-is-josh')">[ START WITH WHO IS JOSH BRYAN →
+                    ]</button>
+            </div>
+        </section>
+
+        <!-- WHO IS JOSH BRYAN? (Expanding Cards) -->
+        <section id="who-is-josh" class="section full-screen">
+            <div class="content-left">
+                <h2 class="section-title">WHO IS JOSH BRYAN?</h2>
+                <p class="subtitle-small">M-SHAPED GENERALIST</p>
+                <div class="line-divider"></div>
+            </div>
+
+            <div class="expand-container">
+                <!-- Introductory Card -->
+                <div class="expand-card active" id="card-who-intro" onclick="expandCard('card-who-intro')">
+                    <div class="card-label">
+                        <span class="triangle">△</span>
+                        <h3>INTRODUCTORY</h3>
+                    </div>
+                    <div class="card-content">
+                        <h3>The Generalist</h3>
+                        <div class="content-line"></div>
+                        <ul>
+                            <li><strong>Background:</strong> Alabama ↔ Germany, 7 years in Europe</li>
+                            <li><strong>Family:</strong> Army helicopter pilot's son, Eagle Scout</li>
+                            <li><strong>Current:</strong> 25 years married, three kids</li>
+                            <li><strong>INTP:</strong> Curious — always asking "why"</li>
+                            <li><strong>Interests:</strong> 25 books/year, hiking (AT, Montana), fishing with son,
+                                technology</li>
+                            <li><strong>Education:</strong> BS Civil Engineering (West Point), M.Ed Kinesiology (UVA)
+                            </li>
+                            <li><strong>Health context:</strong> IBD since 2005 — profoundly impactful</li>
+                        </ul>
+                        <button class="card-next-btn" onclick="event.stopPropagation(); expandCard('card-who-inter')">[
+                            NEXT → ]</button>
+                    </div>
+                </div>
+
+                <!-- Intermediate Card -->
+                <div class="expand-card" id="card-who-inter" onclick="expandCard('card-who-inter')">
+                    <div class="card-label">
+                        <span class="triangle">△△</span>
+                        <h3>INTERMEDIATE</h3>
+                    </div>
+                    <div class="card-content">
+                        <h3>Professional Journey</h3>
+                        <div class="content-line"></div>
+                        <div class="scroll-content">
+                            <h4>ARMY AVIATION</h4>
+                            <ul>
+                                <li>OH-58D reconnaissance pilot</li>
+                                <li>Cavalry units: Korea, 82nd Airborne</li>
+                                <li>Instructor pilot — first training role, loved it</li>
+                                <li>Taught at West Point, medically retired 2011</li>
+                            </ul>
+                            <h4>JOHNSON & JOHNSON (ETHICON)</h4>
+                            <ul>
+                                <li>$7M+ territory, C-suite contracting</li>
+                                <li>Learned: discomfort = growth</li>
+                                <li>Outcome: high pay, low satisfaction → departed 2018</li>
+                            </ul>
+                            <h4>ARMY FUTURES COMMAND</h4>
+                            <ul>
+                                <li>Mission Command (C2) Networks</li>
+                                <li>ATAK/TAK consortium, radios, waveforms</li>
+                                <li>Doctrinal research, concepts to doctrine</li>
+                            </ul>
+                            <h4>LOOKING GLASS (Most Relevant)</h4>
+                            <ul>
+                                <li>CUAS/UAS startup, ~40 people</li>
+                                <li>International: ME, Europe, Frontex</li>
+                                <li>Fix deliverables → Director of Ops in 4 months</li>
+                                <li>Designed products, SOPs, standardized processes</li>
+                                <li>4 CUAS training courses developed</li>
+                                <li>ITAR/EAR compliant operations</li>
+                            </ul>
+                        </div>
+                        <button class="card-next-btn" onclick="event.stopPropagation(); expandCard('card-who-adv')">[
+                            NEXT → ]</button>
+                    </div>
+                </div>
+
+                <!-- Advanced Card -->
+                <div class="expand-card" id="card-who-adv" onclick="expandCard('card-who-adv')">
+                    <div class="card-label">
+                        <span class="triangle">△△△</span>
+                        <h3>ADVANCED</h3>
+                    </div>
+                    <div class="card-content">
+                        <h3>Values & Motivations</h3>
+                        <div class="content-line"></div>
+                        <ul>
+                            <li>Trusted husband, father, friend, colleague</li>
+                            <li>Accountability — ownership isn't just words</li>
+                            <li>Generosity, compassion, understanding</li>
+                            <li>High trust environments, cultural fit</li>
+                            <li>Credit not needed; mission first</li>
+                            <li>The "why" matters as much as the "what"</li>
+                            <li>Decentralized execution within framework of intent</li>
+                            <li>High-quality people doing high-quality work</li>
+                            <li>Mistakes OK — repeating them is not</li>
+                            <li>Cross-leveling skills through mentoring</li>
+                        </ul>
+                        <button class="card-continue-btn"
+                            onclick="event.stopPropagation(); scrollToSection('why-pdw')">[ CONTINUE TO WHY PDW →
+                            ]</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY PDW? (Expanding Cards) -->
+        <section id="why-pdw" class="section full-screen">
+            <div class="content-left">
+                <h2 class="section-title">WHY PDW?</h2>
+                <p class="subtitle-small">SKILLSET MATCHING</p>
+                <div class="line-divider"></div>
+            </div>
+
+            <div class="expand-container">
+                <div class="expand-card active" id="card-pdw-culture" onclick="expandCard('card-pdw-culture')">
+                    <div class="card-label">
+                        <h3>CULTURE</h3>
+                    </div>
+                    <div class="card-content">
+                        <h3>Culture & Alignment</h3>
+                        <div class="content-line"></div>
+                        <ul>
+                            <li>Value alignment with company principles</li>
+                            <li>Smaller = autonomy, less bureaucracy</li>
+                            <li>Multiple hats — how I thrive</li>
+                            <li>Agile operational style</li>
+                            <li>Strong reputation from trusted contacts</li>
+                        </ul>
+                        <button class="card-next-btn"
+                            onclick="event.stopPropagation(); expandCard('card-pdw-products')">[ NEXT → ]</button>
+                    </div>
+                </div>
+
+                <div class="expand-card" id="card-pdw-products" onclick="expandCard('card-pdw-products')">
+                    <div class="card-label">
+                        <h3>PRODUCTS</h3>
+                    </div>
+                    <div class="card-content">
+                        <h3>Proven Platforms</h3>
+                        <div class="content-line"></div>
+                        <ul>
+                            <li>Proven drone platforms</li>
+                            <li>Well-received in defense market</li>
+                            <li>Diversifying into public safety</li>
+                            <li>Quality engineering reputation</li>
+                        </ul>
+                        <button class="card-next-btn" onclick="event.stopPropagation(); expandCard('card-pdw-future')">[
+                            NEXT → ]</button>
+                    </div>
+                </div>
+
+                <div class="expand-card" id="card-pdw-future" onclick="expandCard('card-pdw-future')">
+                    <div class="card-label">
+                        <h3>FUTURE</h3>
+                    </div>
+                    <div class="card-content">
+                        <h3>Growth Opportunity</h3>
+                        <div class="content-line"></div>
+                        <ul>
+                            <li>Well-positioned for growth</li>
+                            <li>Expanding base: defense → law enforcement</li>
+                            <li>Proactive opportunity for mission support scaling</li>
+                            <li>Training infrastructure needed for next phase</li>
+                        </ul>
+                        <button class="card-continue-btn" onclick="event.stopPropagation(); scrollToSection('why-me')">[
+                            CONTINUE TO WHY ME → ]</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHY ME? (Stair-Step Infographic) -->
+        <section id="why-me" class="section full-screen">
+            <div class="content-left">
+                <h2 class="section-title">WHY ME?</h2>
+                <p class="subtitle-small">SKILL & VALUE ALIGNMENT</p>
+                <div class="line-divider"></div>
+
+                <div class="staircase-visual">
+                    <div class="step step-4">
+                        <div class="step-label">ROLE ALIGNMENT</div>
+                        <div class="step-detail"><strong>Senior Director of Mission Support</strong></div>
+                    </div>
+                    <div class="step step-3">
+                        <div class="step-label">INTERPERSONAL</div>
+                        <ul class="step-list">
+                            <li>Sales experience bridges to after-sales</li>
+                            <li>Relatable — credits illness for empathy</li>
+                            <li>Mentor capability</li>
+                        </ul>
+                    </div>
+                    <div class="step step-2">
+                        <div class="step-label">TECHNICAL</div>
+                        <ul class="step-list">
+                            <li>Doctrinal depth (CUAS/UAS)</li>
+                            <li>Aviation, airspace, TAK expertise</li>
+                            <li>Standardizing process & branding</li>
+                        </ul>
+                    </div>
+                    <div class="step step-1">
+                        <div class="step-label">TRAINING/EDUCATION</div>
+                        <ul class="step-list">
+                            <li>Formal ISD background (Engineering mindset)</li>
+                            <li>Dreams big, thinks big</li>
+                            <li>Eye for consistency</li>
+                        </ul>
+                    </div>
+                    <div class="step step-0">
+                        <div class="step-label-base">FOUNDATION</div>
+                    </div>
+                </div>
+
+                <button class="nav-btn-next" onclick="scrollToSection('plan-30-60-90')">[ CONTINUE TO 30-60-90 DAY PLAN
+                    → ]</button>
+            </div>
+        </section>
+
+        <!-- 30-60-90 DAY PLAN (Roadmap) -->
+        <section id="plan-30-60-90" class="section full-screen">
+            <div class="content-left plan-header-v2">
+                <p class="framework-label">People · Processes · Projects/Products</p>
+                <h2 class="section-title">30-60-90 DAY PLAN</h2>
+                <div class="line-divider"></div>
+            </div>
+
+            <div class="roadmap-container">
+                <svg class="roadmap-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid meet">
+                    <!-- Path logic will be here, interacting with waypoints -->
+                    <path id="roadmap-path"
+                        d="M 50,300 Q 200,300 250,200 Q 300,100 450,150 Q 600,200 700,200 Q 800,200 850,100" />
+
+                    <g class="waypoint" id="wp-30" onclick="showPlan('30')">
+                        <circle cx="250" cy="200" r="15" />
+                        <text x="250" y="240">30</text>
+                    </g>
+                    <g class="waypoint" id="wp-60" onclick="showPlan('60')">
+                        <circle cx="450" cy="150" r="15" />
+                        <text x="450" y="190">60</text>
+                    </g>
+                    <g class="waypoint" id="wp-90" onclick="showPlan('90')">
+                        <circle cx="850" cy="100" r="15" />
+                        <text x="850" y="140">90</text>
+                    </g>
+                </svg>
+
+                <div id="plan-details" class="plan-details-overlay hidden">
+                    <div class="plan-content-wrap">
+                        <header>
+                            <h2 id="plan-title">30 DAYS</h2>
+                            <button class="close-plan" onclick="hidePlan()">✕</button>
+                        </header>
+                        <div class="plan-grid-v2" id="plan-content">
+                            <!-- Dynamic content based on clicked waypoint -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="nav-btn-next plan-bottom-btn" onclick="scrollToSection('closing-wing')">[ CONTINUE TO CLOSING
+                → ]</button>
+        </section>
+
+        <!-- CLOSING (Wing Metaphor) -->
+        <section id="closing-wing" class="section full-screen">
+            <div class="closing-layout">
+                <div class="wing-visual-container">
+                    <svg class="wing-payoff" viewBox="0 0 600 400">
+                        <!-- Forces of flight synthesis -->
+                        <g class="force force-lift high">
+                            <line x1="300" y1="180" x2="300" y2="40" stroke="white" stroke-width="2" />
+                            <polyline points="290,60 300,40 310,60" fill="none" stroke="white" stroke-width="2" />
+                            <text x="310" y="35" class="force-text-v2">BELIEF</text>
+                        </g>
+                        <g class="force force-weight dim">
+                            <line x1="300" y1="220" x2="300" y2="360" stroke="var(--text-muted)" stroke-width="2" />
+                            <polyline points="290,340 300,360 310,340" fill="none" stroke="var(--text-muted)"
+                                stroke-width="2" />
+                            <text x="310" y="375" class="force-text-v2 dim">DOUBT</text>
+                        </g>
+                        <g class="force force-thrust high">
+                            <line x1="260" y1="200" x2="60" y2="200" stroke="white" stroke-width="2" />
+                            <polyline points="80,190 60,200 80,210" fill="none" stroke="white" stroke-width="2" />
+                            <text x="50" y="230" class="force-text-v2">PASSION</text>
+                        </g>
+                        <g class="force force-drag dim">
+                            <line x1="340" y1="200" x2="540" y2="200" stroke="var(--text-muted)" stroke-width="2" />
+                            <polyline points="520,190 540,200 520,210" fill="none" stroke="var(--text-muted)"
+                                stroke-width="2" />
+                            <text x="530" y="230" class="force-text-v2 dim">FEAR</text>
+                        </g>
+
+                        <path class="airfoil-v2"
+                            d="M 150,200 C 150,160 300,130 450,190 C 500,210 500,220 450,220 C 300,220 150,240 150,200" />
+                    </svg>
+                </div>
+
+                <div class="closing-text">
+                    <p class="highlight-statement">"I provide LIFT and THRUST."</p>
+                    <div class="synthesis-columns">
+                        <div class="sym-col">
+                            <h3>LIFT</h3>
+                            <p>Training expertise, educational foundation, doctrinal depth, ISD engineering mindset.</p>
+                        </div>
+                        <div class="sym-col">
+                            <h3>THRUST</h3>
+                            <p>Sales experience driving customer focus, interpersonal skills, mission-oriented action.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="minimizing-text">
+                        <p><strong>Minimizing DRAG and WEIGHT:</strong> Standardizing processes, eliminating
+                            inefficiencies, proactive curriculum preventing reactive scrambling.</p>
+                    </div>
+                </div>
+
+                <footer class="closing-footer">
+                    <h2 class="title-footer">JOSH BRYAN</h2>
+                    <p class="role-footer">Senior Director of Mission Support | Precision Drone Works</p>
+                    <button class="nav-btn-next" onclick="scrollToSection('end-slide')">[ END → ]</button>
+                </footer>
+            </div>
+        </section>
+
+        <!-- END SLIDE -->
+        <section id="end-slide" class="section full-screen">
+            <div class="end-content">
+                <h1 class="thank-you">Thank you.</h1>
+                <p class="questions">Questions?</p>
+                <div class="end-chrome">
+                    <span class="end-name">J. BRYAN | MISSION SUPPORT</span>
+                    <span class="end-coords">34.7304° N, 86.5861° W</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="ui-controls">
+        <button id="fs-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                    d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- REVIEW INTERFACE -->
+    <div id="review-system">
+        <button id="review-toggle" onclick="toggleReviewSidebar()" title="Open Review Sidebar">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>REVIEW</span>
+        </button>
+
+        <div id="review-sidebar" class="closed">
+            <div class="review-header">
+                <h3>REVIEW BOARD</h3>
+                <button class="close-sidebar" onclick="toggleReviewSidebar()">✕</button>
+            </div>
+
+            <div class="review-instructions">
+                Type your thoughts below. Comments are automatically tagged with your current section.
+            </div>
+
+            <div class="review-input-area">
+                <textarea id="comment-input" placeholder="What should we change here?"></textarea>
+                <button id="add-comment" onclick="addComment()">ADD COMMENT</button>
+            </div>
+
+            <div id="comments-list">
+                <!-- Comments will appear here -->
+            </div>
+
+            <div class="review-footer">
+                <button class="export-btn" onclick="exportReviewJSON()">EXPORT JSON FOR ANTIGRAVITY</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

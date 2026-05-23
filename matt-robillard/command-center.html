@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operations Center // Robillard Technologies Distribution Engine</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: '#0A0C10',
+                        carbon: '#161B22',
+                        cobalt: '#2F81F7',
+                        steel: '#8B949E',
+                        bone: '#C9D1D9',
+                        power: '#F85149',
+                        gold: '#D29922',
+                        command: '#3FB950',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            background-color: #0A0C10;
+            color: #C9D1D9;
+            font-family: 'IBM Plex Sans', sans-serif;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 50%, rgba(47, 129, 247, 0.05) 0%, transparent 100%);
+        }
+        
+        .glass-panel {
+            background: rgba(22, 27, 34, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(139, 148, 158, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar-item {
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .sidebar-item.active {
+            background: rgba(47, 129, 247, 0.1);
+            border-left-color: #2F81F7;
+            color: #2F81F7;
+        }
+
+        .progress-track {
+            height: 4px;
+            background: rgba(139, 148, 158, 0.1);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2F81F7, #F85149);
+            border-radius: 99px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .modal-overlay {
+            background: rgba(10, 12, 16, 0.95);
+            backdrop-filter: blur(8px);
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .modal-active { display: flex !important; }
+
+        .btn-cobalt {
+            background: #2F81F7;
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+        }
+        .btn-cobalt:hover {
+            transform: translateY(-2px);
+            background: white;
+            color: #2F81F7;
+        }
+
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .status-pulse { animation: pulse-soft 2s infinite; }
+
+        .circuit-bg {
+            background-image: radial-gradient(circle at 1px 1px, rgba(47, 129, 247, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body id="cmd-body" class="antialiased min-h-screen circuit-bg">
+
+    <!-- HUD / INITIALIZE -->
+    <div id="tutorial-hud" class="modal-overlay modal-active">
+        <div class="max-w-xl w-full glass-panel p-12 border-t-4 border-cobalt rounded-xl text-center">
+            <div class="mb-8 inline-block p-4 rounded-full bg-cobalt/10">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2F81F7" stroke-width="1.5">
+                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                </svg>
+            </div>
+            <h2 class="font-mono text-3xl font-bold tracking-[0.2em] text-white mb-4 uppercase">Operations Center</h2>
+            <p class="font-mono text-xs text-steel mb-8 leading-relaxed">
+                Welcome, Matt. Narrative Operating System online.<br>
+                Core philosophy synced. Distribution engine active.
+            </p>
+            <button onclick="closeTutorial()" class="btn-cobalt px-10 py-4 rounded-full text-[10px]">Initialize Command Center</button>
+        </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        
+        <!-- SIDEBAR -->
+        <aside class="w-full lg:w-72 border-r border-white/5 flex flex-col glass-panel z-50">
+            <div class="p-8 border-b border-white/5">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-2 h-2 rounded-full bg-command status-pulse"></div>
+                    <span class="font-mono text-[9px] uppercase tracking-[0.3em] opacity-40">Engine Active</span>
+                </div>
+                <h1 class="font-mono text-xl font-bold tracking-tighter">ROBILLARD <span class="text-cobalt">TECH</span></h1>
+            </div>
+
+            <nav class="flex-1 py-8 overflow-y-auto">
+                <div class="px-8 mb-6 font-mono text-[10px] uppercase tracking-widest opacity-20">Navigation</div>
+                <a href="index.html" class="sidebar-item block px-8 py-4 text-sm font-medium hover:bg-white/5 transition-all">Public OS Brief</a>
+                <a href="#" class="sidebar-item active block px-8 py-4 text-sm font-medium transition-all">Command Center</a>
+                
+                <div class="px-8 mt-12 mb-6 font-mono text-[10px] uppercase tracking-widest opacity-20">Distribution Nodes</div>
+                <div class="px-8 py-2">
+                    <div class="flex justify-between text-[10px] font-mono mb-2">
+                        <span class="opacity-40">LinkedIn Engine</span>
+                        <span class="text-command">ONLINE</span>
+                    </div>
+                    <div class="flex justify-between text-[10px] font-mono mb-2">
+                        <span class="opacity-40">Investor Pipeline</span>
+                        <span class="text-command">READY</span>
+                    </div>
+                    <div class="flex justify-between text-[10px] font-mono">
+                        <span class="opacity-40">Reputation Score</span>
+                        <span class="text-gold">+12.4%</span>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="p-8 border-t border-white/5 bg-black/20">
+                <div class="font-mono text-[9px] space-y-3 opacity-40">
+                    <div class="flex justify-between"><span>CORE_SYNC:</span><span>STABLE</span></div>
+                    <div class="flex justify-between"><span>LAST_UPDATE:</span><span id="last-save">--:--:--</span></div>
+                    <div class="flex justify-between"><span>OPERATOR:</span><span>M_ROBILLARD</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 p-6 lg:p-12 max-w-7xl mx-auto w-full">
+            
+            <header class="mb-12">
+                <div class="font-mono text-xs text-cobalt mb-2 uppercase tracking-[0.3em]">Operational Overview</div>
+                <h2 class="font-serif text-4xl font-semibold text-bone">Philosophy Distribution Dashboard</h2>
+            </header>
+
+            <!-- TOP GRID: METRICS -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-12">
+                
+                <!-- NARRATIVE REACH -->
+                <div class="lg:col-span-2 glass-panel p-8 rounded-xl relative overflow-hidden">
+                    <h3 class="font-mono text-[10px] uppercase tracking-[0.4em] opacity-40 mb-6">Narrative Reach (12mo)</h3>
+                    <div class="flex items-baseline gap-4 mb-6">
+                        <span class="font-mono text-5xl text-white font-bold tracking-tighter">12.4k</span>
+                        <span class="font-mono text-sm text-command font-bold">▲ 412%</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between font-mono text-[9px] tracking-widest uppercase">
+                            <span class="opacity-40">Impact Level</span>
+                            <span class="text-cobalt">High Intensity</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill w-[82%]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ASSET STATUS -->
+                <div class="glass-panel p-8 rounded-xl">
+                    <h3 class="font-mono text-[10px] uppercase tracking-[0.4em] opacity-40 mb-6">Asset Production</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-[10px] mb-2 font-mono">
+                                <span class="opacity-40 uppercase">Essays</span>
+                                <span class="text-cobalt">8 / 12</span>
+                            </div>
+                            <div class="progress-track"><div class="progress-fill w-[66%] !bg-cobalt"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-[10px] mb-2 font-mono">
+                                <span class="opacity-40 uppercase">Investor Briefs</span>
+                                <span class="text-command">COMPLETE</span>
+                            </div>
+                            <div class="progress-track"><div class="progress-fill w-[100%] !bg-command"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BANDWIDTH SAVED -->
+                <div class="glass-panel p-8 rounded-xl flex flex-col justify-between">
+                    <h3 class="font-mono text-[10px] uppercase tracking-[0.4em] opacity-40 mb-2">Time Saved</h3>
+                    <div class="text-center">
+                        <span class="font-mono text-4xl text-gold font-bold">22.5h</span>
+                        <p class="font-mono text-[9px] opacity-40 uppercase tracking-widest mt-1 text-center">Saved this week</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAIN GRID -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- ENGINE FEED: CORE THINKING -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="glass-panel p-8 rounded-xl border-l-4 border-cobalt">
+                        <h3 class="font-mono text-xs font-bold uppercase tracking-widest text-cobalt mb-6">Core Thinking [Syncing...]</h3>
+                        <div id="extraction-feed" class="space-y-6">
+                            <div class="border-b border-white/5 pb-4">
+                                <p class="font-serif text-lg italic text-steel">"The misallocation of talented capital is the fundamental bottleneck of our era."</p>
+                                <div class="mt-2 flex justify-between items-center">
+                                    <span class="font-mono text-[9px] opacity-40 tracking-widest uppercase">Source: Briefs Studio Dec 30</span>
+                                    <span class="text-[9px] bg-cobalt/10 text-cobalt px-2 py-0.5 rounded uppercase font-mono">Verified Core</span>
+                                </div>
+                            </div>
+                            <div class="border-b border-white/5 pb-4">
+                                <p class="font-serif text-lg italic text-steel">"Intelligence embedded in infrastructure is the only way to scale the smart home without kitsch."</p>
+                                <div class="mt-2 flex justify-between items-center">
+                                    <span class="font-mono text-[9px] opacity-40 tracking-widest uppercase">Source: Project X Thesis</span>
+                                    <span class="text-[9px] bg-cobalt/10 text-cobalt px-2 py-0.5 rounded uppercase font-mono">Strategic Pivot</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-8 rounded-xl">
+                        <h3 class="font-mono text-xs font-bold uppercase tracking-widest opacity-40 mb-6">Upcoming Distribution</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-carbon/50 border border-white/5 rounded flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-mono text-[10px] text-bone">LinkedIn: "Hard Power vs Cloud Storage"</h4>
+                                    <span class="text-[9px] text-steel uppercase font-mono tracking-tighter">Scheduled: Jan 2, 09:00</span>
+                                </div>
+                                <span class="text-[9px] text-command font-mono uppercase">Pending Review</span>
+                            </div>
+                            <div class="p-4 bg-carbon/50 border border-white/5 rounded flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-mono text-[10px] text-bone">Executive Brief: SmartDC Phase 1</h4>
+                                    <span class="text-[9px] text-steel uppercase font-mono tracking-tighter">Distribution: Investor Tier 1</span>
+                                </div>
+                                <span class="text-[9px] text-gold font-mono uppercase">Drafting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GENERATIVE WORKBENCH: ASSET CREATION -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="glass-panel p-8 rounded-xl min-h-[400px]">
+                        <div class="flex justify-between items-center mb-8">
+                            <h3 class="font-mono text-xs font-bold uppercase tracking-widest text-power">Asset Creation Layer</h3>
+                            <div class="flex gap-2">
+                                <span class="h-2 w-2 rounded-full bg-power status-pulse"></span>
+                                <span class="font-mono text-[9px] text-power uppercase">Processing extraction...</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-8">
+                            <!-- MOCK ASSET 1: INVESTOR BRIEF -->
+                            <div class="p-6 bg-slate border border-white/10 rounded-lg">
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="font-mono text-[10px] text-cobalt uppercase">Asset: Investor_1_Pager.pdf</span>
+                                    <button class="text-steel hover:text-white text-xs font-mono uppercase">Download Source</button>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="h-4 bg-white/5 w-3/4 rounded"></div>
+                                    <div class="h-4 bg-white/5 w-full rounded"></div>
+                                    <div class="h-4 bg-white/5 w-5/6 rounded"></div>
+                                    <div class="mt-4 pt-4 border-t border-white/5 flex gap-4">
+                                        <div class="h-12 w-24 bg-cobalt/20 rounded border border-cobalt/30 flex items-center justify-center font-mono text-[10px] text-cobalt">THESIS</div>
+                                        <div class="h-12 w-24 bg-power/20 rounded border border-power/30 flex items-center justify-center font-mono text-[10px] text-power">CAPITAL</div>
+                                        <div class="h-12 w-24 bg-gold/20 rounded border border-gold/30 flex items-center justify-center font-mono text-[10px] text-gold">RECOGNITION</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- MOCK ASSET 2: SOCIAL CLIPS -->
+                            <div class="p-6 bg-slate border border-white/10 rounded-lg">
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="font-mono text-[10px] text-cobalt uppercase">Asset: Reputation_Compounding_Thread</span>
+                                    <span class="font-mono text-[10px] text-command uppercase">AI Enhanced via Extraction</span>
+                                </div>
+                                <div class="font-serif text-steel text-sm italic leading-relaxed">
+                                    "We build for consequence because consequence is the only thing that survives the hype cycle. Here is how Robillard Technologies identifies 'capability synergies'..."
+                                </div>
+                                <div class="mt-4 flex gap-2">
+                                    <span class="px-2 py-1 bg-white/5 text-[9px] font-mono text-steel uppercase rounded">#HighConsequence</span>
+                                    <span class="px-2 py-1 bg-white/5 text-[9px] font-mono text-steel uppercase rounded">#EngineeringRigor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NETWORK IMPACT -->
+                    <div class="glass-panel p-8 rounded-xl border border-gold/20">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-mono text-xs font-bold uppercase tracking-widest text-gold">Network Impact</h3>
+                            <span class="font-mono text-[10px] text-gold uppercase">Active Nodes: 147</span>
+                        </div>
+                        <div class="h-32 flex items-end gap-2 px-4">
+                            <!-- Mock chart -->
+                            <div class="flex-1 bg-gold/10 h-[20%] rounded-t border-t border-gold/30"></div>
+                            <div class="flex-1 bg-gold/10 h-[25%] rounded-t border-t border-gold/30"></div>
+                            <div class="flex-1 bg-gold/10 h-[22%] rounded-t border-t border-gold/30"></div>
+                            <div class="flex-1 bg-gold/10 h-[35%] rounded-t border-t border-gold/30"></div>
+                            <div class="flex-1 bg-gold/10 h-[45%] rounded-t border-t border-gold/30"></div>
+                            <div class="flex-1 bg-gold/10 h-[40%] rounded-t border-t border-gold/30"></div>
+                            <div class="flex-1 bg-gold/20 h-[65%] rounded-t border-t border-gold/50"></div>
+                            <div class="flex-1 bg-gold/30 h-[85%] rounded-t border-t border-gold status-pulse"></div>
+                        </div>
+                        <p class="mt-4 font-mono text-[9px] text-steel uppercase text-center tracking-[0.2em]">Opportunity Gravity Projection</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER STATUS -->
+    <footer class="lg:ml-72 p-12 border-t border-white/5 text-center opacity-10 font-mono text-[10px] uppercase tracking-[0.5em]">
+        Robillard_OS_Kernel // Version_1.0_Robillard_Distribution_Engine
+    </footer>
+
+    <script>
+        // INITIALIZE
+        function closeTutorial() { 
+            document.getElementById('tutorial-hud').classList.remove('modal-active');
+            document.getElementById('tutorial-hud').style.display = 'none';
+            document.getElementById('last-save').innerText = new Date().toLocaleTimeString();
+        }
+
+        // Simulating updates
+        setInterval(() => {
+            const timeSpan = document.getElementById('last-save');
+            if (timeSpan && timeSpan.innerText !== '--:--:--') {
+                timeSpan.innerText = new Date().toLocaleTimeString();
+            }
+        }, 10000);
+    </script>
+</body>
+</html>

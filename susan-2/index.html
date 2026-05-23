@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio // Susan Malandrino (Dossier View)</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // THEME: "The Strategic Dossier"
+                        surface: '#F3F4F6',      // Cool Gray Background
+                        panel: '#FFFFFF',        // White Panel
+                        ink: '#111827',          // Deep Black
+                        subtle: '#9CA3AF',       // Muted Text
+                        accent: '#DC2626',       // The "Red Alert" Accent
+                        highlight: '#FEF2F2',    // Very light red for backgrounds
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'], // Technical/Modern Feel
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar for the right panel */
+        .scroller::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scroller::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .scroller::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-surface h-screen w-full flex flex-col md:flex-row font-sans text-ink overflow-hidden">
+
+    <!-- LEFT PANEL: IDENTITY (Sticky/Fixed) -->
+    <aside class="w-full md:w-[40%] h-full bg-ink text-surface flex flex-col p-8 md:p-12 justify-between relative overflow-hidden">
+        
+        <!-- Decorative Grid Lines -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" 
+             style="background-image: linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px); background-size: 40px 40px;">
+        </div>
+
+        <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-12">
+                <div class="h-2 w-2 bg-accent rounded-full animate-pulse"></div>
+                <span class="font-display text-[10px] tracking-[0.3em] uppercase opacity-60">Briefs Studio // Dossier</span>
+            </div>
+
+            <h1 class="font-display text-5xl md:text-6xl font-bold leading-tight mb-6">
+                Susan<br>Malandrino
+            </h1>
+
+            <div class="space-y-6">
+                <div>
+                    <span class="block font-sans text-[10px] uppercase tracking-wider opacity-40 mb-1">Archetype</span>
+                    <div class="text-2xl md:text-3xl font-serif italic text-white">The Field Commander</div>
+                </div>
+                
+                <div class="w-12 h-1 bg-accent"></div>
+
+                <div>
+                    <span class="block font-sans text-[10px] uppercase tracking-wider opacity-40 mb-2">Core Narrative</span>
+                    <p class="text-sm md:text-base leading-relaxed opacity-80 font-light">
+                        "I bring <strong>disaster response urgency</strong> to storytelling. In a world of noise, I help mission-driven leaders operationalize hope."
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative z-10 mt-12">
+            <div class="grid grid-cols-2 gap-4 text-xs opacity-50 border-t border-white/10 pt-6">
+                <div>
+                    <span class="block uppercase tracking-wider text-[9px] mb-1">Date</span>
+                    09.17.2025
+                </div>
+                <div>
+                    <span class="block uppercase tracking-wider text-[9px] mb-1">Status</span>
+                    Active // Deployed
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- RIGHT PANEL: EVIDENCE (Scrollable) -->
+    <main class="w-full md:w-[60%] h-full bg-surface overflow-y-auto scroller">
+        
+        <div class="max-w-2xl mx-auto p-8 md:p-16 space-y-20">
+
+            <!-- SECTION 01: THE SHIFT -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="font-display text-4xl text-black/5 font-bold">01</span>
+                    <h2 class="font-display text-lg uppercase tracking-widest font-bold border-b-2 border-accent pb-1">The Shift</h2>
+                </div>
+
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="bg-white p-6 border-l-4 border-gray-200">
+                        <span class="block text-[10px] uppercase tracking-wider text-subtle font-bold mb-2">Old Narrative</span>
+                        <p class="font-serif italic text-ink/70">"I have to soften my edge to fit into the nonprofit world."</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 shadow-xl border-l-4 border-accent transform md:-ml-8 z-10">
+                        <span class="block text-[10px] uppercase tracking-wider text-accent font-bold mb-2">Briefs Studio Narrative</span>
+                        <p class="font-medium text-lg text-ink">"My 'rage-faced' intensity is my superpower. I don't just communicate; I execute with the urgency of a first responder."</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 02: ASSETS -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="font-display text-4xl text-black/5 font-bold">02</span>
+                    <h2 class="font-display text-lg uppercase tracking-widest font-bold border-b-2 border-accent pb-1">Asset Inventory</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-5 border border-gray-100 hover:border-accent transition-colors duration-300">
+                        <h3 class="font-display font-bold text-sm mb-2">Urgency as a Service</h3>
+                        <p class="text-xs leading-relaxed text-subtle">You cut through bureaucracy like a hot knife. Speed is your currency.</p>
+                    </div>
+                    <div class="bg-white p-5 border border-gray-100 hover:border-accent transition-colors duration-300">
+                        <h3 class="font-display font-bold text-sm mb-2">Mission Clarity</h3>
+                        <p class="text-xs leading-relaxed text-subtle">You translate "mundane tasks" into "life-saving mission criticals."</p>
+                    </div>
+                    <div class="bg-white p-5 border border-gray-100 hover:border-accent transition-colors duration-300 md:col-span-2">
+                        <h3 class="font-display font-bold text-sm mb-2">The Anti-Soft</h3>
+                        <p class="text-xs leading-relaxed text-subtle">Rejecting the "Pollyanna" stereotype to deliver hard-hitting truths that actually build trust.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 03: WAYPOINTS -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="font-display text-4xl text-black/5 font-bold">03</span>
+                    <h2 class="font-display text-lg uppercase tracking-widest font-bold border-b-2 border-accent pb-1">Waypoints</h2>
+                </div>
+
+                <div class="space-y-6 relative border-l border-dashed border-ink/20 ml-3 pl-8">
+                    <div class="relative">
+                        <div class="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-white border-2 border-accent"></div>
+                        <h3 class="font-serif font-bold text-lg">Own the Intensity</h3>
+                        <p class="text-sm text-subtle mt-1">Stop apologizing. Your intensity is the product.</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-white border-2 border-ink/20"></div>
+                        <h3 class="font-serif font-bold text-lg">Target Decision Makers</h3>
+                        <p class="text-sm text-subtle mt-1">Bypass middle management. Sell directly to the C-Suite.</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[37px] top-1 h-4 w-4 rounded-full bg-white border-2 border-ink/20"></div>
+                        <h3 class="font-serif font-bold text-lg">Productize the Mission</h3>
+                        <p class="text-sm text-subtle mt-1">Create the "Plug-and-Play" comms kit for small NGOs.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 04: AI PLAYBOOK -->
+            <section>
+                <div class="flex items-center gap-4 mb-8">
+                    <span class="font-display text-4xl text-black/5 font-bold">04</span>
+                    <h2 class="font-display text-lg uppercase tracking-widest font-bold border-b-2 border-accent pb-1">AI Playbook</h2>
+                </div>
+
+                <div class="bg-ink text-surface p-6 rounded-sm relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 text-4xl font-display font-bold">PROMPT 01</div>
+                    <h3 class="font-display text-sm uppercase tracking-widest text-accent mb-4">The "Field Commander" Bio</h3>
+                    <div class="font-mono text-xs bg-black/30 p-4 rounded text-white/70 leading-relaxed border border-white/10">
+                        "Act as a Strategic Communications Expert. Rewrite my LinkedIn 'About' section. Key Theme: I am a Mission Strategist who brings 'Disaster Response Urgency' to storytelling..."
+                    </div>
+                    <button class="mt-4 text-[10px] uppercase tracking-widest border border-white/20 px-4 py-2 hover:bg-accent hover:border-accent transition-colors">Copy Prompt</button>
+                </div>
+
+                <div class="mt-4 bg-white border border-gray-200 p-6 rounded-sm relative overflow-hidden group hover:border-ink transition-colors">
+                    <h3 class="font-display text-sm uppercase tracking-widest text-ink mb-4">Prompt 02: The Mission Pitch</h3>
+                    <div class="font-mono text-xs bg-surface p-4 rounded text-ink/70 leading-relaxed">
+                        "Draft a cold outreach email to a 'Mission-Driven CEO'. Tone: Direct, Urgent, Respectful. The Ask: 'Your story is getting lost in the narrative warfare...'"
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="pt-20 pb-10 text-center opacity-40">
+                <div class="h-px w-12 bg-ink mx-auto mb-6"></div>
+                <p class="font-display text-[10px] uppercase tracking-[0.2em]">Briefs Studio // 2025</p>
+            </footer>
+
+        </div>
+    </main>
+
+</body>
+</html>

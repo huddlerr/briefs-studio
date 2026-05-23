@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio // Leadership Brief — The Cohesion Doctrine</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#0A0A0F',
+                        charcoal: '#1A1A24',
+                        gunmetal: '#2D2D3A',
+                        steel: '#6B7280',
+                        bone: '#F5F5F0',
+                        brass: '#C9A227',
+                        rust: '#B7472A',
+                        olive: '#5C6B4A',
+                    },
+                    fontFamily: {
+                        sans: ['Archivo', 'sans-serif'],
+                        serif: ['Crimson Pro', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-brass {
+            background: linear-gradient(135deg, #C9A227 0%, #D4AF37 50%, #C9A227 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-elevated {
+            background: linear-gradient(180deg, rgba(45,45,58,0.9) 0%, rgba(26,26,36,0.95) 100%);
+            border: 1px solid rgba(201,162,39,0.1);
+        }
+        .card-elevated:hover {
+            border-color: rgba(201,162,39,0.3);
+        }
+        @keyframes slow-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .pulse-brass { animation: slow-pulse 4s ease-in-out infinite; }
+        .divider-brass {
+            background: linear-gradient(90deg, transparent 0%, rgba(201,162,39,0.4) 50%, transparent 100%);
+            height: 1px;
+        }
+    </style>
+</head>
+<body class="bg-obsidian text-bone font-sans antialiased">
+
+    <!-- TOP NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-obsidian/95 backdrop-blur border-b border-brass/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <span class="font-mono text-xs text-steel/60">Briefs Studio // Leadership Brief</span>
+            <span class="font-mono text-xs text-brass/60">10-Minute Capture</span>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="min-h-screen flex flex-col justify-center relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-[0.03]">
+            <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, #C9A227 0, #C9A227 1px, transparent 0, transparent 50%); background-size: 60px 60px;"></div>
+        </div>
+        
+        <!-- Content -->
+        <div class="relative z-10 max-w-5xl mx-auto px-6 py-20">
+            <div class="mb-8">
+                <span class="font-mono text-[10px] tracking-[0.3em] uppercase text-brass">Briefs Studio // Leadership Philosophy Brief</span>
+            </div>
+            
+            <h1 class="font-serif text-5xl md:text-7xl font-semibold leading-[1.05] mb-8">
+                Good Leadership<br>
+                <span class="gradient-brass">Coheres.</span><br>
+                <span class="text-steel/60 text-4xl md:text-5xl">Bad Leadership Fractures.</span>
+            </h1>
+            
+            <div class="max-w-2xl mb-12">
+                <p class="font-serif text-xl md:text-2xl text-steel italic leading-relaxed">
+                    "If you look at high-performing units, there is generally an internal sense of standard that they apply laterally. It doesn't come from the top down."
+                </p>
+                <p class="mt-4 font-mono text-xs text-steel/50">— Josh Bryan, Army Commander & West Point Graduate</p>
+            </div>
+
+            <div class="flex flex-wrap gap-8 text-sm">
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-steel/40 mb-1">Subject</span>
+                    <span class="font-medium">Josh Bryan</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-steel/40 mb-1">Background</span>
+                    <span class="font-medium">West Point, Army Commander</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-steel/40 mb-1">Source</span>
+                    <span class="font-medium">10-Minute P3 Capture</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase tracking-wider text-steel/40 mb-1">Brief Date</span>
+                    <span class="font-medium">December 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-steel/40">
+            <span class="font-mono text-[10px] uppercase tracking-widest">Scroll</span>
+            <div class="w-px h-8 bg-gradient-to-b from-brass/40 to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- SECTION: THE PROBLEM -->
+    <section class="py-24 border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">01</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Problem</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="font-serif text-2xl md:text-3xl leading-relaxed text-steel">
+                        There is a <span class="text-bone font-semibold">considerable lack</span> of truly productive leadership outside of traditional hierarchical military systems.
+                    </p>
+                    <p class="mt-6 font-serif text-lg text-steel/80 leading-relaxed">
+                        In the military: roughly 50% of commanders are good to excellent. In the corporate world since then? So few and far between that no name readily comes to mind.
+                    </p>
+                </div>
+                <div class="card-elevated p-8">
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-brass block mb-4">The Gap</span>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-steel/10 pb-3">
+                            <span class="text-steel/80">Military Good Commanders</span>
+                            <span class="font-mono text-brass">~50%</span>
+                        </div>
+                        <div class="flex items-center justify-between border-b border-steel/10 pb-3">
+                            <span class="text-steel/80">Corporate Good Leaders</span>
+                            <span class="font-mono text-rust">Rare</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-2">
+                            <span class="text-steel/80">Day-to-Day Interactions</span>
+                            <span class="font-mono text-steel/40">Severely Lacking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 p-6 border-l-2 border-brass/40 bg-charcoal/50">
+                <p class="font-serif text-lg italic text-steel/90">
+                    "Unless there's an innate kernel of ability in that individual, it really comes down to your fundamentals. How do you inspire and influence people to do their best work—and do so in a way that isn't demeaning?"
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE TWO TYPES -->
+    <section class="py-24 bg-charcoal/50 border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">02</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Two Types of Leaders</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="mb-12 max-w-3xl">
+                <p class="font-serif text-xl text-steel/90 italic">
+                    "There are leaders of men, and there are leaders of leaders."
+                </p>
+                <p class="mt-2 font-mono text-xs text-steel/50">— First Sergeant, U.S. Army</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Leaders of Men -->
+                <div class="card-elevated p-8 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-4xl font-bold text-brass/30">I</span>
+                        <span class="px-3 py-1 bg-brass/10 text-brass text-[10px] font-mono uppercase tracking-wider rounded">Direct Leadership</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">Leaders of Men</h3>
+                    <p class="text-steel/80 leading-relaxed mb-6">
+                        Get in the trenches. Spit out a stirring speech and rouse the passions of the troops. Direct influence, direct impact.
+                    </p>
+                    <div class="border-t border-steel/10 pt-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-steel/40 block mb-2">Characteristics</span>
+                        <ul class="space-y-2 text-sm text-steel/70">
+                            <li>• Visible presence in the field</li>
+                            <li>• Emotional rallying capability</li>
+                            <li>• Individual connection mastery</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Leaders of Leaders -->
+                <div class="card-elevated p-8 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-6">
+                        <span class="font-mono text-4xl font-bold text-brass/30">II</span>
+                        <span class="px-3 py-1 bg-olive/20 text-olive text-[10px] font-mono uppercase tracking-wider rounded">Strategic Leadership</span>
+                    </div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">Leaders of Leaders</h3>
+                    <p class="text-steel/80 leading-relaxed mb-6">
+                        Steadfast. Guide the folks who are making the decisions. Create the conditions for others to lead well.
+                    </p>
+                    <div class="border-t border-steel/10 pt-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-steel/40 block mb-2">Characteristics</span>
+                        <ul class="space-y-2 text-sm text-steel/70">
+                            <li>• Strategic consistency</li>
+                            <li>• Decision-maker guidance</li>
+                            <li>• Systemic influence</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-12 text-center">
+                <p class="font-serif text-lg text-steel/70">
+                    Both are essential. The distinction matters for knowing <span class="text-bone">which mode you're operating in</span>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE FUNDAMENTALS -->
+    <section class="py-24 border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">03</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Fundamentals</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="mb-16 max-w-3xl">
+                <p class="font-serif text-2xl md:text-3xl leading-relaxed text-steel/90">
+                    Leadership reduces to <span class="text-bone font-medium">fundamentals</span>—principles that transcend context, hierarchy, and organizational type.
+                </p>
+            </div>
+
+            <!-- Principles Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Sincerity -->
+                <div class="card-elevated p-6 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-brass/10 flex items-center justify-center mb-4">
+                        <span class="font-mono text-lg text-brass">01</span>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Sincerity</h3>
+                    <p class="text-steel/80 text-sm leading-relaxed">
+                        "People can sniff out insincerity in two seconds." Being sincere and well-intentioned is the foundation everything else is built on.
+                    </p>
+                </div>
+
+                <!-- Context Understanding -->
+                <div class="card-elevated p-6 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-brass/10 flex items-center justify-center mb-4">
+                        <span class="font-mono text-lg text-brass">02</span>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Context Over Binary</h3>
+                    <p class="text-steel/80 text-sm leading-relaxed">
+                        "I don't believe in binary for most problems." When a leader takes time to understand context before making a decision, it resonates with people.
+                    </p>
+                </div>
+
+                <!-- Emotional Quotient -->
+                <div class="card-elevated p-6 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-brass/10 flex items-center justify-center mb-4">
+                        <span class="font-mono text-lg text-brass">03</span>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Emotional Quotient</h3>
+                    <p class="text-steel/80 text-sm leading-relaxed">
+                        Knowing your own feelings and emotions, reading others, and responding in a way that's constructive. The EQ that separates adequate from excellent.
+                    </p>
+                </div>
+
+                <!-- Public/Private -->
+                <div class="card-elevated p-6 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-brass/10 flex items-center justify-center mb-4">
+                        <span class="font-mono text-lg text-brass">04</span>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Praise Public, Admonish Private</h3>
+                    <p class="text-steel/80 text-sm leading-relaxed">
+                        A principle so fundamental it was passed down as a family value. Protect dignity while maintaining accountability.
+                    </p>
+                </div>
+
+                <!-- Modeling -->
+                <div class="card-elevated p-6 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-brass/10 flex items-center justify-center mb-4">
+                        <span class="font-mono text-lg text-brass">05</span>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Model First</h3>
+                    <p class="text-steel/80 text-sm leading-relaxed">
+                        "Modeling behavior is the first way to do things." You yourself have to be able to do it. Lead yourself before you can lead others.
+                    </p>
+                </div>
+
+                <!-- Shared Sacrifice -->
+                <div class="card-elevated p-6 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-full bg-brass/10 flex items-center justify-center mb-4">
+                        <span class="font-mono text-lg text-brass">06</span>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-3">Shared Sacrifice</h3>
+                    <p class="text-steel/80 text-sm leading-relaxed">
+                        Understanding the sacrifice folks make—and being willing to sacrifice with them. This flattens hierarchy. It's less class-based, more shared purpose.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE HARDEST THING -->
+    <section class="py-24 bg-charcoal border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">04</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Hardest Thing</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-5">
+                    <h3 class="font-serif text-3xl md:text-4xl font-semibold leading-tight mb-6">
+                        Getting people to treat the unit as <span class="gradient-brass">their own.</span>
+                    </h3>
+                    <p class="text-steel/80 leading-relaxed">
+                        Ownership. It's probably the hardest thing. Getting folks to buy into the unit as if it's their own and treat it that way.
+                    </p>
+                </div>
+                <div class="md:col-span-7">
+                    <div class="space-y-6">
+                        <!-- Tangible Example -->
+                        <div class="p-6 bg-obsidian/50 border-l-2 border-brass">
+                            <span class="font-mono text-[10px] uppercase tracking-wider text-brass block mb-3">The Tangible</span>
+                            <p class="font-serif text-lg text-steel/90 italic">
+                                "I don't want to walk by trash in my parking lot—because it's my unit, it's my parking lot too."
+                            </p>
+                        </div>
+
+                        <!-- Behavioral Example -->
+                        <div class="p-6 bg-obsidian/50 border-l-2 border-olive">
+                            <span class="font-mono text-[10px] uppercase tracking-wider text-olive block mb-3">The Behavioral</span>
+                            <p class="font-serif text-lg text-steel/90 italic">
+                                "Watching someone else's behavior and saying: 'Hey, man, that's not how we do things around here.'"
+                            </p>
+                        </div>
+
+                        <!-- The Insight -->
+                        <div class="p-6 bg-brass/5 border border-brass/20">
+                            <span class="font-mono text-[10px] uppercase tracking-wider text-brass block mb-3">The Insight</span>
+                            <p class="font-serif text-xl text-bone">
+                                "If you look at high-performing units, there is generally an internal sense of standard that they apply <span class="font-semibold">laterally</span>. It doesn't come from the top down."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: DEVELOPMENT FRAMEWORK -->
+    <section class="py-24 border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">05</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Development Framework</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="mb-12 max-w-3xl">
+                <p class="font-serif text-xl text-steel/90">
+                    Three distinct approaches to developing people—each temporal, each with its purpose.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Counseling -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-steel/60 to-steel/10 rounded-full"></div>
+                    <div class="pl-8">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-steel/60 block mb-2">Past</span>
+                        <h3 class="font-serif text-2xl font-semibold mb-4">Counseling</h3>
+                        <p class="text-steel/80 leading-relaxed mb-4">
+                            Direct feedback for past performance. What happened, what was the impact, what should change.
+                        </p>
+                        <div class="text-sm text-steel/60">
+                            <span class="block mb-1">• Performance reviews</span>
+                            <span class="block mb-1">• After-action discussions</span>
+                            <span class="block">• Behavioral feedback</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coaching -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-brass to-brass/20 rounded-full"></div>
+                    <div class="pl-8">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-brass block mb-2">Present</span>
+                        <h3 class="font-serif text-2xl font-semibold mb-4">Coaching</h3>
+                        <p class="text-steel/80 leading-relaxed mb-4">
+                            In the moment. Real-time guidance as situations unfold. Helping them navigate what's happening right now.
+                        </p>
+                        <div class="text-sm text-steel/60">
+                            <span class="block mb-1">• Real-time guidance</span>
+                            <span class="block mb-1">• Decision support</span>
+                            <span class="block">• Situational adjustment</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mentoring -->
+                <div class="relative">
+                    <div class="absolute -left-3 top-0 bottom-0 w-1 bg-gradient-to-b from-olive to-olive/20 rounded-full"></div>
+                    <div class="pl-8">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-olive block mb-2">Future</span>
+                        <h3 class="font-serif text-2xl font-semibold mb-4">Mentoring</h3>
+                        <p class="text-steel/80 leading-relaxed mb-4">
+                            Growing a future leader. Long-term development toward who they could become.
+                        </p>
+                        <div class="text-sm text-steel/60">
+                            <span class="block mb-1">• Career trajectory</span>
+                            <span class="block mb-1">• Capability building</span>
+                            <span class="block">• Identity formation</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-12 p-6 bg-charcoal/50 border border-brass/10">
+                <p class="font-serif text-lg text-steel/90">
+                    "There's a way to make somebody understand what their weaknesses are and how to apply themselves to overcome that—<span class="text-bone">if they so choose</span>. They have to make the choice. But do so in a way that's <span class="text-brass">constructive</span>."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: DESTRUCTIVE VS CONSTRUCTIVE -->
+    <section class="py-24 bg-charcoal/50 border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">06</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Correction Spectrum</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="mb-12 max-w-3xl">
+                <p class="font-serif text-xl text-steel/90">
+                    Most folks, because it's easy, default to a somewhat destructive way of correcting behavior—either through commission or omission.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Commission -->
+                <div class="p-6 bg-rust/5 border border-rust/20">
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-rust block mb-4">Destructive: Commission</span>
+                    <h3 class="font-serif text-xl font-semibold mb-3 text-rust/90">Being an Asshole</h3>
+                    <p class="text-steel/80 text-sm leading-relaxed">
+                        Active harm. Demeaning. Public humiliation. Using position to diminish rather than develop.
+                    </p>
+                </div>
+
+                <!-- Constructive -->
+                <div class="p-6 bg-brass/5 border-2 border-brass/30 transform md:-translate-y-4">
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-brass block mb-4">Constructive</span>
+                    <h3 class="font-serif text-xl font-semibold mb-3">The Middle Path</h3>
+                    <p class="text-steel/80 text-sm leading-relaxed">
+                        Direct, clear, context-aware. Addresses the behavior while maintaining dignity. Creates path forward.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-brass/20">
+                        <span class="text-xs text-brass font-medium">THIS IS THE TARGET</span>
+                    </div>
+                </div>
+
+                <!-- Omission -->
+                <div class="p-6 bg-steel/5 border border-steel/20">
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-steel/60 block mb-4">Destructive: Omission</span>
+                    <h3 class="font-serif text-xl font-semibold mb-3 text-steel/70">Not Addressing It</h3>
+                    <p class="text-steel/80 text-sm leading-relaxed">
+                        Passive harm. Avoiding discomfort. Letting standards erode. The behavior continues, unchecked.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: LEAD YOURSELF FIRST -->
+    <section class="py-24 border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">07</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Lead Yourself First</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="font-serif text-2xl md:text-3xl leading-relaxed text-steel/90 mb-6">
+                        A good leader ultimately has to figure out how to <span class="text-bone font-medium">lead themselves</span>.
+                    </p>
+                    <p class="text-steel/80 leading-relaxed mb-6">
+                        There's a parallel between how you choose to lead externally and how you are actually speaking to yourself. The discipline to be consistent starts with self-discipline.
+                    </p>
+                </div>
+
+                <div class="card-elevated p-8">
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-brass block mb-4">Case Study: Nick Saban</span>
+                    <p class="font-serif text-lg text-steel/90 italic mb-4">
+                        "He's very disciplined. He's disciplined with himself. You know what he's gonna do every hour of the day. He's so consistent."
+                    </p>
+                    <div class="border-t border-steel/10 pt-4">
+                        <p class="text-sm text-steel/60">
+                            The discipline to be consistent—and that comes back to yourself. Modeling behavior means you yourself have to be able to do it.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE OUTCOME -->
+    <section class="py-24 bg-charcoal border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">08</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Outcome</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="text-center mb-16">
+                <h3 class="font-serif text-4xl md:text-5xl font-semibold leading-tight mb-6">
+                    <span class="text-olive">Good leadership coheres.</span><br>
+                    <span class="text-rust/80">Bad leadership fractures.</span>
+                </h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Good Leadership -->
+                <div class="p-8 bg-olive/5 border border-olive/20">
+                    <h4 class="font-serif text-xl font-semibold mb-4 flex items-center gap-3">
+                        <span class="w-3 h-3 bg-olive rounded-full"></span>
+                        Good Leadership Creates
+                    </h4>
+                    <ul class="space-y-4 text-steel/80">
+                        <li class="flex items-start gap-3">
+                            <span class="text-olive mt-1">→</span>
+                            <span>People stay because they <span class="text-bone">believe in you</span></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-olive mt-1">→</span>
+                            <span>They believe in the <span class="text-bone">organization</span></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-olive mt-1">→</span>
+                            <span>A stable of <span class="text-bone">high-performing people</span></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-olive mt-1">→</span>
+                            <span>People <span class="text-bone">run through doors</span> for you</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Bad Leadership -->
+                <div class="p-8 bg-rust/5 border border-rust/20">
+                    <h4 class="font-serif text-xl font-semibold mb-4 flex items-center gap-3">
+                        <span class="w-3 h-3 bg-rust rounded-full"></span>
+                        Bad Leadership Creates
+                    </h4>
+                    <ul class="space-y-4 text-steel/80">
+                        <li class="flex items-start gap-3">
+                            <span class="text-rust mt-1">→</span>
+                            <span>High <span class="text-bone">turnover</span></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-rust mt-1">→</span>
+                            <span>Loss of <span class="text-bone">trust</span></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-rust mt-1">→</span>
+                            <span>Dissatisfaction from <span class="text-bone">lack of human connection</span></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-rust mt-1">→</span>
+                            <span>People <span class="text-bone">run for the doors</span></span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- The Story -->
+            <div class="mt-12 p-8 bg-obsidian/50 border border-brass/20">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-brass block mb-4">The Proof</span>
+                <p class="font-serif text-lg text-steel/90 leading-relaxed mb-4">
+                    "At Fort Bragg, one of my excellent commanders was Jeff Colt, retired Major General now. People would run through doors for that guy."
+                </p>
+                <p class="font-serif text-lg text-steel/90 leading-relaxed mb-4">
+                    "He left, and the new commander was not as good. He had big shoes to fill, but this guy was just totally off. People ran for the doors."
+                </p>
+                <p class="font-serif text-lg text-bone leading-relaxed">
+                    "I had the opportunity to stay—they asked me to stay—and I got orders to go, and I was like, 'See ya.' The whole reason was because of that new command team. I didn't trust them, and it wasn't a place I wanted to be."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: THE PURPOSE -->
+    <section class="py-24 border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">09</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Ultimate Purpose</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="font-serif text-2xl md:text-3xl leading-relaxed text-steel/90 mb-8">
+                    The purpose of good leadership is to <span class="text-bone font-medium">inculcate a culture</span> within whatever context that allows people to <span class="gradient-brass font-semibold">own it themselves</span>.
+                </p>
+                <p class="font-serif text-xl text-steel/70 mb-12">
+                    To participate. To say: "That parking lot is my parking lot, as much as it's my comrade's parking lot, my team member's parking lot."
+                </p>
+                <div class="p-8 bg-charcoal border border-brass/20">
+                    <p class="font-serif text-xl text-steel/90">
+                        The leadership role is really to <span class="text-bone">understand the human element</span> more so than anything else—by being relatable as a human, but also understanding that humans respond in different ways to different types of interactions, and <span class="text-brass">tailoring your method to the individual</span>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: DECISION PROMPTS -->
+    <section class="py-24 bg-charcoal/50 border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">10</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Decision Prompts</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="mb-12 max-w-3xl">
+                <p class="font-serif text-xl text-steel/90">
+                    Questions to ask yourself in leadership moments. Based on the fundamentals above.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="p-6 bg-obsidian border border-brass/10">
+                    <span class="font-mono text-xs text-brass block mb-3">Before Deciding</span>
+                    <p class="font-serif text-lg text-bone">
+                        "Have I taken time to understand the full context—or am I defaulting to binary thinking?"
+                    </p>
+                </div>
+
+                <div class="p-6 bg-obsidian border border-brass/10">
+                    <span class="font-mono text-xs text-brass block mb-3">Before Correcting</span>
+                    <p class="font-serif text-lg text-bone">
+                        "Am I about to be constructive—or am I defaulting to commission (harsh) or omission (avoidance)?"
+                    </p>
+                </div>
+
+                <div class="p-6 bg-obsidian border border-brass/10">
+                    <span class="font-mono text-xs text-brass block mb-3">Before Praising/Admonishing</span>
+                    <p class="font-serif text-lg text-bone">
+                        "Is this praise that should be public—or correction that should be private?"
+                    </p>
+                </div>
+
+                <div class="p-6 bg-obsidian border border-brass/10">
+                    <span class="font-mono text-xs text-brass block mb-3">Before Developing</span>
+                    <p class="font-serif text-lg text-bone">
+                        "Is this moment calling for counseling (past), coaching (present), or mentoring (future)?"
+                    </p>
+                </div>
+
+                <div class="p-6 bg-obsidian border border-brass/10">
+                    <span class="font-mono text-xs text-brass block mb-3">Before Asking More</span>
+                    <p class="font-serif text-lg text-bone">
+                        "Am I willing to sacrifice alongside them—or am I asking from a position of exemption?"
+                    </p>
+                </div>
+
+                <div class="p-6 bg-obsidian border border-brass/10">
+                    <span class="font-mono text-xs text-brass block mb-3">Before Speaking</span>
+                    <p class="font-serif text-lg text-bone">
+                        "Am I being sincere—or can they sniff out the insincerity in two seconds?"
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: ACTIONABLE BEHAVIORS -->
+    <section class="py-24 border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-16">
+                <span class="font-mono text-xs text-brass">11</span>
+                <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Actionable Behaviors</h2>
+                <div class="flex-1 h-px bg-brass/10"></div>
+            </div>
+
+            <div class="space-y-6">
+                
+                <div class="flex gap-6 group">
+                    <div class="flex-shrink-0 pt-1">
+                        <span class="font-mono text-sm text-steel/30 group-hover:text-brass transition-colors">01</span>
+                    </div>
+                    <div class="border-b border-steel/10 pb-6 w-full">
+                        <h4 class="font-serif text-lg font-bold mb-2">Model the standard yourself</h4>
+                        <p class="text-steel/70 text-sm max-w-2xl">
+                            Don't walk by the trash. Hold yourself to the same expectations. Be the discipline you want to see.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 group">
+                    <div class="flex-shrink-0 pt-1">
+                        <span class="font-mono text-sm text-steel/30 group-hover:text-brass transition-colors">02</span>
+                    </div>
+                    <div class="border-b border-steel/10 pb-6 w-full">
+                        <h4 class="font-serif text-lg font-bold mb-2">Pause for context before judging</h4>
+                        <p class="text-steel/70 text-sm max-w-2xl">
+                            When something happens that requires your judgment, resist the binary. Ask: what's the full picture here?
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 group">
+                    <div class="flex-shrink-0 pt-1">
+                        <span class="font-mono text-sm text-steel/30 group-hover:text-brass transition-colors">03</span>
+                    </div>
+                    <div class="border-b border-steel/10 pb-6 w-full">
+                        <h4 class="font-serif text-lg font-bold mb-2">Protect dignity in correction</h4>
+                        <p class="text-steel/70 text-sm max-w-2xl">
+                            When you need to address behavior, do it in private. Find the constructive middle between harsh and avoidant.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 group">
+                    <div class="flex-shrink-0 pt-1">
+                        <span class="font-mono text-sm text-steel/30 group-hover:text-brass transition-colors">04</span>
+                    </div>
+                    <div class="border-b border-steel/10 pb-6 w-full">
+                        <h4 class="font-serif text-lg font-bold mb-2">Amplify recognition publicly</h4>
+                        <p class="text-steel/70 text-sm max-w-2xl">
+                            When someone does something right, acknowledge it where others can see. Build culture through visible appreciation.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 group">
+                    <div class="flex-shrink-0 pt-1">
+                        <span class="font-mono text-sm text-steel/30 group-hover:text-brass transition-colors">05</span>
+                    </div>
+                    <div class="border-b border-steel/10 pb-6 w-full">
+                        <h4 class="font-serif text-lg font-bold mb-2">Share the sacrifice</h4>
+                        <p class="text-steel/70 text-sm max-w-2xl">
+                            If you're asking people to give, give alongside them. Flatten hierarchy through shared experience.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6 group">
+                    <div class="flex-shrink-0 pt-1">
+                        <span class="font-mono text-sm text-steel/30 group-hover:text-brass transition-colors">06</span>
+                    </div>
+                    <div class="pb-6 w-full">
+                        <h4 class="font-serif text-lg font-bold mb-2">Tailor your approach to the individual</h4>
+                        <p class="text-steel/70 text-sm max-w-2xl">
+                            Understand that humans respond differently to different interactions. Read the person, not just the situation.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- THE BOTTOM LINE -->
+    <section class="py-24 bg-brass/5 border-t border-brass/20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <span class="font-mono text-xs text-brass block mb-8">The Bottom Line</span>
+            <p class="font-serif text-3xl md:text-4xl leading-relaxed text-bone">
+                Leadership is not about position.<br>
+                It's about <span class="gradient-brass">human connection</span>.<br>
+                <span class="text-steel/70 text-2xl md:text-3xl">Sincerity. Context. Ownership.</span>
+            </p>
+            <div class="divider-brass mt-12 mb-8"></div>
+            <p class="font-serif text-xl text-steel/80 italic">
+                "Good leadership coheres. Bad leadership fractures and disintegrates."
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 border-t border-brass/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+                <div>
+                    <span class="font-mono text-xs tracking-[0.2em] uppercase text-steel/40 block mb-2">Briefs Studio</span>
+                    <p class="font-serif italic text-steel/60">Capturing the signal in the noise.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-2 h-2 bg-brass rounded-full pulse-brass"></div>
+                    <span class="font-mono text-xs text-steel/40">Brief Version 1.0 // December 2025</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+
+
+
+
+
+

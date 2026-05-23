@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio // Faizan Ahmed [V2 Concept]</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- FONTS: Playfair Display (Narrative), Inter (UI), JetBrains Mono (Data/Tech) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        canvas: '#F7F6F2',      // Lighter, more premium paper tone
+                        ink: '#111111',          // Sharp black
+                        subtle: '#888888',       // Secondary text
+                        accent: '#E69F00',       // Briefs Studio Orange (Retained for continuity)
+                        panel: '#FFFFFF',        // Pure white for cards
+                        terminal: '#1E1E1E',     // For AI prompts
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    letterSpacing: {
+                        'ultra-wide': '0.25em',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar for a cleaner feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F7F6F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D1D5DB; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9CA3AF; 
+        }
+    </style>
+</head>
+<body class="bg-canvas text-ink font-sans antialiased selection:bg-accent/20">
+
+    <!-- MAIN WRAPPER: CSS Grid for Sidebar + Content layout on larger screens -->
+    <div class="max-w-7xl mx-auto min-h-screen grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-12 relative">
+
+        <!-- SIDEBAR / NAVIGATION (Sticky on Desktop) -->
+        <aside class="lg:col-span-3 lg:h-screen lg:sticky lg:top-0 p-6 lg:py-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-ink/10">
+            
+            <!-- TOP: Logo & Metadata -->
+            <div>
+                <div class="mb-8">
+                    <span class="block font-mono text-[10px] tracking-ultra-wide uppercase text-subtle mb-2">Briefs Studio Intelligence</span>
+                    <h1 class="font-serif text-3xl font-bold leading-tight">Faizan Ahmed</h1>
+                </div>
+
+                <!-- Meta Data Grid -->
+                <div class="grid grid-cols-2 lg:grid-cols-1 gap-4 font-mono text-[10px] text-subtle">
+                    <div>
+                        <span class="block text-ink/40 uppercase tracking-wider mb-1">Date</span>
+                        <span class="text-ink">2025-11-11</span>
+                    </div>
+                    <div>
+                        <span class="block text-ink/40 uppercase tracking-wider mb-1">Status</span>
+                        <span class="text-ink">Archived</span>
+                    </div>
+                    <div class="col-span-2 lg:col-span-1 mt-2">
+                        <span class="block text-ink/40 uppercase tracking-wider mb-1">Core Focus</span>
+                        <p class="text-ink leading-relaxed">The Systems Architect of Leverage</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTTOM: Footer / Navigation -->
+            <div class="hidden lg:block">
+                <nav class="space-y-2 font-mono text-xs">
+                    <a href="#shift" class="block hover:text-accent transition-colors hover:translate-x-1 duration-200">01 // The Shift</a>
+                    <a href="#assets" class="block hover:text-accent transition-colors hover:translate-x-1 duration-200">02 // Asset Inventory</a>
+                    <a href="#alignment" class="block hover:text-accent transition-colors hover:translate-x-1 duration-200">03 // Alignment</a>
+                    <a href="#waypoints" class="block hover:text-accent transition-colors hover:translate-x-1 duration-200">04 // Waypoints</a>
+                    <a href="#artifacts" class="block hover:text-accent transition-colors hover:translate-x-1 duration-200">05 // Artifacts</a>
+                    <a href="#playbook" class="block hover:text-accent transition-colors hover:translate-x-1 duration-200">06 // AI Playbook</a>
+                </nav>
+                <div class="mt-8 pt-8 border-t border-ink/10">
+                    <div class="h-2 w-2 bg-accent rounded-full"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="lg:col-span-9 p-6 lg:py-12 max-w-4xl">
+
+            <!-- INTRO STATEMENT -->
+            <div class="mb-20">
+                <p class="font-serif text-2xl md:text-4xl leading-snug text-ink/90 italic">
+                    "I build self-sustaining, authentic revenue engines by fusing product strategy with real-world growth mechanics."
+                </p>
+            </div>
+
+            <!-- SECTION 01: THE SHIFT -->
+            <section id="shift" class="mb-24 scroll-mt-20">
+                <div class="flex items-center space-x-4 mb-8 border-b border-ink/10 pb-4">
+                    <span class="font-mono text-xs text-accent">01</span>
+                    <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">The Shift</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+                    <!-- Connector Line (Desktop) -->
+                    <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-ink/10 -ml-px"></div>
+                    <div class="hidden md:block absolute left-1/2 top-1/2 -mt-3 -ml-3 w-6 h-6 bg-canvas border border-ink/20 rounded-full flex items-center justify-center">
+                        <span class="text-[10px] text-ink/40">→</span>
+                    </div>
+
+                    <!-- From -->
+                    <div class="bg-white p-8 border border-ink/5 shadow-sm opacity-60 hover:opacity-100 transition-opacity duration-300">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-subtle block mb-4">Old Narrative</span>
+                        <p class="font-serif text-lg leading-relaxed text-ink/70 italic">
+                            "I must perpetually hustle and chase the next lead, making my business feel stressful and 'wobbly' because the operational systems are broken."
+                        </p>
+                    </div>
+
+                    <!-- To -->
+                    <div class="bg-white p-8 border-t-4 border-accent shadow-lg transform md:-translate-y-4">
+                        <span class="font-mono text-[10px] uppercase tracking-wider text-accent block mb-4">Briefs Studio Narrative</span>
+                        <p class="font-serif text-xl md:text-2xl leading-relaxed font-semibold">
+                            "My value is in engineering automated leverage, allowing me and my clients to stop chasing and instead find flow, time, and focus."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 02: ASSET INVENTORY -->
+            <section id="assets" class="mb-24 scroll-mt-20">
+                <div class="flex items-center space-x-4 mb-8 border-b border-ink/10 pb-4">
+                    <span class="font-mono text-xs text-accent">02</span>
+                    <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Asset Inventory</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="group p-6 bg-panel border border-ink/5 hover:border-ink/20 transition-all duration-300 hover:shadow-lg">
+                        <h3 class="font-serif text-lg font-bold mb-3 group-hover:text-accent transition-colors">The Client-Turned-Expert</h3>
+                        <p class="font-sans text-sm text-subtle leading-relaxed">
+                            Recognizing I was my own "worst client" by shutting down a profitable agency. Authority battle-tested, not theoretical.
+                        </p>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="group p-6 bg-panel border border-ink/5 hover:border-ink/20 transition-all duration-300 hover:shadow-lg">
+                        <h3 class="font-serif text-lg font-bold mb-3 group-hover:text-accent transition-colors">Authentic Signal Capture</h3>
+                        <p class="font-sans text-sm text-subtle leading-relaxed">
+                            Highly-tuned communication skills that build immediate trust, bypassing transactional conversation entirely.
+                        </p>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="group p-6 bg-panel border border-ink/5 hover:border-ink/20 transition-all duration-300 hover:shadow-lg">
+                        <h3 class="font-serif text-lg font-bold mb-3 group-hover:text-accent transition-colors">The Dual-Lens Strategist</h3>
+                        <p class="font-sans text-sm text-subtle leading-relaxed">
+                            Forged by operating at the intersection of corporate Product Management and hands-on marketing mechanics.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 03: ALIGNMENT -->
+            <section id="alignment" class="mb-24 scroll-mt-20">
+                <div class="bg-ink text-canvas p-8 md:p-12 relative overflow-hidden">
+                    <!-- Background Texture (Optional) -->
+                    <div class="absolute top-0 right-0 p-12 opacity-5 font-serif text-9xl italic leading-none pointer-events-none">
+                        Archetype
+                    </div>
+
+                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8">
+                        <div class="md:col-span-4 border-r border-white/10 pr-8">
+                            <span class="font-mono text-xs text-accent mb-2 block">03 // Alignment</span>
+                            <h3 class="font-serif text-4xl font-bold mb-2">The Architect</h3>
+                            <p class="font-sans text-xs uppercase tracking-widest opacity-60">Builder of Elegant Systems</p>
+                        </div>
+                        <div class="md:col-span-8 flex flex-col justify-center">
+                            <p class="font-serif text-lg md:text-xl leading-relaxed opacity-90">
+                                "He converted his painful operational failure into the blueprint for a simple, two-hour workday business. <span class="text-accent">Your path is to engineer systems of leverage that convert your attention into guaranteed, predictable wealth.</span>"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 04: WAYPOINTS -->
+            <section id="waypoints" class="mb-24 scroll-mt-20">
+                <div class="flex items-center space-x-4 mb-8 border-b border-ink/10 pb-4">
+                    <span class="font-mono text-xs text-accent">04</span>
+                    <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Strategic Waypoints</h2>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Waypoint 1 -->
+                    <div class="flex gap-6 group">
+                        <div class="flex-shrink-0 pt-1">
+                            <span class="font-mono text-sm text-ink/30 group-hover:text-accent transition-colors">01</span>
+                        </div>
+                        <div class="border-b border-ink/5 pb-6 w-full">
+                            <h4 class="font-serif text-lg font-bold mb-2">Embody the Combo</h4>
+                            <p class="font-sans text-sm text-subtle leading-relaxed max-w-2xl">
+                                Stop trying to logically 'merge' PM and Marketing identities. Simply *be* the Conversational Systems Thinker. Content is the documentation of this unified journey.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Waypoint 2 -->
+                    <div class="flex gap-6 group">
+                        <div class="flex-shrink-0 pt-1">
+                            <span class="font-mono text-sm text-ink/30 group-hover:text-accent transition-colors">02</span>
+                        </div>
+                        <div class="border-b border-ink/5 pb-6 w-full">
+                            <h4 class="font-serif text-lg font-bold mb-2">Lead with the Loss</h4>
+                            <p class="font-sans text-sm text-subtle leading-relaxed max-w-2xl">
+                                Use the vulnerability of shutting down a $30K/month agency to establish trust. This is not theory; it's a hard-won lesson.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Waypoint 3 -->
+                    <div class="flex gap-6 group">
+                        <div class="flex-shrink-0 pt-1">
+                            <span class="font-mono text-sm text-ink/30 group-hover:text-accent transition-colors">03</span>
+                        </div>
+                        <div class="pb-6 w-full">
+                            <h4 class="font-serif text-lg font-bold mb-2">Prioritize Dialogue for Content</h4>
+                            <p class="font-sans text-sm text-subtle leading-relaxed max-w-2xl">
+                                Use conversations (podcasts, interviews) as the 'single source of truth' for all repurposed content to ensure authenticity.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 05: ARTIFACTS -->
+            <section id="artifacts" class="mb-24 scroll-mt-20">
+                <div class="flex items-center space-x-4 mb-8 border-b border-ink/10 pb-4">
+                    <span class="font-mono text-xs text-accent">05</span>
+                    <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">Artifacts</h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <a href="https://www.mediafire.com/file_premium/792qusvk4rf7a9f/Faizan_Ahmed_and_Mike_Marrotte_-_2025_11_20_15_00_MST_-_Recording.mp4/file" target="_blank" class="group block relative overflow-hidden bg-ink text-canvas p-6 h-32 hover:-translate-y-1 transition-transform duration-300">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <span class="font-mono text-[10px] uppercase tracking-widest opacity-50 block mb-2">MP4 Video</span>
+                        <h3 class="font-serif text-xl font-bold group-hover:underline decoration-accent underline-offset-4">The Signal Cut</h3>
+                    </a>
+                    
+                    <a href="https://www.mediafire.com/file_premium/fp1l7ztmxlkte8e/Faizan_Ahmed_and_Mike_Marrotte_-_2025_11_20_15_00_MST_-_Transcript.pdf/file" target="_blank" class="group block relative overflow-hidden bg-ink text-canvas p-6 h-32 hover:-translate-y-1 transition-transform duration-300">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <span class="font-mono text-[10px] uppercase tracking-widest opacity-50 block mb-2">PDF Transcript</span>
+                        <h3 class="font-serif text-xl font-bold group-hover:underline decoration-accent underline-offset-4">The Raw Data</h3>
+                    </a>
+
+                    <a href="https://www.mediafire.com/file_premium/jnyrlejjv20s0qg/Faizan_Ahmed_Briefs Studio_Clips.zip/file" target="_blank" class="group block relative overflow-hidden bg-ink text-canvas p-6 h-32 hover:-translate-y-1 transition-transform duration-300">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                        </div>
+                        <span class="font-mono text-[10px] uppercase tracking-widest opacity-50 block mb-2">ZIP Media</span>
+                        <h3 class="font-serif text-xl font-bold group-hover:underline decoration-accent underline-offset-4">The Signal Clips</h3>
+                    </a>
+                </div>
+            </section>
+
+            <!-- SECTION 06: AI PLAYBOOK -->
+            <section id="playbook" class="mb-24 scroll-mt-20">
+                <div class="flex items-center justify-between mb-8 border-b border-ink/10 pb-4">
+                    <div class="flex items-center space-x-4">
+                        <span class="font-mono text-xs text-accent">06</span>
+                        <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase">AI Playbook</h2>
+                    </div>
+                    <span class="hidden md:inline-block font-mono text-[10px] bg-ink/5 px-2 py-1 rounded text-subtle">READY_TO_DEPLOY</span>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- Prompt 1 -->
+                    <div class="bg-white rounded border border-ink/10 shadow-sm overflow-hidden">
+                        <div class="bg-gray-50 px-4 py-2 border-b border-ink/5 flex justify-between items-center">
+                            <span class="font-mono text-[10px] uppercase tracking-wider font-bold text-ink/60">Prompt 01: The Authenticity Hook Title</span>
+                            <button class="text-[10px] uppercase font-bold text-accent hover:text-ink transition-colors">Copy Prompt</button>
+                        </div>
+                        <div class="p-4 bg-terminal text-green-400 font-mono text-xs leading-relaxed overflow-x-auto">
+                            <p>"Based on our long conversation, the AI has identified that my authentic value is in sharing failure as a lesson. Give me 5 viral-ready titles for my next long-form video, all styled after 'I shut down my $30k/month agency because I realized I was doing the exact thing I criticized my clients for.'"</p>
+                        </div>
+                    </div>
+
+                    <!-- Prompt 2 -->
+                    <div class="bg-white rounded border border-ink/10 shadow-sm overflow-hidden">
+                        <div class="bg-gray-50 px-4 py-2 border-b border-ink/5 flex justify-between items-center">
+                            <span class="font-mono text-[10px] uppercase tracking-wider font-bold text-ink/60">Prompt 02: The Leverage System Outline</span>
+                            <button class="text-[10px] uppercase font-bold text-accent hover:text-ink transition-colors">Copy Prompt</button>
+                        </div>
+                        <div class="p-4 bg-terminal text-green-400 font-mono text-xs leading-relaxed overflow-x-auto">
+                            <p>"Develop a 5-point, highly-actionable LinkedIn post where each point breaks down one step in my 'Leads → Appointment → Sales' system. For each point, use one real-world anecdote from my time running the agency or my current role as a product manager to illustrate the 'leverage' or 'chaos-avoidance' benefit. Maintain the voice of 'The Conversational Systems Thinker'—a dude who solves complex problems, not a guru."</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="border-t border-ink/10 pt-12 pb-24 text-center lg:text-left">
+                <p class="font-serif italic text-ink/60 mb-2">Briefs Studio</p>
+                <p class="font-mono text-[10px] uppercase tracking-widest text-ink/30">Capturing the signal in the noise.</p>
+            </footer>
+
+        </main>
+    </div>
+
+</body>
+</html>

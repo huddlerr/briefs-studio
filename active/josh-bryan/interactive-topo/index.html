@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topo Terrain | Briefs Studio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="progress-bar" id="progress"></div>
+
+    <div id="canvas-container">
+        <canvas id="three-canvas"></canvas>
+    </div>
+
+    <div class="section-intro" id="intro">
+        <h1>Navigate the Terrain</h1>
+        <p>Every journey begins with understanding the landscape. Scroll to reveal the contours of the path ahead.</p>
+    </div>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+        <span>Scroll to explore</span>
+        <div class="line"></div>
+    </div>
+
+    <div class="roadmap-section" id="roadmap">
+        <div class="roadmap-content">
+            <h2>Your Path Forward</h2>
+            <div class="milestone" data-day="30">
+                <div class="milestone-marker">30</div>
+                <div class="milestone-content">
+                    <h3>Foundation</h3>
+                    <p>Establish core systems, map stakeholders, and set baseline metrics.</p>
+                </div>
+            </div>
+            <div class="milestone" data-day="60">
+                <div class="milestone-marker">60</div>
+                <div class="milestone-content">
+                    <h3>Momentum</h3>
+                    <p>Launch key initiatives, build partnerships, and iterate on early feedback.</p>
+                </div>
+            </div>
+            <div class="milestone" data-day="90">
+                <div class="milestone-marker">90</div>
+                <div class="milestone-content">
+                    <h3>Elevation</h3>
+                    <p>Scale successful strategies, measure impact, and plan the next summit.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-spacer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="main.js" type="module"></script>
+</body>
+
+</html>

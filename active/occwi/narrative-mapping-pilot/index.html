@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio // Narrative Mapping Pilot Proposal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: '#0F172A',
+                        charcoal: '#1E293B',
+                        amber: '#F59E0B',
+                        emerald: '#10B981',
+                        teal: '#0D9488',
+                        fog: '#94A3B8',
+                        bone: '#F8FAFC',
+                    },
+                    fontFamily: {
+                        sans: ['IBM Plex Sans', 'sans-serif'],
+                        serif: ['Newsreader', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        ::selection {
+            background: #F59E0B;
+            color: #0F172A;
+        }
+
+        body {
+            background-color: #0F172A;
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .moment-card {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .moment-card:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.12;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+
+            50% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+
+        .float {
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: #F59E0B;
+            letter-spacing: 0.3em;
+            font-weight: 500;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(245, 158, 11, 0.2), transparent);
+        }
+
+        #easter-egg-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(30px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            cursor: pointer;
+        }
+
+        .modal-enter {
+            animation: modalEnter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes modalEnter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-value {
+            font-family: 'Newsreader', serif;
+            font-style: italic;
+            font-weight: 600;
+            color: #F59E0B;
+            font-size: 2.25rem;
+            line-height: 1;
+        }
+
+        .scannable-bullet {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .scannable-bullet::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6em;
+            width: 4px;
+            height: 4px;
+            background: #F59E0B;
+            border-radius: 50%;
+        }
+
+        .timeline-box {
+            border-left: 1px solid rgba(148, 163, 184, 0.1);
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -3px;
+            top: 2rem;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(148, 163, 184, 0.2);
+        }
+
+        .timeline-dot.active {
+            background: #F59E0B;
+            box-shadow: 0 0 10px #F59E0B;
+        }
+
+        /* PDF & PRINT OPTIMIZATION */
+        @media print {
+            body {
+                background-color: #0F172A !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .orb,
+            nav,
+            #easter-egg-overlay,
+            .absolute.-bottom-24 {
+                display: none !important;
+            }
+
+            main {
+                padding-top: 2rem !important;
+                max-width: 100% !important;
+            }
+
+            section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                margin-bottom: 4rem !important;
+            }
+
+            .moment-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                background: #1E293B !important;
+                border: 1px solid rgba(148, 163, 184, 0.2) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .gradient-text {
+                background: none !important;
+                -webkit-background-clip: initial !important;
+                -webkit-text-fill-color: initial !important;
+                background-clip: initial !important;
+                color: #F59E0B !important;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            .stat-value {
+                color: #F59E0B !important;
+            }
+
+            p,
+            span,
+            li {
+                color: #F8FAFC !important;
+            }
+
+            .section-line {
+                background: #F59E0B !important;
+                opacity: 0.2;
+            }
+
+            /* Prevent splitting lines of text */
+            p,
+            li,
+            h1,
+            h2,
+            h3,
+            h4,
+            h5 {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-bone font-sans antialiased overflow-x-hidden">
+
+    <!-- EASTER EGG -->
+    <div id="easter-egg-overlay" onclick="closeEasterEgg()">
+        <div class="max-w-2xl text-center modal-enter">
+            <span
+                class="font-mono text-[9px] text-amber tracking-[0.5em] uppercase block mb-12 opacity-50">Acknowledgement
+                // Briefs Studio</span>
+            <h2 class="font-serif text-3xl md:text-5xl italic leading-tight text-bone mb-12">
+                "Elizabeth, thank you for recognizing the strategic depth of this methodology. Your willingness to see
+                the value in Narrative Mapping is what makes this work possible."
+            </h2>
+            <div class="w-12 h-px bg-amber/30 mx-auto mb-12"></div>
+            <p class="font-mono text-[10px] text-fog tracking-widest uppercase mb-12">Click anywhere to return</p>
+        </div>
+    </div>
+
+    <!-- BACKGROUND ELEMENTS -->
+    <div class="orb w-[800px] h-[800px] bg-emerald/10 -top-40 -right-40 float"></div>
+    <div class="orb w-[600px] h-[600px] bg-amber/10 -bottom-40 -left-60 float" style="animation-delay: -4s;"></div>
+
+    <!-- MAIN NAV -->
+    <nav class="fixed top-0 left-0 right-0 z-50 px-10 py-6 border-b border-fog/10 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center text-fog">
+            <div class="flex items-center gap-4">
+                <div class="w-1.5 h-1.5 bg-amber rounded-full"></div>
+                <span class="font-mono text-[9px] tracking-[0.4em] uppercase opacity-70">Briefs Studio // OCCWI
+                    Proposal</span>
+            </div>
+            <div class="flex items-center gap-8">
+                <div class="font-mono text-[9px] tracking-[0.3em] uppercase opacity-40">January 2026 Strategy</div>
+                <a href="slides.html"
+                    class="font-mono text-[9px] tracking-[0.4em] uppercase opacity-60 hover:text-amber hover:opacity-100 transition-all">Slide
+                    View →</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-10 pt-44 pb-32">
+
+        <!-- HEADER -->
+        <header class="mb-40 max-w-4xl relative">
+            <div class="inline-flex items-center gap-3 px-3 py-1 mb-10 rounded border border-amber/20 bg-amber/5">
+                <span class="font-mono text-[9px] uppercase tracking-[0.2em] text-amber">Strategic Proposal</span>
+                <span class="opacity-20">|</span>
+                <span class="font-mono text-[9px] uppercase tracking-[0.2em] opacity-60">January 2026</span>
+            </div>
+
+            <h1 onclick="triggerEasterEgg()"
+                class="font-serif text-6xl md:text-8xl font-semibold leading-[1.05] mb-12 cursor-pointer transition-all hover:translate-x-2">
+                Narrative Mapping<br>
+                <span class="gradient-text italic">Pilot Proposal</span>
+            </h1>
+
+            <p class="font-serif text-2xl text-fog italic leading-relaxed mb-12">
+                Strategic Artifacts from Expert Conversations
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 pt-12 border-t border-fog/10">
+                <div>
+                    <span class="block font-mono text-[9px] uppercase tracking-widest opacity-30 mb-2">Subject</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">OCCWI Pilot</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[9px] uppercase tracking-widest opacity-30 mb-2">Lead</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">Elizabeth</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[9px] uppercase tracking-widest opacity-30 mb-2">Source</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">Briefs Studio</span>
+                </div>
+                <div>
+                    <span class="block font-mono text-[9px] uppercase tracking-widest opacity-30 mb-2">Mechanic</span>
+                    <span class="text-xs font-medium uppercase tracking-wider">Contract Mod</span>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="absolute -bottom-24 left-0 flex flex-col items-center gap-2 text-fog/40">
+            <span class="font-mono text-[8px] uppercase tracking-widest">Explore</span>
+            <div class="w-px h-8 bg-gradient-to-b from-amber/40 to-transparent"></div>
+        </div>
+        </header>
+
+        <!-- 01 // CONTEXT -->
+        <section class="mb-40">
+            <div class="section-header">
+                <span class="section-number">01 // CONTEXT</span>
+                <div class="section-line"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-12">
+                    <p class="font-serif text-3xl md:text-4xl leading-relaxed text-bone/90 mb-10">
+                        The Dr. Galbreath narrative map landed with leadership immediately. What typically requires
+                        weeks of interviews, drafts, and revisions became a <span class="text-amber">strategic artifact
+                            in under 48 hours</span> — one that communicated itself without needing a meeting to explain
+                        it.
+                    </p>
+                    <div class="max-w-3xl moment-card p-10 rounded-2xl">
+                        <p class="text-xl text-fog leading-relaxed italic">
+                            This proposal specifies how we'll apply that same methodology within Story Capture.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02 // THE OPPORTUNITY -->
+        <section class="mb-40">
+            <div class="section-header">
+                <span class="section-number">02 // THE OPPORTUNITY</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+                <div class="md:col-span-12">
+                    <p class="font-serif text-2xl leading-relaxed mb-12 max-w-4xl">
+                        OCCWI has people with critical knowledge, strategic vision, and hard-won expertise — but no
+                        efficient way to extract it, synthesize it, and package it into artifacts that actually land
+                        with leadership.
+                    </p>
+
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-2 gap-px bg-fog/10 rounded-2xl overflow-hidden ring-1 ring-white/5">
+                        <div class="p-12 moment-card">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-amber mb-4 block">The
+                                Extraction Barrier</span>
+                            <p class="font-serif text-xl leading-relaxed text-bone/80">
+                                Institutional memory is rarely extracted fast enough to match the pace of decisions.
+                            </p>
+                        </div>
+                        <div class="p-12 moment-card">
+                            <span class="font-mono text-[10px] uppercase tracking-widest text-emerald mb-4 block">The
+                                Clarity Gap</span>
+                            <p class="font-serif text-xl leading-relaxed text-bone/80">
+                                Even when extraction occurs, the form rarely moves people. <span
+                                    class="text-emerald">This methodology solves both.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03 // PILOT SCOPE -->
+        <section class="mb-40">
+            <div class="section-header">
+                <span class="section-number">03 // PILOT SCOPE</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20 text-center">
+                <div class="p-10 moment-card rounded-2xl">
+                    <span class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-4">Duration</span>
+                    <div class="stat-value">4–6 Weeks</div>
+                </div>
+                <div class="p-10 moment-card rounded-2xl">
+                    <span class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-4">Engagement</span>
+                    <div class="stat-value">10 Sessions</div>
+                </div>
+                <div class="p-10 moment-card rounded-2xl">
+                    <span class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-4">Context</span>
+                    <div class="stat-value">Story Capture</div>
+                </div>
+            </div>
+
+            <p class="text-xl text-fog mb-16 max-w-3xl mx-auto text-center italic">
+                Ten sessions is enough to capture diverse perspectives and surface meaningful cross-participant
+                patterns, while remaining a contained pilot.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+                <div class="space-y-8">
+                    <h4 class="font-serif text-xl font-bold italic border-b border-fog/10 pb-4">Per-Session Deliverables
+                    </h4>
+                    <ul class="space-y-6">
+                        <li class="scannable-bullet">
+                            <span class="text-bone font-medium">Facilitated 60-90 minute conversation</span>
+                            <p class="text-xs text-fog mt-1">Structured deep-dive extracted from existing Story Capture
+                                workflows.</p>
+                        </li>
+                        <li class="scannable-bullet">
+                            <span class="text-bone font-medium">Individual Narrative Map</span>
+                            <p class="text-xs text-fog mt-1">Strategic artifact designed exactly to the Dr. G
+                                high-fidelity format.</p>
+                        </li>
+                        <li
+                            class="bg-amber/5 p-6 rounded-xl border border-amber/10 italic text-amber text-sm font-serif">
+                            "As with Dr. Galbreath, artifact delivered within 48 hours of conversation."
+                        </li>
+                    </ul>
+                </div>
+                <div class="space-y-8">
+                    <h4 class="font-serif text-xl font-bold italic border-b border-fog/10 pb-4">Pilot-Level Deliverables
+                    </h4>
+                    <ul class="space-y-6">
+                        <li class="scannable-bullet">
+                            <span class="text-bone font-medium">Cross-participant Synthesis</span>
+                            <p class="text-xs text-fog mt-1">Pattern analysis surfacing where the OCCWI story is strong
+                                vs. fragmented.</p>
+                        </li>
+                        <li class="scannable-bullet">
+                            <span class="text-bone font-medium">Summary report with scaling recommendations</span>
+                            <p class="text-xs text-fog mt-1">Tactical analysis for broad organizational integration.</p>
+                        </li>
+                        <li class="scannable-bullet">
+                            <span class="text-bone font-medium text-emerald">OCCWI Implementation Guide</span>
+                            <p class="text-xs text-fog mt-1">Prompts, workflows, and reference materials for ongoing
+                                team application.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 // THE IMPLEMENTATION GUIDE -->
+        <section class="mb-40">
+            <div class="section-header">
+                <span class="section-number">04 // THE IMPLEMENTATION GUIDE</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="moment-card p-12 rounded-3xl relative overflow-hidden group">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-emerald/5 via-transparent to-transparent opacity-100">
+                </div>
+
+                <p class="font-serif text-2xl leading-relaxed mb-10 max-w-4xl relative z-10">
+                    Elizabeth noted the importance of creating something OCCWI can use independently. The <span
+                        class="text-emerald italic">Implementation Guide</span> addresses this directly as a
+                    context-specific starting point.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12 relative z-10">
+                    <div class="space-y-6">
+                        <h5 class="font-mono text-[10px] uppercase tracking-widest text-amber">Active Components</h5>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-4 text-sm">
+                                <span class="text-amber mt-1">→</span>
+                                <span class="text-fog">Prompts tailored to OCCWI's context and communication
+                                    needs.</span>
+                            </li>
+                            <li class="flex items-start gap-4 text-sm">
+                                <span class="text-amber mt-1">→</span>
+                                <span class="text-fog">Workflow documentation for applying the methodology.</span>
+                            </li>
+                            <li class="flex items-start gap-4 text-sm">
+                                <span class="text-amber mt-1">→</span>
+                                <span class="text-fog">Decision trees for use cases (Story Capture, leadership
+                                    briefs).</span>
+                            </li>
+                            <li class="flex items-start gap-4 text-sm">
+                                <span class="text-amber mt-1">→</span>
+                                <span class="text-fog">Reference materials for using approved government AI tools
+                                    (Gemini).</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-8 border border-white/10 rounded-2xl bg-slate/50">
+                        <p class="text-sm text-fog italic leading-relaxed mb-6">
+                            This is a configured starting point for your context—not a full transfer of methodology, but
+                            enough for your team to attempt replication using internal systems.
+                        </p>
+                        <div class="pt-6 border-t border-white/5">
+                            <p class="font-mono text-[9px] uppercase tracking-[0.2em] opacity-50">
+                                <span class="text-amber">Standard Pattern:</span> You keep the artifacts and the guide,
+                                we maintain the engine that created them.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 // INVESTMENT -->
+        <section class="mb-40">
+            <div class="section-header">
+                <span class="section-number">05 // INVESTMENT</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div
+                class="moment-card p-20 rounded-[3rem] text-center relative overflow-hidden ring-1 ring-amber/20 group">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-amber/5 via-transparent to-emerald/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                </div>
+
+                <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-amber mb-6 block relative z-10">Fixed
+                    Scope Pilot Investment</span>
+                <h3 class="font-serif text-7xl md:text-9xl font-bold tracking-tighter mb-4 relative z-10">$60,000</h3>
+                <p class="font-mono text-[11px] uppercase tracking-widest opacity-40 mb-12 relative z-10">Total
+                    Engagement Portfolio</p>
+
+                <div
+                    class="grid grid-cols-2 md:grid-cols-5 gap-4 pt-10 border-t border-fog/10 relative z-10 text-[9px] font-mono uppercase tracking-[0.2em] opacity-50">
+                    <div>10 expert sessions</div>
+                    <div>10 narrative maps</div>
+                    <div>pattern synthesis</div>
+                    <div>scaling roadmap</div>
+                    <div class="text-emerald">implementation guide</div>
+                </div>
+
+                <div
+                    class="mt-12 p-4 bg-white/5 rounded-full inline-flex items-center gap-3 px-8 border border-white/5 relative z-10">
+                    <div class="w-1.5 h-1.5 bg-emerald rounded-full animate-pulse"></div>
+                    <span class="font-mono text-[9px] uppercase tracking-widest opacity-60">Deloitte Contracting
+                        Modification Infrastructure</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 06 // NEXT STEPS -->
+        <section class="mb-40">
+            <div class="section-header">
+                <span class="section-number">06 // NEXT STEPS</span>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+                <div class="space-y-12">
+                    <div class="timeline-box">
+                        <div class="timeline-dot active"></div>
+                        <span class="font-mono text-[9px] uppercase tracking-widest text-amber block mb-2">Kickoff —
+                            This Week</span>
+                        <h4 class="font-serif text-xl font-semibold mb-2">Confirm Participant Pool</h4>
+                        <p class="text-sm text-fog">Identify the 10 individuals for the pilot window from existing Story
+                            Capture candidates.</p>
+                    </div>
+                    <div class="timeline-box">
+                        <div class="timeline-dot"></div>
+                        <span class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-2">Phase
+                            02</span>
+                        <h4 class="font-serif text-xl font-semibold mb-2">Contract Alignment</h4>
+                        <p class="text-sm text-fog">Align on contracting vehicle with Deloitte to formalize engagement
+                            window.</p>
+                    </div>
+                    <div class="timeline-box">
+                        <div class="timeline-dot"></div>
+                        <span class="font-mono text-[9px] uppercase tracking-widest opacity-40 block mb-2">Phase 03 —
+                            February</span>
+                        <h4 class="font-serif text-xl font-semibold mb-2">Execute Pilot</h4>
+                        <p class="text-sm text-fog">Four-to-six week window for 10 sessions and real-time artifact
+                            delivery.</p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-8">
+                    <div class="moment-card p-10 rounded-2xl relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-amber/5 opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
+                        <p class="font-serif text-2xl italic text-bone mb-6 relative z-10">
+                            "I have availability to begin in February."
+                        </p>
+                        <p class="text-sm text-fog relative z-10 leading-relaxed">
+                            Once pool is confirmed, I will coordinate with Kate on logistics. Summary report and
+                            Implementation Guide follow pilot completion.
+                        </p>
+                    </div>
+
+                    <div class="p-6 border border-white/5 bg-white/5 rounded-xl">
+                        <p
+                            class="font-mono text-[9px] uppercase tracking-[0.3em] opacity-40 leading-relaxed text-center">
+                            Constraint: Concurrent pilot engagements are strictly limited to ensure synthesis quality.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="py-32 px-10 border-t border-fog/10 bg-slate">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
+            <div>
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-2.5 h-2.5 bg-emerald rounded-full"></div>
+                    <span class="font-mono text-[10px] tracking-[0.5em] uppercase text-bone">Briefs Studio</span>
+                </div>
+                <p class="font-serif italic text-fog text-base max-w-sm">Mapping the narrative. Clarifying the mission.
+                    Documenting the future of OCCWI.</p>
+            </div>
+            <div class="flex flex-col md:items-end gap-3 text-left md:text-right">
+                <span class="text-[9px] font-mono uppercase tracking-[0.4em] text-fog/30">&copy; 2026 Briefs Studio
+                    // All Rights Reserved</span>
+                <div class="flex gap-4">
+                    <span class="text-[9px] font-mono uppercase tracking-[0.4em] text-amber/40">Confidential
+                        Strategy</span>
+                    <span class="text-[9px] font-mono uppercase tracking-[0.4em] text-emerald/40">Secure Artifact</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function triggerEasterEgg() {
+            const overlay = document.getElementById('easter-egg-overlay');
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEasterEgg() {
+            const overlay = document.getElementById('easter-egg-overlay');
+            overlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            orbs.forEach((orb, i) => {
+                const moveX = (x - 0.5) * (i + 1) * 40;
+                const moveY = (y - 0.5) * (i + 1) * 40;
+                orb.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+    </script>
+</body>
+
+</html>

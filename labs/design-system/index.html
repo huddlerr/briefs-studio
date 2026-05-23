@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio Design System</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // System UI colors
+                        surface: '#0D0D0D',
+                        panel: '#161616',
+                        elevated: '#1E1E1E',
+                        border: '#2A2A2A',
+                        borderLight: '#3A3A3A',
+                        textPrimary: '#FFFFFF',
+                        textSecondary: '#A0A0A0',
+                        textMuted: '#666666',
+                        accent: '#F59E0B',
+                        accentHover: '#FBBF24',
+                    },
+                    fontFamily: {
+                        display: ['Fraunces', 'serif'],
+                        displayAlt: ['Newsreader', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        sansAlt: ['IBM Plex Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background: #0D0D0D; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #161616; }
+        ::-webkit-scrollbar-thumb { background: #3A3A3A; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F59E0B; }
+        
+        /* Code block styling */
+        pre code.hljs { background: #1E1E1E !important; padding: 1rem !important; border-radius: 0.5rem; font-size: 0.75rem; }
+        
+        /* Component preview container themes */
+        .preview-gators { --primary: #1E3A5F; --primaryLight: #2D4A6F; --accent: #E8692B; --bg: #FAF8F5; --text: #1A1A1A; }
+        .preview-executive { --primary: #0F172A; --primaryLight: #1E293B; --accent: #F59E0B; --bg: #0F172A; --text: #F8FAFC; }
+        .preview-warm { --primary: #2D5A47; --primaryLight: #3D7A5F; --accent: #C9A962; --bg: #FAF8F5; --text: #1A1A1A; }
+        .preview-deloitte { --primary: #86BC25; --primaryLight: #9FD636; --accent: #0D0D0D; --bg: #FFFFFF; --text: #0D0D0D; }
+        .preview-midnight { --primary: #1a1a2e; --primaryLight: #16213e; --accent: #e94560; --bg: #0f0f23; --text: #eaeaea; }
+        .preview-ocean { --primary: #0077b6; --primaryLight: #0096c7; --accent: #00b4d8; --bg: #caf0f8; --text: #03045e; }
+        
+        /* Party mode animations */
+        @keyframes rainbow { 
+            0% { filter: hue-rotate(0deg); } 
+            100% { filter: hue-rotate(360deg); } 
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px) rotate(-1deg); }
+            75% { transform: translateX(5px) rotate(1deg); }
+        }
+        .party-mode { animation: rainbow 2s linear infinite; }
+        .shake { animation: shake 0.5s ease-in-out; }
+        
+        /* Briefs panel slide */
+        #briefs-panel.open #briefs-panel-content { transform: translateX(0); }
+        
+        /* Transitions */
+        .sidebar-item { transition: all 0.15s ease; }
+        .component-card { transition: all 0.2s ease; }
+        .component-card:hover { transform: translateY(-2px); }
+        
+        /* Inspector tabs */
+        .tab-btn.active { color: #F59E0B; border-color: #F59E0B; }
+        
+        /* Range slider styling */
+        input[type="range"] { -webkit-appearance: none; background: #2A2A2A; height: 4px; border-radius: 2px; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: #F59E0B; border-radius: 50%; cursor: pointer; }
+        
+        /* Color picker */
+        input[type="color"] { -webkit-appearance: none; border: none; width: 32px; height: 32px; border-radius: 4px; cursor: pointer; }
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: 2px solid #3A3A3A; border-radius: 4px; }
+        
+        /* V2: Command palette */
+        .command-item { transition: all 0.1s ease; }
+        .command-item:hover, .command-item.selected { background: #1E1E1E; }
+        .command-item.selected { border-left: 2px solid #F59E0B; }
+        
+        /* V2: Favorites star */
+        .favorite-btn { opacity: 0; transition: opacity 0.15s ease; }
+        .component-card:hover .favorite-btn { opacity: 1; }
+        .favorite-btn.active { opacity: 1; color: #F59E0B; }
+        
+        /* V2: Viewport indicators */
+        .viewport-desktop { width: 100%; max-width: 1440px; }
+        .viewport-tablet { width: 768px; }
+        .viewport-mobile { width: 375px; }
+        
+        /* V2: Playground drop zone */
+        .playground-zone { border: 2px dashed #3A3A3A; transition: all 0.2s ease; }
+        .playground-zone.drag-over { border-color: #F59E0B; background: rgba(245, 158, 11, 0.05); }
+        .playground-item { cursor: move; }
+        .playground-item:hover { outline: 2px solid #F59E0B; outline-offset: 2px; }
+        
+        /* V2: Toast notifications */
+        .toast { animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards; }
+        @keyframes slideIn { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeOut { to { opacity: 0; transform: translateY(-10px); } }
+        
+        /* V2: Keyboard shortcut hints */
+        .shortcut-hint { position: absolute; top: 4px; right: 4px; opacity: 0; transition: opacity 0.15s; }
+        .component-card:hover .shortcut-hint { opacity: 1; }
+        
+        /* COSMOS MODE 🌌 */
+        .cosmos-mode { overflow: hidden; }
+        .cosmos-mode #sidebar,
+        .cosmos-mode #inspector,
+        .cosmos-mode header,
+        .cosmos-mode #main-content { opacity: 0; pointer-events: none; transition: opacity 1.5s ease; }
+        
+        .cosmos-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: radial-gradient(ellipse at center, #0d1117 0%, #010409 100%);
+            opacity: 0;
+            transition: opacity 2s ease;
+            pointer-events: none;
+        }
+        .cosmos-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        @keyframes drift {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, -15px) rotate(1deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        @keyframes float-component {
+            0%, 100% { transform: translate(var(--tx, 0), var(--ty, 0)) scale(var(--scale, 1)); }
+            50% { transform: translate(calc(var(--tx, 0) + 30px), calc(var(--ty, 0) - 20px)) scale(calc(var(--scale, 1) * 1.02)); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 30px var(--glow-color, rgba(245, 158, 11, 0.3)), 0 0 60px var(--glow-color, rgba(245, 158, 11, 0.1)); }
+            50% { box-shadow: 0 0 50px var(--glow-color, rgba(245, 158, 11, 0.5)), 0 0 100px var(--glow-color, rgba(245, 158, 11, 0.2)); }
+        }
+        @keyframes emerge {
+            0% { opacity: 0; transform: translateY(40px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes nebula {
+            0%, 100% { opacity: 0.15; transform: scale(1) rotate(0deg); }
+            50% { opacity: 0.25; transform: scale(1.05) rotate(5deg); }
+        }
+        
+        .cosmos-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 3s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+        }
+        .cosmos-star.large { width: 3px; height: 3px; }
+        .cosmos-star.bright { background: #F59E0B; }
+        
+        .cosmos-component {
+            position: absolute;
+            background: rgba(13, 13, 13, 0.9);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            animation: float-component 15s ease-in-out infinite, pulse-glow 8s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cosmos-text {
+            animation: emerge 2s ease-out forwards;
+            animation-delay: var(--delay, 0s);
+        }
+        
+        .cosmos-line {
+            stroke: rgba(245, 158, 11, 0.15);
+            stroke-width: 1;
+            fill: none;
+        }
+        
+        .cosmos-nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: nebula 20s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-surface text-textPrimary font-sans antialiased">
+
+    <!-- COMMAND PALETTE (Cmd+K) -->
+    <div id="command-palette" class="fixed inset-0 z-[100] hidden items-start justify-center pt-[20vh] bg-black/60 backdrop-blur-sm">
+        <div class="w-full max-w-xl bg-panel border border-border rounded-xl shadow-2xl overflow-hidden">
+            <div class="flex items-center gap-3 px-4 py-3 border-b border-border">
+                <svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input type="text" id="command-input" placeholder="Search components, actions, themes..." class="flex-1 bg-transparent text-sm outline-none" oninput="filterCommands(this.value)" onkeydown="handleCommandKey(event)">
+                <kbd class="px-2 py-1 bg-elevated rounded text-[10px] text-textMuted">ESC</kbd>
+            </div>
+            <div id="command-results" class="max-h-80 overflow-y-auto">
+                <!-- Commands will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN PREVIEW -->
+    <div id="fullscreen-preview" class="fixed inset-0 z-[90] hidden bg-surface">
+        <div class="absolute top-4 right-4 flex items-center gap-2">
+            <select id="fullscreen-viewport" onchange="changeViewport(this.value)" class="bg-elevated border border-border rounded px-3 py-2 text-sm">
+                <option value="desktop">Desktop (1440px)</option>
+                <option value="tablet">Tablet (768px)</option>
+                <option value="mobile">Mobile (375px)</option>
+            </select>
+            <button onclick="closeFullscreen()" class="p-2 bg-elevated border border-border rounded hover:border-accent transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="h-full flex items-center justify-center p-8">
+            <div id="fullscreen-content" class="bg-panel border border-border rounded-xl overflow-hidden transition-all duration-300">
+                <!-- Content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur border-b border-border h-14 flex items-center px-6">
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+                <span class="font-mono text-sm font-medium tracking-wide">Briefs Studio</span>
+            </div>
+            <span class="text-textMuted">/</span>
+            <span class="text-textSecondary text-sm">Design System</span>
+            
+            <!-- Version Toggle -->
+            <div class="flex items-center gap-1 ml-2 bg-elevated rounded-lg p-0.5">
+                <button onclick="setVersion('v1')" id="version-v1" class="version-btn px-2 py-1 rounded text-[10px] font-mono text-textMuted hover:text-textPrimary transition-colors">v1</button>
+                <button onclick="setVersion('v2')" id="version-v2" class="version-btn px-2 py-1 rounded text-[10px] font-mono bg-accent text-surface">v2</button>
+            </div>
+        </div>
+        
+        <!-- Command Palette Trigger -->
+        <button onclick="openCommandPalette()" class="ml-6 flex items-center gap-2 px-3 py-1.5 bg-elevated border border-border rounded-lg text-xs text-textSecondary hover:border-borderLight transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <span>Quick Actions</span>
+            <kbd class="px-1.5 py-0.5 bg-surface rounded text-[10px] text-textMuted ml-2">⌘K</kbd>
+        </button>
+        
+        <!-- Theme Switcher - Expanded -->
+        <div class="ml-auto flex items-center gap-2">
+            <span class="text-xs text-textMuted mr-2">Theme:</span>
+            <div class="flex items-center gap-1 flex-wrap">
+                <button onclick="setTheme('gators')" id="theme-gators" class="theme-btn px-2 py-1 rounded text-[10px] font-mono border border-border hover:border-accent transition-colors flex items-center gap-1" title="Mike Marrotte">
+                    <span class="w-2 h-2 rounded-full bg-[#1E3A5F]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#E8692B]"></span>
+                    <span class="hidden lg:inline">Gators</span>
+                </button>
+                <button onclick="setTheme('executive')" id="theme-executive" class="theme-btn px-2 py-1 rounded text-[10px] font-mono border border-border hover:border-accent transition-colors flex items-center gap-1" title="Dr. Galbreath">
+                    <span class="w-2 h-2 rounded-full bg-[#0F172A]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#F59E0B]"></span>
+                    <span class="hidden lg:inline">Executive</span>
+                </button>
+                <button onclick="setTheme('warm')" id="theme-warm" class="theme-btn px-2 py-1 rounded text-[10px] font-mono border border-border hover:border-accent transition-colors flex items-center gap-1" title="Template">
+                    <span class="w-2 h-2 rounded-full bg-[#2D5A47]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#C9A962]"></span>
+                    <span class="hidden lg:inline">Warm</span>
+                </button>
+                <button onclick="setTheme('deloitte')" id="theme-deloitte" class="theme-btn px-2 py-1 rounded text-[10px] font-mono border border-border hover:border-accent transition-colors flex items-center gap-1" title="Deloitte">
+                    <span class="w-2 h-2 rounded-full bg-[#86BC25]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#0D0D0D]"></span>
+                    <span class="hidden lg:inline">Deloitte</span>
+                </button>
+                <button onclick="setTheme('midnight')" id="theme-midnight" class="theme-btn px-2 py-1 rounded text-[10px] font-mono border border-border hover:border-accent transition-colors flex items-center gap-1" title="Midnight">
+                    <span class="w-2 h-2 rounded-full bg-[#1a1a2e]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#e94560]"></span>
+                    <span class="hidden lg:inline">Midnight</span>
+                </button>
+                <button onclick="setTheme('ocean')" id="theme-ocean" class="theme-btn px-2 py-1 rounded text-[10px] font-mono border border-border hover:border-accent transition-colors flex items-center gap-1" title="Ocean">
+                    <span class="w-2 h-2 rounded-full bg-[#0077b6]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#00b4d8]"></span>
+                    <span class="hidden lg:inline">Ocean</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- BRIEFS DIRECTORY PANEL -->
+    <div id="briefs-panel" class="fixed inset-0 z-[95] hidden">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeBriefsPanel()"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-2xl bg-panel border-l border-border overflow-y-auto transform translate-x-full transition-transform duration-300" id="briefs-panel-content">
+            <div class="sticky top-0 bg-panel/95 backdrop-blur border-b border-border p-6 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold">Brief Directory</h2>
+                    <p class="text-sm text-textSecondary mt-1">All Briefs Studio briefs in one place</p>
+                </div>
+                <button onclick="closeBriefsPanel()" class="p-2 hover:bg-elevated rounded transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="p-6 space-y-4" id="briefs-list">
+                <!-- Briefs will be injected here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- EASTER EGG: PARTY MODE -->
+    <div id="party-mode" class="fixed inset-0 pointer-events-none z-[200] hidden">
+        <canvas id="confetti-canvas" class="w-full h-full"></canvas>
+    </div>
+    
+    <!-- EASTER EGG: MATRIX MODE -->
+    <div id="matrix-mode" class="fixed inset-0 pointer-events-none z-[200] hidden">
+        <canvas id="matrix-canvas" class="w-full h-full"></canvas>
+    </div>
+    
+    <!-- EASTER EGG: COSMOS MODE 🌌 -->
+    <div id="cosmos-mode" class="cosmos-overlay">
+        <svg id="cosmos-lines" class="absolute inset-0 w-full h-full"></svg>
+        <div id="cosmos-content" class="relative w-full h-full"></div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="pt-14 flex h-screen">
+        
+        <!-- SIDEBAR -->
+        <aside class="w-56 flex-shrink-0 bg-panel border-r border-border overflow-y-auto">
+            <div class="p-4">
+                <span class="text-[10px] font-mono uppercase tracking-widest text-textMuted">Categories</span>
+            </div>
+            <nav class="px-2 pb-4">
+                <button onclick="filterCategory('all')" data-category="all" class="sidebar-item w-full text-left px-3 py-2 rounded text-sm hover:bg-elevated flex items-center justify-between group active">
+                    <span>All Components</span>
+                    <span class="text-xs text-textMuted group-hover:text-textSecondary" id="count-all">0</span>
+                </button>
+                <button onclick="filterCategory('typography')" data-category="typography" class="sidebar-item w-full text-left px-3 py-2 rounded text-sm hover:bg-elevated flex items-center justify-between group">
+                    <span>Typography</span>
+                    <span class="text-xs text-textMuted group-hover:text-textSecondary" id="count-typography">0</span>
+                </button>
+                <button onclick="filterCategory('colors')" data-category="colors" class="sidebar-item w-full text-left px-3 py-2 rounded text-sm hover:bg-elevated flex items-center justify-between group">
+                    <span>Colors</span>
+                    <span class="text-xs text-textMuted group-hover:text-textSecondary" id="count-colors">0</span>
+                </button>
+                <button onclick="filterCategory('cards')" data-category="cards" class="sidebar-item w-full text-left px-3 py-2 rounded text-sm hover:bg-elevated flex items-center justify-between group">
+                    <span>Cards</span>
+                    <span class="text-xs text-textMuted group-hover:text-textSecondary" id="count-cards">0</span>
+                </button>
+                <button onclick="filterCategory('buttons')" data-category="buttons" class="sidebar-item w-full text-left px-3 py-2 rounded text-sm hover:bg-elevated flex items-center justify-between group">
+                    <span>Buttons & CTAs</span>
+                    <span class="text-xs text-textMuted group-hover:text-textSecondary" id="count-buttons">0</span>
+                </button>
+                <button onclick="filterCategory('layout')" data-category="layout" class="sidebar-item w-full text-left px-3 py-2 rounded text-sm hover:bg-elevated flex items-center justify-between group">
+                    <span>Layout</span>
+                    <span class="text-xs text-textMuted group-hover:text-textSecondary" id="count-layout">0</span>
+                </button>
+                <button onclick="filterCategory('effects')" data-category="effects" class="sidebar-item w-full text-left px-3 py-2 rounded text-sm hover:bg-elevated flex items-center justify-between group">
+                    <span>Effects</span>
+                    <span class="text-xs text-textMuted group-hover:text-textSecondary" id="count-effects">0</span>
+                </button>
+            </nav>
+            
+            <!-- V2: Favorites -->
+            <div class="px-4 pt-4 border-t border-border">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-[10px] font-mono uppercase tracking-widest text-textMuted">Favorites</span>
+                    <span class="text-[10px] text-textMuted" id="favorites-count">0</span>
+                </div>
+                <div id="favorites-list" class="space-y-1 text-xs text-textSecondary">
+                    <p class="text-textMuted italic">Click ★ on any component</p>
+                </div>
+            </div>
+            
+            <!-- Source Briefs - Expandable Directory -->
+            <div class="px-4 pt-4 border-t border-border">
+                <button onclick="toggleBriefsPanel()" class="w-full flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-textMuted hover:text-textSecondary transition-colors">
+                    <span>Source Briefs</span>
+                    <svg id="briefs-chevron" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div id="briefs-preview" class="mt-3 space-y-1 text-xs text-textSecondary">
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-accent" onclick="openBriefsPanel()">
+                        <div class="w-2 h-2 rounded-full bg-[#1E3A5F]"></div>
+                        Mike Marrotte
+                    </div>
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-accent" onclick="openBriefsPanel()">
+                        <div class="w-2 h-2 rounded-full bg-[#0F172A]"></div>
+                        Dr. Galbreath
+                    </div>
+                    <p class="text-textMuted pt-1 cursor-pointer hover:text-accent" onclick="openBriefsPanel()">+ 10 more briefs...</p>
+                </div>
+            </div>
+            
+            <!-- V2: Keyboard Shortcuts -->
+            <div class="px-4 pt-4 pb-4 border-t border-border mt-auto">
+                <span class="text-[10px] font-mono uppercase tracking-widest text-textMuted">Shortcuts</span>
+                <div class="mt-3 space-y-2 text-[10px]">
+                    <div class="flex justify-between text-textMuted"><span>Quick Actions</span><kbd class="px-1 bg-elevated rounded">⌘K</kbd></div>
+                    <div class="flex justify-between text-textMuted"><span>Fullscreen</span><kbd class="px-1 bg-elevated rounded">F</kbd></div>
+                    <div class="flex justify-between text-textMuted"><span>Copy Code</span><kbd class="px-1 bg-elevated rounded">C</kbd></div>
+                    <div class="flex justify-between text-textMuted"><span>Favorite</span><kbd class="px-1 bg-elevated rounded">S</kbd></div>
+                    <div class="flex justify-between text-textMuted"><span>Export</span><kbd class="px-1 bg-elevated rounded">E</kbd></div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 overflow-y-auto bg-surface">
+            <div class="p-6">
+                <div class="mb-6 flex items-center justify-between">
+                    <div>
+                        <h1 class="text-xl font-semibold" id="section-title">All Components</h1>
+                        <p class="text-sm text-textSecondary mt-1">Click any component to inspect and edit</p>
+                    </div>
+                    <div class="relative">
+                        <input type="text" placeholder="Search components..." id="search-input" oninput="searchComponents(this.value)" class="bg-elevated border border-border rounded-lg px-4 py-2 text-sm w-64 focus:outline-none focus:border-accent">
+                        <svg class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-textMuted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Component Grid -->
+                <div id="component-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    <!-- Components will be injected here -->
+                </div>
+                
+                <!-- V2: Component Playground -->
+                <div class="mt-8 border-t border-border pt-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <h2 class="text-lg font-semibold flex items-center gap-2">
+                                <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                                </svg>
+                                Component Playground
+                            </h2>
+                            <p class="text-sm text-textSecondary mt-1">Drag components here to compose layouts</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="clearPlayground()" class="px-3 py-1.5 text-xs border border-border rounded hover:border-accent transition-colors">Clear</button>
+                            <button onclick="exportPlayground()" class="px-3 py-1.5 text-xs bg-accent text-surface rounded hover:bg-accentHover transition-colors">Export HTML</button>
+                        </div>
+                    </div>
+                    <div id="playground-zone" class="playground-zone min-h-[200px] rounded-xl p-6 ${getThemeClass()}" style="background: var(--bg);" ondrop="dropComponent(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)">
+                        <p id="playground-placeholder" class="text-center text-textMuted text-sm py-12">Drop components here or double-click a component to add it</p>
+                        <div id="playground-content" class="hidden space-y-4">
+                            <!-- Dropped components will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- INSPECTOR PANEL -->
+        <aside id="inspector" class="w-96 flex-shrink-0 bg-panel border-l border-border overflow-y-auto hidden">
+            <div class="p-4 border-b border-border">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="font-medium text-sm" id="inspector-title">Select a component</span>
+                    <button onclick="closeInspector()" class="text-textMuted hover:text-textPrimary">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <!-- V2: Quick Actions -->
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleFavorite()" id="inspector-favorite" class="p-2 rounded border border-border hover:border-accent transition-colors" title="Add to favorites (S)">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                        </svg>
+                    </button>
+                    <button onclick="openFullscreen()" class="p-2 rounded border border-border hover:border-accent transition-colors" title="Fullscreen (F)">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                        </svg>
+                    </button>
+                    <button onclick="addToPlayground()" class="p-2 rounded border border-border hover:border-accent transition-colors" title="Add to playground">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        </svg>
+                    </button>
+                    <button onclick="exportComponent()" class="p-2 rounded border border-border hover:border-accent transition-colors" title="Export (E)">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="flex border-b border-border">
+                <button onclick="switchTab('preview')" class="tab-btn flex-1 px-4 py-3 text-sm border-b-2 border-transparent text-textSecondary hover:text-textPrimary active" data-tab="preview">Preview</button>
+                <button onclick="switchTab('code')" class="tab-btn flex-1 px-4 py-3 text-sm border-b-2 border-transparent text-textSecondary hover:text-textPrimary" data-tab="code">Code</button>
+                <button onclick="switchTab('edit')" class="tab-btn flex-1 px-4 py-3 text-sm border-b-2 border-transparent text-textSecondary hover:text-textPrimary" data-tab="edit">Edit</button>
+            </div>
+            
+            <!-- Tab Content -->
+            <div id="tab-preview" class="p-4 tab-content">
+                <div id="preview-container" class="rounded-lg overflow-hidden">
+                    <!-- Live preview will be injected here -->
+                </div>
+            </div>
+            
+            <div id="tab-code" class="p-4 tab-content hidden">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs text-textMuted font-mono">HTML + Tailwind</span>
+                    <button onclick="copyCode()" class="text-xs text-accent hover:text-accentHover flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                        Copy
+                    </button>
+                </div>
+                <pre><code id="code-display" class="language-html rounded-lg text-xs"></code></pre>
+            </div>
+            
+            <div id="tab-edit" class="p-4 tab-content hidden">
+                <div id="edit-controls" class="space-y-4">
+                    <!-- Edit controls will be injected based on component -->
+                </div>
+                <button onclick="resetComponent()" class="mt-6 w-full py-2 border border-border rounded text-sm text-textSecondary hover:text-textPrimary hover:border-borderLight transition-colors">
+                    Reset to Default
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // ============================================
+        // COMPONENT DEFINITIONS
+        // ============================================
+        
+        const components = [
+            // TYPOGRAPHY
+            {
+                id: 'display-heading-fraunces',
+                name: 'Display Heading (Fraunces)',
+                category: 'typography',
+                source: 'Mike Marrotte',
+                html: `<h1 class="font-display text-5xl font-semibold leading-tight" style="color: var(--text);">Every Seat at the Table</h1>`,
+                editableProps: ['fontSize', 'fontWeight', 'color']
+            },
+            {
+                id: 'display-heading-newsreader',
+                name: 'Display Heading (Newsreader)',
+                category: 'typography',
+                source: 'Dr. Galbreath',
+                html: `<h1 class="font-displayAlt text-5xl font-semibold leading-tight" style="color: var(--text);">Making Prevention Accessible</h1>`,
+                editableProps: ['fontSize', 'fontWeight', 'color']
+            },
+            {
+                id: 'gradient-text',
+                name: 'Gradient Text',
+                category: 'typography',
+                source: 'Mike Marrotte',
+                html: `<span class="text-4xl font-display font-semibold bg-gradient-to-r from-[var(--primary)] via-[var(--primaryLight)] to-[var(--accent)] bg-clip-text text-transparent">Marrotte</span>`,
+                editableProps: ['fontSize']
+            },
+            {
+                id: 'section-label',
+                name: 'Section Label',
+                category: 'typography',
+                source: 'All Briefs',
+                html: `<span class="font-mono text-xs tracking-[0.25em] uppercase" style="color: var(--primary);">CPG Sales Leadership & Advisory</span>`,
+                editableProps: ['fontSize', 'letterSpacing', 'color']
+            },
+            {
+                id: 'pull-quote',
+                name: 'Pull Quote',
+                category: 'typography',
+                source: 'Mike Marrotte',
+                html: `<p class="font-display text-2xl italic leading-relaxed" style="color: var(--text); opacity: 0.8;">"40 years. Every seat at the table."</p>`,
+                editableProps: ['fontSize', 'color']
+            },
+            {
+                id: 'body-text',
+                name: 'Body Text',
+                category: 'typography',
+                source: 'All Briefs',
+                html: `<p class="font-sans text-lg leading-relaxed" style="color: var(--text); opacity: 0.8;">The rare CPG advisor who's been the manufacturer, the distributor, the broker, <em>and</em> the retailer.</p>`,
+                editableProps: ['fontSize', 'lineHeight', 'color']
+            },
+            {
+                id: 'mono-data',
+                name: 'Mono / Data Text',
+                category: 'typography',
+                source: 'All Briefs',
+                html: `<span class="font-mono text-sm" style="color: var(--primary);">$2.5B+ revenue • 200+ team members</span>`,
+                editableProps: ['fontSize', 'color']
+            },
+            
+            // COLORS
+            {
+                id: 'color-gators-primary',
+                name: 'Gators Navy',
+                category: 'colors',
+                source: 'Mike Marrotte',
+                html: `<div class="flex items-center gap-4"><div class="w-16 h-16 rounded-lg bg-[#1E3A5F] shadow-lg"></div><div><span class="font-mono text-sm block">#1E3A5F</span><span class="text-xs text-textSecondary">Primary</span></div></div>`,
+                editableProps: []
+            },
+            {
+                id: 'color-gators-accent',
+                name: 'Gators Orange',
+                category: 'colors',
+                source: 'Mike Marrotte',
+                html: `<div class="flex items-center gap-4"><div class="w-16 h-16 rounded-lg bg-[#E8692B] shadow-lg"></div><div><span class="font-mono text-sm block">#E8692B</span><span class="text-xs text-textSecondary">Accent</span></div></div>`,
+                editableProps: []
+            },
+            {
+                id: 'color-executive-primary',
+                name: 'Executive Slate',
+                category: 'colors',
+                source: 'Dr. Galbreath',
+                html: `<div class="flex items-center gap-4"><div class="w-16 h-16 rounded-lg bg-[#0F172A] shadow-lg border border-white/10"></div><div><span class="font-mono text-sm block">#0F172A</span><span class="text-xs text-textSecondary">Primary</span></div></div>`,
+                editableProps: []
+            },
+            {
+                id: 'color-executive-accent',
+                name: 'Signal Orange',
+                category: 'colors',
+                source: 'Dr. Galbreath',
+                html: `<div class="flex items-center gap-4"><div class="w-16 h-16 rounded-lg bg-[#F59E0B] shadow-lg"></div><div><span class="font-mono text-sm block">#F59E0B</span><span class="text-xs text-textSecondary">Accent</span></div></div>`,
+                editableProps: []
+            },
+            {
+                id: 'color-warm-primary',
+                name: 'Warm Forest',
+                category: 'colors',
+                source: 'Template',
+                html: `<div class="flex items-center gap-4"><div class="w-16 h-16 rounded-lg bg-[#2D5A47] shadow-lg"></div><div><span class="font-mono text-sm block">#2D5A47</span><span class="text-xs text-textSecondary">Primary</span></div></div>`,
+                editableProps: []
+            },
+            {
+                id: 'color-warm-accent',
+                name: 'Warm Gold',
+                category: 'colors',
+                source: 'Template',
+                html: `<div class="flex items-center gap-4"><div class="w-16 h-16 rounded-lg bg-[#C9A962] shadow-lg"></div><div><span class="font-mono text-sm block">#C9A962</span><span class="text-xs text-textSecondary">Accent</span></div></div>`,
+                editableProps: []
+            },
+            
+            // CARDS
+            {
+                id: 'stat-card',
+                name: 'Stat Card',
+                category: 'cards',
+                source: 'Mike Marrotte',
+                html: `<div class="px-5 py-4 rounded-lg border text-center" style="background: var(--bg); border-color: rgba(0,0,0,0.1);">
+    <span class="block font-mono text-3xl font-bold" style="color: var(--primary);">40+</span>
+    <span class="text-xs uppercase tracking-wider" style="color: var(--text); opacity: 0.6;">Years in CPG</span>
+</div>`,
+                editableProps: ['padding', 'borderRadius', 'fontSize']
+            },
+            {
+                id: 'service-card',
+                name: 'Service Card',
+                category: 'cards',
+                source: 'Mike Marrotte',
+                html: `<div class="group rounded-2xl p-6 border transition-all duration-300 hover:shadow-lg" style="background: var(--bg); border-color: rgba(0,0,0,0.1);">
+    <div class="flex items-start justify-between mb-4">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: color-mix(in srgb, var(--primary) 10%, transparent);">
+            <svg class="w-6 h-6" style="color: var(--primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+        </div>
+        <span class="font-mono text-xs" style="color: var(--text); opacity: 0.5;">Advisory</span>
+    </div>
+    <h4 class="font-display text-xl font-semibold mb-2" style="color: var(--text);">Senior Sales Advisory</h4>
+    <p class="text-sm leading-relaxed" style="color: var(--text); opacity: 0.7;">Strategic counsel for founders navigating complex sales decisions.</p>
+</div>`,
+                editableProps: ['padding', 'borderRadius']
+            },
+            {
+                id: 'testimonial-card',
+                name: 'Testimonial Card',
+                category: 'cards',
+                source: 'Mike Marrotte',
+                html: `<div class="rounded-2xl p-6 border" style="background: var(--primary); border-color: rgba(255,255,255,0.1);">
+    <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: color-mix(in srgb, var(--accent) 20%, transparent);">
+            <span class="font-bold" style="color: var(--accent);">HG</span>
+        </div>
+        <div>
+            <h4 class="font-semibold text-white">Hector Garcia</h4>
+            <p class="text-xs text-white/50">Client</p>
+        </div>
+    </div>
+    <blockquote class="text-white/90 leading-relaxed text-sm">"Michael is definitely an outstanding business consultant."</blockquote>
+</div>`,
+                editableProps: ['padding', 'borderRadius']
+            },
+            {
+                id: 'circuit-node',
+                name: 'Circuit Node Card',
+                category: 'cards',
+                source: 'Mike Marrotte',
+                html: `<div class="rounded-2xl p-5 border-2 transition-all duration-300 hover:shadow-lg" style="background: var(--bg); border-color: color-mix(in srgb, var(--primary) 20%, transparent);">
+    <div class="flex items-center justify-between mb-3">
+        <span class="font-mono text-3xl font-bold" style="color: var(--primary); opacity: 0.2;">01</span>
+        <div class="w-3 h-3 rounded-full" style="background: var(--primary);"></div>
+    </div>
+    <h4 class="font-display text-lg font-semibold mb-2" style="color: var(--primary);">Manufacturer</h4>
+    <p class="text-sm mb-3" style="color: var(--text); opacity: 0.6;">Building brands from the inside.</p>
+    <div class="border-t pt-3 space-y-1" style="border-color: rgba(0,0,0,0.1);">
+        <div class="flex items-center gap-2">
+            <div class="w-1.5 h-1.5 rounded-full" style="background: var(--accent);"></div>
+            <span class="text-xs font-medium" style="color: var(--text);">Procter & Gamble</span>
+        </div>
+    </div>
+</div>`,
+                editableProps: ['padding', 'borderRadius']
+            },
+            {
+                id: 'pillar-card',
+                name: 'Pillar Card (Dark)',
+                category: 'cards',
+                source: 'Dr. Galbreath',
+                html: `<div class="p-6 rounded-lg border transition-all duration-300" style="background: linear-gradient(180deg, rgba(30,41,59,0.8) 0%, rgba(15,23,42,0.95) 100%); border-color: rgba(148,163,184,0.1);">
+    <div class="flex items-start justify-between mb-4">
+        <span class="font-mono text-3xl font-bold" style="color: var(--accent); opacity: 0.3;">01</span>
+        <span class="px-2 py-1 text-[10px] font-mono uppercase tracking-wider rounded" style="background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent);">Core Principle</span>
+    </div>
+    <h3 class="font-displayAlt text-xl font-semibold mb-3 text-white">Translate Science for Operators</h3>
+    <p class="text-sm leading-relaxed text-white/70">"A little less science-y and a little more operational."</p>
+</div>`,
+                editableProps: ['padding', 'borderRadius']
+            },
+            
+            // BUTTONS
+            {
+                id: 'button-primary',
+                name: 'Primary Button',
+                category: 'buttons',
+                source: 'Mike Marrotte',
+                html: `<a href="#" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5" style="background: var(--primary);">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    Connect on LinkedIn
+</a>`,
+                editableProps: ['padding', 'borderRadius', 'fontSize']
+            },
+            {
+                id: 'button-outline',
+                name: 'Outline Button',
+                category: 'buttons',
+                source: 'Dr. Galbreath',
+                html: `<button class="px-5 py-2.5 rounded-lg border-2 font-medium text-sm transition-all duration-300 hover:shadow-md" style="border-color: var(--accent); color: var(--accent); background: transparent;">
+    View Slides →
+</button>`,
+                editableProps: ['padding', 'borderRadius', 'fontSize']
+            },
+            {
+                id: 'cta-section',
+                name: 'CTA Section',
+                category: 'buttons',
+                source: 'Mike Marrotte',
+                html: `<div class="text-center py-12 px-6 rounded-2xl" style="background: linear-gradient(to bottom, color-mix(in srgb, var(--bg) 50%, transparent), var(--bg));">
+    <span class="font-mono text-xs tracking-[0.2em] uppercase" style="color: var(--primary);">Let's Connect</span>
+    <h2 class="font-display text-3xl font-semibold mt-4 mb-6" style="color: var(--text);">Ready to accelerate <span style="color: var(--primary);">your growth?</span></h2>
+    <a href="#" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-white" style="background: var(--primary);">Get Started</a>
+</div>`,
+                editableProps: ['padding', 'borderRadius']
+            },
+            
+            // LAYOUT
+            {
+                id: 'section-header',
+                name: 'Section Header',
+                category: 'layout',
+                source: 'All Briefs',
+                html: `<div class="flex items-center gap-4 mb-8 pb-4 border-b" style="border-color: rgba(0,0,0,0.1);">
+    <span class="font-mono text-xs" style="color: var(--accent);">01</span>
+    <h2 class="font-sans text-sm font-bold tracking-[0.2em] uppercase" style="color: var(--text);">The Full Circuit</h2>
+    <div class="flex-1 h-px" style="background: rgba(0,0,0,0.1);"></div>
+</div>`,
+                editableProps: ['fontSize']
+            },
+            {
+                id: 'stats-grid',
+                name: 'Stats Grid (4-col)',
+                category: 'layout',
+                source: 'Mike Marrotte',
+                html: `<div class="grid grid-cols-4 gap-3">
+    <div class="px-4 py-3 rounded-lg border text-center" style="background: var(--bg); border-color: rgba(0,0,0,0.1);">
+        <span class="block font-mono text-xl font-bold" style="color: var(--primary);">40+</span>
+        <span class="text-[10px] uppercase tracking-wider" style="color: var(--text); opacity: 0.6;">Years</span>
+    </div>
+    <div class="px-4 py-3 rounded-lg border text-center" style="background: var(--bg); border-color: rgba(0,0,0,0.1);">
+        <span class="block font-mono text-xl font-bold" style="color: var(--primary);">$2.5B+</span>
+        <span class="text-[10px] uppercase tracking-wider" style="color: var(--text); opacity: 0.6;">Revenue</span>
+    </div>
+    <div class="px-4 py-3 rounded-lg border text-center" style="background: var(--bg); border-color: rgba(0,0,0,0.1);">
+        <span class="block font-mono text-xl font-bold" style="color: var(--primary);">200+</span>
+        <span class="text-[10px] uppercase tracking-wider" style="color: var(--text); opacity: 0.6;">Team</span>
+    </div>
+    <div class="px-4 py-3 rounded-lg border text-center" style="background: var(--bg); border-color: rgba(0,0,0,0.1);">
+        <span class="block font-mono text-xl font-bold" style="color: var(--primary);">100+</span>
+        <span class="text-[10px] uppercase tracking-wider" style="color: var(--text); opacity: 0.6;">Founders</span>
+    </div>
+</div>`,
+                editableProps: ['gap']
+            },
+            {
+                id: 'floating-badge',
+                name: 'Floating Badge',
+                category: 'layout',
+                source: 'Mike Marrotte',
+                html: `<div class="inline-flex px-4 py-2 rounded-full shadow-lg text-white" style="background: var(--primary);">
+    <span class="font-mono text-xs tracking-wide">BeyondBrands Partner</span>
+</div>`,
+                editableProps: ['padding', 'borderRadius', 'fontSize']
+            },
+            
+            // EFFECTS
+            {
+                id: 'pulse-dot',
+                name: 'Pulsing Dot',
+                category: 'effects',
+                source: 'All Briefs',
+                html: `<div class="flex items-center gap-3">
+    <div class="w-3 h-3 rounded-full animate-pulse" style="background: var(--primary);"></div>
+    <span class="text-sm" style="color: var(--text);">Active indicator</span>
+</div>`,
+                editableProps: []
+            },
+            {
+                id: 'scroll-indicator',
+                name: 'Scroll Indicator',
+                category: 'effects',
+                source: 'Mike Marrotte',
+                html: `<div class="flex flex-col items-center gap-2" style="color: var(--text); opacity: 0.5;">
+    <span class="font-mono text-[10px] uppercase tracking-widest">Discover More</span>
+    <div class="w-px h-8" style="background: linear-gradient(to bottom, var(--accent), transparent);"></div>
+</div>`,
+                editableProps: []
+            },
+            {
+                id: 'gradient-line',
+                name: 'Gradient Accent Line',
+                category: 'effects',
+                source: 'Mike Marrotte',
+                html: `<div class="h-1 w-full rounded" style="background: linear-gradient(to right, var(--primary), var(--accent), var(--primary));"></div>`,
+                editableProps: []
+            },
+            {
+                id: 'connector-arrow',
+                name: 'Connector Arrow',
+                category: 'effects',
+                source: 'Mike Marrotte',
+                html: `<div class="flex items-center">
+    <div class="w-8 h-0.5" style="background: var(--accent);"></div>
+    <div class="w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[10px]" style="border-left-color: var(--accent);"></div>
+</div>`,
+                editableProps: []
+            },
+            {
+                id: 'hover-card-effect',
+                name: 'Hover Lift Effect',
+                category: 'effects',
+                source: 'All Briefs',
+                html: `<div class="p-6 rounded-xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer" style="background: var(--bg); border-color: rgba(0,0,0,0.1);">
+    <p class="text-sm" style="color: var(--text);">Hover me to see the lift effect</p>
+</div>`,
+                editableProps: []
+            },
+        ];
+        
+        // ============================================
+        // STATE
+        // ============================================
+        
+        let currentTheme = 'gators';
+        let currentCategory = 'all';
+        let selectedComponent = null;
+        let currentTab = 'preview';
+        let currentVersion = 'v2';
+        let favorites = JSON.parse(localStorage.getItem('sf-favorites') || '[]');
+        let playgroundComponents = [];
+        let commandIndex = 0;
+        
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        
+        function init() {
+            renderComponents();
+            updateCounts();
+            setTheme('gators');
+            updateFavoritesList();
+            setupKeyboardShortcuts();
+            setupDragAndDrop();
+        }
+        
+        // ============================================
+        // V2: VERSION TOGGLE
+        // ============================================
+        
+        function setVersion(version) {
+            currentVersion = version;
+            document.querySelectorAll('.version-btn').forEach(btn => {
+                btn.classList.remove('bg-accent', 'text-surface');
+                btn.classList.add('text-textMuted');
+            });
+            document.getElementById(`version-${version}`).classList.add('bg-accent', 'text-surface');
+            document.getElementById(`version-${version}`).classList.remove('text-textMuted');
+            showToast(`Switched to ${version.toUpperCase()}`);
+        }
+        
+        // ============================================
+        // V2: KEYBOARD SHORTCUTS
+        // ============================================
+        
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', (e) => {
+                // Cmd+K - Command Palette
+                if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                    e.preventDefault();
+                    openCommandPalette();
+                }
+                // Escape - Close modals
+                if (e.key === 'Escape') {
+                    closeCommandPalette();
+                    closeFullscreen();
+                }
+                // F - Fullscreen (when component selected)
+                if (e.key === 'f' && selectedComponent && !e.target.matches('input')) {
+                    e.preventDefault();
+                    openFullscreen();
+                }
+                // C - Copy code
+                if (e.key === 'c' && selectedComponent && !e.target.matches('input') && !e.metaKey) {
+                    e.preventDefault();
+                    copyCode();
+                }
+                // S - Toggle favorite
+                if (e.key === 's' && selectedComponent && !e.target.matches('input') && !e.metaKey) {
+                    e.preventDefault();
+                    toggleFavorite();
+                }
+                // E - Export
+                if (e.key === 'e' && selectedComponent && !e.target.matches('input')) {
+                    e.preventDefault();
+                    exportComponent();
+                }
+            });
+        }
+        
+        // ============================================
+        // V2: COMMAND PALETTE
+        // ============================================
+        
+        const commands = [
+            { id: 'theme-gators', label: 'Switch to Gators Theme', category: 'Theme', action: () => setTheme('gators') },
+            { id: 'theme-executive', label: 'Switch to Executive Theme', category: 'Theme', action: () => setTheme('executive') },
+            { id: 'theme-warm', label: 'Switch to Warm Theme', category: 'Theme', action: () => setTheme('warm') },
+            { id: 'cat-all', label: 'Show All Components', category: 'Filter', action: () => filterCategory('all') },
+            { id: 'cat-typography', label: 'Show Typography', category: 'Filter', action: () => filterCategory('typography') },
+            { id: 'cat-colors', label: 'Show Colors', category: 'Filter', action: () => filterCategory('colors') },
+            { id: 'cat-cards', label: 'Show Cards', category: 'Filter', action: () => filterCategory('cards') },
+            { id: 'cat-buttons', label: 'Show Buttons', category: 'Filter', action: () => filterCategory('buttons') },
+            { id: 'export-theme', label: 'Export Theme as CSS Variables', category: 'Export', action: () => exportThemeCSS() },
+            { id: 'export-playground', label: 'Export Playground as HTML', category: 'Export', action: () => exportPlayground() },
+            { id: 'clear-favorites', label: 'Clear All Favorites', category: 'Favorites', action: () => clearFavorites() },
+            { id: 'clear-playground', label: 'Clear Playground', category: 'Playground', action: () => clearPlayground() },
+        ];
+        
+        function openCommandPalette() {
+            const palette = document.getElementById('command-palette');
+            palette.classList.remove('hidden');
+            palette.classList.add('flex');
+            document.getElementById('command-input').value = '';
+            document.getElementById('command-input').focus();
+            commandIndex = 0;
+            renderCommands('');
+        }
+        
+        function closeCommandPalette() {
+            const palette = document.getElementById('command-palette');
+            palette.classList.add('hidden');
+            palette.classList.remove('flex');
+        }
+        
+        function filterCommands(term) {
+            commandIndex = 0;
+            renderCommands(term);
+        }
+        
+        function renderCommands(term) {
+            const filtered = [...commands, ...components.map(c => ({
+                id: `comp-${c.id}`,
+                label: c.name,
+                category: 'Component',
+                action: () => { selectComponent(c.id); closeCommandPalette(); }
+            }))].filter(c => c.label.toLowerCase().includes(term.toLowerCase()));
+            
+            const container = document.getElementById('command-results');
+            container.innerHTML = filtered.map((cmd, i) => `
+                <div class="command-item px-4 py-3 cursor-pointer flex items-center justify-between ${i === commandIndex ? 'selected' : ''}" onclick="executeCommand('${cmd.id}')">
+                    <span class="text-sm">${cmd.label}</span>
+                    <span class="text-[10px] text-textMuted uppercase">${cmd.category}</span>
+                </div>
+            `).join('');
+        }
+        
+        function handleCommandKey(e) {
+            const items = document.querySelectorAll('.command-item');
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                commandIndex = Math.min(commandIndex + 1, items.length - 1);
+                renderCommands(document.getElementById('command-input').value);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                commandIndex = Math.max(commandIndex - 1, 0);
+                renderCommands(document.getElementById('command-input').value);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                const selected = items[commandIndex];
+                if (selected) selected.click();
+            }
+        }
+        
+        function executeCommand(id) {
+            const allCommands = [...commands, ...components.map(c => ({
+                id: `comp-${c.id}`,
+                action: () => { selectComponent(c.id); closeCommandPalette(); }
+            }))];
+            const cmd = allCommands.find(c => c.id === id);
+            if (cmd) {
+                cmd.action();
+                closeCommandPalette();
+            }
+        }
+        
+        // ============================================
+        // V2: FAVORITES
+        // ============================================
+        
+        function toggleFavorite() {
+            if (!selectedComponent) return;
+            const id = selectedComponent.id;
+            if (favorites.includes(id)) {
+                favorites = favorites.filter(f => f !== id);
+                showToast('Removed from favorites');
+            } else {
+                favorites.push(id);
+                showToast('Added to favorites ★');
+            }
+            localStorage.setItem('sf-favorites', JSON.stringify(favorites));
+            updateFavoritesList();
+            updateFavoriteButton();
+            renderComponents();
+        }
+        
+        function updateFavoritesList() {
+            const list = document.getElementById('favorites-list');
+            document.getElementById('favorites-count').textContent = favorites.length;
+            
+            if (favorites.length === 0) {
+                list.innerHTML = '<p class="text-textMuted italic">Click ★ on any component</p>';
+                return;
+            }
+            
+            list.innerHTML = favorites.map(id => {
+                const comp = components.find(c => c.id === id);
+                return comp ? `
+                    <div class="flex items-center justify-between py-1 cursor-pointer hover:text-accent" onclick="selectComponent('${id}')">
+                        <span class="truncate">${comp.name}</span>
+                        <button onclick="event.stopPropagation(); removeFavorite('${id}')" class="text-textMuted hover:text-red-400">×</button>
+                    </div>
+                ` : '';
+            }).join('');
+        }
+        
+        function removeFavorite(id) {
+            favorites = favorites.filter(f => f !== id);
+            localStorage.setItem('sf-favorites', JSON.stringify(favorites));
+            updateFavoritesList();
+            renderComponents();
+        }
+        
+        function clearFavorites() {
+            favorites = [];
+            localStorage.setItem('sf-favorites', JSON.stringify(favorites));
+            updateFavoritesList();
+            renderComponents();
+            showToast('Favorites cleared');
+        }
+        
+        function updateFavoriteButton() {
+            const btn = document.getElementById('inspector-favorite');
+            if (selectedComponent && favorites.includes(selectedComponent.id)) {
+                btn.classList.add('border-accent', 'text-accent');
+                btn.querySelector('svg').setAttribute('fill', 'currentColor');
+            } else {
+                btn.classList.remove('border-accent', 'text-accent');
+                btn.querySelector('svg').setAttribute('fill', 'none');
+            }
+        }
+        
+        // ============================================
+        // V2: FULLSCREEN PREVIEW
+        // ============================================
+        
+        function openFullscreen() {
+            if (!selectedComponent) return;
+            const preview = document.getElementById('fullscreen-preview');
+            const content = document.getElementById('fullscreen-content');
+            
+            preview.classList.remove('hidden');
+            content.className = `bg-panel border border-border rounded-xl overflow-hidden transition-all duration-300 viewport-desktop p-8 ${getThemeClass()}`;
+            content.style.background = 'var(--bg)';
+            content.innerHTML = selectedComponent.html;
+        }
+        
+        function closeFullscreen() {
+            document.getElementById('fullscreen-preview').classList.add('hidden');
+        }
+        
+        function changeViewport(viewport) {
+            const content = document.getElementById('fullscreen-content');
+            content.classList.remove('viewport-desktop', 'viewport-tablet', 'viewport-mobile');
+            content.classList.add(`viewport-${viewport}`);
+        }
+        
+        // ============================================
+        // V2: PLAYGROUND
+        // ============================================
+        
+        function setupDragAndDrop() {
+            // Make component cards draggable
+        }
+        
+        function dragOver(e) {
+            e.preventDefault();
+            document.getElementById('playground-zone').classList.add('drag-over');
+        }
+        
+        function dragLeave(e) {
+            document.getElementById('playground-zone').classList.remove('drag-over');
+        }
+        
+        function dropComponent(e) {
+            e.preventDefault();
+            document.getElementById('playground-zone').classList.remove('drag-over');
+            const componentId = e.dataTransfer.getData('text/plain');
+            if (componentId) {
+                addComponentToPlayground(componentId);
+            }
+        }
+        
+        function addToPlayground() {
+            if (!selectedComponent) return;
+            addComponentToPlayground(selectedComponent.id);
+        }
+        
+        function addComponentToPlayground(id) {
+            const comp = components.find(c => c.id === id);
+            if (!comp) return;
+            
+            playgroundComponents.push({ id: comp.id, html: comp.html });
+            renderPlayground();
+            showToast(`Added ${comp.name} to playground`);
+        }
+        
+        function renderPlayground() {
+            const placeholder = document.getElementById('playground-placeholder');
+            const content = document.getElementById('playground-content');
+            const zone = document.getElementById('playground-zone');
+            
+            zone.className = `playground-zone min-h-[200px] rounded-xl p-6 ${getThemeClass()}`;
+            zone.style.background = 'var(--bg)';
+            
+            if (playgroundComponents.length === 0) {
+                placeholder.classList.remove('hidden');
+                content.classList.add('hidden');
+                return;
+            }
+            
+            placeholder.classList.add('hidden');
+            content.classList.remove('hidden');
+            
+            content.innerHTML = playgroundComponents.map((item, i) => `
+                <div class="playground-item relative group" data-index="${i}">
+                    <button onclick="removeFromPlayground(${i})" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity">×</button>
+                    ${item.html}
+                </div>
+            `).join('');
+        }
+        
+        function removeFromPlayground(index) {
+            playgroundComponents.splice(index, 1);
+            renderPlayground();
+        }
+        
+        function clearPlayground() {
+            playgroundComponents = [];
+            renderPlayground();
+            showToast('Playground cleared');
+        }
+        
+        function exportPlayground() {
+            if (playgroundComponents.length === 0) {
+                showToast('Playground is empty');
+                return;
+            }
+            
+            const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefs Studio Export</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"><\/script>
+    <style>
+        :root { --primary: ${getComputedStyle(document.querySelector(`.${getThemeClass()}`)).getPropertyValue('--primary')}; --accent: ${getComputedStyle(document.querySelector(`.${getThemeClass()}`)).getPropertyValue('--accent')}; --bg: ${getComputedStyle(document.querySelector(`.${getThemeClass()}`)).getPropertyValue('--bg')}; --text: ${getComputedStyle(document.querySelector(`.${getThemeClass()}`)).getPropertyValue('--text')}; }
+    </style>
+</head>
+<body style="background: var(--bg); padding: 2rem;">
+    ${playgroundComponents.map(c => c.html).join('\n    ')}
+</body>
+</html>`;
+            
+            downloadFile('Briefs Studio-export.html', html);
+            showToast('Exported playground as HTML');
+        }
+        
+        // ============================================
+        // V2: EXPORT
+        // ============================================
+        
+        function exportComponent() {
+            if (!selectedComponent) return;
+            
+            const html = `<!-- ${selectedComponent.name} - Briefs Studio Design System -->
+${selectedComponent.html}`;
+            
+            downloadFile(`${selectedComponent.id}.html`, html);
+            showToast('Component exported');
+        }
+        
+        function exportThemeCSS() {
+            const themes = {
+                gators: { primary: '#1E3A5F', primaryLight: '#2D4A6F', accent: '#E8692B', bg: '#FAF8F5', text: '#1A1A1A' },
+                executive: { primary: '#0F172A', primaryLight: '#1E293B', accent: '#F59E0B', bg: '#0F172A', text: '#F8FAFC' },
+                warm: { primary: '#2D5A47', primaryLight: '#3D7A5F', accent: '#C9A962', bg: '#FAF8F5', text: '#1A1A1A' }
+            };
+            
+            const css = Object.entries(themes).map(([name, vars]) => `/* ${name.charAt(0).toUpperCase() + name.slice(1)} Theme */
+.theme-${name} {
+    --primary: ${vars.primary};
+    --primary-light: ${vars.primaryLight};
+    --accent: ${vars.accent};
+    --bg: ${vars.bg};
+    --text: ${vars.text};
+}`).join('\n\n');
+            
+            downloadFile('Briefs Studio-themes.css', css);
+            showToast('Theme CSS exported');
+        }
+        
+        function downloadFile(filename, content) {
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // ============================================
+        // V2: TOAST NOTIFICATIONS
+        // ============================================
+        
+        function showToast(message) {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'toast fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-elevated border border-border rounded-lg text-sm shadow-lg z-50';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.remove(), 3000);
+        }
+        
+        // ============================================
+        // BRIEFS DIRECTORY
+        // ============================================
+        
+        const briefs = [
+            { id: 'mike-marrotte', name: 'Mike Marrotte', subtitle: 'CPG Sales Leadership', theme: 'gators', color: '#1E3A5F', status: 'live', date: 'Dec 2025', featured: true },
+            { id: 'nate-galbreath', name: 'Dr. Nate Galbreath', subtitle: 'Leadership Philosophy', theme: 'executive', color: '#0F172A', status: 'live', date: 'Dec 2025', featured: true },
+            { id: 'deloitte', name: 'Deloitte Partnership', subtitle: 'Strategic Partnership Brief', theme: 'deloitte', color: '#86BC25', status: 'live', date: 'Dec 2025', featured: false },
+            { id: 'josh-bryan', name: 'Josh Bryan', subtitle: 'Practitioner Brief', theme: 'warm', color: '#2D5A47', status: 'live', date: '2025', featured: false },
+            { id: 'kate-lewis', name: 'Kate Lewis', subtitle: 'Practitioner Brief', theme: 'warm', color: '#2D5A47', status: 'live', date: '2025', featured: false },
+            { id: 'susan-malandrino', name: 'Susan Malandrino', subtitle: 'Practitioner Brief', theme: 'warm', color: '#2D5A47', status: 'live', date: '2025', featured: false },
+            { id: 'susan-2', name: 'Susan V2', subtitle: 'Updated Brief', theme: 'warm', color: '#2D5A47', status: 'live', date: '2025', featured: false },
+            { id: 'tricia-ratliffe', name: 'Tricia Ratliffe', subtitle: 'Practitioner Brief', theme: 'warm', color: '#2D5A47', status: 'live', date: '2025', featured: false },
+            { id: 'faizan-ahmed', name: 'Faizan Ahmed', subtitle: 'Practitioner Brief', theme: 'warm', color: '#2D5A47', status: 'live', date: '2025', featured: false },
+            { id: 'josh-mike-1218', name: 'Josh & Mike 12/18', subtitle: 'Session Brief', theme: 'warm', color: '#2D5A47', status: 'live', date: 'Dec 2025', featured: false },
+            { id: 'leadership-bryan', name: 'Leadership Bryan', subtitle: 'Leadership Brief', theme: 'executive', color: '#0F172A', status: 'live', date: '2025', featured: false },
+            { id: 'us', name: 'Us', subtitle: 'Team Brief', theme: 'warm', color: '#2D5A47', status: 'live', date: '2025', featured: false },
+            { id: '_template', name: 'Template', subtitle: 'Base Template', theme: 'warm', color: '#2D5A47', status: 'template', date: '2025', featured: false },
+        ];
+        
+        function toggleBriefsPanel() {
+            openBriefsPanel();
+        }
+        
+        function openBriefsPanel() {
+            const panel = document.getElementById('briefs-panel');
+            panel.classList.remove('hidden');
+            renderBriefsList();
+            setTimeout(() => panel.classList.add('open'), 10);
+        }
+        
+        function closeBriefsPanel() {
+            const panel = document.getElementById('briefs-panel');
+            panel.classList.remove('open');
+            setTimeout(() => panel.classList.add('hidden'), 300);
+        }
+        
+        function renderBriefsList() {
+            const container = document.getElementById('briefs-list');
+            const featured = briefs.filter(b => b.featured);
+            const others = briefs.filter(b => !b.featured);
+            
+            container.innerHTML = `
+                <div class="mb-6">
+                    <h3 class="text-xs font-mono uppercase tracking-widest text-textMuted mb-4">Featured Briefs</h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        ${featured.map(b => renderBriefCard(b, true)).join('')}
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xs font-mono uppercase tracking-widest text-textMuted mb-4">All Briefs (${briefs.length})</h3>
+                    <div class="space-y-2">
+                        ${others.map(b => renderBriefCard(b, false)).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderBriefCard(brief, featured) {
+            if (featured) {
+                return `
+                    <div class="group relative bg-elevated rounded-xl p-5 border border-border hover:border-accent transition-all cursor-pointer" onclick="previewBrief('${brief.id}')">
+                        <div class="absolute top-3 right-3 flex items-center gap-1">
+                            <span class="px-2 py-0.5 text-[10px] font-mono uppercase rounded ${brief.status === 'live' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'}">${brief.status}</span>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold text-lg" style="background: ${brief.color};">
+                                ${brief.name.charAt(0)}
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold group-hover:text-accent transition-colors">${brief.name}</h4>
+                                <p class="text-sm text-textSecondary">${brief.subtitle}</p>
+                                <div class="flex items-center gap-3 mt-2 text-xs text-textMuted">
+                                    <span>${brief.date}</span>
+                                    <span>•</span>
+                                    <span class="capitalize">${brief.theme} theme</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 mt-4 pt-4 border-t border-border">
+                            <button onclick="event.stopPropagation(); openBriefUrl('${brief.id}')" class="flex-1 py-2 text-xs border border-border rounded hover:border-accent hover:text-accent transition-colors">Open Brief</button>
+                            <button onclick="event.stopPropagation(); copyBriefUrl('${brief.id}')" class="flex-1 py-2 text-xs border border-border rounded hover:border-accent hover:text-accent transition-colors">Copy URL</button>
+                            <button onclick="event.stopPropagation(); setTheme('${brief.theme}')" class="flex-1 py-2 text-xs border border-border rounded hover:border-accent hover:text-accent transition-colors">Use Theme</button>
+                        </div>
+                    </div>
+                `;
+            }
+            return `
+                <div class="group flex items-center gap-3 p-3 rounded-lg hover:bg-elevated transition-colors cursor-pointer" onclick="previewBrief('${brief.id}')">
+                    <div class="w-8 h-8 rounded flex items-center justify-center text-white text-sm font-medium" style="background: ${brief.color};">
+                        ${brief.name.charAt(0)}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-sm font-medium truncate group-hover:text-accent transition-colors">${brief.name}</h4>
+                        <p class="text-xs text-textMuted truncate">${brief.subtitle}</p>
+                    </div>
+                    <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button onclick="event.stopPropagation(); openBriefUrl('${brief.id}')" class="p-1.5 rounded border border-border hover:border-accent transition-colors" title="Open">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        </button>
+                        <button onclick="event.stopPropagation(); copyBriefUrl('${brief.id}')" class="p-1.5 rounded border border-border hover:border-accent transition-colors" title="Copy URL">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function previewBrief(id) {
+            // Could open an iframe preview or navigate
+            openBriefUrl(id);
+        }
+        
+        function openBriefUrl(id) {
+            window.open(`../${id}/`, '_blank');
+        }
+        
+        function copyBriefUrl(id) {
+            const url = `${window.location.origin}/${id}/`;
+            navigator.clipboard.writeText(url);
+            showToast('URL copied to clipboard');
+        }
+        
+        // ============================================
+        // EASTER EGGS 🥚
+        // ============================================
+        
+        let easterEggBuffer = '';
+        let dotClicks = 0;
+        let dotClickTimer = null;
+        let partyMode = false;
+        let matrixMode = false;
+        let cosmosMode = false;
+        
+        // Listen for secret words
+        document.addEventListener('keypress', (e) => {
+            if (e.target.matches('input, textarea')) return;
+            
+            easterEggBuffer += e.key.toLowerCase();
+            easterEggBuffer = easterEggBuffer.slice(-10); // Keep last 10 chars
+            
+            // PARTY MODE - type "party"
+            if (easterEggBuffer.includes('party')) {
+                triggerPartyMode();
+                easterEggBuffer = '';
+            }
+            
+            // MATRIX MODE - type "matrix"
+            if (easterEggBuffer.includes('matrix')) {
+                triggerMatrixMode();
+                easterEggBuffer = '';
+            }
+            
+            // DISCO MODE - type "disco"
+            if (easterEggBuffer.includes('disco')) {
+                triggerDiscoMode();
+                easterEggBuffer = '';
+            }
+            
+            // SECRET - type "Briefs Studio"
+            if (easterEggBuffer.includes('Briefs Studio')) {
+                triggerBriefs StudioSecret();
+                easterEggBuffer = '';
+            }
+            
+            // SECRET MENU - type "secret"
+            if (easterEggBuffer.includes('secret')) {
+                showSecretMenu();
+                easterEggBuffer = '';
+            }
+            
+            // MIKE - type "mike"
+            if (easterEggBuffer.includes('mike')) {
+                showMikeMessage();
+                easterEggBuffer = '';
+            }
+            
+            // COSMOS MODE - type "cosmos"
+            if (easterEggBuffer.includes('cosmos')) {
+                triggerCosmosMode();
+                easterEggBuffer = '';
+            }
+        });
+        
+        // Secret dot clicks
+        function setupDotClicks() {
+            const dot = document.querySelector('header .bg-accent');
+            if (dot) {
+                dot.style.cursor = 'pointer';
+                dot.addEventListener('click', () => {
+                    dotClicks++;
+                    clearTimeout(dotClickTimer);
+                    
+                    if (dotClicks >= 7) {
+                        triggerSecretMessage();
+                        dotClicks = 0;
+                    } else {
+                        dotClickTimer = setTimeout(() => dotClicks = 0, 2000);
+                    }
+                });
+            }
+        }
+        
+        // PARTY MODE 🎉
+        function triggerPartyMode() {
+            if (partyMode) return;
+            partyMode = true;
+            
+            showToast('🎉 PARTY MODE ACTIVATED!');
+            document.body.classList.add('party-mode');
+            
+            // Confetti
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            document.getElementById('party-mode').classList.remove('hidden');
+            
+            const confetti = [];
+            const colors = ['#F59E0B', '#E8692B', '#1E3A5F', '#86BC25', '#e94560', '#00b4d8'];
+            
+            for (let i = 0; i < 150; i++) {
+                confetti.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    w: Math.random() * 10 + 5,
+                    h: Math.random() * 6 + 3,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speed: Math.random() * 3 + 2,
+                    angle: Math.random() * 360,
+                    spin: Math.random() * 10 - 5
+                });
+            }
+            
+            function animateConfetti() {
+                if (!partyMode) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    document.getElementById('party-mode').classList.add('hidden');
+                    return;
+                }
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                confetti.forEach(c => {
+                    ctx.save();
+                    ctx.translate(c.x + c.w/2, c.y + c.h/2);
+                    ctx.rotate(c.angle * Math.PI / 180);
+                    ctx.fillStyle = c.color;
+                    ctx.fillRect(-c.w/2, -c.h/2, c.w, c.h);
+                    ctx.restore();
+                    
+                    c.y += c.speed;
+                    c.angle += c.spin;
+                    
+                    if (c.y > canvas.height) {
+                        c.y = -20;
+                        c.x = Math.random() * canvas.width;
+                    }
+                });
+                
+                requestAnimationFrame(animateConfetti);
+            }
+            
+            animateConfetti();
+            
+            // Stop after 5 seconds
+            setTimeout(() => {
+                partyMode = false;
+                document.body.classList.remove('party-mode');
+            }, 5000);
+        }
+        
+        // MATRIX MODE 🔵
+        function triggerMatrixMode() {
+            if (matrixMode) return;
+            matrixMode = true;
+            
+            showToast('🔵 MATRIX MODE ACTIVATED');
+            
+            const canvas = document.getElementById('matrix-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            document.getElementById('matrix-mode').classList.remove('hidden');
+            
+            const chars = 'Briefs Studio01';
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+            
+            function drawMatrix() {
+                if (!matrixMode) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    document.getElementById('matrix-mode').classList.add('hidden');
+                    return;
+                }
+                
+                ctx.fillStyle = 'rgba(13, 13, 13, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = '#F59E0B';
+                ctx.font = fontSize + 'px JetBrains Mono';
+                
+                drops.forEach((y, i) => {
+                    const char = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(char, i * fontSize, y * fontSize);
+                    
+                    if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                });
+                
+                requestAnimationFrame(drawMatrix);
+            }
+            
+            drawMatrix();
+            
+            setTimeout(() => {
+                matrixMode = false;
+            }, 8000);
+        }
+        
+        // DISCO MODE 🪩
+        function triggerDiscoMode() {
+            showToast('🪩 DISCO MODE!');
+            
+            let hue = 0;
+            const interval = setInterval(() => {
+                document.body.style.filter = `hue-rotate(${hue}deg)`;
+                hue += 30;
+                if (hue >= 360) {
+                    clearInterval(interval);
+                    document.body.style.filter = '';
+                }
+            }, 100);
+        }
+        
+        // Briefs Studio SECRET - Welcome Message
+        function triggerBriefs StudioSecret() {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 z-[300] flex items-center justify-center bg-black/90 backdrop-blur-sm';
+            modal.onclick = () => modal.remove();
+            modal.innerHTML = `
+                <div class="max-w-lg text-center p-10" onclick="event.stopPropagation()">
+                    <div class="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-accent to-[#E8692B] flex items-center justify-center">
+                        <svg class="w-10 h-10 text-surface" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-display font-semibold mb-6">Welcome Back</h2>
+                    <p class="text-lg text-textSecondary leading-relaxed mb-4">
+                        You may have used this tool before, or maybe it was sent to you recently — but one way or another, you've been here before.
+                    </p>
+                    <p class="text-lg text-textSecondary leading-relaxed mb-6">
+                        By <em>here</em>, I mean in a new experience.
+                    </p>
+                    <p class="text-textPrimary font-display text-xl italic mb-8">
+                        So enjoy — and please know your story is as real as the infinite nature of the cosmos.
+                    </p>
+                    <div class="w-16 h-px bg-gradient-to-r from-transparent via-accent to-transparent mx-auto mb-6"></div>
+                    <p class="text-xs text-textMuted font-mono tracking-wider">Briefs Studio</p>
+                    <button onclick="this.parentElement.parentElement.remove()" class="mt-8 px-8 py-3 bg-accent text-surface rounded-full font-medium hover:bg-accentHover transition-colors">Continue</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        // MIKE - About the creator
+        function showMikeMessage() {
+            showToast('👋 You found Mike!');
+            
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 z-[300] flex items-center justify-center bg-black/90 backdrop-blur-sm';
+            modal.onclick = () => modal.remove();
+            modal.innerHTML = `
+                <div class="max-w-2xl w-full mx-4 bg-panel rounded-2xl border border-border overflow-hidden" onclick="event.stopPropagation()">
+                    <div class="p-8 border-b border-border bg-gradient-to-r from-[#1E3A5F] to-[#E8692B]">
+                        <h2 class="text-2xl font-display font-semibold text-white">About Mike</h2>
+                        <p class="text-white/70 text-sm mt-1">The human behind Briefs Studio</p>
+                    </div>
+                    <div class="p-8 space-y-6">
+                        <p class="text-lg text-textSecondary leading-relaxed">
+                            Mike is someone who believes that <span class="text-textPrimary font-medium">every person has a story worth capturing</span> — and that the right framework can turn scattered thoughts into something that moves people.
+                        </p>
+                        <p class="text-textSecondary leading-relaxed">
+                            He built Briefs Studio to do exactly that: find the signal in the noise. Whether it's a 40-year career distilled into a single page, a leadership philosophy made accessible, or a partnership strategy crystallized into action — Mike sees the patterns others miss.
+                        </p>
+                        <p class="text-textSecondary leading-relaxed">
+                            He's the kind of person who adds Easter eggs to a design system because he knows that <span class="text-textPrimary">delight matters</span>. Who builds a Christmas gift for his dad using code. Who asks "what would blow someone's mind?" instead of "what's the minimum viable feature?"
+                        </p>
+                        <div class="pt-6 border-t border-border">
+                            <p class="text-sm text-textMuted italic">
+                                "Your story is as real as the infinite nature of the cosmos."
+                            </p>
+                            <p class="text-xs text-textMuted mt-2">— The Briefs Studio philosophy</p>
+                        </div>
+                    </div>
+                    <div class="p-6 border-t border-border bg-elevated flex items-center justify-between">
+                        <div class="flex items-center gap-2 text-sm text-textMuted">
+                            <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                            <span>Currently building the future</span>
+                        </div>
+                        <button onclick="this.closest('.fixed').remove()" class="px-6 py-2 bg-accent text-surface rounded-full font-medium hover:bg-accentHover transition-colors">Close</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        // SECRET MENU - Shows all Easter eggs
+        function showSecretMenu() {
+            showToast('🤫 Secret Menu Unlocked!');
+            
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 z-[300] flex items-center justify-center bg-black/90 backdrop-blur-sm';
+            modal.onclick = () => modal.remove();
+            modal.innerHTML = `
+                <div class="max-w-lg w-full mx-4 bg-panel rounded-2xl border border-border overflow-hidden" onclick="event.stopPropagation()">
+                    <div class="p-6 border-b border-border bg-elevated">
+                        <div class="flex items-center gap-3">
+                            <span class="text-3xl">🥚</span>
+                            <div>
+                                <h2 class="text-xl font-semibold">Secret Menu</h2>
+                                <p class="text-sm text-textSecondary">All the hidden goodies</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="grid gap-3">
+                            <div class="flex items-center justify-between p-3 bg-elevated rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">🎉</span>
+                                    <div>
+                                        <p class="font-medium">Party Mode</p>
+                                        <p class="text-xs text-textMuted">Confetti explosion + rainbow filter</p>
+                                    </div>
+                                </div>
+                                <kbd class="px-2 py-1 bg-surface rounded text-xs font-mono text-accent">party</kbd>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-elevated rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">🔵</span>
+                                    <div>
+                                        <p class="font-medium">Matrix Mode</p>
+                                        <p class="text-xs text-textMuted">Digital rain effect</p>
+                                    </div>
+                                </div>
+                                <kbd class="px-2 py-1 bg-surface rounded text-xs font-mono text-accent">matrix</kbd>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-elevated rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">🪩</span>
+                                    <div>
+                                        <p class="font-medium">Disco Mode</p>
+                                        <p class="text-xs text-textMuted">Rapid hue rotation</p>
+                                    </div>
+                                </div>
+                                <kbd class="px-2 py-1 bg-surface rounded text-xs font-mono text-accent">disco</kbd>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-elevated rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">🎯</span>
+                                    <div>
+                                        <p class="font-medium">Briefs Studio Secret</p>
+                                        <p class="text-xs text-textMuted">Hidden message</p>
+                                    </div>
+                                </div>
+                                <kbd class="px-2 py-1 bg-surface rounded text-xs font-mono text-accent">Briefs Studio</kbd>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-elevated rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">🟠</span>
+                                    <div>
+                                        <p class="font-medium">Dot Clicker</p>
+                                        <p class="text-xs text-textMuted">Random wisdom quote + shake</p>
+                                    </div>
+                                </div>
+                                <span class="px-2 py-1 bg-surface rounded text-xs font-mono text-textSecondary">Click dot 7x</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-elevated rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">👋</span>
+                                    <div>
+                                        <p class="font-medium">Meet Mike</p>
+                                        <p class="text-xs text-textMuted">About the creator</p>
+                                    </div>
+                                </div>
+                                <kbd class="px-2 py-1 bg-surface rounded text-xs font-mono text-accent">mike</kbd>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-elevated rounded-lg border border-accent/30">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xl">🌌</span>
+                                    <div>
+                                        <p class="font-medium text-accent">Cosmos Mode</p>
+                                        <p class="text-xs text-textMuted">Transcendent experience</p>
+                                    </div>
+                                </div>
+                                <kbd class="px-2 py-1 bg-surface rounded text-xs font-mono text-accent">cosmos</kbd>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-border text-center">
+                            <p class="text-xs text-textMuted">Pro tip: Just start typing anywhere (not in an input)</p>
+                        </div>
+                    </div>
+                    <div class="p-4 border-t border-border bg-elevated">
+                        <button onclick="this.closest('.fixed').remove()" class="w-full py-2 bg-accent text-surface rounded-lg font-medium hover:bg-accentHover transition-colors">Got it!</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        // SECRET DOT MESSAGE
+        function triggerSecretMessage() {
+            document.body.classList.add('shake');
+            setTimeout(() => document.body.classList.remove('shake'), 500);
+            
+            showToast('🥚 You found an Easter egg!');
+            
+            const secrets = [
+                "The best briefs tell stories that data alone cannot.",
+                "Every seat at the table. Every voice heard.",
+                "40 years of wisdom, captured in moments.",
+                "This design system was built with love ❤️",
+                "Try typing 'party' or 'matrix' anywhere...",
+            ];
+            
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 z-[300] flex items-center justify-center bg-black/80 backdrop-blur-sm';
+            modal.onclick = () => modal.remove();
+            modal.innerHTML = `
+                <div class="max-w-sm text-center p-8 bg-panel rounded-2xl border border-border" onclick="event.stopPropagation()">
+                    <div class="text-4xl mb-4">🥚</div>
+                    <p class="text-lg font-display italic text-textSecondary">"${secrets[Math.floor(Math.random() * secrets.length)]}"</p>
+                    <button onclick="this.parentElement.parentElement.remove()" class="mt-6 px-6 py-2 border border-border rounded-full text-sm hover:border-accent transition-colors">Close</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        // COSMOS MODE 🌌 - The Ultimate Experience
+        function triggerCosmosMode() {
+            if (cosmosMode) return;
+            cosmosMode = true;
+            
+            showToast('🌌 Entering the Cosmos...');
+            
+            // Add cosmos class to body
+            document.body.classList.add('cosmos-mode');
+            
+            const overlay = document.getElementById('cosmos-mode');
+            const content = document.getElementById('cosmos-content');
+            const linesContainer = document.getElementById('cosmos-lines');
+            
+            // Clear previous content
+            content.innerHTML = '';
+            linesContainer.innerHTML = '';
+            
+            // Activate overlay
+            setTimeout(() => overlay.classList.add('active'), 100);
+            
+            // Create nebula clouds
+            const nebulaColors = [
+                'rgba(245, 158, 11, 0.2)',  // Briefs Studio accent
+                'rgba(232, 105, 43, 0.15)', // Gators orange
+                'rgba(30, 58, 95, 0.25)',   // Navy
+                'rgba(134, 188, 37, 0.1)',  // Deloitte green
+                'rgba(233, 69, 96, 0.15)',  // Midnight pink
+                'rgba(0, 180, 216, 0.15)',  // Ocean
+            ];
+            
+            for (let i = 0; i < 5; i++) {
+                const nebula = document.createElement('div');
+                nebula.className = 'cosmos-nebula';
+                nebula.style.cssText = `
+                    width: ${300 + Math.random() * 400}px;
+                    height: ${300 + Math.random() * 400}px;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    background: ${nebulaColors[Math.floor(Math.random() * nebulaColors.length)]};
+                    animation-delay: ${Math.random() * 5}s;
+                `;
+                content.appendChild(nebula);
+            }
+            
+            // Create starfield
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                const isBright = Math.random() > 0.9;
+                const isLarge = Math.random() > 0.85;
+                star.className = `cosmos-star ${isLarge ? 'large' : ''} ${isBright ? 'bright' : ''}`;
+                star.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    --duration: ${2 + Math.random() * 4}s;
+                    --delay: ${Math.random() * 3}s;
+                `;
+                content.appendChild(star);
+            }
+            
+            // Float some components into the cosmos
+            const componentSamples = [
+                { name: 'Typography', html: '<span class="font-display text-2xl text-[#F59E0B]">Briefs Studio</span>', x: 15, y: 25 },
+                { name: 'Button', html: '<button class="px-6 py-3 bg-[#F59E0B] text-[#0D0D0D] rounded-full font-medium">Explore</button>', x: 70, y: 35 },
+                { name: 'Card', html: '<div class="w-48 p-4 bg-[#1E1E1E] rounded-lg border border-[#3A3A3A] text-center"><span class="text-xs text-[#666] uppercase tracking-widest">Component</span><p class="mt-2 text-sm text-[#A0A0A0]">Drifting in space</p></div>', x: 45, y: 60 },
+                { name: 'Badge', html: '<span class="px-3 py-1 bg-[#E8692B]/20 text-[#E8692B] rounded-full text-sm font-medium">✨ Easter Egg</span>', x: 25, y: 70 },
+                { name: 'Stats', html: '<div class="text-center"><span class="font-display text-5xl text-white font-bold">∞</span><p class="text-xs text-[#666] mt-1 uppercase tracking-wider">Possibilities</p></div>', x: 80, y: 20 },
+            ];
+            
+            const componentElements = [];
+            
+            componentSamples.forEach((comp, i) => {
+                const el = document.createElement('div');
+                el.className = 'cosmos-component';
+                el.style.cssText = `
+                    left: ${comp.x}%;
+                    top: ${comp.y}%;
+                    transform: translate(-50%, -50%);
+                    --tx: ${(Math.random() - 0.5) * 40}px;
+                    --ty: ${(Math.random() - 0.5) * 40}px;
+                    --scale: ${0.9 + Math.random() * 0.2};
+                    --glow-color: rgba(${Math.random() > 0.5 ? '245, 158, 11' : '232, 105, 43'}, 0.3);
+                    animation-delay: ${i * 0.3}s;
+                    opacity: 0;
+                `;
+                el.innerHTML = `
+                    <div class="text-center">${comp.html}</div>
+                    <p class="text-[10px] text-[#666] mt-3 text-center font-mono uppercase tracking-wider">${comp.name}</p>
+                `;
+                content.appendChild(el);
+                componentElements.push({ el, x: comp.x, y: comp.y });
+                
+                // Fade in
+                setTimeout(() => el.style.opacity = '1', 500 + i * 300);
+            });
+            
+            // Draw constellation lines between components
+            setTimeout(() => {
+                const svgNS = "http://www.w3.org/2000/svg";
+                const connections = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 0], [0, 2], [1, 3]];
+                
+                connections.forEach(([a, b], i) => {
+                    const line = document.createElementNS(svgNS, 'line');
+                    const x1 = componentElements[a].x;
+                    const y1 = componentElements[a].y;
+                    const x2 = componentElements[b].x;
+                    const y2 = componentElements[b].y;
+                    
+                    line.setAttribute('x1', `${x1}%`);
+                    line.setAttribute('y1', `${y1}%`);
+                    line.setAttribute('x2', `${x2}%`);
+                    line.setAttribute('y2', `${y2}%`);
+                    line.setAttribute('class', 'cosmos-line');
+                    line.style.opacity = '0';
+                    line.style.transition = 'opacity 1s ease';
+                    linesContainer.appendChild(line);
+                    
+                    setTimeout(() => line.style.opacity = '1', i * 200);
+                });
+            }, 1500);
+            
+            // Central philosophy quote
+            setTimeout(() => {
+                const quoteEl = document.createElement('div');
+                quoteEl.className = 'absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center max-w-2xl px-8 cosmos-text';
+                quoteEl.style.cssText = '--delay: 0s;';
+                quoteEl.innerHTML = `
+                    <div class="w-24 h-px bg-gradient-to-r from-transparent via-[#F59E0B] to-transparent mx-auto mb-8"></div>
+                    <p class="font-display text-3xl md:text-4xl text-white leading-relaxed font-light italic">
+                        "Your story is as real as the infinite nature of the cosmos."
+                    </p>
+                    <div class="w-24 h-px bg-gradient-to-r from-transparent via-[#F59E0B] to-transparent mx-auto mt-8 mb-6"></div>
+                    <p class="text-xs font-mono uppercase tracking-[0.3em] text-[#666]">Briefs Studio Philosophy</p>
+                `;
+                content.appendChild(quoteEl);
+            }, 3000);
+            
+            // Exit instructions
+            setTimeout(() => {
+                const exitEl = document.createElement('div');
+                exitEl.className = 'absolute bottom-8 left-1/2 transform -translate-x-1/2 cosmos-text';
+                exitEl.style.cssText = '--delay: 0.5s;';
+                exitEl.innerHTML = `
+                    <button onclick="exitCosmosMode()" class="group flex items-center gap-3 px-6 py-3 border border-[#3A3A3A] rounded-full hover:border-[#F59E0B] transition-all bg-[#0D0D0D]/50 backdrop-blur">
+                        <span class="text-sm text-[#A0A0A0] group-hover:text-white transition-colors">Return to Earth</span>
+                        <svg class="w-4 h-4 text-[#666] group-hover:text-[#F59E0B] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                        </svg>
+                    </button>
+                `;
+                content.appendChild(exitEl);
+            }, 4000);
+            
+            // Also allow ESC to exit
+            const escHandler = (e) => {
+                if (e.key === 'Escape' && cosmosMode) {
+                    exitCosmosMode();
+                    document.removeEventListener('keydown', escHandler);
+                }
+            };
+            document.addEventListener('keydown', escHandler);
+        }
+        
+        function exitCosmosMode() {
+            cosmosMode = false;
+            
+            const overlay = document.getElementById('cosmos-mode');
+            overlay.classList.remove('active');
+            document.body.classList.remove('cosmos-mode');
+            
+            showToast('🌍 Welcome back');
+        }
+        
+        // Initialize dot clicks after DOM ready
+        setTimeout(setupDotClicks, 100);
+        
+        // ============================================
+        // THEME SWITCHING
+        // ============================================
+        
+        function setTheme(theme) {
+            currentTheme = theme;
+            
+            // Update theme button states
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('border-accent', 'text-accent');
+                btn.classList.add('border-border');
+            });
+            document.getElementById(`theme-${theme}`).classList.remove('border-border');
+            document.getElementById(`theme-${theme}`).classList.add('border-accent', 'text-accent');
+            
+            // Re-render components with new theme
+            renderComponents();
+            
+            // Update inspector if open
+            if (selectedComponent) {
+                updateInspector();
+            }
+        }
+        
+        function getThemeClass() {
+            return `preview-${currentTheme}`;
+        }
+        
+        // ============================================
+        // COMPONENT RENDERING
+        // ============================================
+        
+        function renderComponents() {
+            const grid = document.getElementById('component-grid');
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            
+            const filtered = components.filter(c => {
+                const matchesCategory = currentCategory === 'all' || c.category === currentCategory;
+                const matchesSearch = c.name.toLowerCase().includes(searchTerm) || c.category.toLowerCase().includes(searchTerm);
+                return matchesCategory && matchesSearch;
+            });
+            
+            grid.innerHTML = filtered.map(c => `
+                <div class="component-card bg-panel rounded-xl border border-border overflow-hidden cursor-pointer hover:border-borderLight ${selectedComponent?.id === c.id ? 'ring-2 ring-accent' : ''}" onclick="selectComponent('${c.id}')" ondblclick="addComponentToPlayground('${c.id}')" draggable="true" ondragstart="event.dataTransfer.setData('text/plain', '${c.id}')">
+                    <div class="p-4 ${getThemeClass()} relative" style="background: var(--bg); min-height: 120px;">
+                        <!-- V2: Favorite Star -->
+                        <button onclick="event.stopPropagation(); quickFavorite('${c.id}')" class="favorite-btn absolute top-2 right-2 p-1 rounded ${favorites.includes(c.id) ? 'active' : ''}" title="Add to favorites">
+                            <svg class="w-4 h-4" fill="${favorites.includes(c.id) ? 'currentColor' : 'none'}" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                            </svg>
+                        </button>
+                        <div class="flex items-center justify-center h-full">
+                            ${c.html}
+                        </div>
+                    </div>
+                    <div class="p-3 border-t border-border">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-medium">${c.name}</span>
+                            <span class="text-[10px] font-mono uppercase text-textMuted">${c.category}</span>
+                        </div>
+                        <span class="text-xs text-textMuted">${c.source}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // ============================================
+        // FILTERING
+        // ============================================
+        
+        function filterCategory(category) {
+            currentCategory = category;
+            
+            // Update sidebar active state
+            document.querySelectorAll('.sidebar-item').forEach(btn => {
+                btn.classList.remove('bg-elevated', 'text-accent');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('bg-elevated', 'text-accent');
+            
+            // Update title
+            const titles = {
+                'all': 'All Components',
+                'typography': 'Typography',
+                'colors': 'Colors',
+                'cards': 'Cards',
+                'buttons': 'Buttons & CTAs',
+                'layout': 'Layout',
+                'effects': 'Effects'
+            };
+            document.getElementById('section-title').textContent = titles[category];
+            
+            renderComponents();
+        }
+        
+        function searchComponents(term) {
+            renderComponents();
+        }
+        
+        function updateCounts() {
+            const categories = ['all', 'typography', 'colors', 'cards', 'buttons', 'layout', 'effects'];
+            categories.forEach(cat => {
+                const count = cat === 'all' ? components.length : components.filter(c => c.category === cat).length;
+                document.getElementById(`count-${cat}`).textContent = count;
+            });
+        }
+        
+        // ============================================
+        // COMPONENT SELECTION & INSPECTOR
+        // ============================================
+        
+        function selectComponent(id) {
+            selectedComponent = components.find(c => c.id === id);
+            
+            // Show inspector
+            document.getElementById('inspector').classList.remove('hidden');
+            
+            // Update selection state
+            renderComponents();
+            updateInspector();
+            updateFavoriteButton();
+        }
+        
+        function quickFavorite(id) {
+            const prev = selectedComponent;
+            selectedComponent = components.find(c => c.id === id);
+            toggleFavorite();
+            selectedComponent = prev;
+        }
+        
+        function closeInspector() {
+            document.getElementById('inspector').classList.add('hidden');
+            selectedComponent = null;
+            renderComponents();
+        }
+        
+        function updateInspector() {
+            if (!selectedComponent) return;
+            
+            document.getElementById('inspector-title').textContent = selectedComponent.name;
+            
+            // Update preview
+            const previewContainer = document.getElementById('preview-container');
+            previewContainer.className = `rounded-lg overflow-hidden p-6 ${getThemeClass()}`;
+            previewContainer.style.background = 'var(--bg)';
+            previewContainer.innerHTML = selectedComponent.html;
+            
+            // Update code
+            const codeDisplay = document.getElementById('code-display');
+            codeDisplay.textContent = formatHTML(selectedComponent.html);
+            hljs.highlightElement(codeDisplay);
+            
+            // Update edit controls
+            renderEditControls();
+        }
+        
+        function formatHTML(html) {
+            // Simple HTML formatting
+            return html
+                .replace(/></g, '>\n<')
+                .replace(/^\s+/gm, '')
+                .split('\n')
+                .map((line, i) => {
+                    const indent = (line.match(/^<\//) ? 0 : line.match(/^<[^\/]/) ? 0 : 0);
+                    return '  '.repeat(indent) + line;
+                })
+                .join('\n')
+                .trim();
+        }
+        
+        // ============================================
+        // TABS
+        // ============================================
+        
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-accent', 'border-accent');
+                btn.classList.add('text-textSecondary', 'border-transparent');
+            });
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active', 'text-accent', 'border-accent');
+            document.querySelector(`[data-tab="${tab}"]`).classList.remove('text-textSecondary', 'border-transparent');
+            
+            // Show/hide content
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+        }
+        
+        // ============================================
+        // CODE COPY
+        // ============================================
+        
+        function copyCode() {
+            if (!selectedComponent) return;
+            
+            navigator.clipboard.writeText(selectedComponent.html).then(() => {
+                // Show feedback
+                const btn = document.querySelector('[onclick="copyCode()"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Copied!';
+                setTimeout(() => btn.innerHTML = originalText, 2000);
+            });
+        }
+        
+        // ============================================
+        // LIVE EDITING
+        // ============================================
+        
+        function renderEditControls() {
+            const container = document.getElementById('edit-controls');
+            
+            if (!selectedComponent || selectedComponent.editableProps.length === 0) {
+                container.innerHTML = '<p class="text-sm text-textMuted">No editable properties for this component.</p>';
+                return;
+            }
+            
+            const controls = selectedComponent.editableProps.map(prop => {
+                switch(prop) {
+                    case 'fontSize':
+                        return `
+                            <div>
+                                <label class="text-xs text-textSecondary block mb-2">Font Size</label>
+                                <input type="range" min="12" max="72" value="24" class="w-full" oninput="updateProp('fontSize', this.value + 'px')">
+                            </div>`;
+                    case 'padding':
+                        return `
+                            <div>
+                                <label class="text-xs text-textSecondary block mb-2">Padding</label>
+                                <input type="range" min="8" max="48" value="24" class="w-full" oninput="updateProp('padding', this.value + 'px')">
+                            </div>`;
+                    case 'borderRadius':
+                        return `
+                            <div>
+                                <label class="text-xs text-textSecondary block mb-2">Border Radius</label>
+                                <input type="range" min="0" max="32" value="12" class="w-full" oninput="updateProp('borderRadius', this.value + 'px')">
+                            </div>`;
+                    case 'color':
+                        return `
+                            <div>
+                                <label class="text-xs text-textSecondary block mb-2">Text Color</label>
+                                <input type="color" value="#1E3A5F" oninput="updateProp('color', this.value)">
+                            </div>`;
+                    case 'gap':
+                        return `
+                            <div>
+                                <label class="text-xs text-textSecondary block mb-2">Gap</label>
+                                <input type="range" min="4" max="32" value="12" class="w-full" oninput="updateProp('gap', this.value + 'px')">
+                            </div>`;
+                    default:
+                        return '';
+                }
+            }).join('');
+            
+            container.innerHTML = controls;
+        }
+        
+        function updateProp(prop, value) {
+            const previewContainer = document.getElementById('preview-container');
+            const element = previewContainer.firstElementChild;
+            if (element) {
+                element.style[prop] = value;
+            }
+        }
+        
+        function resetComponent() {
+            updateInspector();
+        }
+        
+        // ============================================
+        // INIT
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+
+</body>
+</html>
+
