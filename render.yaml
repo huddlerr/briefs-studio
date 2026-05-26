@@ -4,7 +4,6 @@ services:
     env: docker
     dockerfilePath: Dockerfile
     plan: starter
-    startCommand: npm start
     envVars:
       - key: PORT
         value: 4000
