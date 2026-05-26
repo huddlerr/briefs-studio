@@ -15,7 +15,3 @@ services:
       - key: ANTHROPIC_API_KEY
         sync: false
         placeholder: "Insert your Anthropic API key here (optional Claude reframing engine)"
-    disk:
-      name: briefs-storage
-      mountPath: /app
-      sizeGB: 1
