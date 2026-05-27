@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { loadBriefs, saveBriefBrief } from '../server/db-adapter.js';
 
 // Helper to compute cosine similarity
 function cosineSimilarity(vecA, vecB) {
@@ -81,23 +82,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Read pre-populated vector database
-    const dbPath = path.join(process.cwd(), 'server', 'db-vectors.json');
-    let db = { briefs: [] };
-    try {
-      const dbData = await fs.readFile(dbPath, 'utf-8');
-      db = JSON.parse(dbData);
-    } catch (err) {
-      console.error("Vercel DB Load failed, proceeding with empty fallback database:", err.message);
-    }
+    // Load briefs from the database adapter (Supabase or local JSON)
+    const briefs = await loadBriefs();
 
     // --- STEP 1: SEMANTIC MATCHING (NEURAL MEMORY) ---
     let fewShotExamples = [];
     const openAiKey = process.env.OPENAI_API_KEY;
     const newEmbedding = await getEmbedding(notes, openAiKey);
 
-    if (newEmbedding && db.briefs.length > 0) {
-      const scored = db.briefs
+    if (newEmbedding && briefs.length > 0) {
+      const scored = briefs
         .map(b => ({
           brief: b,
           score: b.embedding ? cosineSimilarity(newEmbedding, b.embedding) : 0
@@ -105,8 +99,8 @@ export default async function handler(req, res) {
         .sort((a, b) => b.score - a.score);
         
       fewShotExamples = scored.slice(0, 2).map(s => s.brief);
-    } else if (db.briefs.length > 0) {
-      const scored = db.briefs
+    } else if (briefs.length > 0) {
+      const scored = briefs
         .map(b => ({
           brief: b,
           score: computeKeywordSimilarity(notes, b.notes || '')
@@ -392,8 +386,12 @@ Core Rules:
         accent: structuredResult.colors.accent
       },
       structured: structuredResult,
+      embedding: newEmbedding, // Add embedding
       renderedHtml: briefHtml // Return HTML in Vercel Cloud Serverless response!
     };
+
+    // Utilizing database adapter to save the brief
+    await saveBriefBrief(newBriefEntry);
 
     return res.status(200).json(newBriefEntry);
 

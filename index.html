@@ -664,11 +664,9 @@
                     await appendTerminalLine(`> [mission-ops] Appended directly to briefs.json manifest.`, 200);
                     await appendTerminalLine(`> [mission-ops] SYSTEM DEPLOYED SUCCESSFULLY. ASSET COMPILED ON DISK!`, 300, "text-emerald font-bold animate-pulse");
 
-                    // Prepend new real brief
+                    // Prepend new real brief and refresh database in the background
                     allBriefs.unshift(incubatedData);
-                    
-                    // Re-render
-                    applyFilters();
+                    await refreshBriefs();
                     
                     addChronicleEvent(`Incubated & deployed ${incubatedData.client} Narrative Brief successfully.`);
                 } catch (err) {
@@ -1187,9 +1185,48 @@
                 ]
             };
 
+            async function refreshBriefs() {
+                try {
+                    const response = await fetch('/api/briefs');
+                    if (response.ok) {
+                        const resData = await response.json();
+                        if (resData.briefs && resData.briefs.length > 0) {
+                            allBriefs = resData.briefs.sort((a, b) => new Date(b.date) - new Date(a.date));
+                            applyFilters();
+                        }
+                    }
+                } catch (err) {
+                    console.error("Failed to refresh briefs:", err);
+                }
+            }
+
             try {
+                let briefsData = [];
+                let usingLocalFallback = false;
+
+                // Try to load dynamic briefs from /api/briefs
+                try {
+                    const response = await fetch('/api/briefs');
+                    if (response.ok) {
+                        const resData = await response.json();
+                        if (resData.briefs && resData.briefs.length > 0) {
+                            briefsData = resData.briefs;
+                            addChronicleEvent("Connected to centralized cloud database.");
+                        } else {
+                            throw new Error("No briefs returned from endpoint.");
+                        }
+                    } else {
+                        throw new Error(`Endpoint returned status ${response.status}`);
+                    }
+                } catch (fetchErr) {
+                    console.warn("Dynamic brief fetch failed, resorting to local offline fallback:", fetchErr.message);
+                    briefsData = data.briefs;
+                    usingLocalFallback = true;
+                    addChronicleEvent("Offline/local mode. Utilizing local brief cache.");
+                }
+
                 // Sort by date descending
-                allBriefs = data.briefs.sort((a, b) => new Date(b.date) - new Date(a.date));
+                allBriefs = briefsData.sort((a, b) => new Date(b.date) - new Date(a.date));
 
                 applyFilters();
 
@@ -1197,8 +1234,11 @@
                 document.getElementById('search-input').addEventListener('input', applyFilters);
                 
                 // Add initial Chronicle entries
-                addChronicleEvent("Connected to centralized brief directory database.");
-                addChronicleEvent("Loaded all 38 client narrative and system assets.");
+                if (!usingLocalFallback) {
+                    addChronicleEvent(`Loaded ${allBriefs.length} client narrative and system assets from database.`);
+                } else {
+                    addChronicleEvent("Loaded all 38 client narrative and system assets.");
+                }
                 addChronicleEvent("Linguistic Story Forensics systems validated.");
 
             } catch (err) {

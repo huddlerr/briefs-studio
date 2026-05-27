@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { loadBriefs, saveBriefBrief } from './db-adapter.js';
 
 dotenv.config();
 
@@ -97,7 +98,18 @@ async function getEmbedding(text) {
   }
 }
 
-// Main AI Incubation Pipeline
+// Dynamic briefs API endpoint
+app.get('/api/briefs', async (req, res) => {
+  try {
+    const briefs = await loadBriefs();
+    res.json({ briefs });
+  } catch (err) {
+    console.error('Failed to load briefs:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Main AI Ingestion Pipeline
 app.post('/api/incubate', async (req, res) => {
   const { notes, archetype } = req.body;
 
@@ -108,15 +120,15 @@ app.post('/api/incubate', async (req, res) => {
   console.log(`[incubator] Starting incubation session for Archetype: ${archetype}`);
 
   try {
-    const db = await loadDb();
+    const briefs = await loadBriefs();
     
     // --- STEP 1: SEMANTIC MATCHING (NEURAL MEMORY) ---
     let fewShotExamples = [];
     const newEmbedding = await getEmbedding(notes);
     
-    if (newEmbedding && db.briefs.length > 0) {
+    if (newEmbedding && briefs.length > 0) {
       console.log('[incubator] Running neural semantic matching across vector library...');
-      const scored = db.briefs
+      const scored = briefs
         .map(b => ({
           brief: b,
           score: b.embedding ? cosineSimilarity(newEmbedding, b.embedding) : 0
@@ -127,7 +139,7 @@ app.post('/api/incubate', async (req, res) => {
       console.log(`[incubator] Top semantic match: "${fewShotExamples[0]?.title}" (Score: ${scored[0]?.score.toFixed(3)})`);
     } else {
       console.log('[incubator] Running keyword overlap matching fallback...');
-      const scored = db.briefs
+      const scored = briefs
         .map(b => ({
           brief: b,
           score: computeKeywordSimilarity(notes, b.notes || '')
@@ -413,7 +425,7 @@ Core Rules:
     await fs.writeFile(briefFilePath, briefHtml, 'utf-8');
     console.log(`[incubator] Created bespoke digital brief: ${briefFilePath}`);
 
-    // --- STEP 4: PERSIST TO LOCAL VECTOR DATABASE ---
+    // --- STEP 4 & 5: PERSIST BRIEF VIA UNIFIED DATABASE ADAPTER ---
     const newBriefEntry = {
       id: `incubated-${Date.now()}`,
       notes: notes,
@@ -437,58 +449,7 @@ Core Rules:
       embedding: newEmbedding
     };
     
-    db.briefs.push(newBriefEntry);
-    await saveDb(db);
-
-    // --- STEP 5: AUTOMATICALLY UPDATE PLATFORM MANIFEST & LANDING PAGE ---
-    // 5a. Update briefs.json
-    try {
-      const manifest = JSON.parse(await fs.readFile(MANIFEST_PATH, 'utf-8'));
-      manifest.briefs.unshift({
-        id: newBriefEntry.id,
-        title: newBriefEntry.title,
-        client: newBriefEntry.client,
-        path: newBriefEntry.path,
-        type: newBriefEntry.type,
-        date: newBriefEntry.date,
-        description: newBriefEntry.description,
-        tags: newBriefEntry.tags,
-        style: newBriefEntry.style
-      });
-      await fs.writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 4), 'utf-8');
-      console.log('[incubator] Registered new brief in briefs.json');
-    } catch (err) {
-      console.error('[incubator] Failed to update briefs.json:', err);
-    }
-
-    // 5b. Update index.html hardcoded briefs array
-    try {
-      let indexHtml = await fs.readFile(LANDING_PAGE_PATH, 'utf-8');
-      const startTag = '"briefs": [';
-      const startIndex = indexHtml.indexOf(startTag);
-      if (startIndex !== -1) {
-        const insertionPoint = startIndex + startTag.length;
-        
-        // Format the new card object beautifully
-        const newCardText = `\n                    {
-                        "id": "${newBriefEntry.id}",
-                        "title": "${newBriefEntry.title}",
-                        "client": "${newBriefEntry.client}",
-                        "path": "${newBriefEntry.path}",
-                        "type": "${newBriefEntry.type}",
-                        "date": "${newBriefEntry.date}",
-                        "description": "${newBriefEntry.description.replace(/"/g, '\\"')}",
-                        "tags": ${JSON.stringify(newBriefEntry.tags)},
-                        "style": ${JSON.stringify(newBriefEntry.style)}
-                    },`;
-                    
-        indexHtml = indexHtml.slice(0, insertionPoint) + newCardText + indexHtml.slice(insertionPoint);
-        await fs.writeFile(LANDING_PAGE_PATH, indexHtml, 'utf-8');
-        console.log('[incubator] Synced landing page index.html with new brief');
-      }
-    } catch (err) {
-      console.error('[incubator] Failed to update index.html:', err);
-    }
+    await saveBriefBrief(newBriefEntry);
 
     res.json(newBriefEntry);
 
