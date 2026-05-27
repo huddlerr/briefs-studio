@@ -25,7 +25,7 @@ const { chromium } = require('playwright');
   console.log("==============================================================");
 
   // Wait for dashboard redirect
-  while (!page.url().includes('dashboard/projects')) {
+  while (!page.url().includes('dashboard')) {
     console.log("> Waiting for Supabase dashboard to load (please sign in on screen)...");
     await page.waitForTimeout(2000);
   }
