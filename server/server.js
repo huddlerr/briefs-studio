@@ -5,6 +5,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { loadBriefs, saveBriefBrief } from './db-adapter.js';
+import { validateIncubationPayload } from './validation.js';
 
 dotenv.config();
 
@@ -109,13 +110,168 @@ app.get('/api/briefs', async (req, res) => {
   }
 });
 
-// Main AI Ingestion Pipeline
-app.post('/api/incubate', async (req, res) => {
-  const { notes, archetype } = req.body;
+// OpenAPI 3.0 Specification Endpoint
+app.get('/api/openapi.json', (req, res) => {
+  res.json({
+    openapi: "3.0.3",
+    info: {
+      title: "Briefs Studio Bespoke Strategy API",
+      description: "Production-grade, agent-friendly AI-ingestion and directory catalog API for managing high-stakes client briefs.",
+      version: "1.0.0"
+    },
+    servers: [
+      {
+        url: `http://localhost:${PORT}`,
+        description: "Local Development Server"
+      },
+      {
+        url: "https://briefs-studio-bxkq.onrender.com",
+        description: "Production Cloud Server"
+      }
+    ],
+    paths: {
+      "/api/briefs": {
+        "get": {
+          "summary": "Retrieve Strategy Briefs Directory",
+          "description": "Fetch the entire catalog of high-stakes corporate strategy briefs from the database.",
+          "responses": {
+            "200": {
+              "description": "Successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "briefs": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Brief"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/incubate": {
+        "post": {
+          "summary": "Incubate Stated Client Notes",
+          "description": "Translates raw customer workshops/meeting transcripts into fully articulated strategy dossiers using AI and few-shot vector context.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "notes": {
+                      "type": "string",
+                      "description": "Raw, stated client workshop notes or meeting transcript."
+                    },
+                    "archetype": {
+                      "type": "string",
+                      "description": "Strategic framework archetype.",
+                      "enum": ["Systems Integrator", "Creative Strategist", "Operations Orchestrator", "Narrative Architect"]
+                    }
+                  },
+                  "required": ["notes"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successfully incubated strategic brief",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Brief"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Validation error (malformed payload)"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Brief": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "title": { "type": "string" },
+            "client": { "type": "string" },
+            "path": { "type": "string" },
+            "type": { "type": "string" },
+            "date": { "type": "string" },
+            "description": { "type": "string" },
+            "tags": { "type": "array", "items": { "type": "string" } },
+            "style": { "type": "object" },
+            "notes": { "type": "string" },
+            "archetype": { "type": "string" },
+            "structured": { "type": "object" }
+          }
+        }
+      }
+    }
+  });
+});
 
-  if (!notes) {
-    return res.status(400).json({ error: 'Raw notes are required for incubation.' });
-  }
+// Interactive Swagger UI Dashboard Route (100% Zero-Dependency)
+app.get('/api/docs', (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Briefs Studio API Documentation</title>
+        <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
+        <style>
+          body {
+            margin: 0;
+            background: #0b0b10;
+          }
+          /* Custom Dark Mode Styling for Swagger UI */
+          .swagger-ui {
+            filter: invert(88%) hue-rotate(180deg);
+          }
+          .swagger-ui .topbar {
+            display: none;
+          }
+        </style>
+    </head>
+    <body>
+        <div id="swagger-ui"></div>
+        <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js" charset="UTF-8"></script>
+        <script>
+            window.onload = () => {
+                window.ui = SwaggerUIBundle({
+                    url: '/api/openapi.json',
+                    dom_id: '#swagger-ui',
+                    deepLinking: true,
+                    presets: [
+                        SwaggerUIBundle.presets.apis
+                    ],
+                    layout: "BaseLayout"
+                });
+            };
+        </script>
+    </body>
+    </html>
+  `);
+});
+
+// Main AI Ingestion Pipeline
+app.post('/api/incubate', validateIncubationPayload, async (req, res) => {
+  const { notes, archetype } = req.body;
 
   console.log(`[incubator] Starting incubation session for Archetype: ${archetype}`);
 
@@ -459,12 +615,24 @@ Core Rules:
   }
 });
 
+// Centralized Express Global Error Handler
+app.use((err, req, res, next) => {
+  console.error('[server-error] Unhandled error encountered:', err);
+  res.status(err.status || 500).json({
+    error: 'Internal Server Error',
+    status: err.status || 500,
+    timestamp: new Date().toISOString(),
+    message: process.env.NODE_ENV === 'production' ? 'An unexpected error occurred.' : err.message
+  });
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`\n======================================================`);
   console.log(`🚀 Briefs Studio Bespoke Brief Server Running Successfully`);
   console.log(`📂 Serving static workspace files from root`);
   console.log(`🌐 Live Dashboard: http://localhost:${PORT}`);
+  console.log(`📖 Interactive API Docs: http://localhost:${PORT}/api/docs`);
   console.log(`🧪 Incubation Endpoint: http://localhost:${PORT}/api/incubate`);
   console.log(`======================================================\n`);
 });
